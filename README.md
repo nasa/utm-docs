@@ -28,3 +28,15 @@ In this section we link to important documentation already available elsewhere.
 ## Documentation Supporting Software Development
 
 ## Working Group Documents
+This section will contain publicly-releaseable documents that originated from within each working group within NASA UTM.  Again, we emphasize that these document lists do not represent the depth and breadth of work since not all documents are able to be publicly released.  We will endeavor to keep this list up to date, but also encourage folks to submit a github issue if you think something is missing or have a suggestion for a helpful doc to include.
+
+The structure of the working groups is somewhat driven by the [NASA-FAA Research Transition Team for UTM](https://www.faa.gov/uas/research/utm/) organization structure.  Please see the [UTM RTT Plan](FAA_NASA_UAS_Traffic_Management_Research_Plan.pdf) for more details on the Research Transition Team.
+
+### Concepts Working Group
+
+### Data and Information Architecture Working Group
+
+### Sense and Avoid Working Group
+
+### Communications and Navigation Working Group
+
