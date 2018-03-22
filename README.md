@@ -33,10 +33,28 @@ This section will contain publicly-releaseable documents that originated from wi
 The structure of the working groups is somewhat driven by the [NASA-FAA Research Transition Team for UTM](https://www.faa.gov/uas/research/utm/) organization structure.  Please see the [UTM RTT Plan](FAA_NASA_UAS_Traffic_Management_Research_Plan.pdf) for more details on the Research Transition Team.
 
 ### Concepts Working Group
+The CWG will define the concept of UTM in terms of overall conceptual principles and
+assumptions, including those associated with operations, supporting architecture,
+information flows and exchanges, and FAA and UAS operator roles and responsibilities.
+This scoping and definition will: (1) ensure consistent messaging of a coordinated
+FAA/NASA view of UTM; (2) guide the efforts of other UTM RTT working groups; and
+(3) support the development of the UTM pilot program.
 
 ### Data and Information Architecture Working Group
+The objective of the DWG is to identify and collaboratively research and develop
+technical capabilities for the data/information exchange needed across stakeholders to
+support UAS operations that meet NAS service expectations. The data exchange and
+information architecture subgroup will work in conjunction with the Concepts &
+Scenarios, SAA, and Communications & Navigation subgroups to identify the data
+exchange and information gaps and/or deltas associated with the UTM concepts,
+strategies, and system capabilities to support safe expansion of the UAS operating
+envelope across the NAS structure.
 
 ### Sense and Avoid Working Group
+The objective for this subgroup is to explore operator solutions to ensure that unmanned
+aircraft do not collide with other aircraft (unmanned or manned).
 
 ### Communications and Navigation Working Group
-
+The objective for this subgroup is to explore operator solutions to ensure that UA are
+under operational control of the pilot (to the degree appropriate to the scenario) and
+remain within a defined area (around a planned trajectory or as a defined area).
