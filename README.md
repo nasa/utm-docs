@@ -50,6 +50,12 @@ exchange and information gaps and/or deltas associated with the UTM concepts,
 strategies, and system capabilities to support safe expansion of the UAS operating
 envelope across the NAS structure.
 
+| Document        | Pub Date | Description |
+| ------------------------ | --- | ------------- |
+| [UAS Reports (UREPs): Enabling Exchange of Observation Data Between UAS Operations](Rios_NASA-TechMemo_219462_UTM_UREP_20170214.pdf) | 2017 Feb | Description of the UREP concept and data schema. |
+| [UTM Data Working Group Demonstration 1: Final Report](Rios_NASA-Tech-Memo-2017-219494v2.pdf) | 2017 April | Description and results from a collaboartive simulation in support of TCL2. |
+
+
 ### Sense and Avoid Working Group
 The objective for this subgroup is to explore operator solutions to ensure that unmanned
 aircraft do not collide with other aircraft (unmanned or manned).
