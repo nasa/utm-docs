@@ -1,0 +1,79 @@
+info:
+  description: >-
+    "TCL4 will require the submission of test data.  Some of these data are not readily collected via UTM means.  The models presented in this domain are in support of such data that are not readily collected otherwise.  Some of these data will be collected live, some after testing, but all should be collected as a soon as feasible.  Further details will be provided in other testing documentation."
+  version: 'v1'
+  title: "Domain for Auxiliary UAS Operation Data"
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utm.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+
+definitions:
+  AuxiliaryUASOperation:
+    required:
+      - gufi
+      - takeoff_time
+      - takeoff_altitude
+      - takeoff_position
+      - takeoff_weight_lb
+      - landing_time
+      - landing_altitude
+      - landing_position
+      - gcs_altitude
+      - gcs_position
+    properties:
+      takeoff_weight_lb:
+        description: >-
+          The actual takeoff weight of the vehicle for this operation.
+
+          Note value must be in US pounds.
+
+          Note large maximum allows for some flexibility in vehicles that
+          participate.  May re-visit this value.
+        type: number
+        format: double
+        minimum: 0.0
+        maximum: 10000.0
+      takeoff_time:
+        description: >-
+          UTC Time at initial takeoff, defined as the moment the vehicle leaves the ground/launching device.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+      takeoff_position:
+        description: >-
+          "Takeoff position latitude (deg).
+
+          Report at least seven decimal degrees."
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+      takeoff_altitude:
+        description: >-
+          Takeoff position WGS84 altitude. (ft)
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+      landing_time:
+        description: >-
+          UTC time at final landing, defined as the moment returns to ground/recovery device.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+      landing_position:
+        description: >-
+          "Landing position (deg).
+
+          Report at least seven decimal degrees."
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+      landing_altitude:
+        description: >-
+          Landing WGS84 altitude. (ft)
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+      gcs_position:
+        description: >-
+          "GCS position.
+
+          Report at least seven decimal degrees."
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+      gcs_altitude:
+        description: >-
+          GCS position WGS84 altitude. (ft)
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+      gufi:
+        description: GUFI of the operation that is the subject of this report.
+        type: "string"
+        format: "uuidv4"
+        example: "00000000-0000-4444-9988-bo55beefface"
