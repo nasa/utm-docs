@@ -27,7 +27,7 @@ definitions:
           Contact information of the reporter. Reference utm-commons for model.
           This information is for contacting the reporter when follow-up is
           needed, and should not be sent to NASA
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/PersonOrOrganization'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/PersonOrOrganization'
       report_id:
         description: |-
           A UUID assingned by the reporting USS for this instance of
@@ -60,7 +60,7 @@ definitions:
           active contingency plan id for the operation. Reporter MUST see the prompt text before inputting data.
         x-utm-offnominal-prompt: >-
           Activated contingency plan id, if any. When more than one are used, please state so in the reporter narrative section.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/ContingencyPlan'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/ContingencyPlan'
       role_responsibility:
         description: >-
           Reporter role and responsibility. Reporter MUST see the prompt text
@@ -124,7 +124,7 @@ definitions:
         description: >-
             date and time of off-nominal event in UTC, ONLY to be filled when
             value for the variable "reason_for_report" is "VOLUNTEER"
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       gufi:
         description: GUFI of the operation that is the subject of this report.
         type: "string"
@@ -157,7 +157,7 @@ definitions:
         description: >-
           A UUID assigned by the reporting USS for this instance of RemoteID.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       gufi:
         description: >-
           GUFI of the operation that is looked up.
@@ -165,7 +165,7 @@ definitions:
           If the GUFI does not exist (in a non-cooperative lookup, for example)
           use 00000000-0000-4444-8888-000000000000.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       detection_technology:
         description: >-
           Brief description of technology used to detect the operation. This
@@ -200,10 +200,10 @@ definitions:
         type: boolean
       detection_position:
         description: Where was the device/person that detected the UAS?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
       detection_altitude:
         description: What altitude/elevation was the device/person that detected the UAS?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
       detection_position_method:
         description: >-
           Was the position of the device/person measured or estimated?
@@ -213,10 +213,10 @@ definitions:
           - ESTIMATED
       vehicle_position:
         description: Where was the UAS when it was detected?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
       vehicle_altitude:
         description: At what altitude was the UAS when it was detected?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
       vehicle_position_method:
         description: Was the position of the UAS measured or estimated?
         type: "string"
@@ -227,13 +227,13 @@ definitions:
         description: >-
           Time the vehicle was detected by the device.  If visual detection only,
           it is expected this value is an estimate.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       network_lookup_start_time:
         description: If USS Network used to look up this operation, at what time did the lookup begin?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       network_lookup_end_time:
         description: If USS Network used to look up this operation, at what time did the lookup return?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       notes:
         type: string
         maxLength: 3000
@@ -256,7 +256,7 @@ definitions:
         description: >-
           A UUID assigned by the reporting USS for this instance of
            USSNegotiation.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -267,12 +267,12 @@ definitions:
         description: >-
           Time the loss of USS was detected.  When did the managers of that USS
           know the USS was no longer reachable?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       time_uss_completely_restored:
         description: >-
           Time the USS was available and ready to handle data exchanges with
           other systems.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       method_loss_detected:
         description: >-
           How was the loss of USS detected by managers of the USS?
@@ -290,7 +290,7 @@ definitions:
           during the time the USS was unaviable.
         type: array
         items:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
   USSHandoff:
     description: >-
       An instance of this model should be submitted by each USS invovled in the
@@ -311,7 +311,7 @@ definitions:
           A UUID assigned by the reporting USS for this instance of
            USSNegotiation.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -328,11 +328,11 @@ definitions:
       gufi:
         description: >-
           GUFI of the operation that is handed off.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       new_gufi:
         description: >-
           If a new gufi is generated after the handoff and is known, supply it here.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       operator:
         type: "string"
         minLength: 4
@@ -349,12 +349,12 @@ definitions:
           Time the handoff procedure was initiated.  This may be the time that
           the original USS loses contact, or the time that the operator or USS
           begins communicting the intent to handoff.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       time_handoff_procedure_completed:
         description: >-
           Time the handoff procedure was completed.  THis would be the time that
           the operation is fully under the management of the second USS.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       notes:
         type: string
         minLength: 1
@@ -391,7 +391,7 @@ definitions:
           A UUID assigned by the reporting USS for this instance of
            USSNegotiation.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       reporter_gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
@@ -400,7 +400,7 @@ definitions:
           If GUFI does not exist, use 00000000-0000-4444-8888-000000000000.
           If GUFI was generated after the negotiation, include that value.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       other_gufi:
         description: >-
           GUFI of the other operation involved in this negotiation.
@@ -408,12 +408,12 @@ definitions:
           If GUFI does not exist, use 00000000-0000-4444-8888-000000000000.
           If GUFI was generated after the negotiation, include that value.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       message_ids:
         description: Complete list of UUIDs from each NegotiationMessage involved.
         type: "array"
         items:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       conflict_resolved:
         description: >-
           Were both operations allowed to complete their intended missions?
@@ -464,12 +464,12 @@ definitions:
       uss_operator_exchange_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USS2OperatorExchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           exchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -546,12 +546,12 @@ definitions:
       dr_occurence_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurence.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           exchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -570,14 +570,14 @@ definitions:
           USS or from FIMS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
 
       time_uss_sent:
         description: >-
           The time that the USS sent a message to an affected operation.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       time_response_from_operator_received:
         description: >-
           The time that the USS receives acknowledgement that the message was
@@ -586,7 +586,7 @@ definitions:
           time that acknowledgement was received.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
       message_protocol:
         description: >-
           How is the message sent to the operator?  If 'OTHER' you must describe
@@ -648,7 +648,7 @@ definitions:
       measurement_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USSExchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
 
       event_id:
         description: >-
@@ -667,7 +667,7 @@ definitions:
           then just populate this field with one of the primary keys. As a best
           practice, choose the first one in the array as they were sent between
           USSs.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
 
       exchanged_data_type:
         type: "string"
@@ -703,7 +703,7 @@ definitions:
           If TARGET_USS, this is the time that the request was received from the SOURCE_USS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
 
       time_request_completed:
         description: >-
@@ -711,7 +711,7 @@ definitions:
           If TARGET_USS, this is the time that the request was sent back to the SOURCE_USS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
 
       endpoint:
         description: >-
