@@ -10,19 +10,19 @@ The repository will not ever be a comprehensive site for all UTM documentation. 
 ## Audience
 The primary audience for this repository are current NASA UTM partners or those partners that are currently in the on-boarding process.  There may be value to others as well.
 
-## Externally Avaialble Documentation Collections
+## Externally Available Documentation Collections
 In this section we link to important documentation already available elsewhere.
 
 | External location        | Description |
 | ------------------------ | ------------- |
 | [NASA UTM Publication Repository](https://utm.arc.nasa.gov/documents.shtml) | This the full repository for all conference publications, NASA technical memos, and similar documents. We'll try to pull some of the key docs directly into this repository. |
 | [NASA UTM APIs](https://github.com/nasa/utm-apis) | A github repository representing the truth in terms of the current state of NASA APIs. |
-| [SwaggerHub API Documentation](https://app.swaggerhub.com/search?owner=utm)  | A conveinence view of the NASA UTM APIs. *NOTE THAT THE GITHUB REPO IS TRUTH FOR THE APIs*. It is possible for the SwaggerHub documenation and our github API repo to drift. Developers must always reference the github repo for building compliant systems. Swagger hub is nice for navigating and discussing the API with others. | 
+| [SwaggerHub API Documentation](https://app.swaggerhub.com/search?owner=utm)  | A convenience view of the NASA UTM APIs. *NOTE THAT THE GITHUB REPO IS TRUTH FOR THE APIs*. It is possible for the SwaggerHub documentation and our github API repo to drift. Developers must always reference the github repo for building compliant systems. Swagger hub is nice for navigating and discussing the API with others. | 
 
 ## Primary Concept Documents
 | Document        | Pub Date | Description |
 | ------------------------ | --- | ------------- |
-| [UTM: Enabiling Low-Altitude Airspace and UAS Operations](UTM-Original-TM-20140013436.pdf) | 2014 April | The original NASA Technical Memo describing UTM. |
+| [UTM: Enabling Low-Altitude Airspace and UAS Operations](UTM-Original-TM-20140013436.pdf) | 2014 April | The original NASA Technical Memo describing UTM. |
 | [Unmanned Aircraft System Traffic Management (UTM) Concept of Operations](Aviation2016_UTMConOps_AsPublished_v2.pdf) | 2016 June | The first version of the UTM ConOps. |
 
 ## Documentation Supporting Software Development
@@ -53,7 +53,7 @@ envelope across the NAS structure.
 | Document        | Pub Date | Description |
 | ------------------------ | --- | ------------- |
 | [UAS Reports (UREPs): Enabling Exchange of Observation Data Between UAS Operations](Rios_NASA-TechMemo_219462_UTM_UREP_20170214.pdf) | 2017 Feb | Description of the UREP concept and data schema. |
-| [UTM Data Working Group Demonstration 1: Final Report](Rios_NASA-Tech-Memo-2017-219494v2.pdf) | 2017 April | Description and results from a collaboartive simulation in support of TCL2. |
+| [UTM Data Working Group Demonstration 1: Final Report](Rios_NASA-Tech-Memo-2017-219494v2.pdf) | 2017 April | Description and results from a collaborative simulation in support of TCL2. |
 
 
 ### Sense and Avoid Working Group
