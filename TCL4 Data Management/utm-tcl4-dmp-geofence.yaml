@@ -1,0 +1,108 @@
+info:
+  description: >-
+    "TCL4 will require the submission of test data.  Some of these data are not
+    readily collected via UTM means.  The models presented in this domain are in
+    support of such data that are not readily collected otherwise.  Some of
+    these data will be collected live, some after testing, but all should be
+    collected as a soon as feasible.  Further details will be provided in other
+    testing documentation."
+  version: 'v1'
+  title: "Domain for Geofence Data"
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utm.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+
+definitions:
+  GeoFence:
+    required:
+      - geofence_id
+      - gufi
+      - timestamp
+      - enabled
+      - start_time
+      - end_time
+      - type
+    properties:
+      geofence_id:
+        description: >-
+          Identifier for this geofence data instance.  This id should remain
+          constant across multiple geofence samples for a dynamic geofence.
+        type: "string"
+        format: "uuidv4"
+        example: "00000000-0000-4444-9988-feeddeadbeef"
+      gufi:
+        description: GUFI of the operation that used this geofence.
+        type: "string"
+        format: "uuidv4"
+        example: "00000000-0000-4444-9988-bo55beefface"
+      timestamp:
+        description: >-
+          Time for the sample of this geofence data instance. For a static
+          geofence, this may simply be any reasonable time that the geofence
+          is defined and/or entered on the platform.  For dynamic geofences,
+          this is the sample time for the geofence, likely during the operation
+          window.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+      enabled:
+        description: >-
+          Geofence is enabled.
+        type: boolean
+        example: true
+      start_time:
+        description: >-
+          UTC Time for start of the geofence. When the geofence is enabled.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+      end_time:
+        description: >-
+          UTC Time for end of the geofence.  When the geofence is disabled.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+      type:
+        description: >-
+          The type of geofence.
+        type: string
+        enum:
+          - NONE
+          - CIRCULAR-POINT-RADIUS
+          - POLYGON
+        example: "POLYGON"
+      min_altitude:
+        description: >-
+          Altitude floor of the geogence.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+        example:
+          min_altitude:
+            altitude_value: 1500
+            altitude_reference: "W84"
+            units_of_measure: "FT"
+      max_altitude:
+        description: >-
+          Altitude ceiling of the geogence.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+        example:
+          max_altitude:
+            altitude_value: 1800
+            altitude_reference: "W84"
+            units_of_measure: "FT"
+      circular_geofence_center:
+        description: >-
+          Circular origin point of the geofence, if circular.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+      circular_geofence_radius:
+        description: >-
+          Radius of circular geofence.
+        type: number
+        format: double
+        minimum: 0.0
+        example: 200.0
+      circular_geofence_radius_units:
+        description: >-
+          Units for the radius. Currently only feet are available.
+        type: string
+        enum:
+          - FT
+        example: "FT"
+      polygonal_geofence_boundary:
+        description: >-
+          Geofence boundary if a polygon.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'
