@@ -201,7 +201,7 @@ definitions:
       handoff_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
-           USSNegotiation.
+           USSHandoff.
 
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
       uss_id:
@@ -322,6 +322,7 @@ definitions:
           - TEMPORAL_MOD
           - SPATIAL_AND_TEMPORAL_MOD
           - OTHER_MOD
+          - UNKNOWN
       other_op_action:
         description: >-
           The action/modification by the other USS for its operation
@@ -334,6 +335,7 @@ definitions:
           - TEMPORAL_MOD
           - SPATIAL_AND_TEMPORAL_MOD
           - OTHER_MOD
+          - UNKNOWN
       notes:
         type: "string"
         maxLength: 1500
