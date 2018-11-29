@@ -41,7 +41,6 @@ definitions:
           format: uuid
           maxLength: 36
           minLength: 36
-          x-utm-data-accessibility: SAFETY
           pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
           example: "00000000-0000-4444-8888-FEEDDEADBEEF"
         gufi:
@@ -54,7 +53,6 @@ definitions:
           format: uuid
           maxLength: 36
           minLength: 36
-          x-utm-data-accessibility: SAFETY
           pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
           example: "00000000-0000-4444-8888-FEEDDEADBEEF"
         detection_technology:
@@ -144,7 +142,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
         network_lookup_start_time:
@@ -157,7 +154,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
         network_lookup_end_time:
@@ -170,7 +166,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
         locate_operator_time:
@@ -183,7 +178,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
         contact_operator_time:
@@ -196,7 +190,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
         notes:
