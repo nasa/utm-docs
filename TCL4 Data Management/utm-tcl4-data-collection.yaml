@@ -12,6 +12,7 @@ definitions:
   OffNominalReport:
     required:
       - report_id
+      - uss_name
       - reason_for_report
       - scripted
       - role_responsibility
@@ -27,7 +28,7 @@ definitions:
           Contact information of the reporter. Reference utm-commons for model.
           This information is for contacting the reporter when follow-up is
           needed, and should not be sent to NASA
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/PersonOrOrganization'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/PersonOrOrganization'
       report_id:
         description: |-
           A UUID assingned by the reporting USS for this instance of
@@ -36,9 +37,18 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      uss_name:
+        description: >-
+          The name of the USS supporting the operation that went off nominal,
+          so this matches the uss Operation.uss_name field.
+
+          Also the name of the USS supporting this report.
+
+        type: "string"
+        format: "dns-name"
+        example: "uss.provider123.net"
       reason_for_report:
         description: >-
           The reason for this report. When activated operation enters nonconforming or rogue state, includes scripted off-nominal event, or unplanned RTL, loitering, landing occurs during operation, USS must prompt operator to file at least one report when the operation closes. Reason must be one of the following Enum value, [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER]. NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason. ROGUE means the operation closed after entering rogue state. NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed. UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status). UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link). UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status). VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
@@ -64,7 +74,7 @@ definitions:
           active contingency plan id for the operation. Reporter MUST see the prompt text before inputting data.
         x-utm-offnominal-prompt: >-
           Activated contingency plan id, if any. When more than one are used, please state so in the reporter narrative section.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/ContingencyPlan'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/ContingencyPlan'
       role_responsibility:
         description: >-
           Reporter role and responsibility. Reporter MUST see the prompt text
@@ -132,7 +142,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       gufi:
@@ -141,7 +150,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
@@ -152,7 +160,7 @@ definitions:
       in a single test, one submission is sufficient.
     required:
       - "uss_loss_id"
-      - "uss_id"
+      - "uss_name"
       - "time_loss_detected"
       - "time_uss_completely_restored"
       - "method_loss_detected"
@@ -168,7 +176,7 @@ definitions:
         minLength: 36
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      uss_id:
+      uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
         type: "string"
@@ -225,7 +233,7 @@ definitions:
 
     required:
       - "handoff_id"
-      - "uss_id"
+      - "uss_name"
       - "other_uss_id"
       - "operator"
       - "time_handoff_procedure_initiated"
@@ -235,16 +243,14 @@ definitions:
       handoff_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
-           USSNegotiation.
-
+           USSHandoff.
         type: string
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      uss_id:
+      uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
         type: "string"
@@ -264,7 +270,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       new_gufi:
@@ -274,7 +279,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
@@ -297,7 +301,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       time_handoff_procedure_completed:
@@ -308,7 +311,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       notes:
@@ -335,6 +337,7 @@ definitions:
       there.
     required:
       - "negotiation_id"
+      - "uss_name"
       - "reporter_gufi"
       - "other_gufi"
       - "message_ids"
@@ -350,9 +353,15 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+
+      uss_name:
+        description: >-
+          The reporting USSs ID as known by USS Network/FIMS.
+        type: "string"
+        format: "dns-name"
+        example: "uss.provider123.net"
       reporter_gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
@@ -364,7 +373,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       other_gufi:
@@ -377,7 +385,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       message_ids:
@@ -388,7 +395,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       conflict_resolved:
@@ -407,6 +413,7 @@ definitions:
           - TEMPORAL_MOD
           - SPATIAL_AND_TEMPORAL_MOD
           - OTHER_MOD
+          - UNKNOWN
       other_op_action:
         description: >-
           The action/modification by the other USS for its operation
@@ -419,6 +426,7 @@ definitions:
           - TEMPORAL_MOD
           - SPATIAL_AND_TEMPORAL_MOD
           - OTHER_MOD
+          - UNKNOWN
       notes:
         type: "string"
         maxLength: 1500
@@ -434,7 +442,7 @@ definitions:
     required:
       - "uss_operator_exchange_id"
       - "gufi"
-      - "uss_id"
+      - "uss_name"
       - "operator"
       - "human_interactions"
     properties:
@@ -445,7 +453,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
@@ -456,10 +463,9 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      uss_id:
+      uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
         type: "string"
@@ -523,7 +529,7 @@ definitions:
     required:
       - "dr_occurence_id"
       - "gufi"
-      - "uss_id"
+      - "uss_name"
       - "operator"
       - "time_uss_received"
       - "time_uss_sent"
@@ -539,7 +545,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
@@ -550,10 +555,9 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: SAFETY
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      uss_id:
+      uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
         type: "string"
@@ -575,7 +579,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
 
@@ -588,7 +591,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       time_response_from_operator_received:
@@ -603,7 +605,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       message_protocol:
@@ -657,7 +658,7 @@ definitions:
       - "exchanged_data_type"
       - "source_uss"
       - "target_uss"
-      - "reporting_uss_role"
+      - "uss_name"
       - "time_request_initiation"
       - "time_request_completed"
       - "actual_http_response"
@@ -671,7 +672,6 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: PUBLIC
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       event_id:
@@ -695,10 +695,8 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        x-utm-data-accessibility: PUBLIC
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-
       exchanged_data_type:
         type: "string"
         enum:
@@ -719,6 +717,18 @@ definitions:
         type: "string"
         format: "dns-name"
         example: "utm.cool-uss-team.com"
+      uss_name:
+        description: >-
+          The reporting USSs ID as known by USS Network/FIMS.
+
+          Note this will be a duplicate of either target_uss or source_uss.
+
+          Note that the addition of this field means we could remove
+          reporting_uss_role, but will leave for now, changing to an
+          optional field to minimize affect on current implementations.
+        type: "string"
+        format: "dns-name"
+        example: "uss.provider123.net"
       reporting_uss_role:
         description: >-
           An enum indicating if the USS providing these data was the one that initiated the request (SOURCE_USS) or the USS that received the request (TARGET_USS).
@@ -737,7 +747,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
 
@@ -751,7 +760,6 @@ definitions:
         format: date-time
         minLength: 24
         maxLength: 24
-        x-utm-data-accessibility: OPERATIONAL
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
 
