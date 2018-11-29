@@ -28,14 +28,22 @@ definitions:
         description: >-
           Identifier for this geofence data instance.  This id should remain
           constant across multiple geofence samples for a dynamic geofence.
-        type: "string"
-        format: "uuidv4"
-        example: "00000000-0000-4444-9988-feeddeadbeef"
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: GUFI of the operation that used this geofence.
-        type: "string"
-        format: "uuidv4"
-        example: "00000000-0000-4444-9988-bo55beefface"
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       timestamp:
         description: >-
           Time for the sample of this geofence data instance. For a static

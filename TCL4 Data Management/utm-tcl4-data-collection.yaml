@@ -33,8 +33,12 @@ definitions:
           A UUID assingned by the reporting USS for this instance of
            OffNominalReport.
         type: string
-        format: uuidv4
-        example: 00000000-0000-4444-9988-bo55beefface
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       reason_for_report:
         description: >-
           The reason for this report. When activated operation enters nonconforming or rogue state, includes scripted off-nominal event, or unplanned RTL, loitering, landing occurs during operation, USS must prompt operator to file at least one report when the operation closes. Reason must be one of the following Enum value, [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER]. NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason. ROGUE means the operation closed after entering rogue state. NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed. UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status). UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link). UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status). VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
@@ -133,9 +137,13 @@ definitions:
         example: '2015-08-20T14:11:56.118Z'
       gufi:
         description: GUFI of the operation that is the subject of this report.
-        type: "string"
-        format: "uuidv4"
-        example: "00000000-0000-4444-9988-bo55beefface"
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
   LossOfUSS:
     description: >-
@@ -229,7 +237,13 @@ definitions:
           A UUID assigned by the reporting USS for this instance of
            USSNegotiation.
 
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -246,11 +260,23 @@ definitions:
       gufi:
         description: >-
           GUFI of the operation that is handed off.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       new_gufi:
         description: >-
           If a new gufi is generated after the handoff and is known, supply it here.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
         type: "string"
         minLength: 4
@@ -320,8 +346,13 @@ definitions:
         description: >-
           A UUID assigned by the reporting USS for this instance of
            USSNegotiation.
-
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       reporter_gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
@@ -329,21 +360,37 @@ definitions:
 
           If GUFI does not exist, use 00000000-0000-4444-8888-000000000000.
           If GUFI was generated after the negotiation, include that value.
-
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       other_gufi:
         description: >-
           GUFI of the other operation involved in this negotiation.
 
           If GUFI does not exist, use 00000000-0000-4444-8888-000000000000.
           If GUFI was generated after the negotiation, include that value.
-
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       message_ids:
         description: Complete list of UUIDs from each NegotiationMessage involved.
         type: "array"
         items:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       conflict_resolved:
         description: >-
           Were both operations allowed to complete their intended missions?
@@ -394,12 +441,24 @@ definitions:
       uss_operator_exchange_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USS2OperatorExchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           exchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -476,12 +535,24 @@ definitions:
       dr_occurence_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurence.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           exchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_id:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.

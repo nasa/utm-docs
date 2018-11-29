@@ -37,16 +37,26 @@ definitions:
         remote_id:
           description: >-
             A UUID assigned by the reporting USS for this instance of RemoteID.
-
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+          type: string
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          x-utm-data-accessibility: SAFETY
+          pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+          example: "00000000-0000-4444-8888-FEEDDEADBEEF"
         gufi:
           description: >-
             GUFI of the operation that is looked up.
 
             If the GUFI does not exist (in a non-cooperative lookup, for example)
             use 00000000-0000-4444-8888-000000000000.
-
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+          type: string
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          x-utm-data-accessibility: SAFETY
+          pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+          example: "00000000-0000-4444-8888-FEEDDEADBEEF"
         detection_technology:
           description: >-
             Brief description of technology used to detect the operation. This

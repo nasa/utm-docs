@@ -86,6 +86,10 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
       gufi:
         description: GUFI of the operation that is the subject of this report.
-        type: "string"
-        format: "uuidv4"
-        example: "00000000-0000-4444-9988-bo55beefface"
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: SAFETY
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
