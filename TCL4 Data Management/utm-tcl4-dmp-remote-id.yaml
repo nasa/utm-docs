@@ -130,35 +130,65 @@ definitions:
           description: >-
             Time the vehicle was detected by the device.  If visual detection only,
             it is expected this value is an estimate.
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
         network_lookup_start_time:
           description: >-
             If USS Network used to look up this operation, at what
             time did the lookup begin?
 
             Required when network_lookup == true.
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
         network_lookup_end_time:
           description: >-
             If USS Network used to look up this operation, at what time did the
             lookup return?
 
             Required when network_lookup == true.
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
         locate_operator_time:
           description: >-
             Measure of the time it takes for the Remote UAS ID operator to
             locate operator of the vehicle of interest.
 
             Required when operator_located_successful == true
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
         contact_operator_time:
           description: >-
             Measure of the time it takes for the Remote UAS ID operator to
             contact the operator of the vehicle of interest.
 
             Required when operator_contact_successful == true
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
         notes:
           type: string
           maxLength: 3000
