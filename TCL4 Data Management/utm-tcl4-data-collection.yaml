@@ -560,8 +560,13 @@ definitions:
       measurement_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USSExchange.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
-
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: PUBLIC
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       event_id:
         description: >-
           A string provided by the owner of the overall test (likely NASA) that identifies the event within which this data exchange occurs. NASA will define a pattern for this for consistency across tests.
@@ -579,7 +584,13 @@ definitions:
           then just populate this field with one of the primary keys. As a best
           practice, choose the first one in the array as they were sent between
           USSs.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/uuid'
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        x-utm-data-accessibility: PUBLIC
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
       exchanged_data_type:
         type: "string"
@@ -615,7 +626,13 @@ definitions:
           If TARGET_USS, this is the time that the request was received from the SOURCE_USS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
 
       time_request_completed:
         description: >-
@@ -623,7 +640,13 @@ definitions:
           If TARGET_USS, this is the time that the request was sent back to the SOURCE_USS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft-alt/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        x-utm-data-accessibility: OPERATIONAL
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
 
       endpoint:
         description: >-
