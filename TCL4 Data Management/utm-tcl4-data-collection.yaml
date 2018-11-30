@@ -35,9 +35,10 @@ definitions:
            OffNominalReport.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
-        example: 00000000-0000-4444-9988-bo55beefface
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_name:
         description: >-
           The name of the USS supporting the operation that went off nominal,
@@ -137,14 +138,20 @@ definitions:
         description: >-
             date and time of off-nominal event in UTC, ONLY to be filled when
             value for the variable "reason_for_report" is "VOLUNTEER"
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       gufi:
         description: GUFI of the operation that is the subject of this report.
-        type: "string"
+        type: string
         format: uuid
-        minLength: 36
         maxLength: 36
-        example: "00000000-0000-4444-9988-bo55beefface"
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
   LossOfUSS:
     description: >-
@@ -165,8 +172,10 @@ definitions:
            USSNegotiation.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -177,12 +186,22 @@ definitions:
         description: >-
           Time the loss of USS was detected.  When did the managers of that USS
           know the USS was no longer reachable?
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       time_uss_completely_restored:
         description: >-
           Time the USS was available and ready to handle data exchanges with
           other systems.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       method_loss_detected:
         description: >-
           How was the loss of USS detected by managers of the USS?
@@ -202,8 +221,10 @@ definitions:
         items:
           type: string
           format: uuid
-          minLength: 36
           maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+          example: "00000000-0000-4444-8888-FEEDDEADBEEF"
   USSHandoff:
     description: >-
       An instance of this model should be submitted by each USS invovled in the
@@ -225,8 +246,10 @@ definitions:
            USSHandoff.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -245,15 +268,19 @@ definitions:
           GUFI of the operation that is handed off.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       new_gufi:
         description: >-
           If a new gufi is generated after the handoff and is known, supply it here.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
         type: "string"
         minLength: 4
@@ -270,12 +297,22 @@ definitions:
           Time the handoff procedure was initiated.  This may be the time that
           the original USS loses contact, or the time that the operator or USS
           begins communicting the intent to handoff.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       time_handoff_procedure_completed:
         description: >-
           Time the handoff procedure was completed.  THis would be the time that
           the operation is fully under the management of the second USS.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       notes:
         type: string
         minLength: 1
@@ -314,8 +351,11 @@ definitions:
            USSNegotiation.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+
       uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -331,27 +371,32 @@ definitions:
           If GUFI was generated after the negotiation, include that value.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       other_gufi:
         description: >-
           GUFI of the other operation involved in this negotiation.
 
           If GUFI does not exist, use 00000000-0000-4444-8888-000000000000.
           If GUFI was generated after the negotiation, include that value.
-
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       message_ids:
         description: Complete list of UUIDs from each NegotiationMessage involved.
         type: "array"
         items:
-          type: string
-          format: uuid
-          minLength: 36
-          maxLength: 36
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       conflict_resolved:
         description: >-
           Were both operations allowed to complete their intended missions?
@@ -406,16 +451,20 @@ definitions:
           A UUID assigned by the reporting USS for this instance of USS2OperatorExchange.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           exchange.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -494,18 +543,20 @@ definitions:
           A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurence.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
-
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           exchange.
-
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       uss_name:
         description: >-
           The reporting USSs ID as known by USS Network/FIMS.
@@ -524,14 +575,24 @@ definitions:
           USS or from FIMS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
 
       time_uss_sent:
         description: >-
           The time that the USS sent a message to an affected operation.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       time_response_from_operator_received:
         description: >-
           The time that the USS receives acknowledgement that the message was
@@ -540,7 +601,12 @@ definitions:
           time that acknowledgement was received.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       message_protocol:
         description: >-
           How is the message sent to the operator?  If 'OTHER' you must describe
@@ -604,8 +670,10 @@ definitions:
           A UUID assigned by the reporting USS for this instance of USSExchange.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       event_id:
         description: >-
           A string provided by the owner of the overall test (likely NASA) that identifies the event within which this data exchange occurs. NASA will define a pattern for this for consistency across tests.
@@ -625,8 +693,10 @@ definitions:
           USSs.
         type: string
         format: uuid
-        minLength: 36
         maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       exchanged_data_type:
         type: "string"
         enum:
@@ -673,7 +743,12 @@ definitions:
           If TARGET_USS, this is the time that the request was received from the SOURCE_USS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
 
       time_request_completed:
         description: >-
@@ -681,7 +756,12 @@ definitions:
           If TARGET_USS, this is the time that the request was sent back to the SOURCE_USS.
 
           Same formatting rules as in other UTM exchanges (ms, 'Z').
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
 
       endpoint:
         description: >-

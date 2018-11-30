@@ -28,14 +28,20 @@ definitions:
         description: >-
           Identifier for this geofence data instance.  This id should remain
           constant across multiple geofence samples for a dynamic geofence.
-        type: "string"
-        format: "uuidv4"
-        example: "00000000-0000-4444-9988-feeddeadbeef"
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: GUFI of the operation that used this geofence.
-        type: "string"
-        format: "uuidv4"
-        example: "00000000-0000-4444-9988-bo55beefface"
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       timestamp:
         description: >-
           Time for the sample of this geofence data instance. For a static
@@ -43,7 +49,12 @@ definitions:
           is defined and/or entered on the platform.  For dynamic geofences,
           this is the sample time for the geofence, likely during the operation
           window.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       enabled:
         description: >-
           Geofence is enabled.
@@ -52,11 +63,21 @@ definitions:
       start_time:
         description: >-
           UTC Time for start of the geofence. When the geofence is enabled.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       end_time:
         description: >-
           UTC Time for end of the geofence.  When the geofence is disabled.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
       type:
         description: >-
           The type of geofence.
