@@ -391,12 +391,10 @@ definitions:
         description: Complete list of UUIDs from each NegotiationMessage involved.
         type: "array"
         items:
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+          type: string
+          format: uuid
+          pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+          example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       conflict_resolved:
         description: >-
           Were both operations allowed to complete their intended missions?
