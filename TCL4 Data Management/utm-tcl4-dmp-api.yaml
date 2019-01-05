@@ -124,3 +124,150 @@ paths:
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+  '/uss-negotiation/{uuid}':
+    delete:
+      summary: Delete a previously uploaded USSNegotiation instance.
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          type: string
+          description: DELETE of USSNegotiation with this uuid
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '404':
+          description: Requested uuid not found.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+
+  '/uss-negotiation':
+    post:
+      summary: Upload a single instance of the USSNegotiation model
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: uss-negotiation
+          description: The USSNegotiation data being sent
+          required: true
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSNegotiation
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '400':
+          description: Bad request. Typically validation error. Fix your request and retry.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+  '/uss-offnominal/{uuid}':
+    delete:
+      summary: Delete a previously uploaded OFFNominal instance.
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          type: string
+          description: DELETE of USSOffnominal with this uuid
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '404':
+          description: Requested uuid not found.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+
+  '/uss-offnominal':
+    post:
+      summary: Upload a single instance of the OFFNominal model
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: uss-negotiation
+          description: The OFFNominal data being sent
+          required: true
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/OffNominalReport
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '400':
+          description: Bad request. Typically validation error. Fix your request and retry.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              
