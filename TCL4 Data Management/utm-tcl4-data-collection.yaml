@@ -389,7 +389,7 @@ definitions:
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       message_ids:
         description: Complete list of UUIDs from each NegotiationMessage involved.
-        type: "array"
+        type: array
         items:
           type: string
           format: uuid
