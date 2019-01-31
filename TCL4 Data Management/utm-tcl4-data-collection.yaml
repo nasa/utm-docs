@@ -515,6 +515,7 @@ definitions:
           into this interaction.
         type: boolean
       notes:
+        type: string
         description: >-
           Any additional notes to add context about the interaction between
           the USS and this operator.
