@@ -1,0 +1,101 @@
+info:
+  description: >-
+    "TCL4 will require the submission of test data.  Some of these data are not
+    readily collected via UTM means.  The models presented in this domain are in
+    support of such data that are not readily collected otherwise.  Some of
+    these data will be collected live, some after testing, but all should be
+    collected as a soon as feasible.  Further details will be provided in other
+    testing documentation."
+  version: 'v1'
+  title: "Domain for UAS flight plan data."
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utm.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+
+definitions:
+  Waypoint:
+    description: >-
+      A single waypoint with associated data.
+    required:
+      - "waypoint_id"
+      - "waypoint_sequence_id"
+      - "gufi"
+      - "position"
+      - "altitude"
+      - "timestamp"
+      - "target_air_speed"
+      - "target_ground_speed"
+      - "hover_time"
+    properties:
+      waypoint_id:
+        description: >-
+          unique id for this data submission.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      waypoint_sequence_id:
+        description: >-
+          integer indicating order of this waypoint in the list of waypoints.
+
+          must be sequential starting with 1.
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 9999
+        example: 23
+      gufi:
+        description: >-
+          GUFI of the operation that used this flight plan.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      position:
+        description: 2D position of the waypoint.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+      altitude:
+        description: targeted altitude of the waypoint.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Altitude'
+      timestamp:
+        description: >-
+          Targeted time to reach this waypoint.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      target_ground_speed:
+        description: >-
+          The target ground speed of the vehicle at this waypoint.
+
+          Units of measure: ft/sec.
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 9999
+        example: 32
+      target_air_speed:
+        description: >-
+          The target air speed of the vehicle at this waypoint.
+
+          Units of measure: ft/sec.
+        type: integer
+        format: int32
+        minimum: -9999
+        maximum: 9999
+        example: 32
+      hover_time:
+        description: >-
+          number of seconds the vehicle plans to hover or loiter at this waypoint.
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 99999
+        example: 120

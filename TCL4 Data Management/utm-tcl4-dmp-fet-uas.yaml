@@ -1,0 +1,155 @@
+info:
+  description: >-
+    "TCL4 will require the submission of test data.  Some of these data are not
+    readily collected via UTM means.  The models presented in this domain are in
+    support of such data that are not readily collected otherwise.  Some of
+    these data will be collected live, some after testing, but all should be
+    collected as a soon as feasible.  Further details will be provided in other
+    testing documentation."
+  version: 'v1'
+  title: "Domain for Flight Essential Telemetry for UAS."
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utm.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+
+definitions:
+  FlightEssentialTelemetryCrewed:
+    description: >-
+      Time dependent data for a UAS Operation within TCL4. These data are
+      in addition to the required UTM data submisions for an operation.
+    required:
+      - "fet_id"
+      - "call_sign"
+      - "test_run"
+      - "test_card"
+      - "position"
+      - "temperature_external"
+      - "relative_humidity"
+      - "airspeed"
+      - "vertical_speed"
+      - "roll_decimal_degrees"
+      - "roll_rate"
+      - "pitch_decimal_degrees"
+      - "pitch_rate"
+      - "yaw_decimal_degrees"
+      - "yaw_rate"
+    properties:
+      fet_id:
+        description: >-
+          unique id for this data submission.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      gufi:
+        description: >-
+          GUFI of the operation that is the source of these data. Note that this
+          GUFI is repeated in the Position model, so they must match.  In addition
+          this GUFI will map to operational data in the UTM data stores.  Thus
+          the values for call_sign, test_card, test_run must match the metadata
+          supplied with that Operation's metadata.  Mismatches will cause the
+          data submission to be rejected.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      call_sign:
+        description: >-
+          Within the pilot test cards, this operation should have a unique
+          call_sign.  This value must be provided here.
+        type: string
+        maxLength: 100
+        example: "Tootsie88"
+      test_card:
+        description: >-
+          The official test card string.
+        type: string
+        maxLength: 100
+        example: "NVS1C3"
+      test_run:
+        description: >-
+          The run of this test card.  Many test cards will be run once, but
+          many may have several runs for various reasons, planned an unplanned.
+        type: integer
+        format: int32
+        example: 3
+      timestamp:
+        description: >-
+          Time for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      position:
+        description: >-
+          This model leverages the existing Position model for sUAS.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Position'
+      temperature_external:
+        description: >-
+          Atmospheric temperature near the UAS at this timestamp. Celcius.
+        type: number
+        format: float
+        example: 15.85
+      relative_humidity:
+        description: >-
+          Relative humidity near the UAS at this timestamp.  Percentage.
+        type: number
+        format: float
+        minimum: 0.0
+        maximum: 100.0
+        example: 62.88
+      airspeed:
+        description: >-
+          airspeed in ft/sec
+        type: number
+        format: float
+        example: 22.91
+      vertical_speed:
+        description: >-
+          vertical speed in ft/sec
+        type: number
+        format: float
+        example: 1.27
+      roll_decimal_degrees:
+        description: >-
+          roll measured in decimal degrees.
+        type: number
+        format: float
+        example: 29.46
+      pitch_decimal_degrees:
+        description: >-
+          pitch measured in decimal degrees.
+        type: number
+        format: float
+        example: 2.81
+      yaw_decimal_degrees:
+        description: >-
+          yaw measured in decimal degrees.
+        type: number
+        format: float
+        example: 100.49
+      roll_rate:
+        description: >-
+          rate of change of roll angle in degrees/sec.
+        type: number
+        format: float
+        example: 0.37
+      pitch_rate:
+        description: >-
+          rate of change of roll angle in degrees/sec.
+        type: number
+        format: float
+        example: 0.37
+      yaw_rate:
+        description: >-
+          rate of change of roll angle in degrees/sec.
+        type: number
+        format: float
+        example: 0.37

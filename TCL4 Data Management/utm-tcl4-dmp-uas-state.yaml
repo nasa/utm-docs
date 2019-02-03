@@ -1,0 +1,273 @@
+info:
+  description: >-
+    "TCL4 will require the submission of test data.  Some of these data are not
+    readily collected via UTM means.  The models presented in this domain are in
+    support of such data that are not readily collected otherwise.  Some of
+    these data will be collected live, some after testing, but all should be
+    collected as a soon as feasible.  Further details will be provided in other
+    testing documentation."
+  version: 'v1'
+  title: "Domain for UAS State data."
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utm.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+
+definitions:
+  UASState:
+    description: >-
+      Time dependent vehicle data.
+    required:
+      - "uas_state_id"
+      - "gufi"
+      - "timestamp"
+      - "target_waypoint"
+      - "target_waypoint_altitude"
+      - "target_ground_speed"
+      - "nav_position_error_lateral"
+      - "nav_position_error_vertical"
+      - "nav_velocity_error_lateral"
+      - "nav_velocity_error_vertical"
+    properties:
+      uas_state_id:
+        description: >-
+          Identifier for this uas state data instance.  Unique for each submission.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      gufi:
+        description: GUFI of the operation that is the source of these data.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      timestamp:
+        description: >-
+          Time for the uas data. The same time source MUST be used
+          for each sample for this operation.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      target_waypoint:
+        description: >-
+          Current waypoint as of this timestamp that the vehicle is targeting.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
+      target_waypoint_altitude:
+        description: >-
+          Altitude of the current waypoint as of this timestamp that the vehicle is targeting.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
+        example:
+          target_waypoint_altitude:
+            altitude_value: 1800
+            altitude_reference: "W84"
+            units_of_measure: "FT"
+      target_ground_speed:
+        description: >-
+          The target ground speed of the vehicle at this timestamp.
+
+          Units of measure: ft/sec.
+        type: integer
+        format: int32
+        minimum: 0
+        maximum: 9999
+        example: 32
+      target_air_speed:
+        description: >-
+          The target air speed of the vehicle at this timestamp.
+
+          Units of measure: ft/sec.
+        type: integer
+        format: int32
+        minimum: -9999
+        maximum: 9999
+        example: 32
+      nav_position_error_lateral:
+        description: >-
+          Laternal navigation position error.  In feet.
+        type: number
+        format: float
+        minimum: 0.0
+        example: 12.3
+      nav_position_error_vertical:
+        description: >-
+          Vertical navigation position error.  In feet.
+        type: number
+        format: float
+        minimum: 0.0
+        example: 28.9
+      nav_velocity_error_lateral:
+        description: >-
+          Lateral navigation velocity error.  In feet/sec.
+        type: number
+        format: float
+        minimum: 0.0
+        example: 12.3
+      nav_velocity_error_vertical:
+        description: >-
+            Vertical navigation velocity error.  In feet/sec.
+        type: number
+        format: float
+        minimum: 0.0
+        example: 28.9
+  CellSample:
+    description: >-
+      Time dependent battery cell data for an Operation.
+    required:
+      - "cell_sample_id"
+      - "gufi"
+      - "battery_id"
+      - "cell_id"
+      - "timestamp"
+      - "cell_voltage"
+      - "cell_current"
+      - "battery_temperature"
+    properties:
+      cell_sample_id:
+        description: >-
+          Identifier for this cell sample instance.  Unique for each submission.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      gufi:
+        description: GUFI of the operation that is the source of these data.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      battery_id:
+        description: >-
+          An integer identifier for this battery.  For the referenced gufi,
+          this identifier MUST map to the same physical battery across all
+          battery_sample_ids.  For example, if the vehicle has 6 batteries on board as
+          well as 12 batteries in reserve on the ground, and the vehicle is
+          used in an operation with gufi 00000000-0000-4444-8888-FEEDDEADBEEF, then
+          everytime there is an instance of this model with the pairing of
+          00000000-0000-4444-8888-FEEDDEADBEEF and battery 3, we will assume that
+          battery 3 is always the same battery.  Ideally, the operator would use
+          the same battery number across all of its platforms and missions.
+          This would be helpful in cases where
+          there are many batteries that a UAS may employ for a given Operation and
+          the set of physical batteries may vary Operation to Operation.  It also
+          helps when UAS platforms may share a collection of batteries so the
+          data would show how a particular battery performed across all operations
+          and platforms.
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 9999
+        example: 3
+      cell_id:
+        description: >-
+          An integer identifier for this cell within this battery.  For the referenced gufi,
+          this identifier MUST map to the same physical cell across all
+          cell_sample_ids.  For example, if the vehicle has 100 cell across all of its batteries, and is
+          used in an operation with gufi 00000000-0000-4444-8888-FEEDDEADBEEF, then
+          everytime there is an instance of this model with the pairing of
+          00000000-0000-4444-8888-FEEDDEADBEEF and cell 3, we will assume that
+          cell 3 is always the same cell.  This should hold across operations and
+          vehicles as well for this cell (i.e. always use the same mapping of cell numbers
+          for a given battery.)
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 9999
+        example: 3
+      timestamp:
+        description: >-
+          Time for the sample battery data. The same time source MUST be used
+          for each sample for this operation.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      cell_voltage:
+        description: Voltage for this battery at this timestamp.  In Volts.
+        type: number
+        format: float
+        minimum: 0.0
+        example: 4.53
+      cell_current:
+        description: Current for this battery at this timestamp.  In Amps.
+        type: number
+        format: float
+        minimum: 0.0
+        example: 4.53
+      battery_temperature:
+        description: Temperature of the battery housing this cell at this timestamp.  In Celcius.
+        type: number
+        format: float
+        example: 31.3
+  RotorSample:
+    description: >-
+      Time dependent rotor data for an Operation.
+    required:
+      - "rotor_sample_id"
+      - "gufi"
+      - "rotor_id"
+      - "rpm"
+      - "control_throttle_command"
+      - "timestamp"
+    properties:
+      rotor_sample_id:
+        description: >-
+          Identifier for this rotor data instance.  Unique for each submission.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      gufi:
+        description: GUFI of the operation that is the source of these data.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      rotor_id:
+        description: >-
+          An integer identifier for the rotor that generated these data.  Identifier
+          must reference the same physical rotor across this and all operations for
+          the same physical vehicle.
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 9999
+        example: 3
+      rpm:
+        description: >-
+          Rotations per minute for this rotor at this timestamp.
+        type: integer
+        format: int32
+        minimum: 0
+        example: 12915
+      control_throttle_command:
+        description: >-
+          Current throttle command at this timestamp.
+        format: string
+      timestamp:
+        description: >-
+          Time for the rotor data. The same time source MUST be used
+          for each sample for this operation.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
