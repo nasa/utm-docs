@@ -1,0 +1,590 @@
+swagger: '2.0'
+info:
+  version: "v1"
+  title: UTM TCL4 DMP CON3 Specification
+  description: Data model for CON3 submission. 
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
+paths: {}
+definitions:
+  CON_3:
+    type: object
+    required: ['metaData','flightTestRangePolygonPoint_deg','plannedBvlosLandingPoints','actualBvlosLandingPoints','plannedVlosLandingPoints','landingOffset_ft','safeLandingLocations','safeLandingLocationPolygonPoint','timeRpicReceivesUssConstraintMessage',' timeUasReceivesRpicConstraintMessage','rpicLocations','UTMEnvironment','wxOperatingPoints','cellCoverageArea','auditData','batteryPrognosticData','timeAtDistressV2V','timeAtDistressClearV2V','distressBroadcastRate','AlternateUSSSequenceDescription','remoteIdDetectorTimeToIdentify_sec','remoteIdDetectorRange_ft','remoteIdTimeToLocateOper_sec','descriptionOfRemoteIdSystem','facilityMap']
+    properties:
+      metaData:
+        $ref: '#/definitions/metaData'
+      flightTestRangePolygonPoint_deg:
+        $ref: '#/definitions/flightTestRangePolygonPoint_deg'
+      plannedBvlosLandingPoints:
+        $ref: '#/definitions/plannedBvlosLandingPoints'
+      actualBvlosLandingPoints:
+        $ref: '#/definitions/actualBvlosLandingPoints'
+      plannedVlosLandingPoints:
+        $ref: '#/definitions/plannedVlosLandingPoints'
+      actualVlosLandingPoints:
+        $ref: '#/definitions/actualVlosLandingPoints'
+      landingOffset_ft:
+        $ref: '#/definitions/landingOffset_ft'
+      safeLandingLocations:
+        $ref: '#/definitions/safeLandingLocations'
+      safeLandingLocationPolygonPoint:
+        $ref: '#/definitions/safeLandingLocationPolygonPoint'
+      timeRpicReceivesUssConstraintMessage:
+        $ref: '#/definitions/timeRpicReceivesUssConstraintMessage'
+      timeUasReceivesRpicConstraintMessage:
+        $ref: '#/definitions/timeUasReceivesRpicConstraintMessage'
+      rpicLocations:
+        $ref: '#/definitions/rpicLocations'
+      UTMEnvironment:
+        $ref: '#/definitions/UTMEnvironment'
+      wxOperatingPoints:
+        $ref: '#/definitions/wxOperatingPoints'
+      cellCoverageArea:
+         $ref: '#/definitions/cellCoverageArea'
+      auditData:
+         $ref: '#/definitions/auditData'
+      batteryPrognosticData:
+         $ref: '#/definitions/batteryPrognosticData'
+      timeAtDistressV2V:
+         $ref: '#/definitions/timeAtDistressV2V'
+      timeAtDistressClearV2V:
+         $ref: '#/definitions/timeAtDistressClearV2V'
+      distressBroadcastRate:
+         $ref: '#/definitions/distressBroadcastRate'
+      AlternateUSSSequenceDescription:
+         $ref: '#/definitions/AlternateUSSSequenceDescription'
+      remoteIdDetectorTimeToIdentify:
+        $ref: '#/definitions/remoteIdDetectorTimeToIdentify_sec'
+      remoteIdDetectorRange:
+        $ref: '#/definitions/remoteIdDetectorRange_ft'
+      remoteIdTimeToLocateOper_sec:
+        $ref: '#/definitions/remoteIdTimeToLocateOper_sec'
+      descriptionOfRemoteIdSystem:
+        $ref: '#/definitions/descriptionOfRemoteIdSystem'
+      facilityMap:
+        $ref: '#/definitions/facilityMap'
+
+
+  # shared definitions         
+  timestamp:
+    description: >-
+      Timestamps MUST follow the guidance set forth in RFC3339.
+      This RFC defines a profile for ISO8601 forcused on interoperability of Internet
+      based systems.  This profile makes certain design decisions based on
+      reducing rarely used options, elimination of redundant information, and
+      overall simplicity.
+      From these goals and insight from building interoperable systems,
+      RFC3339 provides a grammar for timestamps.  Please see
+      https://tools.ietf.org/html/rfc3339#section-5.6
+      for that grammer and the sections preceding that grammar for more
+      detailed discussion.
+      For UTM, we have attempted to reduce the grammar to a regular expression,
+      but this does not take into account all rules.  For example, a valid
+      timestamp should not allow 30 days in February, but this is not in the
+      regular expression.  Likewise, leap years are not captured in the
+      regular expression.  Thus it is possible for a timestamp to satisfy this
+      RE, but still not be valid and, thus, be rejected by some components of
+      UTM.
+      Note that this UTM format specifies millisecond precision for all
+      time stamps.  This is why the min and max length are fixed at 24.
+      Note that this UTM format specifies UTC time indicated by a trailing 'Z'.
+      Note taht this UTM format specifies date and time separation with a 'T'.
+    type: "string"
+    format: "iso8601"
+    minLength: 24
+    maxLength: 24
+    pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+    example: "2015-08-20T14:11:56.118Z"
+  duringtime:
+    description: >- 
+      This time for HH::MM::SS 
+    type: string
+    #pattern: "^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$"
+    example: "01:02:18"
+  uuid:
+    description: >-
+      Currently, this is a UUID version 4.  These UUIDs have a well-defined
+      regular expression.  However, beyond meeting the regular expression,
+      there is an expectation that the numbers are generated appropriately
+      in terms of the approach to psuedo-random number generation.  More
+      details in the USS Specification document in this regard.
+      UUIDs are used in several models and serve as primary keys in many cases.
+      In all cases, unless otherwised specified, UUIDs are generated by a
+      USS (or FIMS) prior to sending to another USS (or FIMS). Thus one
+      entity does not add data elements (like a UUID primary key) to data
+      originating from another entity.
+      If ordering or sorting is required, the sort order is lexicographic as
+      defined in RFC4122:
+      UUIDs, as defined in this document, can also be ordered
+      lexicographically.  For a pair of UUIDs, the first one follows the
+      second if the most significant field in which the UUIDs differ is
+      greater for the first UUID.  The second precedes the first if the
+      most significant field in which the UUIDs differ is greater for
+      the second UUID.
+    type: "string"
+    format: "uuidv4"
+    minLength: 36
+    maxLength: 36
+    pattern: >-
+      "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+    example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+  latitude:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -90.0
+    maximum: 90.0
+  longitude:
+    description: >-
+      The numeric value of the longitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -180.0
+    maximum: 180.0
+  altitude:
+   description: >-
+    The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
+    type: number
+    format: double
+    minimum: -8000.0
+    exclusiveMinimum: false
+    maximum: 100000.0
+    exclusiveMaximum: false
+  
+  LatLon:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required: ['lat','lon']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+       
+  LatLonAlt:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits. position WGS84 altitude. (ft)
+    type: object
+    required: ['lat','lon','alt']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      alt:
+       $ref: '#/definitions/altitude'
+
+  LatLonWithTimestamp:
+    description: Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required: ['lat','lon','timestamp']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      timestamp:
+       $ref: '#/definitions/timestamp'
+       
+  LatLonALtWithTimestamp:
+    description: Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required: ['lat','lon','timestamp']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      alt:
+       $ref: '#/definitions/altitude'
+      timestamp:
+       $ref: '#/definitions/timestamp'
+  
+  LatLonList:
+    description: >-
+     array of LatLon object 
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/LatLon'
+      
+  LatLonAltWithTimestampList:
+    description: >-
+     array of LatLonTimestamp object 
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/LatLonALtWithTimestamp'
+      
+  AltitudeList:
+    description: >-
+     array of altitude object. Expressed in WGS84 standard. (ft)
+    # positive and negative ints and floats (feet)
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/altitude'
+    example: [300,250,350,300.2,.345,-123,0.0]
+    
+  flightTestRangePolygonPoint_deg:
+    description: >-
+     Lat/Lon list of the vertices of the polygon that defines the area of the test range.
+    $ref: '#/definitions/LatLonList'
+   
+  flightTestRangePolygonPointElev_ft:
+    description: >-
+     List of elevations of each one of the vertices of the polygon that defines the area of the test range.
+    type: array
+    minItems: 1
+    items:
+     $ref: '#/definitions/AltitudeList'
+  flightTestRangePolygonPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      #required: []
+      properties:
+        flightTestRangePolygonPoint_deg:
+          $ref: '#/definitions/LatLonList'
+        flightTestRangePolygonPointElev_ft: 
+          $ref: '#/definitions/AltitudeList'
+  plannedBvlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      #required: []
+      properties:
+        plannedBvlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned BVLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        plannedBvlosLandingPointAlt_ft: 
+          description: >-
+             List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  actualBvlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts]
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        actualBvlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned BVLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        actualBvlosLandingPointAlt_ft: 
+          description: >-
+             List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  plannedVlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      #required: [ts]
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        plannedVlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned VLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        plannedVlosLandingPointAlt_ft: 
+          description: >-
+             List of planned VLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  actualVlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts]
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        actualVlosLandingPoint_deg:
+          description: >-
+            Time stamped (UTC) list of actual Lat/Lon VLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        actualVlosLandingPointAlt_ft: 
+          description: >-
+             Time stamped (UTC) list of actual VLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  landingOffset_ft:
+    description: >-
+      Lateral distance between planned landing point and actual landing point using vehicle independent GNSS or non-GNSS systems. Could use tape to measure the center-to-center distance between the points on the ground. Report it as a list of all landing offset(s) (ft)
+    type: array
+    minItems: 1
+    items:
+      type: number
+      format: float
+  plannedRooftopLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      #required: [ts,plannedRooftopLandingPoint_deg,plannedRooftopLandingPoint_ft]
+      properties:
+        plannedRooftopLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+    
+        plannedRooftopLandingPoint_ft:
+          description: >-
+            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+  actualRooftopLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts]
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        actualRooftopLandingPoint_deg:
+          description: >-
+            Time stamped (UTC) list of  actual rooftop Lat/Lon VLOS landing point(s). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+        actualRooftopLandingPoint_ft: 
+          description: >-
+             Time stamped (UTC) list of  actual rooftop landing point altitude(s).Expressed in WGS84 standard. (ft) Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+  safeLandingLocations:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      #required: [ts,safeLandingLocation_deg,safeLandingLocation_ft]
+      properties:
+        safeLandingLocation_deg:
+          description: >-
+            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+    
+        safeLandingLocation_ft:
+          description: >-
+            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+          
+  safeLandingLocationPolygonPoint:
+    description: >-
+      Lat/Lon list of the vertices of the polygons around safe landing location(s).
+    $ref: '#/definitions/LatLonList'
+  timeRpicReceivesUssConstraintMessage:
+    description: >- 
+      UTC time when RPIC receives constraint message from the USS.
+    $ref: '#/definitions/timestamp'
+  timeUasReceivesRpicConstraintMessage:
+    description: >- 
+           UTC time when UAS receives constraint message from the RPIC..
+    $ref: '#/definitions/timestamp'
+    
+  rpicLocations:
+    description: >- 
+          RPIC location lat lon in feet
+    type: array
+    items:
+      type: object
+      required: [rpicLocation_deg,rpicLocationAlt_ft]
+      properties:
+        rpicLocation_deg:
+          $ref: '#/definitions/LatLonList'
+        rpicLocationAlt_ft:
+          $ref: '#/definitions/AltitudeList'
+  UTMEnvironment:
+    description: >- 
+      This document will contain a diagram that presents the full UTM ecosystem used
+    type: string
+    
+  wxOperatingPointData:
+    type: object
+    required: ['temperature','pressure','windSpeed','windDir']
+    description: 4 numbers for temperature, air pressure (inHg), windspeed (ft/sec), wind direction
+    properties:
+      temp:
+        type: number
+      pressure:
+        type: number
+        minimum: 5
+        maximum: 40
+      windspeed:
+        type: number
+        minimum: 0
+        maximum: 1000
+      windDir:
+        type: number
+        minimum:  0
+        maximum:  360
+  wxOperatingPoints:
+    description: >- 
+          RPIC location lat lon in feet
+    type: array
+    items:
+      type: object
+      required: [ts,wxOperatingPoint_deg,wxOperatingPoint_ft]
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        wxOperatingPointData:
+          $ref: '#/definitions/wxOperatingPointData'
+        wxOperatingPoint_deg:
+          $ref: '#/definitions/LatLonList'
+        wxOperatingPoint_ft:
+          $ref: '#/definitions/AltitudeList'
+  remoteIdDetectorTimeToIdentify_sec:
+    $ref: '#/definitions/latitude'
+  remoteIdDetectorRange_ft:
+    type: number
+  remoteIdTimeToLocateOper_sec:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        value:
+          type: string
+  remoteIdTimeToContactOper_sec:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        value:
+          type: string
+  descriptionOfRemoteIdSystem:
+    type: string
+  facilityMap:
+    type: string
+  cellCoverageArea:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        value:
+          type: string
+  auditData:
+    type: string
+  batteryPrognosticData:
+    type: string
+  BatteryPrognosticDescription:
+    type: string
+  timeAtDistressV2V:
+    $ref: '#/definitions/timestamp'
+  timeAtDistressClearV2V:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: '#/definitions/timestamp'
+        value:
+          type: string
+  distressBroadcastRate:
+    type: number
+  AlternateUSSSequenceDescription:
+    type: string
+
+  metaData:
+    type: object
+    required: ['test_card','run','call_sign','uvin','gufi','submitTime','ussName']
+    properties:
+      uvin:
+        $ref: '#/definitions/uuid'
+      gufi:
+        description: >-
+          GUFI of the operation that is the source of these data. Note that this
+          GUFI is repeated in the Position model, so they must match.  In addition
+          this GUFI will map to operational data in the UTM data stores.  Thus
+          the values for call_sign, test_card, test_run must match the metadata
+          supplied with that Operation's metadata.  Mismatches will cause the
+          data submission to be rejected.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      submitTime:
+        $ref: '#/definitions/timestamp'
+      ussName:
+        type: string
+        description: This is a unique string that identifies the USS that is supporting this operation.  It is the same identifier used in the basic authentication mechanism required to obtain a token from FIMS (Flight Information Management System).  It is also the subject claim that identifies the principal that is the subject of the JWT.
+      test_card:
+        description: >-
+          The official test card bstring.  The test cards or test card identifiers will be provided by NASA.  They will be unique across the UTM TCL4 campaign.  
+        type: string
+        maxLength: 100
+        example: "NVS1C3"
+      run:
+        description: >-
+          The run of this test card.  Many test cards will be run once, but
+          many may have several runs for various reasons, planned and unplanned.
+        type: integer
+        format: int32
+        example: 3
+      call_sign:
+        description: >-
+          Within the test card, this operation should have a unique
+          call_sign.  This value must be provided here.
+        type: string
+        maxLength: 100
+        example: "Tootsie88"
+
+         
+
