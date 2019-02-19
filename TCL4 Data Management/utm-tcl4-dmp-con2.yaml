@@ -43,7 +43,7 @@ definitions:
     required: ['metaData','flightTestRangePolygonPoint_deg','plannedBvlosLandingPoints','actualBvlosLandingPoints','plannedVlosLandingPoints','landingOffset_ft','safeLandingLocations','safeLandingLocationPolygonPoint','timeRpicReceivesUssConstraintMessage',' timeUasReceivesRpicConstraintMessage','rpicLocations','UTMEnvironment','wxOperatingPoints','cellCoverageArea','auditData','batteryPrognosticData','timeAtDistressV2V','timeAtDistressClearV2V','distressBroadcastRate','AlternateUSSSequenceDescription','remoteIdDetectorTimeToIdentify_sec','remoteIdDetectorRange_ft','remoteIdTimeToLocateOper_sec','descriptionOfRemoteIdSystem']
     properties:
       meta:
-        $ref: '#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       flightTestRangePolygonPoint_deg:
         $ref: '#/definitions/flightTestRangePolygonPoint_deg'
       plannedBvlosLandingPoints:
@@ -213,7 +213,7 @@ definitions:
       lon:
         $ref: '#/definitions/longitude'
       timestamp:
-       $ref: '#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
        
   LatLonALtWithTimestamp:
     description: Latitude and Longitude should have precision of 7 or more digits
@@ -225,10 +225,9 @@ definitions:
       lon:
         $ref: '#/definitions/longitude'
       alt:
-       $ref: '#/definitions/altitude'
+        $ref: '#/definitions/altitude'
       timestamp:
-       $ref: '#/definitions/timestamp'
-  
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
   LatLonList:
     description: >-
      array of LatLon object 
@@ -304,7 +303,7 @@ definitions:
       required: [ts]
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
         actualBvlosLandingPoint_deg:
           description: >-
             Lat/Lon list of planned BVLOS landing point(s).
@@ -322,7 +321,7 @@ definitions:
       #required: [ts]
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         plannedVlosLandingPoint_deg:
           description: >-
             Lat/Lon list of planned VLOS landing point(s).
@@ -340,7 +339,7 @@ definitions:
       required: [ts]
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         actualVlosLandingPoint_deg:
           description: >-
             Time stamped (UTC) list of actual Lat/Lon VLOS landing point(s).
@@ -383,7 +382,7 @@ definitions:
       required: [ts]
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         actualRooftopLandingPoint_deg:
           description: >-
             Time stamped (UTC) list of  actual rooftop Lat/Lon VLOS landing point(s). Only mandatory for: Scenario 1, Scenario 4
@@ -417,11 +416,12 @@ definitions:
   timeRpicReceivesUssConstraintMessage:
     description: >- 
       UTC time when RPIC receives constraint message from the USS.
-    $ref: '#/definitions/timestamp'
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
   timeUasReceivesRpicConstraintMessage:
     description: >- 
            UTC time when UAS receives constraint message from the RPIC..
-    $ref: '#/definitions/timestamp'
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
     
   rpicLocations:
     description: >- 
@@ -468,7 +468,7 @@ definitions:
       required: [ts,wxOperatingPoint_deg,wxOperatingPoint_ft]
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         wxOperatingPointData:
           $ref: '#/definitions/wxOperatingPointData'
         wxOperatingPoint_deg:
@@ -486,7 +486,7 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: string
   remoteIdTimeToContactOper_sec:
@@ -496,7 +496,7 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: string
   descriptionOfRemoteIdSystem:
@@ -510,7 +510,7 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: string
   auditData:
@@ -520,7 +520,7 @@ definitions:
   BatteryPrognosticDescription:
     type: string
   timeAtDistressV2V:
-    $ref: '#/definitions/timestamp'
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'    
   timeAtDistressClearV2V:
     type: array
     items:
@@ -528,58 +528,12 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: '#/definitions/timestamp'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: string
   distressBroadcastRate:
     type: number
   AlternateUSSSequenceDescription:
     type: string
-
-  metaData:
-    type: object
-    required: ['test_card','run','call_sign','uvin','gufi','submitTime','ussName']
-    properties:
-      uvin:
-        $ref: '#/definitions/uuid'
-      gufi:
-        description: >-
-          GUFI of the operation that is the source of these data. Note that this
-          GUFI is repeated in the Position model, so they must match.  In addition
-          this GUFI will map to operational data in the UTM data stores.  Thus
-          the values for call_sign, test_card, test_run must match the metadata
-          supplied with that Operation's metadata.  Mismatches will cause the
-          data submission to be rejected.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      submitTime:
-        $ref: '#/definitions/timestamp'
-      ussName:
-        type: string
-        description: This is a unique string that identifies the USS that is supporting this operation.  It is the same identifier used in the basic authentication mechanism required to obtain a token from FIMS (Flight Information Management System).  It is also the subject claim that identifies the principal that is the subject of the JWT.
-      test_card:
-        description: >-
-          The official test card bstring.  The test cards or test card identifiers will be provided by NASA.  They will be unique across the UTM TCL4 campaign.  
-        type: string
-        maxLength: 100
-        example: "NVS1C3"
-      run:
-        description: >-
-          The run of this test card.  Many test cards will be run once, but
-          many may have several runs for various reasons, planned and unplanned.
-        type: integer
-        format: int32
-        example: 3
-      call_sign:
-        description: >-
-          Within the test card, this operation should have a unique
-          call_sign.  This value must be provided here.
-        type: string
-        maxLength: 100
-        example: "Tootsie88"
 
 
