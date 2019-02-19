@@ -45,7 +45,7 @@ definitions:
     required: ['metaData','auxiliaryUASOperation','aircraftFlightPlan','uasState']
     properties:
       metaData:
-        $ref: https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       auxiliaryUASOperation:
         type: object
         required: ['typeOfOperation','takeoffWeight_lb','takeOffTime','takeoffPosLat_deg','takeoffPosLon_deg','takeoffPosAlt_ft','landingTime','landingPosLat_deg','landingPosLon_deg','landingPosAlt_ft','gcsPosLat_deg','gcsPosLon_deg','gcsPosAlt_ft']
