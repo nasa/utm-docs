@@ -45,7 +45,7 @@ definitions:
     required: [metaData,sensorTable,lookAheadTime_sec,fileTable,expectTable,alertTable,conflictTable,typeOfConflictResolution_nonDim,conflictResolutionManeuversAllowedTable,staticGeoFenceTable,staticObstacleTable,dynamicGeofenceTable,dynamicObstacleTable,daaSensorAccuracyRealtimeTable,dataPacketRatioV2VTable,packetSizeV2VTable,transmissionDelayV2VTable,timeToTrack_sec,numberOfLostTracks_nonDim,directionOfAlertResolution]
     properties:
       metaData:
-        $ref: "#/definitions/metaData"      
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorTable:
         $ref: "#/definitions/sensorTable"
       lookAheadTime_sec:
@@ -195,8 +195,8 @@ definitions:
       type: object
       required: [timestamp,source]
       properties:
-        timestamp: 
-          $ref: "#/definitions/timestamp"
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
         source:
           type: string
           enum: [groundDaaAlertIssued, caAlertIssued, onboardDaaAlertIssued, oaAlertIssue, timeAtConflictAlert, ussCaAlertReceived, ussDaaAlertReceived, ussOaAlertReceived]
@@ -209,7 +209,7 @@ definitions:
       required: [timestamp,type]
       properties:
         timestamp:
-          $ref: "#/definitions/timestamp"
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
         type:
           type: string
           enum: [timeAtClearOfConflict,timeAtConflictAlert,timeAtConflictResManeuverComplt,timeAtConflictResManeuverInit,timeAtEncounterInit,timeAtEncounterEnd]
@@ -224,7 +224,7 @@ definitions:
       required: [timestamp,conflictResolutionManeuversAllowed_nonDim]
       properties:
         timeStamp:
-          $ref: "#/definitions/timestamp"
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         conflictResolutionManeuversAllowed_nonDim:
           $ref: "#/definitions/maneuversAllowed"
           
@@ -281,9 +281,9 @@ definitions:
     required: [startTime,stopTime]
     properties:
       startTime:
-        $ref: "#/definitions/timestamp"
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       stopTime:
-        $ref: "#/definitions/timestamp"
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   staticGeofenceTable: 
     type: array
@@ -320,7 +320,7 @@ definitions:
       required: [timestamp,which,value]
       properties:
         timestamp:
-          $ref: "#/definitions/timestamp"
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         which:
           type: string
           enum: [daaSensorAzimuthAccuracyRealTime_deg,daaSensorAltitudeAccuracyRealTime_ft,altitude,horRangeAccuracyRealTime_ft,verRangeAccuracyRealTime_ft]
@@ -335,7 +335,7 @@ definitions:
       required: [timestamp,value]
       properties:
         timestamp:
-          $ref: "#/definitions/timestamp"          
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: number
           format: float    
@@ -346,11 +346,11 @@ definitions:
       type: object
       required: [timestamp,value]
       properties:
-          timestamp:
-            $ref: "#/definitions/timestamp"
-          value:
-            type: number
-            format: float             
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        value:
+          type: number
+          format: float             
     
   directionOfAlertResolution:
     type: array
@@ -359,7 +359,7 @@ definitions:
       required: [timestamp,value]
       properties:
         timestamp:
-          $ref: "#/definitions/timestamp" 
+          $ref: https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData
         value: 
           type: integer
           enum: [-1,0,1]
@@ -384,7 +384,7 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       submitTime:
-        $ref: '#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'        
       ussName:
         type: string
         description: This is a unique string that identifies the USS that is supporting this operation.  It is the same identifier used in the basic authentication mechanism required to obtain a token from FIMS (Flight Information Management System).  It is also the subject claim that identifies the principal that is the subject of the JWT.
