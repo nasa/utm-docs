@@ -43,8 +43,7 @@ definitions:
     required: ['metaData','coordinates','emergencyPhase_nonDim','offNominalMitigationOutcome_nonDim','landingOutcome_nonDim','aircraftToOperatorDataTransferRate_bytesPerSec','aircraftToOperatorRoundTripLatency_ms','operatorToAircraftRoundTripLatency_ms','safeToLandLocationReach_nonDim','onboardSafeLandingCapability_nonDim','documents']
     properties:
       metaData:
-        $ref: '#/definitions/metaData'
-
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       documents:
         description: "Document identifiers required by CNS.  Identify the name of each file included in this transmission"
         type: object
@@ -293,65 +292,6 @@ definitions:
       \ inch-level resolution);\nas reported by the Ground Truth System (Truth Reference\
       \ System, e.g. optical, radar, LiDAR, nav. beacon, etc).\nCan be reported by\
       \ the UAS but has to be independent of UAS's primary navigation system."
-
-  metaData:
-    type: object
-    required: ['test_card','run','call_sign','uvin','gufi','submitTime','ussName']
-    properties:
-      uvin:
-        $ref: '#/definitions/UUID'
-      gufi:
-        description: >-
-          GUFI of the operation that is the source of these data. Note that this
-          GUFI is repeated in the Position model, so they must match.  In addition
-          this GUFI will map to operational data in the UTM data stores.  Thus
-          the values for call_sign, test_card, test_run must match the metadata
-          supplied with that Operation's metadata.  Mismatches will cause the
-          data submission to be rejected.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      submitTime:
-        $ref: '#/definitions/timestamp'
-      ussName:
-        type: string
-        description: This is a unique string that identifies the USS that is supporting this operation.  It is the same identifier used in the basic authentication mechanism required to obtain a token from FIMS (Flight Information Management System).  It is also the subject claim that identifies the principal that is the subject of the JWT.
-      test_card:
-        description: >-
-          The official test card bstring.  The test cards or test card identifiers will be provided by NASA.  They will be unique across the UTM TCL4 campaign.  
-        type: string
-        maxLength: 100
-        example: "NVS1C3"
-      run:
-        description: >-
-          The run of this test card.  Many test cards will be run once, but
-          many may have several runs for various reasons, planned and unplanned.
-        type: integer
-        format: int32
-        example: 3
-      call_sign:
-        description: >-
-          Within the test card, this operation should have a unique
-          call_sign.  This value must be provided here.
-        type: string
-        maxLength: 100
-        example: "Tootsie88"
-
-  UUID:
-    type: string
-    format: uuid
-    pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
-    example: 'd7126818-d280-475f-aaee-c16e9c6f04e0'
-    maxLength: 36
-    minLength: 36
-
-  timestamp:
-    type: string
-    pattern: '^2[0-9][0-9][0-9]-[01][0-9]-[0123][0-9]T[012][0-9]:[012345][0-9]:[012345][0-9]\.[0-9][0-9][0-9][0-9]*Z{0,1}$'
-    example: '2018-03-05T19:56:23.445'
 
   TimestampedInteger:
     type: "object"
