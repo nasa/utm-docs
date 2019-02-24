@@ -11,6 +11,7 @@ info:
 definitions:
   OffNominalReport:
     required:
+      - metaData
       - report_id
       - uss_name
       - reason_for_report
@@ -23,6 +24,8 @@ definitions:
       - reporter_narrative
       - gufi
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       contact:
         description: >-
           Contact information of the reporter. Reference utm-commons for model.
@@ -159,13 +162,16 @@ definitions:
       loss of USS services during a test.  If the USS is unaviable multiple times
       in a single test, one submission is sufficient.
     required:
-      - "uss_loss_id"
-      - "uss_name"
-      - "time_loss_detected"
-      - "time_uss_completely_restored"
-      - "method_loss_detected"
-      - "active_gufis_under_management"
+      - metaData
+      - uss_loss_id
+      - uss_name
+      - time_loss_detected
+      - time_uss_completely_restored
+      - method_loss_detected
+      - active_gufis_under_management
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       uss_loss_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
@@ -232,6 +238,7 @@ definitions:
       the USSNetwork.  These data may inform future procedures and standards.
 
     required:
+      - "metaData"
       - "handoff_id"
       - "uss_name"
       - "other_uss_id"
@@ -240,6 +247,8 @@ definitions:
       - "time_handoff_procedure_completed"
       - "gufi"
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       handoff_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
@@ -336,6 +345,7 @@ definitions:
       the USSExchange model, since NegotiationMessages will be logged and supplied
       there.
     required:
+      - metaData
       - "negotiation_id"
       - "uss_name"
       - "reporter_gufi"
@@ -345,6 +355,8 @@ definitions:
       - "reporter_op_action"
       - "other_op_action"
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       negotiation_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
@@ -430,6 +442,7 @@ definitions:
         maxLength: 1500
 
   USS2OperatorExchange:
+    
     description: >-
       An instance of this model is expected for each USS-operation mapping.  The
       goal is to capture information about the volume and types of communications
@@ -443,7 +456,10 @@ definitions:
       - "uss_name"
       - "operator"
       - "human_interactions"
+      - metaData
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       uss_operator_exchange_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USS2OperatorExchange.
@@ -535,8 +551,11 @@ definitions:
       - "time_response_from_operator_received"
       - "message_protocol"
       - "message_to_operator"
+      - metaData
 
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       dr_occurence_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurence.
@@ -663,7 +682,11 @@ definitions:
       - "actual_http_response"
       - "endpoint"
       - "http_method"
+      - metaData
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+
       measurement_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USSExchange.

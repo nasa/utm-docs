@@ -83,6 +83,80 @@ definitions:
         maxLength: 100
         example: "Tootsie88"
 
+      source:
+        type: string
+        description: >-
+          Hardware-in-the-loop (HWITL) flights refer to ground or airborne
+          flights. Software-in-the loop (SWITL) flights would be used to tag
+          flights do not use a physical vehicle, whether or not there is a
+          full-featured simulation involved.
+        enum:
+          - HWITL
+          - SWITL
+      location:
+        type: string
+        description: >-
+          Name of the testing location, such as NV, Moffett, Crows
+          Landing, etc.  The supplier of the metadata should use a constant
+          value for this field when the same location is used mulitple times
+          across data submissions. E.g. "AMES" should always be "AMES" and not
+          "ames" or "Ames" or "NASA Ames" at other various times.
+        minLength: 1
+        maxLength: 100
+      setting:
+        type: string
+        description: >-
+          Test setting. Note that a LAB setting may involve HWITL source and
+          FIELD settings may involve SWITL sources.  LAB settings may have
+          GROUND or FLIGHT tests, same with FIELD settings.  This is some
+          insight into the reason for these various fields.
+        enum:
+          - LAB
+          - FIELD
+      free_text:
+        type: string
+        description: >-
+          Free text may be included with the original submission and/or added
+          by a data_quality_engineer.  In the latter case, all previous
+          free_text should be preserved, i.e. the data_quality_engineer should
+          only append to the free_text field.
+        maxLength: 3000
+      data_collection: 
+        description: >-
+          If true these data are intended for Data Collection. Essentially
+          stating if particular data should be ignored during analysis. This
+          may be modified after submission in the case that there was an issue
+          during execution of the test/experiment that would invalidate the
+          data that were collected.
+        type: boolean
+      event_id:
+        type: array
+        description: >-
+          An array of string tags indicating which event(s) this operation is associated.
+          Will be used to select a set of rules for validation.
+        items:
+          type: string
+          minLength: 1
+          maxLength: 100
+      test_identifiers:
+        description: >-
+          Specific tests ids supported by these data. These ids should map to
+          specific tests as outlined in the overall event description. As
+          an example, Event "TCL3_Demonstration" at a test site may have a
+          test_card called "CARD_44". The operation associated with this
+          metadata block may support "DAT2", "CNS1", and "CON4" specific tests.
+          If any one of those elements are missing (event_id, test_card,
+          test_identifiers), then data analysis may become difficult if not
+          impossible.
+        type: array
+        items:
+          type: string
+          minLength: 1
+          maxLength: 30
+        maxItems: 20
+        minItems: 1
+        uniqueItems: true          
+        
   timestamp:
     description: >-
       Timestamps MUST follow the guidance set forth in RFC3339.
