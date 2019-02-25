@@ -1,0 +1,454 @@
+swagger: '2.0'
+info:
+  version: "v1"
+  title: UTM DMP TCL4 Detect and Avoid (DAA) Specification
+  description: Data model for DAA submission. 
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: joseph.rios@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
+paths: {}
+
+definitions:
+
+  DAA:
+    type: object
+    required: [metaData,sensorTable,lookAheadTime_sec,fileTable,expectTable,alertTable,conflictTable,typeOfConflictResolution_nonDim,conflictResolutionManeuversAllowedTable,staticGeoFenceTable,staticObstacleTable,dynamicGeofenceTable,dynamicObstacleTable,daaSensorAccuracyRealtimeTable,dataPacketRatioV2VTable,packetSizeV2VTable,transmissionDelayV2VTable,timeToTrack_sec,numberOfLostTracks_nonDim,directionOfAlertResolution]
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorTable:
+        $ref: "#/definitions/sensorTable"
+      lookAheadTime_sec:
+        $ref: "#/definitions/lookAheadTime_sec"
+      fileTable:
+        $ref: "#/definitions/fileTable"
+      expectTable:
+        $ref: "#/definitions/expectTable"
+      alertTable:
+        $ref: "#/definitions/alertTable"
+      conflictTable:
+        $ref: "#/definitions/conflictTable"
+      typeOfConflictResolution_nonDim::
+        $ref: "#/definitions/typeOfConflictResolution_nonDim"
+      conflictResolutionManeuversAllowedTable:
+        $ref: "#/definitions/conflictResolutionManeuversAllowedTable"
+      staticGeofenceTable:
+        $ref: "#/definitions/staticGeofenceTable"
+      staticObstacleTable:
+        $ref: "#/definitions/staticObstacleTable"
+      dynamicGeofenceTable:
+        $ref: "#/definitions/dynamicGeofenceTable"
+      dynamicObstacleTable:
+        $ref: "#/definitions/dynamicObstacleTable"
+      daaSensorAccuracyRealtimeTable:
+        $ref: "#/definitions/daaSensorAccuracyRealtimeTable"
+      dataPacketRatioV2VTable:
+        $ref: "#/definitions/floatTimeTable"
+      packetSizeV2VTable:
+        $ref: "#/definitions/floatTimeTable"
+      transmissionDelayV2VTable:
+        $ref: "#/definitions/floatTimeTable"
+      timeToTrack_sec:
+        $ref: "#/definitions/floatTimeTable"
+      numberOfLostTracks_nonDim:
+        $ref: "#/definitions/integerTimeTable" 
+      directionOfAlertResolution:
+        $ref: "#/definitions/directionOfAlertResolution"
+
+  sensorTable: 
+    type: array
+    items: 
+      $ref: "#/definitions/sensorEntry"
+      
+  sensorEntry:
+    type: object
+    required: [sensorId_nonDim,typeOfSensor,useOfSensor]
+    properties:
+      sensorId_nonDim:
+        type: string
+      typeOfSensor:
+        type: string
+        enum: [USS Service, DSRC, C-2V2X, Wifi, ADS-B, Airborne Radar, Ground Radar, LiDAR, Acoustic, Optical, EO/IR, other]
+      azimuthSensorMax_deg:
+        $ref: "#/definitions/degrees"
+      azimuthSensorMin_deg:
+        $ref: "#/definitions/degrees"      
+      daaSensorAltitudeAccuracy_ft:
+        $ref: "#/definitions/feet"
+      daaSensorAzimuthAccuracy_deg:
+        $ref: "#/definitions/degrees"        
+      elevationSensorMax_deg:
+        $ref: "#/definitions/degrees"        
+      elevationSensorMin_deg:
+        $ref: "#/definitions/degrees"        
+      horRangeAccuracy_ft:
+        $ref: "#/definitions/degrees"      
+      maxRcsOfSensor_ft2:
+        $ref: "#/definitions/squareFoot"      
+      minRcsOfSensor_ft2:
+        $ref: "#/definitions/squareFoot"          
+      probabilityFalseAlarmPrct_nonDim:
+        $ref: "#/definitions/percent"
+      probabilityIntruderDetectionPrct_nonDim:
+        $ref: "#/definitions/percent"      
+      sensorMaxHorzRangeData:
+        $ref: "#/definitions/feet"
+      sensorMaxVertRangeData:
+        $ref: "#/definitions/feet"
+      sensorMinHorzRangeData:
+        $ref: "#/definitions/feet"
+      sensorMinVertRangeData:
+        $ref: "#/definitions/feet"
+      txRadioFrequencyPowerEirpV2V_w:
+        $ref: "#/definitions/watt"
+      txRadioFrequencyPowerErpV2V_w:
+        $ref: "#/definitions/watt"      
+      txRadioFrequencyV2V_ghz:
+        $ref: "#/definitions/gigaHertz"
+      updateRateSensor_hz:
+        $ref: "#/definitions/hertz"
+      useOfSensor:
+        type: string
+      targetTrackCapacity_nonDim:
+        $ref: "#/definitions/count"
+      verRangeAccuracy_ft:
+        $ref: "#/definitions/feet"
+
+      
+  lookAheadTime_sec:
+    $ref: "#/definitions/seconds"
+
+  fileTable:
+    type: array
+    items:
+      $ref: "#/definitions/fileEntry"
+      
+  fileEntry:
+    type: object
+    required: [daaFileType,daaFileName]
+    properties:
+      daaFileType:
+        type: string
+        enum: [Alerting Criteria,Clear of Conflict Criteria,Description of DAA sensors,Separation Criteria]
+      daaFileName:
+        type: string
+
+  expectTable:
+    type: array
+    items:
+      $ref: "#/definitions/expectEntry"
+      
+  expectEntry:
+    type: object
+    required: [expectedClimbRateOwnship_ftPerSec,expectedCommLatency_sec,expectedDescendRateOwnship_ftPerSec,expectedOperatorResponseTime_sec,expectedTimeToHover_sec,expectedTurnRateOwnship_degPerSec,expectedUASResponseTime_sec,expectedTimeHover_sec]
+    properties:
+      expectedClimbRateOwnship_ftPerSec:
+        $ref: "#/definitions/feet"
+      expectedCommLatency_sec:
+        $ref: "#/definitions/seconds"
+      expectedDescendRateOwnship_ftPerSec:
+        $ref: "#/definitions/seconds"      
+      expectedOperatorResponseTime_sec:
+        $ref: "#/definitions/seconds"
+      expectedTimeToHover_sec:
+        $ref: "#/definitions/seconds"
+      expectedTurnRateOwnship_degPerSec:
+        $ref: "#/definitions/degrees"
+      expectedUASResponseTime_sec:
+        $ref: "#/definitions/seconds"
+      expectedTimeHover_sec:
+        $ref: "#/definitions/seconds"
+ 
+  alertTable:
+    type: array
+    items:
+      type: object
+      required: [timestamp,source]
+      properties:
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        source:
+          type: string
+          enum: [groundDaaAlertIssued, caAlertIssued, onboardDaaAlertIssued, oaAlertIssue, timeAtConflictAlert, ussCaAlertReceived, ussDaaAlertReceived, ussOaAlertReceived]
+     
+
+  conflictTable:
+    type: array
+    items: 
+      type: object
+      required: [timestamp,type]
+      properties:
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        type:
+          type: string
+          enum: [timeAtClearOfConflict,timeAtConflictAlert,timeAtConflictResManeuverComplt,timeAtConflictResManeuverInit,timeAtEncounterInit,timeAtEncounterEnd]
+        
+  typeOfConflictResolution_nonDim:
+    $ref: "#/definitions/integerTimeTable"
+
+  conflictResolutionManeuversAllowedTable:
+    type: array
+    items:
+      type: object
+      required: [timestamp,conflictResolutionManeuversAllowed_nonDim]
+      properties:
+        timeStamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        conflictResolutionManeuversAllowed_nonDim:
+          $ref: "#/definitions/maneuversAllowed"
+          
+  maneuversAllowed:
+    type: array
+    minItems: 7
+    maxItems: 7
+    items:
+      type: boolean
+      
+
+# a boundary is an obstacle if it's prohibited area is inside, and
+# a geofence if it's prohibited area is outside
+#
+  boundary: 
+    type: object
+    required: [type,min,max]
+    properties:
+      id:
+        $ref: "#/definitions/UUID"
+      type:
+        type: integer
+        enum: [circular,polygon]
+      min: 
+        type: number
+        format: float
+      max:
+        type: number
+        format: float
+      circularCenter:
+        $ref: "#/definitions/latLon"
+      circularRadius:
+        type: number
+        format: float
+      polygonPoints:
+        type: array
+        items:
+          $ref: "#/definitions/latLon"
+          
+  latLon:
+    type: object
+    required: [lat,lon]
+    properties:
+      lat:
+        type: number
+        format: float
+      lon:
+        type: number
+        format: float
+
+# something becomes dynamic if it has a start and end        
+  dynamics:
+    type: object
+    required: [startTime,stopTime]
+    properties:
+      startTime:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      stopTime:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
+  staticGeofenceTable: 
+    type: array
+    items:
+      $ref: "#/definitions/boundary"
+      
+  staticObstacleTable:
+    type: array
+    items:
+      $ref: "#/definitions/boundary"
+      
+  dynamicGeofenceTable:
+    type: object
+    required: [duration,geoFence]
+    properties:
+        duration:
+          $ref: "#/definitions/dynamics"
+        geoFence:
+          $ref: "#/definitions/boundary"
+          
+  dynamicObstacleTable:
+    type: object
+    required: [duration, obstacle]
+    properties:
+        duration:
+          $ref: "#/definitions/dynamics"
+        obstacle:
+          $ref: "#/definitions/boundary"        
+      
+  daaSensorAccuracyRealtimeTable:
+    type: array
+    items:
+      type: object
+      required: [timestamp,which,value]
+      properties:
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        which:
+          type: string
+          enum: [daaSensorAzimuthAccuracyRealTime_deg,daaSensorAltitudeAccuracyRealTime_ft,altitude,horRangeAccuracyRealTime_ft,verRangeAccuracyRealTime_ft]
+        value:
+          type: number
+          format: float
+            
+  floatTimeTable:
+    type: array
+    items:
+      type: object
+      required: [timestamp,value]
+      properties:
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        value:
+          type: number
+          format: float    
+   
+  integerTimeTable:
+    type: array
+    items:
+      type: object
+      required: [timestamp,value]
+      properties:
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        value:
+          type: number
+          format: float             
+    
+  directionOfAlertResolution:
+    type: array
+    items:
+      type: object
+      required: [timestamp,value]
+      properties:
+        timestamp:
+          $ref: https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData
+        value: 
+          type: integer
+          enum: [-1,0,1]
+  metaData:
+    type: object
+    required: ['test_card','run','call_sign','uvin','gufi','submitTime','ussName']
+    properties:
+      uvin:
+        $ref: '#/definitions/UUID'
+      gufi:
+        description: >-
+          GUFI of the operation that is the source of these data. Note that this
+          GUFI is repeated in the Position model, so they must match.  In addition
+          this GUFI will map to operational data in the UTM data stores.  Thus
+          the values for call_sign, test_card, test_run must match the metadata
+          supplied with that Operation's metadata.  Mismatches will cause the
+          data submission to be rejected.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      submitTime:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'        
+      ussName:
+        type: string
+        description: This is a unique string that identifies the USS that is supporting this operation.  It is the same identifier used in the basic authentication mechanism required to obtain a token from FIMS (Flight Information Management System).  It is also the subject claim that identifies the principal that is the subject of the JWT.
+      test_card:
+        description: >-
+          The official test card bstring.  The test cards or test card identifiers will be provided by NASA.  They will be unique across the UTM TCL4 campaign.  
+        type: string
+        maxLength: 100
+        example: "NVS1C3"
+      run:
+        description: >-
+          The run of this test card.  Many test cards will be run once, but
+          many may have several runs for various reasons, planned and unplanned.
+        type: integer
+        format: int32
+        example: 3
+      call_sign:
+        description: >-
+          Within the test card, this operation should have a unique
+          call_sign.  This value must be provided here.
+        type: string
+        maxLength: 100
+        example: "Tootsie88"
+          
+  seconds:
+    type: number
+    format: integer
+    
+  degrees:
+    type: number
+    format: float
+  
+  feet:
+    type: number
+    format: float
+    
+  squareFoot:
+    type: number
+    format: float
+    
+  hertz:
+    type: number
+    format: float
+    
+  gigaHertz:
+    type: number
+    format: float
+    
+  timestamp:
+    type: string
+    format: datetime
+    
+  percent:
+    type: number
+    format: float
+    
+  count:
+    type: number
+    format: integer
+    
+  watt:
+    type: number
+    format: float
+    
+  UUID:
+    type: string
+    format: uuid
