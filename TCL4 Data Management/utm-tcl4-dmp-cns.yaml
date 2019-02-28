@@ -49,7 +49,9 @@ definitions:
           Can be reported by the UAS but has to be independent of UAS's primary navigation\
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
           \ at least least 2 decimal places of precision. (ft)"
-        $ref: "#/definitions/UasTruthXYZEcefCoordinates_ft"
+        type: array
+        items: 
+          $ref: "#/definitions/UasTruthXYZEcefCoordinates_ft"
       emergencyPhase_nonDim:
         description: "During operation, operator must monitor UA operation according\
           \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
@@ -251,18 +253,8 @@ definitions:
       estimatedError95Prct_in:
         type: "number"
         format: "double"
-        description: "Z-Coordinate truth position of UA (ECEF: Earth Centered Earth\
-          \ Fixed, inch-level resolution); as reported by the Ground Truth System\
-          \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\
-          \ Can be reported by the UAS but has to be independent of UAS's primary\
-          \ navigation system, use of separate RTK system is allowed (UTC time stamped).\
-          \ Report at least least 2 decimal places of precision. (ft)"
+        description: "Estimated truth system position (ECEF) error at time of measurement (95 percentile, inches). UTC time stamped. (in)"
         minimum: 0
-    description: "Coordinate truth position of UA (ECEF: Earth Centered Earth Fixed,\
-      \ inch-level resolution);\nas reported by the Ground Truth System (Truth Reference\
-      \ System, e.g. optical, radar, LiDAR, nav. beacon, etc).\nCan be reported by\
-      \ the UAS but has to be independent of UAS's primary navigation system."
-
   TimestampedInteger:
     type: "object"
     required:
