@@ -38,10 +38,9 @@ info:
 definitions:
   FlightEssentialTelemetryUas:
     description: >-
-      Time dependent data for a UAS Operation within TCL4. These data elements are
+      Flight essential telemetry data for a UAS Operation in TCL4. These data elements are
       in addition to the required UTM data submissions for an operation.  While the various sensor measurements
-      may occur at different sampling rates, you are required to use the highest sampling rate
-      and use a zero-order-hold for data at lower sampling rates. 
+      may occur at different sampling rates, you are required to use the highest sampling rate available on your data acquisition system and use a zero-order-hold for sensor data sampled at lower sampling rates.   
     required:
       - "metaData"
       - "position"
