@@ -1,0 +1,433 @@
+info:
+  version: "v1.0"
+  title: UTM TCL4 DMP CON5 Specification
+  description: Data model for CON5 submission. 
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: jeffrey.r.homola@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
+
+definitions:
+  CON_5:
+    type: object
+    required: ['metaData','flightTestRangePolygonPoints','plannedBvlosLandingPoints','actualBvlosLandingPoints','plannedVlosLandingPoints','actualVlosLandingPoints','landingOffset_ft','safeLandingLocations','safeLandingLocationPolygonPoint','timeRpicReceivesUssConstraintMessage','timeUasReceivesRpicConstraintMessage','rpicLocations','UTMEnvironment','wxOperatingPoints','cellCoverageArea','batteryPrognosticData','timeAtDistressV2V','timeAtDistressClearV2V','distressBroadcastRate','AlternateUSSSequenceDescription']
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      flightTestRangePolygonPoints:
+        $ref: '#/definitions/flightTestRangePolygonPoints'
+      plannedBvlosLandingPoints:
+        $ref: '#/definitions/plannedBvlosLandingPoints'
+      actualBvlosLandingPoints:
+        $ref: '#/definitions/actualBvlosLandingPoints'
+      plannedVlosLandingPoints:
+        $ref: '#/definitions/plannedVlosLandingPoints'
+      actualVlosLandingPoints:
+        $ref: '#/definitions/actualVlosLandingPoints'
+      landingOffset_ft:
+        $ref: '#/definitions/landingOffset_ft'
+      safeLandingLocations:
+        $ref: '#/definitions/safeLandingLocations'
+      safeLandingLocationPolygonPoint:
+        $ref: '#/definitions/safeLandingLocationPolygonPoint'
+      timeRpicReceivesUssConstraintMessage:
+        $ref: '#/definitions/timeRpicReceivesUssConstraintMessage'
+      timeUasReceivesRpicConstraintMessage:
+        $ref: '#/definitions/timeUasReceivesRpicConstraintMessage'
+      rpicLocations:
+        $ref: '#/definitions/rpicLocations'
+      UTMEnvironment:
+        $ref: '#/definitions/UTMEnvironment'
+      wxOperatingPoints:
+        $ref: '#/definitions/wxOperatingPoints'
+      cellCoverageArea:
+         $ref: '#/definitions/cellCoverageArea'
+      batteryPrognosticData:
+         $ref: '#/definitions/batteryPrognosticData'
+      timeAtDistressV2V:
+         $ref: '#/definitions/timeAtDistressV2V'
+      timeAtDistressClearV2V:
+         $ref: '#/definitions/timeAtDistressClearV2V'
+      distressBroadcastRate:
+         $ref: '#/definitions/distressBroadcastRate'
+      AlternateUSSSequenceDescription:
+         $ref: '#/definitions/AlternateUSSSequenceDescription' 
+
+  # shared definitions         
+  latitude:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -90.0
+    maximum: 90.0
+  longitude:
+    description: >-
+      The numeric value of the longitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -180.0
+    maximum: 180.0
+  altitude:
+   description: >-
+    The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
+    type: number
+    format: double
+    minimum: -8000.0
+    exclusiveMinimum: false
+    maximum: 100000.0
+    exclusiveMaximum: false
+  
+  LatLon:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required: ['lat','lon']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+       
+  LatLonAlt:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits. position WGS84 altitude. (ft)
+    type: object
+    required: ['lat','lon','alt']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      alt:
+       $ref: '#/definitions/altitude'
+
+       
+
+  LatLonList:
+    description: >-
+     array of LatLon object 
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/LatLon'
+      
+      
+  AltitudeList:
+    description: >-
+     array of altitude object. Expressed in WGS84 standard. (ft)
+    # positive and negative ints and floats (feet)
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/altitude'
+    example: [300,250,350,300.2,.345,-123,0.0]
+    
+  flightTestRangePolygonPoint_deg:
+    description: >-
+     Lat/Lon list of the vertices of the polygon that defines the area of the test range.
+    $ref: '#/definitions/LatLonList'
+   
+  flightTestRangePolygonPointElev_ft:
+    description: >-
+     List of elevations of each one of the vertices of the polygon that defines the area of the test range.
+    type: array
+    minItems: 1
+    items:
+     $ref: '#/definitions/AltitudeList'
+  flightTestRangePolygonPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: ['flightTestRangePolygonPoint_deg','flightTestRangePolygonPointElev_ft']
+      properties:
+        flightTestRangePolygonPoint_deg:
+          $ref: '#/definitions/LatLonList'
+        flightTestRangePolygonPointElev_ft: 
+          $ref: '#/definitions/AltitudeList'
+  plannedBvlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: ['plannedBvlosLandingPoint_deg','plannedBvlosLandingPointAlt_ft']
+      properties:
+        plannedBvlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned BVLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        plannedBvlosLandingPointAlt_ft: 
+          description: >-
+             List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  actualBvlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,actualBvlosLandingPoint_deg,actualBvlosLandingPointAlt_ft]
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        actualBvlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned BVLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        actualBvlosLandingPointAlt_ft: 
+          description: >-
+             List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  plannedVlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,plannedVlosLandingPoint_deg,plannedVlosLandingPointAlt_ft]
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        plannedVlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned VLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        plannedVlosLandingPointAlt_ft: 
+          description: >-
+             List of planned VLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  actualVlosLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,actualVlosLandingPoint_deg,actualVlosLandingPointAlt_ft]
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        actualVlosLandingPoint_deg:
+          description: >-
+            Time stamped (UTC) list of actual Lat/Lon VLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        actualVlosLandingPointAlt_ft: 
+          description: >-
+             Time stamped (UTC) list of actual VLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  landingOffset_ft:
+    description: >-
+      Lateral distance between planned landing point and actual landing point using vehicle independent GNSS or non-GNSS systems. Could use tape to measure the center-to-center distance between the points on the ground. Report it as a list of all landing offset(s) (ft)
+    type: array
+    minItems: 1
+    items:
+      type: number
+      format: float
+  plannedRooftopLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,plannedRooftopLandingPoint_deg,plannedRooftopLandingPoint_ft]
+      properties:
+        plannedRooftopLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+    
+        plannedRooftopLandingPoint_ft:
+          description: >-
+            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+  actualRooftopLandingPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,actualRooftopLandingPoint_deg,actualRooftopLandingPoint_ft]
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        actualRooftopLandingPoint_deg:
+          description: >-
+            Time stamped (UTC) list of  actual rooftop Lat/Lon VLOS landing point(s). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+        actualRooftopLandingPoint_ft: 
+          description: >-
+             Time stamped (UTC) list of  actual rooftop landing point altitude(s).Expressed in WGS84 standard. (ft) Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+  safeLandingLocations:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,safeLandingLocation_deg,safeLandingLocation_ft]
+      properties:
+        safeLandingLocation_deg:
+          description: >-
+            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+    
+        safeLandingLocation_ft:
+          description: >-
+            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+          
+  safeLandingLocationPolygonPoint:
+    description: >-
+      Lat/Lon list of the vertices of the polygons around safe landing location(s).
+    $ref: '#/definitions/LatLonList'
+  timeRpicReceivesUssConstraintMessage:
+    description: >-
+      UTC time when RPIC receives constraint message from the USS.
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+  timeUasReceivesRpicConstraintMessage:
+    description: >-
+           UTC time when UAS receives constraint message from the RPIC..
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
+    
+  rpicLocations:
+    description: >-
+          RPIC location lat lon in feet
+    type: array
+    items:
+      type: object
+      required: [rpicLocation_deg,rpicLocationAlt_ft]
+      properties:
+        rpicLocation_deg:
+          $ref: '#/definitions/LatLonList'
+        rpicLocationAlt_ft:
+          $ref: '#/definitions/AltitudeList'
+  UTMEnvironment:
+    description: >-
+      This document will contain a diagram that presents the full UTM ecosystem used
+    type: string
+    
+  wxOperatingPointData:
+    type: object
+    required: ['temp','pressure','windSpeed','windDir']
+    description: 4 numbers for temperature, air pressure (inHg), windspeed (ft/sec), wind direction
+    properties:
+      temp:
+        type: number
+      pressure:
+        type: number
+        minimum: 5
+        maximum: 40
+      windSpeed:
+        type: number
+        minimum: 0
+        maximum: 1000
+      windDir:
+        type: number
+        minimum:  0
+        maximum:  360
+  wxOperatingPoints:
+    description: >- 
+          RPIC location lat lon in feet
+    type: array
+    items:
+      type: object
+      required: [ts,wxOperatingPoint_deg,wxOperatingPoint_ft]
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        wxOperatingPointData:
+          $ref: '#/definitions/wxOperatingPointData'
+        wxOperatingPoint_deg:
+          $ref: '#/definitions/LatLonList'
+        wxOperatingPoint_ft:
+          $ref: '#/definitions/AltitudeList'
+  remoteIdDetectorTimeToIdentify_sec:
+    type: number
+  remoteIdDetectorRange_ft:
+    type: number
+  remoteIdTimeToLocateOper_sec:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        value:
+          type: number
+  remoteIdTimeToContactOper_sec:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        value:
+          type: number
+  descriptionOfRemoteIdSystem:
+    type: string
+  facilityMap:
+    type: string
+  cellCoverageArea:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        value:
+          type: string
+  batteryPrognosticData:
+    type: string
+  BatteryPrognosticDescription:
+    type: string
+  timeAtDistressV2V:
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'    
+  timeAtDistressClearV2V:
+    type: array
+    items:
+      type: object
+      required: ['ts','value']
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
+        value:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+  distressBroadcastRate:
+    type: number
+  AlternateUSSSequenceDescription:
+    type: string
