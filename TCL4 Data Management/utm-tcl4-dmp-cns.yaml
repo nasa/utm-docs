@@ -1,11 +1,11 @@
 info:
   version: "v1"
-  title: UTM DMP TCL4 CNS Specification
+  title: UTM TCL4 DMP CNS Specification
   description: Data model for CNS submission. 
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
-    email: joseph.rios@nasa.gov
+    email: jaewoo.jung@nasa.gov
   license:
     name: NASA Open Source Agreement
     url: 'https://ti.arc.nasa.gov/opensource/nosa/'
@@ -88,12 +88,16 @@ definitions:
         description: "During operation, operator must monitor UA operation according\
           \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
           \ and report appropriate emergency phase with UTC timestamp as enum"
-        $ref: "#/definitions/TimestampedEmergencyPhase_nonDim_Enum"
+        type: array
+        items: 
+          $ref: "#/definitions/TimestampedEmergencyPhase_nonDim_Enum"
       offNominalMitigationOutcome_nonDim:
         description: "Outcome of offnominal events like UA to Operator C2 Link Loss,\
           \ Operator to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported\
           \ as enum"
-        $ref: "#/definitions/TimestampedOffNominalMitigationOutcome_nonDim_Enum"
+        type: array
+        items: 
+          $ref: "#/definitions/TimestampedOffNominalMitigationOutcome_nonDim_Enum"
       landingOutcome_nonDim:
         description: "Report this for every landing as enum, landing within contingency_polygon\
           \ is also considered as safe landing"
