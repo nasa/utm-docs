@@ -107,35 +107,36 @@ definitions:
         
       navigationAccuracyCategoryPosition:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Report NACp category throughout the flight, RTCA DO-260B. Ref (TCL4 SOW Reference 9: Communications and Navigation Procedures v1)
         type: number
         format: float
         example: 15.85        
         
       navigationIntegrityCategory:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Report NIC category throughout the flight, RTCA DO-260B. Ref (TCL4 SOW Reference 9: Communications and Navigation Procedures v1)
         type: number
         format: float
         example: 15.85        
         
       geometricVerticalAccuracyCategory:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Report GVA category throughout the flight, RTCA DO-260B. Ref (TCL4 SOW Reference 9: Communications and Navigation Procedures v1)
+
         type: number
         format: float
         example: 15.85        
 
       heading_deg:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Heading in the true North reference frame. (deg)
         type: number
         format: float
         example: 15.85        
 
       groundCourse_deg:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Ground Course (also known as track) in the true North reference frame. (deg)
         type: number
         format: float
         example: 15.85        
@@ -149,98 +150,98 @@ definitions:
 
       trueAirspeed_ftPerSec:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
-        type: number
+          True airspeed. (ft/s)
+          type: number
         format: float
         example: 15.85        
 
       verticalSpeed_ftPerMin:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Vertical speed in feet per minute, negative indicates descent. (ft/min)
         type: number
         format: float
         example: 15.85        
           
       roll_deg:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Roll (deg). Negative roll indicates left.
         type: number
         format: float
         example: 15.85        
         
       pitch_deg:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Pitch (deg). Negative pitch indicates nose down.
         type: number
         format: float
         example: 15.85        
         
       yaw_deg:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Yaw (deg). Zero-degree yaw is North.
         type: number
         format: float
         example: 15.85        
         
       rollRate_degPerSec:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Roll Rate (deg/s). Negative indicates leftward rate.
         type: number
         format: float
         example: 15.85        
         
       pitchRate_degPerSec:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Pitch Rate (deg/s). Negative indicates downward rate.
         type: number
         format: float
         example: 15.85        
         
       yawRate_degPerSec:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Yaw Rate (deg/s). Negative indicates counter-clockwise rate.
         type: number
         format: float
         example: 15.85        
         
       hdop_nonDim:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
         type: number
         format: float
         example: 15.85        
         
       vdop_nonDim:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          VDOP: Vertical dilution of precision of GPS constellation.
         type: number
         format: float
         example: 15.85        
         
       numGpsSatellitesInView_nonDim:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
         type: number
         format: float
         example: 15.85        
         
       numGpsSat_nonDim:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Number of GPS satellites being tracked by GPS receiver.
         type: number
         format: float
         example: 15.85        
         
       batteryVoltage_v:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Vehicle Battery Voltage (V)
         type: number
         format: float
         example: 15.85        
           
       batteryCurrent_a:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Vehicle Battery Current (A)
         type: number
         format: float
         example: 15.85        
