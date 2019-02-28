@@ -63,7 +63,6 @@ definitions:
       - "yawRate_degPerSec"
       - "hdop_nonDim"
       - "vdop_nonDim"
-      - "numGpsSatellitesInView_nonDim"
       - "numGpsSat_nonDim"
       - "batteryVoltage_v"
       - "batteryCurrent_a"
@@ -142,7 +141,7 @@ definitions:
 
       groundSpeed_ftPerSec:
         description: >-
-          Relative humidity around the vehicle in percentage. (%)
+          Ground Speed. (ft/s)
         type: number
         format: float
         example: 15.85        
@@ -207,29 +206,22 @@ definitions:
         description: >-
           Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
         type: number
-        format: float
-        example: 15.85        
+        format: integer
+        example: 3       
         
       vdop_nonDim:
         description: >-
           VDOP: Vertical dilution of precision of GPS constellation.
         type: number
-        format: float
+        format: integer
         example: 15.85        
-        
-      numGpsSatellitesInView_nonDim:
-        description: >-
-          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
-        type: number
-        format: float
-        example: 15.85        
-        
+                
       numGpsSat_nonDim:
         description: >-
           Number of GPS satellites being tracked by GPS receiver.
         type: number
-        format: float
-        example: 15.85        
+        format: integer
+        example: 5       
         
       batteryVoltage_v:
         description: >-
@@ -245,6 +237,32 @@ definitions:
         format: float
         example: 15.85        
 
+  FlightEssentialTelemetryUasOffline:
+    description: >-
+      Flight essential telemetry data that is provided after the vehicle has landed
+    required:
+      - "metaData"
+      - "numGpsSatellitesInView_nonDim"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      timestamp:
+        description: >-
+          Time for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+
+      numGpsSatellitesInView_nonDim:
+        description: >-
+          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
+        type: number
+        format: integer
+        example: 5       
+          
 
 
 
