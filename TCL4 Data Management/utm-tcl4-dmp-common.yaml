@@ -120,3 +120,44 @@ definitions:
     example: 'd7126818-d280-475f-aaee-c16e9c6f04e0'
     maxLength: 36
     minLength: 36
+
+  LatLonAltWithTs:
+    description: Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required:
+      - "lat"
+      - "lon"
+      - "ts"
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      ts:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
+  latitude:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -90.0
+    maximum: 90.0
+
+  longitude:
+    description: >-
+      The numeric value of the longitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -180.0
+    maximum: 180.0
+
+  altitude:
+   description: >-
+    The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
+    type: number
+    format: double
+    minimum: -8000.0
+    exclusiveMinimum: false
+    maximum: 100000.0
+    exclusiveMaximum: false
