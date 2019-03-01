@@ -121,21 +121,33 @@ definitions:
     maxLength: 36
     minLength: 36
 
-  LatLonAltWithTs:
+  LatLonAltTs:
+    description: Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required:
+      - "latLonAlt"
+      - "ts"
+    properties:
+      latLonAlt:
+        $ref: '#/definitions/LatLonAlt'
+      ts:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
+  LatLonAlt:
     description: Latitude and Longitude should have precision of 7 or more digits
     type: object
     required:
       - "lat"
       - "lon"
-      - "ts"
+      - "alt"
     properties:
       lat:
         $ref: '#/definitions/latitude'
       lon:
         $ref: '#/definitions/longitude'
-      ts:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-
+      alt:
+       $ref: '#/definitions/altitude'
+        
   latitude:
     description: >-
       The numeric value of the latitude. Note that min and max values are added as a sanity check.
@@ -153,8 +165,8 @@ definitions:
     maximum: 180.0
 
   altitude:
-   description: >-
-    The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
+    description: >-
+      The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
     type: number
     format: double
     minimum: -8000.0
