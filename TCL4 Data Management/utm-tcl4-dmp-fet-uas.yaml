@@ -43,7 +43,7 @@ definitions:
       may occur at different sampling rates, you are required to use the highest sampling rate available on your data acquisition system and use a zero-order-hold for sensor data sampled at lower sampling rates.   
     required:
       - "metaData"
-      - "position"
+      - "latLonAlt"
       - "barometricAltitude_ft"
       - "externalTemperature_C"
       - "relativeHumidityPrct_nonDim"
@@ -78,11 +78,8 @@ definitions:
         maxLength: 24
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
-      position:
-        description: >-
-          This model leverages the existing Position model for sUAS.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Position'
-
+      latLonAlt:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/LatLonAlt'
       barometricAltitude_ft:
         description: >-
           Pressure based altitude of the vehicle. (ft)
