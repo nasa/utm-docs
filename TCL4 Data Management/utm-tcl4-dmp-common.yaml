@@ -37,6 +37,14 @@ info:
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 
 definitions:
+  metaDataTs:
+    type: object
+    required: ['metaData','ts']
+    properties:
+      metaData:
+        $ref: '#/definitions/metaData'
+      ts:
+        $ref: '#/definitions/timestamp'
   metaData:
     type: object
     required: ['test_card','run','call_sign','uvin','gufi','submitTime','ussName']
