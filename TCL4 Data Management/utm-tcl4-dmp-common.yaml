@@ -121,12 +121,6 @@ definitions:
     maxLength: 36
     minLength: 36
 
-  HEAD:
-    type: number
-    format: float
-    example: 15.85        
-    description: Heading in the true North reference frame. (deg)
-  
   LatLonAltTs:
     description: Latitude and Longitude should have precision of 7 or more digits
     type: object
@@ -155,6 +149,14 @@ definitions:
        $ref: '#/definitions/altitude'
         
   latitude:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -90.0
+    maximum: 90.0
+
+  latitudeTest:
     description: >-
       The numeric value of the latitude. Note that min and max values are added as a sanity check.
     type: number
