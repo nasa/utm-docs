@@ -121,6 +121,12 @@ definitions:
     maxLength: 36
     minLength: 36
 
+  HEAD:
+    type: number
+    format: float
+    example: 15.85        
+    description: Heading in the true North reference frame. (deg)
+  
   LatLonAltTs:
     description: Latitude and Longitude should have precision of 7 or more digits
     type: object
@@ -174,12 +180,6 @@ definitions:
     maximum: 100000.0
     exclusiveMaximum: false
 
-  heading_deg:
-    description: >-
-      Heading in the true North reference frame. (deg)
-    type: number
-    format: float
-    example: 15.85        
 
   groundCourse_deg:
     description: >-
