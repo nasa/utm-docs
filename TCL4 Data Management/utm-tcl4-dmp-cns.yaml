@@ -1,12 +1,11 @@
-swagger: '2.0'
 info:
   version: "v1"
-  title: UTM DMP TCL4 CNS Specification
+  title: UTM TCL4 DMP CNS Specification
   description: Data model for CNS submission. 
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
-    email: joseph.rios@nasa.gov
+    email: jaewoo.jung@nasa.gov
   license:
     name: NASA Open Source Agreement
     url: 'https://ti.arc.nasa.gov/opensource/nosa/'
@@ -36,48 +35,13 @@ info:
     SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
-paths: {}
 definitions:
   CNS:
     type: object
-    required: ['metaData','coordinates','emergencyPhase_nonDim','offNominalMitigationOutcome_nonDim','landingOutcome_nonDim','aircraftToOperatorDataTransferRate_bytesPerSec','aircraftToOperatorRoundTripLatency_ms','operatorToAircraftRoundTripLatency_ms','safeToLandLocationReach_nonDim','onboardSafeLandingCapability_nonDim','documents']
+    required: ['metaData','coordinates','emergencyPhase_nonDim','offNominalMitigationOutcome_nonDim','landingOutcome_nonDim','minimumAircraftToOperatorDataTransferRateForOperation_bytesPerSec','minimumOperatorToAircraftDataTransferRateForOperation_bytesPerSec','maximumAircraftToOperatorRoundTripLatencyTolerableForOperation_ms','maximumOperatorToAircraftRoundTripLatencyTolerableForOperation_ms','safeToLandLocationReach_nonDim','onboardSafeLandingCapability_nonDim']
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      documents:
-        description: "Document identifiers required by CNS.  Identify the name of each file included in this transmission"
-        type: object
-        properties:
-          UA_to_Operator_C2_System_Description:
-            type: string
-            description: "Document provided by Operator to describe C2 system used for UA to operator communications (telemetry). Must describe cyber physical security arrangement. For example, mechanisms used to authenticate and check integrity of telemetry information. Must include performance need in terms of the minimum data transfer rate and the maximum tolerable latency for each scenario. Must describe physical system that is onboard UA, used by the operator, frequencies and bandwidth used for the link. For network enabled link (e.g., LTE, satellite comm. service, etc.) must describe all the services used to establish the link, and switching mechanism when multiple services are used."
-          Operator_to_UA_C2_System_Description:
-            type: string
-            description: "Document provided by Operator to describe C2 system used for operator to UA communications (command/control upload). Must describe cyber physical security arrangement. For example, mechanisms used to authenticate and check integrity of command/control information. Must describe steps or processes used to verify UA's proper execution of sent command/control information. Must include performance need in terms of the minimum data transfer rate and the maximum tolerable latency for each scenario. Must describe physical system that is onboard UA, used by the operator, frequencies and bandwidth used for the link. For network enabled link (e.g., LTE, satellite comm. service, etc.) must describe all the services used to establish the link, and switching mechanism when multiple services are used."
-          Method_To_Detect_UA_to_Operator_Loss_Of_C2_Link:
-            type: string
-            description: "Document provided by Operator to describe criteria to detect UA to Operator Loss of C2 Link.  Must describe variables used in the criteria and a mechanism used to monitor the variables. Must quantify threshold values used for detection (e.g., telemetry not received for more than 5 seconds)"
-          Loss_Of_UA_to_Operator_C2_Link_Contingency_Steps:
-            type: string
-            description: "Document provided by Operator to describe contingency mitigation steps. These steps should reflect mitigation flowchart provided in C&N Procedures (Reference 9 of SOW). Also, the described steps should match ones that will be included in ContingencyPlan data model. Must describe what UA will do when a loss of UA to Operator C2 link condition is detected."
-          Method_To_Detect_Operator_to_UA_Loss_Of_C2_Link:           
-            type: string
-            description: "Document provided by Operator to describe criteria to detect Operator to UA Loss of C2 Link.  Must describe variables used in the criteria and a mechanism used to monitor the variables. Must quantify threshold values used for detection (e.g., command/control upload not verified for proper execution for more than 10 seconds)"
-          Loss_Of_Operator_to_UA_C2_Link_Contingency_Steps:
-            type: string
-            description: "Document provided by Operator to describe contingency mitigation steps.These steps should reflect mitigation flowchart provided in C&N Procedures (Reference 9 of SOW). Also, the described steps should match ones that will be included in ContingencyPlan data model. Must describe what Operator will do when a loss of Operator to UA C2 link condition is detected."
-          Vehicle_Navigation_System_Description:
-            type: string
-            description: "Document provided by Operator to describe UA's navigation system. Must describe all services that the UA's navigation system depends on (e.g., GPS L1, L2, WAAS, LAAS, navigation beacon, etc.). Must describe source of vertical position. When non-traditional ANSP service is used, describe the service in detail (e.g., navigation beacons from Acme co. at location xyz). When UA is equipped with local area navigation capability (e.g., lidar), describe the system in detail."
-          Truth_Position_System_Description:
-            type: string
-            description: "Document that describes truth position system architecture, functioning and observations along with manufacturer provided performance specifications. Describe truth system arrangement at the test range and show lateral and vertical coverage."
-          Method_To_Detect_Loss_Of_Vehicle_Navigation:
-            type: string
-            description: "Document provided by Operator to describe criteria to detect Loss of Vehicle Navigation. Must describe variables used in the criteria and a mechanism used to monitor the variables. Must quantify threshold values used for detection (e.g., lateral navigation error more than 30 feet for longer than 5 seconds)."
-          Loss_Of_Vehicle_Navigation_Contingency_Steps:
-            type: string
-            description: "Document provided by Operator to describe mitigation steps. These steps should reflect mitigation flowchart provided in C&N Procedures (Reference 9 of SOW). Also, the described steps should match ones that will be included in ContingencyPlan data model. Must describe what UA will do when Loss of Navigation is detected. Must describe what operator will do when Loss of Navigation is detected."
       coordinates:
         description: "XYZ-Coordinate truth position of UA (ECEF: Earth Centered Earth\
           \ Fixed, inch-level resolution);\nas reported by the Ground Truth System\
@@ -85,36 +49,44 @@ definitions:
           Can be reported by the UAS but has to be independent of UAS's primary navigation\
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
           \ at least least 2 decimal places of precision. (ft)"
-        $ref: "#/definitions/UasTruthXYZEcefCoordinates_ft"
+        type: array
+        items: 
+          $ref: "#/definitions/UasTruthXYZEcefCoordinates_ft"
       emergencyPhase_nonDim:
         description: "During operation, operator must monitor UA operation according\
           \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
           \ and report appropriate emergency phase with UTC timestamp as enum"
-        $ref: "#/definitions/TimestampedEmergencyPhase_nonDim_Enum"
+        type: array
+        items: 
+          $ref: "#/definitions/TimestampedEmergencyPhase_nonDim_Enum"
       offNominalMitigationOutcome_nonDim:
         description: "Outcome of offnominal events like UA to Operator C2 Link Loss,\
           \ Operator to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported\
           \ as enum"
-        $ref: "#/definitions/TimestampedOffNominalMitigationOutcome_nonDim_Enum"
+        type: array
+        items: 
+          $ref: "#/definitions/TimestampedOffNominalMitigationOutcome_nonDim_Enum"
       landingOutcome_nonDim:
         description: "Report this for every landing as enum, landing within contingency_polygon\
           \ is also considered as safe landing"
-        $ref: "#/definitions/TimestampedLandingOutcome_nonDim_Enum"
+        type: array
+        items: 
+          $ref: "#/definitions/TimestampedLandingOutcome_nonDim_Enum"
+      minimumAircraftToOperatorDataTransferRateForOperation_bytesPerSec:
+        description: "Report the minimum aircraft to operator data transfer rate (in Bytes per second) necessary to execute the operation. Consider that data should be authenticated and checked for integrity. (bytesPerSec)"
+        type: integer
 
+      minimumOperatorToAircraftDataTransferRateForOperation_bytesPerSec:
+        description: "Report the minimum aircraft to operator data transfer rate (in Bytes per second) necessary to execute the operation. Consider that data should be authenticated and checked for integrity. (bytesPerSec)"
+        type: integer
 
-      aircraftToOperatorDataTransferRate_bytesPerSec:
-        description: "Report aircraft to operator data transfer rate (in Bytes per\
-        \ second), data must be authenticated and checked for integrity. (bytesPerSec)"
-        $ref: "#/definitions/TimestampedInteger"
-          
-      aircraftToOperatorRoundTripLatency_ms:
-        description: "Report Round-trip latency from source to destination, in millisecond\
-        \ (ms)"
-        $ref: "#/definitions/TimestampedInteger"
-      operatorToAircraftRoundTripLatency_ms:
-        description: "Report Round-trip latency from source to destination, in millisecond\
-          \ (ms)"
-        $ref: "#/definitions/TimestampedInteger"
+      maximumAircraftToOperatorRoundTripLatencyTolerableForOperation_ms:
+        description: "Report the maximum tolerable Round-trip latency from source to destination to execute the operation, in millisecond (ms)"
+        type: number
+
+      maximumOperatorToAircraftRoundTripLatencyTolerableForOperation_ms:
+        description: "Report the maximum tolerable Round-trip latency from source to destination to execute the operation, in millisecond (ms)"
+        type: number
       safeToLandLocationReach_nonDim:
         description: "Operator to select one of the one of the enum values to indicate\
         \ whether UA can reach\ndesignated safe-to-reach location.\nFor example,\
@@ -281,18 +253,8 @@ definitions:
       estimatedError95Prct_in:
         type: "number"
         format: "double"
-        description: "Z-Coordinate truth position of UA (ECEF: Earth Centered Earth\
-          \ Fixed, inch-level resolution); as reported by the Ground Truth System\
-          \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\
-          \ Can be reported by the UAS but has to be independent of UAS's primary\
-          \ navigation system, use of separate RTK system is allowed (UTC time stamped).\
-          \ Report at least least 2 decimal places of precision. (ft)"
+        description: "Estimated truth system position (ECEF) error at time of measurement (95 percentile, inches). UTC time stamped. (in)"
         minimum: 0
-    description: "Coordinate truth position of UA (ECEF: Earth Centered Earth Fixed,\
-      \ inch-level resolution);\nas reported by the Ground Truth System (Truth Reference\
-      \ System, e.g. optical, radar, LiDAR, nav. beacon, etc).\nCan be reported by\
-      \ the UAS but has to be independent of UAS's primary navigation system."
-
   TimestampedInteger:
     type: "object"
     required:
