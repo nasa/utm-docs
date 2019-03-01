@@ -173,3 +173,46 @@ definitions:
     exclusiveMinimum: false
     maximum: 100000.0
     exclusiveMaximum: false
+
+  heading_deg:
+    description: >-
+      Heading in the true North reference frame. (deg)
+    type: number
+    format: float
+    example: 15.85        
+
+  groundCourse_deg:
+    description: >-
+      Ground Course (also known as track) in the true North reference frame. (deg)
+    type: number
+    format: float
+    example: 15.85        
+
+  groundSpeed_ftPerSec:
+    description: >-
+      Ground Speed. (ft/s)
+    type: number
+    format: float
+    example: 15.85        
+
+  hdop_nonDim:
+    description: >-
+      Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
+    type: number
+    format: integer
+    example: 3       
+        
+  vdop_nonDim:
+    description: >-
+      VDOP: Vertical dilution of precision of GPS constellation.
+    type: number
+    format: integer
+    example: 15.85        
+                
+  numGpsSat_nonDim:
+    description: >-
+      Number of GPS satellites being tracked by GPS receiver.
+    type: number
+    format: integer
+    example: 5       
+    
