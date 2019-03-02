@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   description: >-
-    "TCL4 will require the submission of vehicle-related data including from sensors mounted on the vehicle .  These models are referenced in the Data Management Plan (DMP), so this API and associated models are referred to using the acronym 'DMP'"
+    "TCL4 requires the submission of vehicle-centric data including from specialized sensors mounted on the vehicle which may collect data at various sampling rates.  These models are referenced in the Data Management Plan (DMP)."
   version: 'v1.0'
   title: "API endpoints for UTM TCL DMP vehicles data collection"
   termsOfService: >
@@ -92,7 +92,6 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
-  '/fet-uas/':
     delete:
       summary: Delete a previously uploaded instance of FlightEssentialTelemetryUas recorded during an operation for specified vehicle in metadata
       security:
@@ -168,7 +167,6 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
-  '/fet-crewed/':
     delete:
       summary: Delete a previously uploaded instance of FlightEssentialTelemetryUas recorded during an operation for specified vehicle in metadata
       security:
@@ -204,5 +202,4 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
-              
-              
+           
