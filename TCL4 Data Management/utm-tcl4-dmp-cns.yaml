@@ -36,19 +36,6 @@ info:
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 definitions:
-  Coordinates:
-    type: object
-    required:
-      - "metaData"
-      - "coordinatesTsArray"
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      coordinatesTsArray:
-        type: array   
-        items:
-          $ref: "#/definitions/CoordinatesTs"
-
   CnsPreRun:
     type: object
     required:
@@ -73,6 +60,18 @@ definitions:
         description: "Report the maximum tolerable Round-trip latency from source to destination to execute the operation, in millisecond (ms)"
         type: number
 
+  Coordinates:
+    type: object
+    required:
+      - "metaData"
+      - "coordinatesTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      coordinatesTsArray:
+        type: array   
+        items:
+          $ref: "#/definitions/CoordinatesTs"
   CoordinatesTs:
     type: "object"
     required:
@@ -123,25 +122,40 @@ definitions:
         format: "double"
         description: "Estimated truth system position (ECEF) error at time of measurement (95 percentile, inches). UTC time stamped. (in)"
         minimum: 0
+
         
   EmergencyPhase:
     type: object
     required:
       - "metaData"
-      - "emergencyPhase_nonDim"
-      - "timestamp"
+      - "emergencyPhaseTsArray"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      emergencyPhase_nonDim:
+      
+      emergencyPhaseTsArray:
         description: "During operation, operator must monitor UA operation according\
           \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
           \ and report appropriate emergency phase with UTC timestamp as enum"
-        $ref: "#/definitions/EmergencyPhase_nonDim_Enum"
+        $ref: "#/definitions/EmergencyPhaseTsArray"
 
-  EmergencyPhase_nonDim_Enum:
+  EmergencyPhaseTsArray:
+    type: array
+    items:
+      $ref: "#/definitions/EmergencyPhaseTs"
+
+  EmergencyPhaseTs:
+    type: object
+    required:
+      - "timestamp"
+      - "emergencyPhaseValue"
+    properties:
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      emergencyPhaseValue:  
+        $ref: '#/definitions/EmergencyPhaseValue'
+        
+  EmergencyPhaseValue:
     type: string
     enum:
       - "Nominal Operation"
