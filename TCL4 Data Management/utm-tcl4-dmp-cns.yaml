@@ -124,7 +124,7 @@ definitions:
         description: "Estimated truth system position (ECEF) error at time of measurement (95 percentile, inches). UTC time stamped. (in)"
         minimum: 0
         
-  EmergencyPhase_nonDim:
+  EmergencyPhase:
     type: object
     required:
       - "metaData"
