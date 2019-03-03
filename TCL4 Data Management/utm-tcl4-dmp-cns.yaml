@@ -144,7 +144,7 @@ definitions:
   EmergencyPhase_nonDim_Enum:
     type: string
     enum:
-      - "None"
+      - "Nominal Operation"
       - "Uncertainty"
       - "Alert"
       - "Distress"
