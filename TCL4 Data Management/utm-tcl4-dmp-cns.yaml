@@ -167,28 +167,37 @@ definitions:
     type: object
     required:
       - "metaData"
-      - "offNominalMitigationOutcome_nonDim"
-      - "timestamp"
+      - "offNominalMitigationOutcomeTsArray"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      offNominalMitigationOutcome_nonDim:
+      offNominalMitigationOutcomeTsArray:
         description: "Outcome of offnominal events like UA to Operator C2 Link Loss,\
           \ Operator to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported\
           \ as enum"
-        $ref: "#/definitions/OffNominalMitigationOutcome_nonDim_Enum"
-
-  OffNominalMitigationOutcome_nonDim_Enum:
-    type: "string"
-    enum:
-      - "Resolved_within_operation_volume"
-      - "Resolved_but_triggered_nonconforming_state"
-      - "Resolved_but_triggered_rogue_state"
-      - "Unresolved_vehicle_flew_away"
-      - "Unresolved_vehicle_crashed_to_ground"
-      - "Unresolved_vehicle_collided_with_another_vehicle"
-      - "Unresolved_vehicle_collided_with_building"
+        $ref: "#/definitions/OffNominalMitigationOutcomeTsArray"
+  OffNominalMitigationOutcomeTsArray:
+    type: array
+    items:
+      $ref: "#/definitions/OffNominalMitigationOutcomeTs"
+      
+  OffNominalMitigationOutcomeTs:
+    type: object
+    required:
+      - timestamp
+      - offNominalMitigationOutcomeValue
+    properties:
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      offNominalMitigationOutcomeValue: 
+        type: "string"
+        enum:
+          - "Resolved_within_operation_volume"
+          - "Resolved_but_triggered_nonconforming_state"
+          - "Resolved_but_triggered_rogue_state"
+          - "Unresolved_vehicle_flew_away"
+          - "Unresolved_vehicle_crashed_to_ground"
+          - "Unresolved_vehicle_collided_with_another_vehicle"
+          - "Unresolved_vehicle_collided_with_building"
 
   
