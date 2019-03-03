@@ -205,7 +205,7 @@ paths:
 
   '/cns-emergencyPhase':
     post:
-      summary: Upload a single instance of Emergency Phase model
+      summary: Upload a single instance of EmergencyPhase model
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -213,7 +213,7 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: Coordinates
+          name: EmergencyPhase
           description: The EmergencyPhase model 
           required: true
           schema:

@@ -129,31 +129,23 @@ definitions:
     required:
       - "metaData"
       - "emergencyPhase_nonDim"
+      - "timestamp"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       emergencyPhase_nonDim:
         description: "During operation, operator must monitor UA operation according\
           \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
           \ and report appropriate emergency phase with UTC timestamp as enum"
-        $ref: "#/definitions/TimestampedEmergencyPhase_nonDim_Enum"
+        $ref: "#/definitions/EmergencyPhase_nonDim_Enum"
 
-  TimestampedEmergencyPhase_nonDim_Enum:
-    type: "object"
-    required:
-    - "timestamp"
-    - "value"
-    properties:
-      timestamp:
-        type: "string"
-        format: "date-time"
-        description: "UTC time stamp"
-      value:
-        type: "string"
-        description: "value"
-        enum:
-        - "None"
-        - "Uncertainty"
-        - "Alert"
-        - "Distress"
+  EmergencyPhase_nonDim_Enum:
+    type: string
+    enum:
+      - "None"
+      - "Uncertainty"
+      - "Alert"
+      - "Distress"
 
