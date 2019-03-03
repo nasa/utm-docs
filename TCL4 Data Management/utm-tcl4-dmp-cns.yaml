@@ -40,15 +40,14 @@ definitions:
     type: object
     required:
       - "metaData"
-      - "coordinates"
-      - "timestamp"
+      - "coordinatesTsArray"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      coordinates:
-        $ref: "#/definitions/UasTruthXYZEcefCoordinates_ft"
+      coordinatesTsArray:
+        type: array   
+        items:
+          $ref: "#/definitions/CoordinatesTs"
 
   CnsPreRun:
     type: object
@@ -74,12 +73,13 @@ definitions:
         description: "Report the maximum tolerable Round-trip latency from source to destination to execute the operation, in millisecond (ms)"
         type: number
 
-  UasTruthXYZEcefCoordinates_ft:
+  CoordinatesTs:
     type: "object"
     required:
       - "xCoordinate_ft"
       - "yCoordinate_ft"
       - "zCoordinate_ft"
+      - "timestamp"
     properties:
       xCoordinate_ft:
         description: "X-Coordinate truth position of UA (ECEF: Earth Centered Earth\
@@ -105,8 +105,8 @@ definitions:
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
           \ at least least 2 decimal places of precision. (ft)"
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
-    description: "Provides an encapsulation for timestamped 3D cartesian coordinates\
-      \ with the corresponding levels of errors."
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   UasTruthEcefCoordinate_ft:
     type: "object"
@@ -149,3 +149,32 @@ definitions:
       - "Alert"
       - "Distress"
 
+  OffNominalMitigationOutcome:
+    type: object
+    required:
+      - "metaData"
+      - "offNominalMitigationOutcome_nonDim"
+      - "timestamp"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      offNominalMitigationOutcome_nonDim:
+        description: "Outcome of offnominal events like UA to Operator C2 Link Loss,\
+          \ Operator to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported\
+          \ as enum"
+        $ref: "#/definitions/OffNominalMitigationOutcome_nonDim_Enum"
+
+  OffNominalMitigationOutcome_nonDim_Enum:
+    type: "string"
+    enum:
+      - "Resolved_within_operation_volume"
+      - "Resolved_but_triggered_nonconforming_state"
+      - "Resolved_but_triggered_rogue_state"
+      - "Unresolved_vehicle_flew_away"
+      - "Unresolved_vehicle_crashed_to_ground"
+      - "Unresolved_vehicle_collided_with_another_vehicle"
+      - "Unresolved_vehicle_collided_with_building"
+
+  
