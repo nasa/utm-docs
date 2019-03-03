@@ -143,7 +143,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/CoordinatesTsArray
+              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/Coordinates
       responses:
         '200':
           description: Data received. No content returned.
