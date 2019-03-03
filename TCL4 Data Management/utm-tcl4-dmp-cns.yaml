@@ -200,4 +200,38 @@ definitions:
           - "Unresolved_vehicle_collided_with_another_vehicle"
           - "Unresolved_vehicle_collided_with_building"
 
+
+  LandingOutcome:
+    type: object
+    required:
+      - "metaData"
+      - "landingOutcomeTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      landingOutcomeTsArray:
+        $ref: "#/definitions/LandingOutcomeTsArray"
+  LandingOutcomeTsArray:
+    type: array
+    items:
+      $ref: "#/definitions/LandingOutcomeTs"
+      
+  LandingOutcomeTs:
+    type: object
+    required:
+      - timestamp
+      - landingOutcomeValue
+    properties:
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      landingOutcomeValue: 
+        type: "string"
+        description: "Report this for every landing as enum, landing within contingency_polygon\
+          \ is also considered as safe landing"
+        enum:
+        - "Safe_landing_within_operation_volume"
+        - "Safe_landing_outside_of_operation_volume"
+        - "Unsafe_landing_within_operation_volume"
+        - "Unsafe_landing_outside_of_operation_volume"
+          
   
