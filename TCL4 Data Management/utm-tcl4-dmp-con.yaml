@@ -150,7 +150,51 @@ definitions:
       landingOffset:
         type: number
 #        definition: "Lateral distance between planned landing point and actual landing point using vehicle independent GNSS or non-GNSS systems. Could use tape to measure the center-to-center distance between the points on the ground. Report it as a list of all landing offset(s) (ft)"
-          
+
+  ConWxOperatingPointData:
+    type: object
+    required: 
+      - "metaData"
+      - "wxOperatingPointTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      wxOperatingPointTsArray:
+        $ref: '#/definitions/WxOperatingPointTsArray'
+
+  WxOperatingPointTsArray:
+    description: >-
+           Temperature, air pressure (inHg), windspeed (ft/sec), wind direction, location, and timestamp associated with the measurement
+    type: array
+    items:
+      type: object
+      required:
+        - 'timestamp'
+        - 'temperature'
+        - 'pressure'
+        - 'windSpeed'
+        - 'windDir'
+        - 'location'
+      properties:
+        timestamp:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
+        temperature:
+          type: number
+          format: float
+        pressure:
+          type: number
+          format: float
+        windSpeed:
+          type: number
+          format: float
+        windDir:
+          type: number
+          minimum:  0
+          maximum:  359
+        location:
+          $ref: '#/definitions/LatLonAlt'
+        
+        
 # shared definitions         
   latitude:
     description: >-
