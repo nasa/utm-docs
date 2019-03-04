@@ -233,5 +233,36 @@ definitions:
         - "Safe_landing_outside_of_operation_volume"
         - "Unsafe_landing_within_operation_volume"
         - "Unsafe_landing_outside_of_operation_volume"
-          
+
+
+  SafeToLandLocationReach:
+    type: object
+    required:
+      - "metaData"
+      - "safetToLandLocationReachTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      safetToLandLocationReachTsArray:
+        $ref: "#/definitions/SafeToLandLocationReachTsArray"
+  SafeToLandLocationReachTsArray:
+    type: array
+    items:
+      $ref: "#/definitions/SafeToLandLocationReachTs"
+      
+  SafeToLandLocationReachTs:
+    type: object
+    required:
+      - timestamp
+      - safeToLandLocationReachValue
+    properties:
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      safeToLandLocationReachValue: 
+        type: "string"
+        description: "Operator to select one of the following enum to indicate whether UA can reach designated safe-to-reach location: For example, if battery is too low or wind is too strong for UA to reach safe to land location, (cannot reach safe to land location) should be selected."
+        enum:
+        - "can reach safe to land location"
+        - "cannot reach safe to land location"
+        
   
