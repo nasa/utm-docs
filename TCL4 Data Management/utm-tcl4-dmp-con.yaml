@@ -74,7 +74,37 @@ definitions:
       distressBroadcastRate:
          $ref: '#/definitions/distressBroadcastRate'
 
-  # shared definitions         
+  ConActualBvlosLanding:
+    type: object
+    required: 
+      - "metaData"
+      - "actualBvlosLandingPoints"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      actualBvlosLandingPoints:
+        $ref: '#/definitions/actualBvlosLandingPoints'
+         
+  actualBvlosLandingPoints:
+    description: >-
+      array list of actualBvlosLandingPoint_deg and actualBvlosLandingPointElev_ft
+    type: array
+    items:
+      type: object
+      required:
+        - ts
+        - actualBvlosLandingPoint
+      properties:
+        ts:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        actualBvlosLandingPoint:
+          description: >-
+            Lat/Lon/Alt list of planned BVLOS landing point(s).
+          $ref: '#/definitions/LatLonAlt'
+          
+
+
+# shared definitions         
   latitude:
     description: >-
       The numeric value of the latitude. Note that min and max values are added as a sanity check.
@@ -122,6 +152,8 @@ definitions:
         $ref: '#/definitions/longitude'
       alt:
        $ref: '#/definitions/altitude'
+
+
   LatLonList:
     description: >-
      array of LatLon object 
