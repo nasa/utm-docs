@@ -1,7 +1,7 @@
 info:
   version: "v1.0"
   title: UTM DMP TCL4 CNS
-  description: Data model for CNS submission. 
+  description: Data model for CNS submission.
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
@@ -48,17 +48,35 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       minimumAircraftToOperatorDataTransferRateForOperation_bytesPerSec:
-        description: "Report the minimum aircraft to operator data transfer rate (in Bytes per second) necessary to execute the operation. Consider that data should be authenticated and checked for integrity. (bytesPerSec)"
+        description: >-
+          "Report the minimum aircraft to operator data transfer rate (in Bytes
+          per second) necessary to execute the operation. Consider that data
+          should be authenticated and checked for integrity. (bytesPerSec)"
         type: integer
+        format: int32
+        minimum: 0
       minimumOperatorToAircraftDataTransferRateForOperation_bytesPerSec:
-        description: "Report the minimum aircraft to operator data transfer rate (in Bytes per second) necessary to execute the operation. Consider that data should be authenticated and checked for integrity. (bytesPerSec)"
+        description: >-
+          "Report the minimum aircraft to operator data transfer rate (in Bytes
+          per second) necessary to execute the operation. Consider that data
+          should be authenticated and checked for integrity. (bytesPerSec)"
         type: integer
+        format: int32
+        minimum: 0
       maximumAircraftToOperatorRoundTripLatencyTolerableForOperation_ms:
-        description: "Report the maximum tolerable Round-trip latency from source to destination to execute the operation, in millisecond (ms)"
-        type: number
+        description: >-
+          "Report the maximum tolerable Round-trip latency from source to
+          destination to execute the operation, in millisecond (ms)"
+        type: integer
+        format: int32
+        minimum: 0
       maximumOperatorToAircraftRoundTripLatencyTolerableForOperation_ms:
-        description: "Report the maximum tolerable Round-trip latency from source to destination to execute the operation, in millisecond (ms)"
+        description: >-
+          "Report the maximum tolerable Round-trip latency from source to
+          destination to execute the operation, in millisecond (ms)"
         type: number
+        format: int32
+        minimum: 0
 
   Coordinates:
     type: object
@@ -69,9 +87,10 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       coordinatesTsArray:
-        type: array   
+        type: array
         items:
           $ref: "#/definitions/CoordinatesTs"
+        minItems: 1
   CoordinatesTs:
     type: "object"
     required:
@@ -123,7 +142,7 @@ definitions:
         description: "Estimated truth system position (ECEF) error at time of measurement (95 percentile, inches). UTC time stamped. (in)"
         minimum: 0
 
-        
+
   EmergencyPhase:
     type: object
     required:
@@ -132,7 +151,7 @@ definitions:
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      
+
       emergencyPhaseTsArray:
         description: "During operation, operator must monitor UA operation according\
           \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
@@ -152,9 +171,9 @@ definitions:
     properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      emergencyPhaseValue:  
+      emergencyPhaseValue:
         $ref: '#/definitions/EmergencyPhaseValue'
-        
+
   EmergencyPhaseValue:
     type: string
     enum:
@@ -180,7 +199,7 @@ definitions:
     type: array
     items:
       $ref: "#/definitions/OffNominalMitigationOutcomeTs"
-      
+
   OffNominalMitigationOutcomeTs:
     type: object
     required:
@@ -189,7 +208,7 @@ definitions:
     properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      offNominalMitigationOutcomeValue: 
+      offNominalMitigationOutcomeValue:
         type: "string"
         enum:
           - "Resolved_within_operation_volume"
@@ -215,7 +234,7 @@ definitions:
     type: array
     items:
       $ref: "#/definitions/LandingOutcomeTs"
-      
+
   LandingOutcomeTs:
     type: object
     required:
@@ -224,7 +243,7 @@ definitions:
     properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      landingOutcomeValue: 
+      landingOutcomeValue:
         type: "string"
         description: "Report this for every landing as enum, landing within contingency_polygon\
           \ is also considered as safe landing"
@@ -249,7 +268,7 @@ definitions:
     type: array
     items:
       $ref: "#/definitions/SafeToLandLocationReachTs"
-      
+
   SafeToLandLocationReachTs:
     type: object
     required:
@@ -258,14 +277,14 @@ definitions:
     properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      safeToLandLocationReachValue: 
+      safeToLandLocationReachValue:
         type: "string"
         description: "Operator to select one of the following enum to indicate whether UA can reach designated safe-to-reach location: For example, if battery is too low or wind is too strong for UA to reach safe to land location, (cannot reach safe to land location) should be selected."
         enum:
         - "can reach safe to land location"
         - "cannot reach safe to land location"
-        
-  
+
+
   OnBoardSafeLandingCapability:
     type: object
     required:
@@ -280,7 +299,7 @@ definitions:
     type: array
     items:
       $ref: "#/definitions/OnBoardSafeLandingCapabilityTs"
-      
+
   OnBoardSafeLandingCapabilityTs:
     type: object
     required:
@@ -296,5 +315,3 @@ definitions:
         - "onboardSafeLandingSystemFunctioningNormally"
         - "onboardSafeLandingSystemIsCompromised"
         - "uaNotEquippedWithOnboardSafeLandingSystem"
-        
-  
