@@ -78,32 +78,38 @@ definitions:
     type: object
     required: 
       - "metaData"
-      - "actualBvlosLandingPoints"
+      - "actualBvlosLandingPointTsArray"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      actualBvlosLandingPoints:
-        $ref: '#/definitions/actualBvlosLandingPoints'
+      actualBvlosLandingPointTsArray:
+        $ref: '#/definitions/ActualBvlosLandingPointTsArray'
          
-  actualBvlosLandingPoints:
+  ActualBvlosLandingPointTsArray:
     description: >-
       array list of actualBvlosLandingPoint_deg and actualBvlosLandingPointElev_ft
     type: array
     items:
       type: object
       required:
-        - ts
-        - actualBvlosLandingPoint
+        - actualBvlosLandingPointTs
       properties:
-        ts:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-        actualBvlosLandingPoint:
+        actualBvlosLandingPointTs:
           description: >-
             Lat/Lon/Alt list of planned BVLOS landing point(s).
-          $ref: '#/definitions/LatLonAlt'
+          $ref: '#/definitions/ActualBvlosLandingPointTs'
           
-
-
+  ActualBvlosLandingPointTs:
+    type: object
+    required:
+      - timestamp
+      - actualBvlosLandingPoint
+    properties: 
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      actualBvlosLandingPoint:
+        $ref: '#/definitions/LatLonAlt'
+          
 # shared definitions         
   latitude:
     description: >-
