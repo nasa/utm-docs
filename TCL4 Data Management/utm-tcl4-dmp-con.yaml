@@ -75,40 +75,81 @@ definitions:
          $ref: '#/definitions/distressBroadcastRate'
 
   ConActualBvlosLanding:
+    description: "Array of actual BVLOS landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as BVLOS vehicle lands."
     type: object
     required: 
       - "metaData"
-      - "actualBvlosLandingPointTsArray"
+      - "landingPointTsArray"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      actualBvlosLandingPointTsArray:
-        $ref: '#/definitions/ActualBvlosLandingPointTsArray'
+      landingPointTsArray:
+        $ref: '#/definitions/LandingPointTsArray'
+
+
+  ConActualVlosLanding:
+    description: "Array of actual VLOS landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as VLOS vehicle lands."
+    type: object
+    required: 
+      - "metaData"
+      - "landingPointTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      landingPointTsArray:
+        $ref: '#/definitions/LandingPointTsArray'
+
+  ConActualRooftopLanding:
+    description: "Array of actual Rooftop landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as VLOS vehicle lands."
+    type: object
+    required: 
+      - "metaData"
+      - "landingPointTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      landingPointTsArray:
+        $ref: '#/definitions/LandingPointTsArray'
+        
+
+        
          
-  ActualBvlosLandingPointTsArray:
+  LandingPointTsArray:
     description: >-
-      array list of actualBvlosLandingPoint_deg and actualBvlosLandingPointElev_ft
+      array list of landing points and time
     type: array
     items:
       type: object
       required:
-        - actualBvlosLandingPointTs
+        - landingPointTs
       properties:
-        actualBvlosLandingPointTs:
+        landingPointTs:
           description: >-
             Lat/Lon/Alt list of planned BVLOS landing point(s).
-          $ref: '#/definitions/ActualBvlosLandingPointTs'
+          $ref: '#/definitions/LandingPointTs'
           
-  ActualBvlosLandingPointTs:
+  LandingPointTs:
     type: object
     required:
       - timestamp
-      - actualBvlosLandingPoint
+      - landingPoint
     properties: 
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      actualBvlosLandingPoint:
+      landingPoint:
+        $ref: '#/definitions/LandingPoint'
+
+  LandingPoint:
+    type: object
+    required:
+      - latLonAlt
+      - landingOffset
+    properties:
+      latLonAlt:
         $ref: '#/definitions/LatLonAlt'
+      landingOffset:
+        type: number
+#        definition: "Lateral distance between planned landing point and actual landing point using vehicle independent GNSS or non-GNSS systems. Could use tape to measure the center-to-center distance between the points on the ground. Report it as a list of all landing offset(s) (ft)"
           
 # shared definitions         
   latitude:
