@@ -266,3 +266,35 @@ definitions:
         - "cannot reach safe to land location"
         
   
+  OnBoardSafeLandingCapability:
+    type: object
+    required:
+      - "metaData"
+      - "onBoardSafeLandingCapabilityTsArray"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      onBoardSafeLandingCapabilityTsArray:
+        $ref: "#/definitions/OnBoardSafeLandingCapabilityTsArray"
+  OnBoardSafeLandingCapabilityTsArray:
+    type: array
+    items:
+      $ref: "#/definitions/OnBoardSafeLandingCapabilityTs"
+      
+  OnBoardSafeLandingCapabilityTs:
+    type: object
+    required:
+      - timestamp
+      - onBoardSafeLandingCapabilityTs
+    properties:
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      onBoardSafeLandingCapabilityTs:
+        type: "string"
+        description: "Operator to select one of the following enum to indicate whether UA's onboard safe landing capability (i.e. onboard system that is capable of identifying safe to land location and land while avoiding people and property, such as safe2ditch) is working properly or not.  For example, if the onboard safe landing system uses optical sensor and a bug has rendered it non-usable, (onboard safe landing system is compromised) should be selected."
+        enum:
+        - "onboardSafeLandingSystemFunctioningNormally"
+        - "onboardSafeLandingSystemIsCompromised"
+        - "uaNotEquippedWithOnboardSafeLandingSystem"
+        
+  
