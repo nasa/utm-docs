@@ -1,0 +1,284 @@
+info:
+  version: "v1.0"
+  title: UTM DMP TCL4 CON
+  description: Data model for CON submission. 
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: jaewoo.jung@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
+definitions:
+  ConPreRun:
+    type: object
+    required:
+      - "metaData"
+      - "flightTestRangePolygonPoints"
+      - "plannedBvlosLandingPoints"
+      - "plannedVlosLandingPoints"
+      - "plannedRooftopLandingPoints"
+      - "safeLandingLocations"
+      - "safeLandingLocationPolygonPoint"
+      - "rpicLocations"
+      - "wxOperatingPoints"
+      - "cellCoverageArea"
+      - "distressBroadcastRate"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      flightTestRangePolygonPoints:
+        $ref: '#/definitions/flightTestRangePolygonPoints'
+      plannedBvlosLandingPoints:
+        $ref: '#/definitions/plannedBvlosLandingPoints'
+      plannedVlosLandingPoints:
+        $ref: '#/definitions/plannedVlosLandingPoints'
+      plannedRooftopLandingPoints:
+        $ref: '#/definitions/plannedRooftopLandingPoints'
+      safeLandingLocations:
+        $ref: '#/definitions/safeLandingLocations'
+      safeLandingLocationPolygonPoint:
+        $ref: '#/definitions/safeLandingLocationPolygonPoint'
+      rpicLocations:
+        $ref: '#/definitions/rpicLocations'
+      wxOperatingPoints:
+        $ref: '#/definitions/wxOperatingPoints'
+      cellCoverageArea:
+         $ref: '#/definitions/cellCoverageArea'
+      distressBroadcastRate:
+         $ref: '#/definitions/distressBroadcastRate'
+
+  # shared definitions         
+  latitude:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -90.0
+    maximum: 90.0
+  longitude:
+    description: >-
+      The numeric value of the longitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -180.0
+    maximum: 180.0
+  altitude:
+   description: >-
+    The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
+    type: number
+    format: double
+    minimum: -8000.0
+    exclusiveMinimum: false
+    maximum: 100000.0
+    exclusiveMaximum: false
+  
+  LatLon:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required: ['lat','lon']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+       
+  LatLonAlt:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits. position WGS84 altitude. (ft)
+    type: object
+    required: ['lat','lon','alt']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      alt:
+       $ref: '#/definitions/altitude'
+  LatLonList:
+    description: >-
+     array of LatLon object 
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/LatLon'
+      
+      
+  AltitudeList:
+    description: >-
+     array of altitude object. Expressed in WGS84 standard. (ft)
+    # positive and negative ints and floats (feet)
+    type: array
+    minItems: 1
+    items:
+      $ref: '#/definitions/altitude'
+    example: [300,250,350,300.2,.345,-123,0.0]
+    
+  flightTestRangePolygonPoints:
+    description: >-
+      array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
+    type: array
+    items:
+      type: object
+      required: ['flightTestRangePolygonPoint_deg','flightTestRangePolygonPointElev_ft']
+      properties:
+        flightTestRangePolygonPoint_deg:
+          description: >-
+              Lat/Lon list of the vertices of the polygon that defines the area of the test range.
+          $ref: '#/definitions/LatLonList'    
+        flightTestRangePolygonPointElev_ft: 
+           description: >-
+              List of elevations of each one of the vertices of the polygon that defines the area of the test range
+           $ref: '#/definitions/AltitudeList'
+  plannedBvlosLandingPoints:
+    description: >-
+      array list of plannedBvlosLandingPoint_deg and plannedBvlosLandingPointElev_ft
+    type: array
+    items:
+      type: object
+      required: ['plannedBvlosLandingPoint_deg','plannedBvlosLandingPointAlt_ft']
+      properties:
+        plannedBvlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned BVLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        plannedBvlosLandingPointAlt_ft: 
+          description: >-
+             List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  plannedVlosLandingPoints:
+    description: >-
+      array list of plannedVlosLandingPoint_deg and plannedVlosLandingPointElev_ft
+    type: array
+    items:
+      type: object
+      required: [plannedVlosLandingPoint_deg,plannedVlosLandingPointAlt_ft]
+      properties:
+        plannedVlosLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned VLOS landing point(s).
+          $ref: '#/definitions/LatLonList'
+        plannedVlosLandingPointAlt_ft: 
+          description: >-
+             List of planned VLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
+          $ref: '#/definitions/AltitudeList'
+  plannedRooftopLandingPoints:
+    description: >-
+      array list of plannedRooftopLanding_deg and plannedRooftopLandingElev_ft
+    type: array
+    items:
+      type: object
+      required: [ts,plannedRooftopLandingPoint_deg,plannedRooftopLandingPoint_ft]
+      properties:
+        plannedRooftopLandingPoint_deg:
+          description: >-
+            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+    
+        plannedRooftopLandingPoint_ft:
+          description: >-
+            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+  safeLandingLocations:
+    description: >-
+      List of time, safeLandingLocation_deg and safeLandingLocationElev_ft
+    type: array
+    items:
+      type: object
+      required: [safeLandingLocation_deg,safeLandingLocation_ft]
+      properties:
+        safeLandingLocation_deg:
+          description: >-
+            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/LatLonList'
+    
+        safeLandingLocation_ft:
+          description: >-
+            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
+          $ref: '#/definitions/AltitudeList'
+          
+  safeLandingLocationPolygonPoint:
+    description: >-
+      Lat/Lon list of the vertices of the polygons around safe landing location(s).
+    $ref: '#/definitions/LatLonList'
+     
+  rpicLocations:
+    description: >-
+          RPIC location lat lon in feet
+    type: array
+    items:
+      type: object
+      required: [rpicLocation_deg,rpicLocationAlt_ft]
+      properties:
+        rpicLocation_deg:
+          $ref: '#/definitions/LatLonList'
+        rpicLocationAlt_ft:
+          $ref: '#/definitions/AltitudeList'
+  
+  wxOperatingPoints:
+    description: >- 
+          RPIC location lat lon in feet
+    type: array
+    items:
+      type: object
+      required: [wxOperatingPoint_deg,wxOperatingPoint_ft]
+      properties:
+        wxOperatingPoint_deg:
+          $ref: '#/definitions/LatLonList'
+        wxOperatingPoint_ft:
+          $ref: '#/definitions/AltitudeList'
+  cellCoverageArea:
+    description: >-
+      Mapping of cellular coverage and known dead zones within the test site operating area. Coverage availability must be checked by the same type of cell/LTE device that is installed on UA. That is, this device should be able to connect to service within coverage area, and not be able to connect to service within dead zone area. Ensure that the service provider for elements cellCoverageArea and cellServiceAvailability_nonDim are the same.
+    type: array
+    items:
+      type: object
+      required: ['cellCoveragePloygon','cellCoverageDeadzonPloygon']
+      properties:
+        cellCoveragePloygon:
+           description: >-
+             list cell Coverage Ploygon
+           type: array
+           minItems: 1
+           items:
+             $ref: '#/definitions/LatLonList'
+        cellCoverageDeadzonPloygon:
+            description: >-
+              list cell Coverage Dead zon Ploygon
+            type: array
+            items:
+              $ref: '#/definitions/LatLonList'
+  
+  distressBroadcastRate:
+    description: >-
+      Report configured distress broadcast rate. (Hz)
+    type: number
+    format: float
+
