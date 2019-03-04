@@ -1,83 +1,74 @@
 info:
-  description: >-
-    "TCL4 will require the submission of test data.  Some of these data are not
-    readily collected via UTM means.  The models presented in this domain are in
-    support of such data that are not readily collected otherwise.  Some of
-    these data will be collected live, some after testing, but all should be
-    collected as a soon as feasible.  Further details will be provided in other
-    testing documentation."
-  version: 'v1'
-  title: "Domain for Flight Essential Telemetry for UAS."
+  version: "v1.0"
+  title: UTM DMP TCL4 FET-UAS
+  description: Data model for FET-UAS submission. 
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
-    url: 'https://utm.arc.nasa.gov/'
-    email: joseph.rios@nasa.gov
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: jaewoo.jung@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
 
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
 definitions:
-  FlightEssentialTelemetryCrewed:
+  FlightEssentialTelemetryUas:
     description: >-
-      Time dependent data for a UAS Operation within TCL4. These data are
-      in addition to the required UTM data submisions for an operation.
+      Flight essential telemetry data for a UAS Operation in TCL4. These data elements are
+      in addition to the required UTM data submissions for an operation.  While the various sensor measurements
+      may occur at different sampling rates, you are required to use the highest sampling rate available on your data acquisition system and use a zero-order-hold for sensor data sampled at lower sampling rates.   
     required:
-      - "fet_id"
-      - "call_sign"
-      - "test_run"
-      - "test_card"
-      - "position"
-      - "temperature_external"
-      - "relative_humidity"
-      - "airspeed"
-      - "vertical_speed"
-      - "roll_decimal_degrees"
-      - "roll_rate"
-      - "pitch_decimal_degrees"
-      - "pitch_rate"
-      - "yaw_decimal_degrees"
-      - "yaw_rate"
+      - "metaData"
+      - "latLonAlt"
+      - "barometricAltitude_ft"
+      - "externalTemperature_C"
+      - "relativeHumidityPrct_nonDim"
+      - "navigationAccuracyCategoryPosition"
+      - "navigationIntegrityCategory"
+      - "geometricVerticalAccuracyCategory"
+      - "heading_deg"
+      - "groundCourse_deg"
+      - "groundSpeed_ftPerSec"
+      - "trueAirspeed_ftPerSec"
+      - "verticalSpeed_ftPerMin"
+      - "roll_deg"
+      - "pitch_deg"
+      - "yaw_deg"
+      - "rollRate_degPerSec"
+      - "pitchRate_degPerSec"
+      - "yawRate_degPerSec"
+      - "hdop_nonDim"
+      - "vdop_nonDim"
+      - "numGpsSat_nonDim"
+      - "batteryVoltage_v"
+      - "batteryCurrent_a"
     properties:
-      fet_id:
-        description: >-
-          unique id for this data submission.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      gufi:
-        description: >-
-          GUFI of the operation that is the source of these data. Note that this
-          GUFI is repeated in the Position model, so they must match.  In addition
-          this GUFI will map to operational data in the UTM data stores.  Thus
-          the values for call_sign, test_card, test_run must match the metadata
-          supplied with that Operation's metadata.  Mismatches will cause the
-          data submission to be rejected.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      call_sign:
-        description: >-
-          Within the pilot test cards, this operation should have a unique
-          call_sign.  This value must be provided here.
-        type: string
-        maxLength: 100
-        example: "Tootsie88"
-      test_card:
-        description: >-
-          The official test card string.
-        type: string
-        maxLength: 100
-        example: "NVS1C3"
-      test_run:
-        description: >-
-          The run of this test card.  Many test cards will be run once, but
-          many may have several runs for various reasons, planned an unplanned.
-        type: integer
-        format: int32
-        example: 3
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         description: >-
           Time for this sample.
@@ -87,69 +78,191 @@ definitions:
         maxLength: 24
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
-      position:
+      latLonAlt:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/LatLonAlt'
+      barometricAltitude_ft:
         description: >-
-          This model leverages the existing Position model for sUAS.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Position'
-      temperature_external:
-        description: >-
-          Atmospheric temperature near the UAS at this timestamp. Celcius.
+          Pressure based altitude of the vehicle. (ft)
         type: number
         format: float
         example: 15.85
-      relative_humidity:
+      externalTemperature_C:
         description: >-
-          Relative humidity near the UAS at this timestamp.  Percentage.
+          External temperature around the vehicle in degrees Celsius. (C)
         type: number
         format: float
-        minimum: 0.0
-        maximum: 100.0
-        example: 62.88
-      airspeed:
+        example: 15.85
+
+      relativeHumidityPrct_nonDim:
         description: >-
-          airspeed in ft/sec
+          Relative humidity around the vehicle in percentage. (%)
         type: number
         format: float
-        example: 22.91
-      vertical_speed:
+        example: 15.85
+        
+      navigationAccuracyCategoryPosition:
         description: >-
-          vertical speed in ft/sec
+          Report NACp category throughout the flight, RTCA DO-260B. Ref (TCL4 SOW Reference 9: Communications and Navigation Procedures v1)
         type: number
         format: float
-        example: 1.27
-      roll_decimal_degrees:
+        example: 15.85        
+        
+      navigationIntegrityCategory:
         description: >-
-          roll measured in decimal degrees.
+          Report NIC category throughout the flight, RTCA DO-260B. Ref (TCL4 SOW Reference 9: Communications and Navigation Procedures v1)
         type: number
         format: float
-        example: 29.46
-      pitch_decimal_degrees:
+        example: 15.85        
+        
+      geometricVerticalAccuracyCategory:
         description: >-
-          pitch measured in decimal degrees.
+          Report GVA category throughout the flight, RTCA DO-260B. Ref (TCL4 SOW Reference 9: Communications and Navigation Procedures v1)
+
         type: number
         format: float
-        example: 2.81
-      yaw_decimal_degrees:
+        example: 15.85        
+
+      heading_deg:
         description: >-
-          yaw measured in decimal degrees.
+          Heading in the true North reference frame. (deg)
         type: number
         format: float
-        example: 100.49
-      roll_rate:
+        example: 15.85        
+
+      groundCourse_deg:
         description: >-
-          rate of change of roll angle in degrees/sec.
+          Ground Course (also known as track) in the true North reference frame. (deg)
         type: number
         format: float
-        example: 0.37
-      pitch_rate:
+        example: 15.85        
+
+      groundSpeed_ftPerSec:
         description: >-
-          rate of change of roll angle in degrees/sec.
+          Ground Speed. (ft/s)
         type: number
         format: float
-        example: 0.37
-      yaw_rate:
+        example: 15.85        
+
+      trueAirspeed_ftPerSec:
         description: >-
-          rate of change of roll angle in degrees/sec.
+          True airspeed. (ft/s)
+          type: number
+        format: float
+        example: 15.85        
+
+      verticalSpeed_ftPerMin:
+        description: >-
+          Vertical speed in feet per minute, negative indicates descent. (ft/min)
         type: number
         format: float
-        example: 0.37
+        example: 15.85        
+          
+      roll_deg:
+        description: >-
+          Roll (deg). Negative roll indicates left.
+        type: number
+        format: float
+        example: 15.85        
+        
+      pitch_deg:
+        description: >-
+          Pitch (deg). Negative pitch indicates nose down.
+        type: number
+        format: float
+        example: 15.85        
+        
+      yaw_deg:
+        description: >-
+          Yaw (deg). Zero-degree yaw is North.
+        type: number
+        format: float
+        example: 15.85        
+        
+      rollRate_degPerSec:
+        description: >-
+          Roll Rate (deg/s). Negative indicates leftward rate.
+        type: number
+        format: float
+        example: 15.85        
+        
+      pitchRate_degPerSec:
+        description: >-
+          Pitch Rate (deg/s). Negative indicates downward rate.
+        type: number
+        format: float
+        example: 15.85        
+        
+      yawRate_degPerSec:
+        description: >-
+          Yaw Rate (deg/s). Negative indicates counter-clockwise rate.
+        type: number
+        format: float
+        example: 15.85        
+        
+      hdop_nonDim:
+        description: >-
+          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
+        type: number
+        format: integer
+        example: 3       
+        
+      vdop_nonDim:
+        description: >-
+          VDOP: Vertical dilution of precision of GPS constellation.
+        type: number
+        format: integer
+        example: 15.85        
+                
+      numGpsSat_nonDim:
+        description: >-
+          Number of GPS satellites being tracked by GPS receiver.
+        type: number
+        format: integer
+        example: 5       
+        
+      batteryVoltage_v:
+        description: >-
+          Vehicle Battery Voltage (V)
+        type: number
+        format: float
+        example: 15.85        
+          
+      batteryCurrent_a:
+        description: >-
+          Vehicle Battery Current (A)
+        type: number
+        format: float
+        example: 15.85        
+
+  FlightEssentialTelemetryUasOffline:
+    description: >-
+      Flight essential telemetry data that is provided after the vehicle has landed
+    required:
+      - "metaData"
+      - "numGpsSatellitesInView_nonDim"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      timestamp:
+        description: >-
+          Time for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+
+      numGpsSatellitesInView_nonDim:
+        description: >-
+          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
+        type: number
+        format: integer
+        example: 5       
+          
+
+
+
+
+
+

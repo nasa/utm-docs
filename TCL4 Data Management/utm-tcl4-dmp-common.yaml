@@ -37,6 +37,14 @@ info:
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 
 definitions:
+  metaDataTs:
+    type: object
+    required: ['metaData','ts']
+    properties:
+      metaData:
+        $ref: '#/definitions/metaData'
+      ts:
+        $ref: '#/definitions/timestamp'
   metaData:
     type: object
     required: ['test_card','run','call_sign','uvin','gufi','submitTime','ussName']
@@ -120,3 +128,110 @@ definitions:
     example: 'd7126818-d280-475f-aaee-c16e9c6f04e0'
     maxLength: 36
     minLength: 36
+
+  LatLonAltTs:
+    description: Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required:
+      - "latLonAlt"
+      - "ts"
+    properties:
+      latLonAlt:
+        $ref: '#/definitions/LatLonAlt'
+      ts:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
+  LatLonAlt:
+    description: Latitude and Longitude should have precision of 7 or more digits
+    type: object
+    required:
+      - "lat"
+      - "lon"
+      - "alt"
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+      alt:
+       $ref: '#/definitions/altitude'
+        
+  latitude:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -90.0
+    maximum: 90.0
+
+  latitudeTest:
+    description: >-
+      The numeric value of the latitude. Note that min and max values are added as a sanity check.
+    type: object
+    properties:
+      test:
+        type: number
+        format: double
+        minimum: -90.0
+        maximum: 90.0
+
+  longitude:
+    description: >-
+      The numeric value of the longitude. Note that min and max values are added as a sanity check.
+    type: number
+    format: double
+    minimum: -180.0
+    maximum: 180.0
+
+  altitude:
+    description: >-
+      The numeric value of the altitude. Note that min and max values are added as a sanity check. unit in feet.
+    type: number
+    format: double
+    minimum: -8000.0
+    exclusiveMinimum: false
+    maximum: 100000.0
+    exclusiveMaximum: false
+
+  heading_deg:
+    description: >-
+      Heading in the true North reference frame. (deg)
+    type: number
+    format: float
+    example: 15.85        
+
+  groundCourse_deg:
+    description: >-
+      Ground Course (also known as track) in the true North reference frame. (deg)
+    type: number
+    format: float
+    example: 15.85        
+
+  groundSpeed_ftPerSec:
+    description: >-
+      Ground Speed. (ft/s)
+    type: number
+    format: float
+    example: 15.85        
+
+  hdop_nonDim:
+    description: >-
+      Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
+    type: number
+    format: integer
+    example: 3       
+        
+  vdop_nonDim:
+    description: >-
+      VDOP: Vertical dilution of precision of GPS constellation.
+    type: number
+    format: integer
+    example: 15.85        
+                
+  numGpsSat_nonDim:
+    description: >-
+      Number of GPS satellites being tracked by GPS receiver.
+    type: number
+    format: integer
+    example: 5       
+    

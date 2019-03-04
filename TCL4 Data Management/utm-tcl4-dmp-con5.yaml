@@ -1,7 +1,7 @@
 info:
   version: "v1.0"
-  title: UTM TCL4 DMP CON1 Specification
-  description: Data model for CON1 submission. 
+  title: UTM TCL4 DMP CON5 Specification
+  description: Data model for CON5 submission. 
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
@@ -35,32 +35,11 @@ info:
     SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
+
 definitions:
-  CON_1:
+  CON_5:
     type: object
-    required:
-      - "metaData"
-      - "flightTestRangePolygonPoints"
-      - "plannedBvlosLandingPoints"
-      - "actualBvlosLandingPoints"
-      - "plannedVlosLandingPoints"
-      - "actualVlosLandingPoints"
-      - "landingOffset_ft"
-      - "plannedRooftopLandingPoints"
-      - "actualRooftopLandingPoints"
-      - "safeLandingLocations"
-      - "safeLandingLocationPolygonPoint"
-      - "timeRpicReceivesUssConstraintMessage"
-      - "timeUasReceivesRpicConstraintMessage"
-      - "rpicLocations"
-      - "UTMEnvironment"
-      - "wxOperatingPoints"
-      - "cellCoverageArea"
-      - "batteryPrognosticData"
-      - "timeAtDistressV2V"
-      - "timeAtDistressClearV2V"
-      - "distressBroadcastRate"
-      - "AlternateUSSSequenceDescription"
+    required: ['metaData','flightTestRangePolygonPoints','plannedBvlosLandingPoints','actualBvlosLandingPoints','plannedVlosLandingPoints','actualVlosLandingPoints','landingOffset_ft','safeLandingLocations','safeLandingLocationPolygonPoint','timeRpicReceivesUssConstraintMessage','timeUasReceivesRpicConstraintMessage','rpicLocations','UTMEnvironment','wxOperatingPoints','cellCoverageArea','batteryPrognosticData','timeAtDistressV2V','timeAtDistressClearV2V','distressBroadcastRate','AlternateUSSSequenceDescription']
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -76,10 +55,6 @@ definitions:
         $ref: '#/definitions/actualVlosLandingPoints'
       landingOffset_ft:
         $ref: '#/definitions/landingOffset_ft'
-      plannedRooftopLandingPoints:
-        $ref: '#/definitions/plannedRooftopLandingPoints'
-      actualRooftopLandingPoints:
-        $ref: '#/definitions/actualRooftopLandingPoints'
       safeLandingLocations:
         $ref: '#/definitions/safeLandingLocations'
       safeLandingLocationPolygonPoint:
@@ -105,8 +80,7 @@ definitions:
       distressBroadcastRate:
          $ref: '#/definitions/distressBroadcastRate'
       AlternateUSSSequenceDescription:
-         $ref: '#/definitions/AlternateUSSSequenceDescription'
-
+         $ref: '#/definitions/AlternateUSSSequenceDescription' 
 
   # shared definitions         
   latitude:
@@ -156,6 +130,9 @@ definitions:
         $ref: '#/definitions/longitude'
       alt:
        $ref: '#/definitions/altitude'
+
+       
+
   LatLonList:
     description: >-
      array of LatLon object 
@@ -163,6 +140,8 @@ definitions:
     minItems: 1
     items:
       $ref: '#/definitions/LatLon'
+      
+      
   AltitudeList:
     description: >-
      array of altitude object. Expressed in WGS84 standard. (ft)
@@ -177,7 +156,7 @@ definitions:
     description: >-
      Lat/Lon list of the vertices of the polygon that defines the area of the test range.
     $ref: '#/definitions/LatLonList'
-  
+   
   flightTestRangePolygonPointElev_ft:
     description: >-
      List of elevations of each one of the vertices of the polygon that defines the area of the test range.
@@ -191,7 +170,7 @@ definitions:
     type: array
     items:
       type: object
-      required: [flightTestRangePolygonPoint_deg,flightTestRangePolygonPointElev_ft]
+      required: ['flightTestRangePolygonPoint_deg','flightTestRangePolygonPointElev_ft']
       properties:
         flightTestRangePolygonPoint_deg:
           $ref: '#/definitions/LatLonList'
@@ -203,7 +182,7 @@ definitions:
     type: array
     items:
       type: object
-      required: [plannedBvlosLandingPoint_deg,plannedBvlosLandingPointAlt_ft]
+      required: ['plannedBvlosLandingPoint_deg','plannedBvlosLandingPointAlt_ft']
       properties:
         plannedBvlosLandingPoint_deg:
           description: >-
@@ -237,7 +216,7 @@ definitions:
     type: array
     items:
       type: object
-      #required: [ts,plannedVlosLandingPoint_deg,plannedVlosLandingPointAlt_ft]
+      required: [ts,plannedVlosLandingPoint_deg,plannedVlosLandingPointAlt_ft]
       properties:
         ts:
           $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
@@ -281,7 +260,7 @@ definitions:
     type: array
     items:
       type: object
-      #required: [ts,plannedRooftopLandingPoint_deg,plannedRooftopLandingPoint_ft]
+      required: [ts,plannedRooftopLandingPoint_deg,plannedRooftopLandingPoint_ft]
       properties:
         plannedRooftopLandingPoint_deg:
           description: >-
@@ -316,7 +295,7 @@ definitions:
     type: array
     items:
       type: object
-      #required: [ts,safeLandingLocation_deg,safeLandingLocation_ft]
+      required: [ts,safeLandingLocation_deg,safeLandingLocation_ft]
       properties:
         safeLandingLocation_deg:
           description: >-
@@ -333,17 +312,17 @@ definitions:
       Lat/Lon list of the vertices of the polygons around safe landing location(s).
     $ref: '#/definitions/LatLonList'
   timeRpicReceivesUssConstraintMessage:
-    description: >- 
+    description: >-
       UTC time when RPIC receives constraint message from the USS.
     $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-
   timeUasReceivesRpicConstraintMessage:
-    description: >- 
+    description: >-
            UTC time when UAS receives constraint message from the RPIC..
     $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+
     
   rpicLocations:
-    description: >- 
+    description: >-
           RPIC location lat lon in feet
     type: array
     items:
@@ -355,16 +334,16 @@ definitions:
         rpicLocationAlt_ft:
           $ref: '#/definitions/AltitudeList'
   UTMEnvironment:
-    description: >- 
+    description: >-
       This document will contain a diagram that presents the full UTM ecosystem used
     type: string
     
   wxOperatingPointData:
     type: object
-    required: ['temperature','pressure','windSpeed','windDir']
+    required: ['temp','pressure','windSpeed','windDir']
     description: 4 numbers for temperature, air pressure (inHg), windspeed (ft/sec), wind direction
     properties:
-      temperature:
+      temp:
         type: number
       pressure:
         type: number
@@ -405,7 +384,7 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'                    
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: number
   remoteIdTimeToContactOper_sec:
@@ -415,7 +394,7 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'                    
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: number
   descriptionOfRemoteIdSystem:
@@ -429,7 +408,7 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'                    
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
           type: string
   batteryPrognosticData:
@@ -437,7 +416,7 @@ definitions:
   BatteryPrognosticDescription:
     type: string
   timeAtDistressV2V:
-    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'              
+    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'    
   timeAtDistressClearV2V:
     type: array
     items:
@@ -445,9 +424,9 @@ definitions:
       required: ['ts','value']
       properties:
         ts:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'                    
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'          
         value:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
   distressBroadcastRate:
     type: number
   AlternateUSSSequenceDescription:

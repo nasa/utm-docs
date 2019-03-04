@@ -1,68 +1,128 @@
 info:
-  description: >-
-    "TCL4 will require the submission of test data.  Some of these data are not
-    readily collected via UTM means.  The models presented in this domain are in
-    support of such data that are not readily collected otherwise.  Some of
-    these data will be collected live, some after testing, but all should be
-    collected as a soon as feasible.  Further details will be provided in other
-    testing documentation."
-  version: 'v1'
-  title: "Domain for Flight Essential Telemetry for crewed aircraft."
+  version: "v1.0"
+  title: UTM DMP TCL4 FET-CREWED
+  description: Data model for FET-CREWED submission. 
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
-    url: 'https://utm.arc.nasa.gov/'
-    email: joseph.rios@nasa.gov
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: jaewoo.jung@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
 
 definitions:
   FlightEssentialTelemetryCrewed:
     description: >-
       Time dependent data for a crewed Operation within TCL4.
     required:
-      - "fet_id"
-      - "call_sign"
-      - "test_run"
-      - "test_card"
-      - "position"
-    properties:
-      fet_id:
-        description: >-
-          unique id for this data submission.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      call_sign:
-        description: >-
-          Within the pilot test cards, this operation should have a unique
-          call_sign.  This value must be provided here.
-        type: string
-        maxLength: 100
-        example: "Tootsie88"
-      test_card:
-        description: >-
-          The official test card string.
-        type: string
-        maxLength: 100
-        example: "NVS1C3"
-      test_run:
-        description: >-
-          The run of this test card.  Many test cards will be run once, but
-          many may have several runs for various reasons, planned an unplanned.
-        type: integer
-        format: int32
-        example: 3
-      position:
-        description: >-
-          This model leverages the existing Position model for sUAS.  The main
-          issue with this approach is the required "gufi" field.  This operation
-          will likely not have a gufi.  So, even though gufi is required in the
-          referenced Position model, the value supplied need not reference an Operation
-          known to UTM.  The value needs to be a valid UUIDv4, but it will not
-          be cross-checked against any other operational data.
+      - "metaData"
+      - "latLonAlt"
+      - "ts"
+      - "hdop_nonDim"
+      - "vdop_nonDim"
+      - "numGpsSat_nonDim"
+      - "heading_deg"
+      - "groundCourse_deg"
+      - "groundSpeed_ftPerSec"
 
-          Also note that there is an additional unique identifier in the Position
-          model.  This value must be equal to fet_id despite the redundancy of
-          redundant information provided more than once.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Position'
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      latLonAlt:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/LatLonAlt'
+      ts:
+        description: >-
+          Time for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      heading_deg:
+        description: >-
+          Heading in the true North reference frame. (deg)
+        type: number
+        format: float
+        example: 15.85        
+
+      groundCourse_deg:
+        description: >-
+          Ground Course (also known as track) in the true North reference frame. (deg)
+        type: number
+        format: float
+        example: 15.85        
+
+      groundSpeed_ftPerSec:
+        description: >-
+          Ground Speed. (ft/s)
+        type: number
+        format: float
+        example: 15.85        
+
+      hdop_nonDim:
+        description: >-
+          Number of GPS satellites to which the aircraft has line-of-sight to (whether acquired or not by the GPS receiver).
+        type: number
+        format: integer
+        example: 3       
+        
+      vdop_nonDim:
+        description: >-
+          VDOP: Vertical dilution of precision of GPS constellation.
+        type: number
+        format: integer
+        example: 15.85        
+                
+      numGpsSat_nonDim:
+        description: >-
+          Number of GPS satellites being tracked by GPS receiver.
+        type: number
+        format: integer
+        example: 5       
+        
+  FETCrewedNumGpsSatellitesInView:
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      ts:
+        description: >-
+          Time for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      numGpsSatInView_nonDim:
+        description: >-
+          Number of GPS satellites being tracked by GPS receiver.
+        type: number
+        format: integer
+        example: 5       
