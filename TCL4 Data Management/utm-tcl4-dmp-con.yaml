@@ -49,25 +49,37 @@ paths:
             when there are no paths, but domains do not contain paths.
 
 definitions:
-  ConPreRun:
+  ConPreRunRange:
+    type: object
+    required:
+      - "metadataTestSite"
+      - "wxOperatingPoints"
+      - "cellCoverageArea"
+      - "flightTestRangePolygonPoints"
+    properties:
+      metadataTestSite:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metadataTestSite'
+      flightTestRangePolygonPoints:
+        $ref: '#/definitions/LatLonAltArray'
+      wxOperatingPoints:
+        $ref: '#/definitions/LatLonAltArray'
+      cellCoverageAreas:
+         $ref: '#/definitions/cellCoverageArea'
+
+  ConPreRunOp:
     type: object
     required:
       - "metaData"
-      - "flightTestRangePolygonPoints"
       - "plannedBvlosLandingPoints"
       - "plannedVlosLandingPoints"
       - "plannedRooftopLandingPoints"
       - "safeLandingLocations"
       - "safeLandingLocationPolygonPoints"
       - "rpicLocations"
-      - "wxOperatingPoints"
-      - "cellCoverageArea"
       - "distressBroadcastRate"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      flightTestRangePolygonPoints:
-        $ref: '#/definitions/LatLonAltArray'
       plannedBvlosLandingPoints:
         $ref: '#/definitions/LatLonAltArray'
       plannedVlosLandingPoints:
@@ -265,6 +277,17 @@ definitions:
       alt:
        $ref: '#/definitions/altitude'
 
+  LatLon:
+    description: >-
+      Latitude and Longitude should have precision of 7 or more digits.
+    type: object
+    required: ['lat','lon']
+    properties:
+      lat:
+        $ref: '#/definitions/latitude'
+      lon:
+        $ref: '#/definitions/longitude'
+
   LatLonAltArray:
     description: >-
       Array of (lat,lon,alt) tuples.
@@ -274,6 +297,17 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/LatLonAlt'
+    minItems: 1
+
+  LatLonArray:
+    description: >-
+      Array of (lat,lon) tuples.
+
+      If used to describe a Polygon, the first point and the last point must
+      be equal.
+    type: array
+    items:
+      $ref: '#/definitions/LatLon'
     minItems: 1
 
   cellCoverageArea:
@@ -292,14 +326,14 @@ definitions:
       properties:
         cellCoveragePolygon:
            description: >-
-             list cell Coverage Polygon
+             list cell Coverage Polygons
            type: array
            minItems: 1
            items:
-             $ref: '#/definitions/LatLonList'
+             $ref: '#/definitions/LatLonArray'
         cellCoverageDeadzonPolygon:
             description: >-
-              list cell Coverage Dead zone Polygon
+              list cell Coverage Dead zone Polygons
             type: array
             items:
-              $ref: '#/definitions/LatLonList'
+              $ref: '#/definitions/LatLonArray'
