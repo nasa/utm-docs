@@ -157,8 +157,10 @@ definitions:
         # what is this?  We already know this from the pre-run data model
         $ref: '#/definitions/LatLonAlt'
                   
-        
-# shared definitions         
+##       
+# shared definitions
+##
+
   latitude:
     description: >-
       The numeric value of the latitude. Note that min and max values are added as a sanity check.
