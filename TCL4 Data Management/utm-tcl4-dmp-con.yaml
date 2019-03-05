@@ -212,7 +212,31 @@ definitions:
             $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'           
         
 
-
+  RpicConstraintMessage:
+    description: >-
+      RPIC receives constraint message from the USS.  Report the data  associated with this message.
+    type: object
+    required:
+      - metaData
+      - distressV2VTs
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      rpicValueTs:
+        type: object
+        required:
+          - rpicValue
+          - timestamp
+        properties:
+          rpicValue:
+            type: string
+            enum:
+             - RECEIVES_USS_CONSTRAINT_MESSAGE
+             - RPIC_INITIATE_MANEUVER
+             - UAS_RECEIVES_MANEUVER_COMMAND
+          timestamp:
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'           
+    
 
 
 
