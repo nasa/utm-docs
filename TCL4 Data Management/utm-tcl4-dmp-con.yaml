@@ -156,7 +156,54 @@ definitions:
       location:
         # what is this?  We already know this from the pre-run data model
         $ref: '#/definitions/LatLonAlt'
-                  
+
+  CellServiceAvailability:
+    description: >-
+      Real-time availability of cellular service onboard the ownship during the flight.  Report at least at 1Hz sampling frequency or higher.  Report
+        - Connected to Cell Service 
+        - Not Connected to Cell Service
+      
+    type: object
+    required: 
+      - "metaData"
+      - "cellServiceAvailabilityValueTs"
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      cellServiceAvailabilityValueTs:
+        $ref: '#/definitions/CellServiceAvailabilityValueTs'
+
+  CellServiceAvailabilityValueTs:
+    type: object
+    required:
+      - cellServiceAvailabilityValue
+      - timestamp
+    properties:
+      cellServiceAvailabilityValue:
+        type: string
+        enum:
+          - CONNECTED
+          - NOT_CONNECTED
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 ##       
 # shared definitions
 ##
