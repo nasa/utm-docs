@@ -91,26 +91,29 @@ definitions:
         format: int32
         minimum: 0
 
-  Coordinates:
+  UasTruthPosition:
     description: >-
       Need description from Jaewoo or Hemil.
     type: object
     required:
-      - "metaData"
-      - "coordinatesTs"
+      - metaData
+      - uasTruthAndEstimatedError
+      - timestamp
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      coordinatesTs:
-        $ref: "#/definitions/CoordinatesTs"
+      uasTruthAndEstimatedError:
+        $ref: "#/definitions/UasTruthAndEstimatedError"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
-  CoordinatesTs:
+
+  UasTruthAndEstimatedError:
     type: "object"
     required:
       - "xCoordinate_ft"
       - "yCoordinate_ft"
       - "zCoordinate_ft"
-      - "timestamp"
     properties:
       xCoordinate_ft:
         description: "X-Coordinate truth position of UA (ECEF: Earth Centered Earth\
@@ -136,8 +139,6 @@ definitions:
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
           \ at least least 2 decimal places of precision. (ft)"
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   UasTruthEcefCoordinate_ft:
     type: "object"
@@ -185,7 +186,7 @@ definitions:
   OffNominalMitigationOutcome:
     type: object
     required:
-      - "metaData"
+      - metaData
       - timestamp
       - offNominalMitigationOutcomeValue
     properties:
@@ -207,9 +208,9 @@ definitions:
   LandingOutcome:
     type: object
     required:
-      - "metaData"
-      - "timestamp"
-      - "landingOutcomeValue"
+      - metaData
+      - timestamp
+      - landingOutcomeValue
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
