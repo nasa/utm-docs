@@ -47,18 +47,18 @@ paths:
             Gone. Not implemented. Will not be implemented. Path included for
             proper use by automated tooling.  Tools sometimes do not like
             when there are no paths, but domains do not contain paths.
-            
+
 definitions:
   ConPreRun:
     type: object
     required:
       - "metaData"
-      - "flightTestRangePolygonPointArray"
-      - "plannedBvlosLandingPointArray"
+      - "flightTestRangePolygonPoints"
+      - "plannedBvlosLandingPoints"
       - "plannedVlosLandingPoints"
       - "plannedRooftopLandingPoints"
       - "safeLandingLocations"
-      - "safeLandingLocationPolygonPoint"
+      - "safeLandingLocationPolygonPoints"
       - "rpicLocations"
       - "wxOperatingPoints"
       - "cellCoverageArea"
@@ -66,17 +66,17 @@ definitions:
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      flightTestRangePolygonPointArray:
+      flightTestRangePolygonPoints:
         $ref: '#/definitions/LatLonAltArray'
-      plannedBvlosLandingPointArray:
+      plannedBvlosLandingPoints:
         $ref: '#/definitions/LatLonAltArray'
-      plannedVlosLandingPointArray:
+      plannedVlosLandingPoints:
         $ref: '#/definitions/LatLonAltArray'
       plannedRooftopLandingPoints:
         $ref: '#/definitions/LatLonAltArray'
       safeLandingLocations:
         $ref: '#/definitions/LatLonAltArray'
-      safeLandingLocationPolygonPoint:
+      safeLandingLocationPolygonPoints:
         $ref: '#/definitions/LatLonAltArray'
       rpicLocations:
         $ref: '#/definitions/LatLonAltArray'
@@ -85,7 +85,10 @@ definitions:
       cellCoverageArea:
          $ref: '#/definitions/LatLonAltArray'
       distressBroadcastRate:
-         $ref: '#/definitions/DistressBroadcastRate'
+         description: >-
+           Report configured distress broadcast rate. (Hz)
+         type: number
+         format: float
 
   ConActualLanding:
     description: >-
@@ -249,17 +252,6 @@ definitions:
     maximum: 100000.0
     exclusiveMaximum: false
 
-  LatLon:
-    description: >-
-      Latitude and Longitude should have precision of 7 or more digits
-    type: object
-    required: ['lat','lon']
-    properties:
-      lat:
-        $ref: '#/definitions/latitude'
-      lon:
-        $ref: '#/definitions/longitude'
-
   LatLonAlt:
     description: >-
       Latitude and Longitude should have precision of 7 or more digits. position WGS84 altitude. (ft)
@@ -276,139 +268,13 @@ definitions:
   LatLonAltArray:
     description: >-
       Array of (lat,lon,alt) tuples.
+
+      If used to describe a Polygon, the first point and the last point must
+      be equal.
     type: array
     items:
       $ref: '#/definitions/LatLonAlt'
-        
-
-  LatLonList:
-    description: >-
-     array of LatLon object
-    type: array
     minItems: 1
-    items:
-      $ref: '#/definitions/LatLon'
-
-
-  AltitudeList:
-    description: >-
-     array of altitude object. Expressed in WGS84 standard. (ft)
-    # positive and negative ints and floats (feet)
-    type: array
-    minItems: 1
-    items:
-      $ref: '#/definitions/altitude'
-    example: [300,250,350,300.2,.345,-123,0.0]
-
-  FlightTestRangePolygonPointArray:
-    description: >-
-      array list of (lat,lon,alt) tuples
-    type: array
-    items:
-      type: object
-      required: latLonAlt
-      properties:
-        latLonAlt:
-          description: >-
-              Lat/Lon list of the vertices of the polygon that defines the area of the test range.
-          $ref: '#/definitions/LatLonAlt'
-
-  plannedBvlosLandingPoints:
-    description: >-
-      array list of plannedBvlosLandingPoint_deg and plannedBvlosLandingPointElev_ft
-    type: array
-    items:
-      type: object
-      required: ['plannedBvlosLandingPoint_deg','plannedBvlosLandingPointAlt_ft']
-      properties:
-        plannedBvlosLandingPoint_deg:
-          description: >-
-            Lat/Lon list of planned BVLOS landing point(s).
-          $ref: '#/definitions/LatLonList'
-        plannedBvlosLandingPointAlt_ft:
-          description: >-
-             List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
-          $ref: '#/definitions/AltitudeList'
-
-  PlannedVlosLandingPointArray:
-    description: >-
-      array list of (lat,lon, alt) tuples
-    type: array
-    items:
-      type: object
-      required: latLonAlt
-      properties:
-        latLonAlt:
-          description: >-
-              Lat/Lon/Alt list of the vertices of the polygon that defines the area of the test range.
-          $ref: '#/definitions/LatLonAlt'
-
-  plannedRooftopLandingPoints:
-    description: >-
-      array list of plannedRooftopLanding_deg and plannedRooftopLandingElev_ft
-    type: array
-    items:
-      type: object
-      required: [ts,plannedRooftopLandingPoint_deg,plannedRooftopLandingPoint_ft]
-      properties:
-        plannedRooftopLandingPoint_deg:
-          description: >-
-            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
-          $ref: '#/definitions/LatLonList'
-
-        plannedRooftopLandingPoint_ft:
-          description: >-
-            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
-          $ref: '#/definitions/AltitudeList'
-
-  safeLandingLocations:
-    description: >-
-      List of time, safeLandingLocation_deg and safeLandingLocationElev_ft
-    type: array
-    items:
-      type: object
-      required: [safeLandingLocation_deg,safeLandingLocation_ft]
-      properties:
-        safeLandingLocation_deg:
-          description: >-
-            Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
-          $ref: '#/definitions/LatLonList'
-
-        safeLandingLocation_ft:
-          description: >-
-            List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
-          $ref: '#/definitions/AltitudeList'
-
-  safeLandingLocationPolygonPoint:
-    description: >-
-      Lat/Lon list of the vertices of the polygons around safe landing location(s).
-    $ref: '#/definitions/LatLonList'
-
-  rpicLocations:
-    description: >-
-          RPIC location lat lon in feet
-    type: array
-    items:
-      type: object
-      required: [rpicLocation_deg,rpicLocationAlt_ft]
-      properties:
-        rpicLocation_deg:
-          $ref: '#/definitions/LatLonList'
-        rpicLocationAlt_ft:
-          $ref: '#/definitions/AltitudeList'
-
-  wxOperatingPoints:
-    description: >-
-          RPIC location lat lon in feet
-    type: array
-    items:
-      type: object
-      required: [wxOperatingPoint_deg,wxOperatingPoint_ft]
-      properties:
-        wxOperatingPoint_deg:
-          $ref: '#/definitions/LatLonList'
-        wxOperatingPoint_ft:
-          $ref: '#/definitions/AltitudeList'
 
   cellCoverageArea:
     description: >-
@@ -422,24 +288,18 @@ definitions:
     type: array
     items:
       type: object
-      required: ['cellCoveragePloygon','cellCoverageDeadzonPloygon']
+      required: ['cellCoveragePolygon','cellCoverageDeadzonPolygon']
       properties:
         cellCoveragePolygon:
            description: >-
-             list cell Coverage Ploygon
+             list cell Coverage Polygon
            type: array
            minItems: 1
            items:
              $ref: '#/definitions/LatLonList'
         cellCoverageDeadzonPolygon:
             description: >-
-              list cell Coverage Dead zon Ploygon
+              list cell Coverage Dead zone Polygon
             type: array
             items:
               $ref: '#/definitions/LatLonList'
-
-  DistressBroadcastRate:
-    description: >-
-      Report configured distress broadcast rate. (Hz)
-    type: number
-    format: float
