@@ -1,7 +1,7 @@
 info:
   version: "v1.0"
   title: UTM DMP TCL4 CON
-  description: Data model for CON submission. 
+  description: Data model for CON submission.
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
@@ -35,6 +35,19 @@ info:
     SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
+
+swagger: '2.0'
+
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
+            
 definitions:
   ConPreRun:
     type: object
@@ -75,62 +88,44 @@ definitions:
          $ref: '#/definitions/distressBroadcastRate'
 
   ConActualLanding:
-    description: "Array of actual landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as vehicle lands.  Specify the two required booleans"
+    description: >-
+      "Actual landing point that occurred during a (call_sign,test_run)
+      pair.  Submit data to this end-point as soon as vehicle lands.  Specify
+      the two required booleans (is BVLOS? and is Rooftop?).
+
+      landingOffset is the lateral distance between planned landing point and
+      actual landing point using vehicle independent GNSS or non-GNSS systems.
+      Could use tape to measure the center-to-center distance between the points
+      on the ground."
     type: object
-    required: 
+    required:
       - "metaData"
-      - "landingPointTs"
+      - "timestamp"
+      - "latLonAlt"
+      - "landingOffset"
+      - "isBVLOS"
+      - "isRooftop"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      landingPointTs:
-        $ref: '#/definitions/LandingPointTs'
-
-  LandingPointTs:
-    type: object
-    required:
-      - timestamp
-      - landingPoint
-      - isBVLOS
-      - isRooftop
-    properties: 
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      landingPoint:
-        $ref: '#/definitions/LandingPoint'
+      latLonAlt:
+        $ref: '#/definitions/LatLonAlt'
+      landingOffset:
+        type: number
       isBVLOS:
         type: boolean
       isRooftop:
         type: boolean
 
-  LandingPoint:
-    type: object
-    required:
-      - latLonAlt
-      - landingOffset
-    properties:
-      latLonAlt:
-        $ref: '#/definitions/LatLonAlt'
-      landingOffset:
-        type: number
-#        definition: "Lateral distance between planned landing point and actual landing point using vehicle independent GNSS or non-GNSS systems. Could use tape to measure the center-to-center distance between the points on the ground. Report it as a list of all landing offset(s) (ft)"
-
   ConWxOperatingPointData:
-    type: object
-    required: 
-      - "metaData"
-      - "wxOperatingPointTs"
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      wxOperatingPointTs:
-        $ref: '#/definitions/WxOperatingPointTs'
-
-  WxOperatingPointTs:
     description: >-
-           Temperature, air pressure (inHg), windspeed (ft/sec), wind direction, location, and timestamp associated with the measurement
+           Temperature, air pressure (inHg), windspeed (ft/sec), wind direction,
+           location, and timestamp associated with the measurement
     type: object
     required:
+      - "metaData"
       - 'timestamp'
       - 'temperature'
       - 'pressure'
@@ -138,8 +133,10 @@ definitions:
       - 'windDir'
       - 'location'
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       temperature:
         type: number
         format: float
@@ -149,109 +146,82 @@ definitions:
       windSpeed:
         type: number
         format: float
+        minimum: 0.0
       windDir:
         type: number
-        minimum:  0
-        maximum:  359
+        minimum:  0.0
+        maximum:  360
+        exclusiveMinimum: false
+        exclusiveMaximum: true
       location:
-        # what is this?  We already know this from the pre-run data model
         $ref: '#/definitions/LatLonAlt'
 
   CellServiceAvailability:
     description: >-
-      Real-time availability of cellular service onboard the ownship during the flight.  Report at least at 1Hz sampling frequency or higher.  Report
-        - Connected to Cell Service 
+      Real-time availability of cellular service onboard the ownship during the
+      flight.  Report at least at 1Hz sampling frequency or higher.  Report one
+      of the following:
+        - Connected to Cell Service
         - Not Connected to Cell Service
-      
     type: object
-    required: 
+    required:
       - "metaData"
-      - "cellServiceAvailabilityValueTs"
+      - "cellServiceAvailabilityValue"
+      - "timestamp"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      cellServiceAvailabilityValueTs:
-        $ref: '#/definitions/CellServiceAvailabilityValueTs'
-
-  CellServiceAvailabilityValueTs:
-    type: object
-    required:
-      - cellServiceAvailabilityValue
-      - timestamp
-    properties:
       cellServiceAvailabilityValue:
         type: string
         enum:
           - CONNECTED
           - NOT_CONNECTED
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   DistressV2V:
     description: >-
-      This is the UTC time when a UA declares distress/clear to V2V or V2surrounding.
+      This is the UTC time when a UA declares distress/clear to V2V or
+      V2surrounding.
     type: object
     required:
       - metaData
-      - distressV2VTs
+      - distressV2V
+      - timestamp
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      distressV2VTs:
-        type: object
-        required:
-          - distressV2V
-          - timestamp
-        properties:
-          distressV2V:
-            type: string
-            enum:
-              - DISTRESS
-              - CLEAR
-          timestamp:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'           
-        
+      distressV2V:
+        type: string
+        enum:
+          - DISTRESS
+          - CLEAR
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   RpicConstraintMessage:
     description: >-
-      RPIC receives constraint message from the USS.  Report the data  associated with this message.
+      RPIC receives constraint message from the USS.  Report the data
+      associated with this message.
     type: object
     required:
       - metaData
-      - distressV2VTs
+      - rpicValue
+      - timestamp
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      rpicValueTs:
-        type: object
-        required:
-          - rpicValue
-          - timestamp
-        properties:
-          rpicValue:
-            type: string
-            enum:
-             - RECEIVES_USS_CONSTRAINT_MESSAGE
-             - RPIC_INITIATE_MANEUVER
-             - UAS_RECEIVES_MANEUVER_COMMAND
-          timestamp:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'           
-    
+      rpicValue:
+        type: string
+        enum:
+         - RECEIVES_USS_CONSTRAINT_MESSAGE
+         - RPIC_INITIATE_MANEUVER
+         - UAS_RECEIVES_MANEUVER_COMMAND
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
-##       
+##
 # shared definitions
 ##
 
@@ -278,7 +248,7 @@ definitions:
     exclusiveMinimum: false
     maximum: 100000.0
     exclusiveMaximum: false
-  
+
   LatLon:
     description: >-
       Latitude and Longitude should have precision of 7 or more digits
@@ -289,7 +259,7 @@ definitions:
         $ref: '#/definitions/latitude'
       lon:
         $ref: '#/definitions/longitude'
-       
+
   LatLonAlt:
     description: >-
       Latitude and Longitude should have precision of 7 or more digits. position WGS84 altitude. (ft)
@@ -306,13 +276,13 @@ definitions:
 
   LatLonList:
     description: >-
-     array of LatLon object 
+     array of LatLon object
     type: array
     minItems: 1
     items:
       $ref: '#/definitions/LatLon'
-      
-      
+
+
   AltitudeList:
     description: >-
      array of altitude object. Expressed in WGS84 standard. (ft)
@@ -322,7 +292,7 @@ definitions:
     items:
       $ref: '#/definitions/altitude'
     example: [300,250,350,300.2,.345,-123,0.0]
-    
+
   flightTestRangePolygonPoints:
     description: >-
       array list of flightTestRangePolygonPoint_deg and flightTestRangePolygonPointElev_ft
@@ -334,11 +304,12 @@ definitions:
         flightTestRangePolygonPoint_deg:
           description: >-
               Lat/Lon list of the vertices of the polygon that defines the area of the test range.
-          $ref: '#/definitions/LatLonList'    
-        flightTestRangePolygonPointElev_ft: 
+          $ref: '#/definitions/LatLonList'
+        flightTestRangePolygonPointElev_ft:
            description: >-
               List of elevations of each one of the vertices of the polygon that defines the area of the test range
            $ref: '#/definitions/AltitudeList'
+
   plannedBvlosLandingPoints:
     description: >-
       array list of plannedBvlosLandingPoint_deg and plannedBvlosLandingPointElev_ft
@@ -351,10 +322,11 @@ definitions:
           description: >-
             Lat/Lon list of planned BVLOS landing point(s).
           $ref: '#/definitions/LatLonList'
-        plannedBvlosLandingPointAlt_ft: 
+        plannedBvlosLandingPointAlt_ft:
           description: >-
              List of planned BVLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
           $ref: '#/definitions/AltitudeList'
+
   plannedVlosLandingPoints:
     description: >-
       array list of plannedVlosLandingPoint_deg and plannedVlosLandingPointElev_ft
@@ -367,10 +339,11 @@ definitions:
           description: >-
             Lat/Lon list of planned VLOS landing point(s).
           $ref: '#/definitions/LatLonList'
-        plannedVlosLandingPointAlt_ft: 
+        plannedVlosLandingPointAlt_ft:
           description: >-
              List of planned VLOS landing point altitude(s).Expressed in WGS84 standard. (ft)
           $ref: '#/definitions/AltitudeList'
+
   plannedRooftopLandingPoints:
     description: >-
       array list of plannedRooftopLanding_deg and plannedRooftopLandingElev_ft
@@ -383,11 +356,12 @@ definitions:
           description: >-
             Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
           $ref: '#/definitions/LatLonList'
-    
+
         plannedRooftopLandingPoint_ft:
           description: >-
             List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
           $ref: '#/definitions/AltitudeList'
+
   safeLandingLocations:
     description: >-
       List of time, safeLandingLocation_deg and safeLandingLocationElev_ft
@@ -400,17 +374,17 @@ definitions:
           description: >-
             Lat/Lon list of planned rooftop landing point(s).Report at least seven decimal degrees. (deg). Only mandatory for: Scenario 1, Scenario 4
           $ref: '#/definitions/LatLonList'
-    
+
         safeLandingLocation_ft:
           description: >-
             List of planned rooftop landing point altitude(s).Expressed in WGS84 standard. (ft). Only mandatory for: Scenario 1, Scenario 4
           $ref: '#/definitions/AltitudeList'
-          
+
   safeLandingLocationPolygonPoint:
     description: >-
       Lat/Lon list of the vertices of the polygons around safe landing location(s).
     $ref: '#/definitions/LatLonList'
-     
+
   rpicLocations:
     description: >-
           RPIC location lat lon in feet
@@ -423,9 +397,9 @@ definitions:
           $ref: '#/definitions/LatLonList'
         rpicLocationAlt_ft:
           $ref: '#/definitions/AltitudeList'
-  
+
   wxOperatingPoints:
-    description: >- 
+    description: >-
           RPIC location lat lon in feet
     type: array
     items:
@@ -436,31 +410,37 @@ definitions:
           $ref: '#/definitions/LatLonList'
         wxOperatingPoint_ft:
           $ref: '#/definitions/AltitudeList'
+
   cellCoverageArea:
     description: >-
-      Mapping of cellular coverage and known dead zones within the test site operating area. Coverage availability must be checked by the same type of cell/LTE device that is installed on UA. That is, this device should be able to connect to service within coverage area, and not be able to connect to service within dead zone area. Ensure that the service provider for elements cellCoverageArea and cellServiceAvailability_nonDim are the same.
+      Mapping of cellular coverage and known dead zones within the test site
+      operating area. Coverage availability must be checked by the same type of
+      cell/LTE device that is installed on UA. That is, this device should be
+      able to connect to service within coverage area, and not be able to
+      connect to service within dead zone area. Ensure that the service provider
+      for elements cellCoverageArea and cellServiceAvailability_nonDim are the
+      same.
     type: array
     items:
       type: object
       required: ['cellCoveragePloygon','cellCoverageDeadzonPloygon']
       properties:
-        cellCoveragePloygon:
+        cellCoveragePolygon:
            description: >-
              list cell Coverage Ploygon
            type: array
            minItems: 1
            items:
              $ref: '#/definitions/LatLonList'
-        cellCoverageDeadzonPloygon:
+        cellCoverageDeadzonPolygon:
             description: >-
               list cell Coverage Dead zon Ploygon
             type: array
             items:
               $ref: '#/definitions/LatLonList'
-  
+
   distressBroadcastRate:
     description: >-
       Report configured distress broadcast rate. (Hz)
     type: number
     format: float
-
