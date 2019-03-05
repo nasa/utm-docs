@@ -74,70 +74,34 @@ definitions:
       distressBroadcastRate:
          $ref: '#/definitions/distressBroadcastRate'
 
-  ConActualBvlosLanding:
-    description: "Array of actual BVLOS landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as BVLOS vehicle lands."
+  ConActualLanding:
+    description: "Array of actual landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as vehicle lands.  Specify the two required booleans"
     type: object
     required: 
       - "metaData"
-      - "landingPointTsArray"
+      - "landingPointTs"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      landingPointTsArray:
-        $ref: '#/definitions/LandingPointTsArray'
+      landingPointTs:
+        $ref: '#/definitions/LandingPointTs'
 
-
-  ConActualVlosLanding:
-    description: "Array of actual VLOS landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as VLOS vehicle lands."
-    type: object
-    required: 
-      - "metaData"
-      - "landingPointTsArray"
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      landingPointTsArray:
-        $ref: '#/definitions/LandingPointTsArray'
-
-  ConActualRooftopLanding:
-    description: "Array of actual Rooftop landing points that occur during a (call_sign,test_run) pair.  Submit data to this end-point as soon as VLOS vehicle lands."
-    type: object
-    required: 
-      - "metaData"
-      - "landingPointTsArray"
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      landingPointTsArray:
-        $ref: '#/definitions/LandingPointTsArray'
-        
-
-        
-         
-  LandingPointTsArray:
-    description: >-
-      array list of landing points and time
-    type: array
-    items:
-      type: object
-      required:
-        - landingPointTs
-      properties:
-        landingPointTs:
-          description: >-
-            Lat/Lon/Alt list of planned BVLOS landing point(s).
-          $ref: '#/definitions/LandingPointTs'
-          
   LandingPointTs:
     type: object
     required:
       - timestamp
       - landingPoint
+      - isBVLOS
+      - isRooftop
     properties: 
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       landingPoint:
         $ref: '#/definitions/LandingPoint'
+      isBVLOS:
+        type: boolean
+      isRooftop:
+        type: boolean
 
   LandingPoint:
     type: object
@@ -155,45 +119,44 @@ definitions:
     type: object
     required: 
       - "metaData"
-      - "wxOperatingPointTsArray"
+      - "wxOperatingPointTs"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      wxOperatingPointTsArray:
-        $ref: '#/definitions/WxOperatingPointTsArray'
+      wxOperatingPointTs:
+        $ref: '#/definitions/WxOperatingPointTs'
 
-  WxOperatingPointTsArray:
+  WxOperatingPointTs:
     description: >-
            Temperature, air pressure (inHg), windspeed (ft/sec), wind direction, location, and timestamp associated with the measurement
-    type: array
-    items:
-      type: object
-      required:
-        - 'timestamp'
-        - 'temperature'
-        - 'pressure'
-        - 'windSpeed'
-        - 'windDir'
-        - 'location'
-      properties:
-        timestamp:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
-        temperature:
-          type: number
-          format: float
-        pressure:
-          type: number
-          format: float
-        windSpeed:
-          type: number
-          format: float
-        windDir:
-          type: number
-          minimum:  0
-          maximum:  359
-        location:
-          $ref: '#/definitions/LatLonAlt'
-        
+    type: object
+    required:
+      - 'timestamp'
+      - 'temperature'
+      - 'pressure'
+      - 'windSpeed'
+      - 'windDir'
+      - 'location'
+    properties:
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
+      temperature:
+        type: number
+        format: float
+      pressure:
+        type: number
+        format: float
+      windSpeed:
+        type: number
+        format: float
+      windDir:
+        type: number
+        minimum:  0
+        maximum:  359
+      location:
+        # what is this?  We already know this from the pre-run data model
+        $ref: '#/definitions/LatLonAlt'
+                  
         
 # shared definitions         
   latitude:
