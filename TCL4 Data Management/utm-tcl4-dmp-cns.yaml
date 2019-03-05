@@ -36,6 +36,8 @@ info:
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 
+swagger: '2.0'
+
 paths:
   '/no-paths':
     put:
@@ -228,7 +230,7 @@ definitions:
     required:
       - "metaData"
       - timestamp
-      - safeToLandLocationReachValue
+      - canReachSafeToLandLocation
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -268,4 +270,3 @@ definitions:
         - "ONBOARD_SAFE_LANDING_SYSTEM_FUNCTIONING_NORMALLY"
         - "ONBOARD_SAFE_LANDING_SYSTEM_IS_COMPROMISED"
         - "UA_NOT_EQUIPPED_WITH_ONBOARD_SAFE_LANDING_SYSTEM"
-  
