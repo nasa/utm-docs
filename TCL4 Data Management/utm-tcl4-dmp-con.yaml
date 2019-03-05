@@ -187,7 +187,22 @@ definitions:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp' 
 
-
+  DistressV2V:
+    description: >-
+      This is the UTC time when a UA declares distress/clear to V2V or V2surrounding.
+    type: object
+    required:
+      - distressV2V
+      - timestamp
+    properties:
+      distressV2V:
+        type: string
+        enum:
+          - DISTRESS
+          - CLEAR
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'           
+        
 
 
 
