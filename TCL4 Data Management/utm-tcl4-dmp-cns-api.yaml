@@ -69,7 +69,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/CnsPreRun
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/CnsPreRun
       responses:
         '200':
           description: Data received. No content returned.
@@ -102,7 +102,7 @@ paths:
           name: metaData
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
 
           description: DELETE  
       responses:
@@ -129,12 +129,12 @@ paths:
 
               
 ##
-# Coordinates
+# UasTruthPosition
 ##
 
-  '/cns-coordinates':
+  '/cns-uasTruthPosition':
     post:
-      summary: Upload array of CoordinatesTs models
+      summary: Upload array of UasTruthPosition models
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -142,12 +142,12 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: Coordinates
-          description: The Coordinates model 
+          name: UasTruthPosition
+          description: The UasTruthPosition model 
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/Coordinates
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/Coordinates
       responses:
         '200':
           description: Data received. No content returned.
@@ -171,7 +171,7 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     delete:
-      summary: Delete a previously uploaded instance of Coordinates recorded during an operation for specified vehicle in metadata
+      summary: Delete a previously uploaded instance of UasTruthPosition recorded during an operation corresponding to specified metadata
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -180,9 +180,7 @@ paths:
           name: metaDataTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
-
-          description: DELETE  with this timestamp
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
       responses:
         '200':
           description: Data received. No content returned.
@@ -224,8 +222,10 @@ paths:
           description: The EmergencyPhase model 
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/EmergencyPhase
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/EmergencyPhase
       responses:
         '200':
           description: Data received. No content returned.
@@ -258,7 +258,7 @@ paths:
           name: metaDataTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
 
           description: DELETE model associated with this timestamp
       responses:
@@ -302,8 +302,10 @@ paths:
           description: The OffNominalMitigationOutcome model 
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/OffNominalMitigationOutcome
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/OffNominalMitigationOutcome
       responses:
         '200':
           description: Data received. No content returned.
@@ -336,7 +338,7 @@ paths:
           name: metaDataTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
 
           description: DELETE model associated with this timestamp
       responses:
@@ -380,8 +382,10 @@ paths:
           description: The LandingOutcome model 
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/LandingOutcome
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/LandingOutcome
       responses:
         '200':
           description: Data received. No content returned.
@@ -414,7 +418,7 @@ paths:
           name: metaDataTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
 
           description: DELETE model associated with this timestamp
       responses:
@@ -462,8 +466,10 @@ paths:
           description: The SafeToLandLocationReach model 
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/SafeToLandLocationReach
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/SafeToLandLocationReach
       responses:
         '200':
           description: Data received. No content returned.
@@ -496,7 +502,7 @@ paths:
           name: metaDataTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
 
           description: DELETE model associated with this timestamp
       responses:
@@ -541,8 +547,10 @@ paths:
           description: The OnBoardSafeLandingCapability model 
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/OnBoardSafeLandingCapability
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/OnBoardSafeLandingCapability
       responses:
         '200':
           description: Data received. No content returned.
@@ -575,7 +583,7 @@ paths:
           name: metaDataTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTs'
 
           description: DELETE model associated with this timestamp
       responses:
