@@ -35,6 +35,19 @@ info:
     SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
+
+swagger: '2.0'
+
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
+
 definitions:
   CnsPreRun:
     type: object
@@ -79,18 +92,18 @@ definitions:
         minimum: 0
 
   Coordinates:
+    description: >-
+      Need description from Jaewoo or Hemil.
     type: object
     required:
       - "metaData"
-      - "coordinatesTsArray"
+      - "coordinatesTs"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      coordinatesTsArray:
-        type: array
-        items:
-          $ref: "#/definitions/CoordinatesTs"
-        minItems: 1
+      coordinatesTs:
+        $ref: "#/definitions/CoordinatesTs"
+
   CoordinatesTs:
     type: "object"
     required:
@@ -136,111 +149,70 @@ definitions:
         type: "number"
         format: "double"
         description: "Coordinate value (ft)"
+        example: 871.94
       estimatedError95Prct_in:
         type: "number"
         format: "double"
-        description: "Estimated truth system position (ECEF) error at time of measurement (95 percentile, inches). UTC time stamped. (in)"
-        minimum: 0
-
+        description: >-
+          "Estimated truth system position (ECEF) error at time of measurement
+          (95 percentile, inches). UTC time stamped. (in)"
+        minimum: 0.0
+        example: 3.2
 
   EmergencyPhase:
+    description: >-
+      "During operation, operator must monitor UA operation according
+       to Communications and Navigation Procedure (Reference 9, Section 4.2)
+       and report appropriate emergency phase with UTC timestamp as enum"
     type: object
     required:
       - "metaData"
-      - "emergencyPhaseTsArray"
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-
-      emergencyPhaseTsArray:
-        description: "During operation, operator must monitor UA operation according\
-          \ to Communications and Navigation Procedure (Reference 9, Section 4.2)\
-          \ and report appropriate emergency phase with UTC timestamp as enum"
-        $ref: "#/definitions/EmergencyPhaseTsArray"
-
-  EmergencyPhaseTsArray:
-    type: array
-    items:
-      $ref: "#/definitions/EmergencyPhaseTs"
-
-  EmergencyPhaseTs:
-    type: object
-    required:
       - "timestamp"
       - "emergencyPhaseValue"
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       emergencyPhaseValue:
-        $ref: '#/definitions/EmergencyPhaseValue'
-
-  EmergencyPhaseValue:
-    type: string
-    enum:
-      - "Nominal Operation"
-      - "Uncertainty"
-      - "Alert"
-      - "Distress"
+        type: string
+        enum:
+          - "NOMINAL"
+          - "UNCERTAINTY"
+          - "ALERT"
+          - "DISTRESS"
 
   OffNominalMitigationOutcome:
     type: object
     required:
       - "metaData"
-      - "offNominalMitigationOutcomeTsArray"
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      offNominalMitigationOutcomeTsArray:
-        description: "Outcome of offnominal events like UA to Operator C2 Link Loss,\
-          \ Operator to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported\
-          \ as enum"
-        $ref: "#/definitions/OffNominalMitigationOutcomeTsArray"
-  OffNominalMitigationOutcomeTsArray:
-    type: array
-    items:
-      $ref: "#/definitions/OffNominalMitigationOutcomeTs"
-
-  OffNominalMitigationOutcomeTs:
-    type: object
-    required:
       - timestamp
       - offNominalMitigationOutcomeValue
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       offNominalMitigationOutcomeValue:
         type: "string"
         enum:
-          - "Resolved_within_operation_volume"
-          - "Resolved_but_triggered_nonconforming_state"
-          - "Resolved_but_triggered_rogue_state"
-          - "Unresolved_vehicle_flew_away"
-          - "Unresolved_vehicle_crashed_to_ground"
-          - "Unresolved_vehicle_collided_with_another_vehicle"
-          - "Unresolved_vehicle_collided_with_building"
-
+          - "RESOLVED_WITHIN_OPERATION_VOLUME"
+          - "RESOLVED_BUT_TRIGGERED_NONCONFORMING_STATE"
+          - "RESOLVED_BUT_TRIGGERED_ROGUE_STATE"
+          - "UNRESOLVED_VEHICLE_FLEW_AWAY"
+          - "UNRESOLVED_VEHICLE_CRASHED_TO_GROUND"
+          - "UNRESOLVED_VEHICLE_COLLIDED_WITH_ANOTHER_VEHICLE"
+          - "UNRESOLVED_VEHICLE_COLLIDED_WITH_BUILDING"
 
   LandingOutcome:
     type: object
     required:
       - "metaData"
-      - "landingOutcomeTsArray"
+      - "timestamp"
+      - "landingOutcomeValue"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      landingOutcomeTsArray:
-        $ref: "#/definitions/LandingOutcomeTsArray"
-  LandingOutcomeTsArray:
-    type: array
-    items:
-      $ref: "#/definitions/LandingOutcomeTs"
-
-  LandingOutcomeTs:
-    type: object
-    required:
-      - timestamp
-      - landingOutcomeValue
-    properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       landingOutcomeValue:
@@ -248,70 +220,53 @@ definitions:
         description: "Report this for every landing as enum, landing within contingency_polygon\
           \ is also considered as safe landing"
         enum:
-        - "Safe_landing_within_operation_volume"
-        - "Safe_landing_outside_of_operation_volume"
-        - "Unsafe_landing_within_operation_volume"
-        - "Unsafe_landing_outside_of_operation_volume"
-
+        - "SAFE_LANDING_WITHIN_OPERATION_VOLUME"
+        - "SAFE_LANDING_OUTSIDE_OF_OPERATION_VOLUME"
+        - "UNSAFE_LANDING_WITHIN_OPERATION_VOLUME"
+        - "UNSAFE_LANDING_OUTSIDE_OF_OPERATION_VOLUME"
 
   SafeToLandLocationReach:
     type: object
     required:
       - "metaData"
-      - "safetToLandLocationReachTsArray"
+      - timestamp
+      - canReachSafeToLandLocation
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      safetToLandLocationReachTsArray:
-        $ref: "#/definitions/SafeToLandLocationReachTsArray"
-  SafeToLandLocationReachTsArray:
-    type: array
-    items:
-      $ref: "#/definitions/SafeToLandLocationReachTs"
-
-  SafeToLandLocationReachTs:
-    type: object
-    required:
-      - timestamp
-      - safeToLandLocationReachValue
-    properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      safeToLandLocationReachValue:
-        type: "string"
-        description: "Operator to select one of the following enum to indicate whether UA can reach designated safe-to-reach location: For example, if battery is too low or wind is too strong for UA to reach safe to land location, (cannot reach safe to land location) should be selected."
-        enum:
-        - "can reach safe to land location"
-        - "cannot reach safe to land location"
-
+      canReachSafeToLandLocation:
+        type: "boolean"
+        description: >-
+          "Operator to select true/false to indicate whether UA can reach
+          designated safe-to-reach location: For example, if battery is too low
+          or wind is too strong for UA to reach safe to land location, 'false'
+          should be selected."
+        example: true
 
   OnBoardSafeLandingCapability:
     type: object
     required:
       - "metaData"
-      - "onBoardSafeLandingCapabilityTsArray"
+      - "timestamp"
+      - "onBoardSafeLandingCapabilityStatus"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      onBoardSafeLandingCapabilityTsArray:
-        $ref: "#/definitions/OnBoardSafeLandingCapabilityTsArray"
-  OnBoardSafeLandingCapabilityTsArray:
-    type: array
-    items:
-      $ref: "#/definitions/OnBoardSafeLandingCapabilityTs"
-
-  OnBoardSafeLandingCapabilityTs:
-    type: object
-    required:
-      - timestamp
-      - onBoardSafeLandingCapabilityTs
-    properties:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      onBoardSafeLandingCapabilityTs:
+      onBoardSafeLandingCapabilityStatus:
         type: "string"
-        description: "Operator to select one of the following enum to indicate whether UA's onboard safe landing capability (i.e. onboard system that is capable of identifying safe to land location and land while avoiding people and property, such as safe2ditch) is working properly or not.  For example, if the onboard safe landing system uses optical sensor and a bug has rendered it non-usable, (onboard safe landing system is compromised) should be selected."
+        description: >-
+          "Operator to select one of the following enum to indicate whether UA's
+          onboard safe landing capability (i.e. onboard system that is capable
+          of identifying safe to land location and land while avoiding people
+          and property, such as safe2ditch) is working properly or not.  For
+          example, if the onboard safe landing system uses optical sensor and a
+          bug has rendered it non-usable, (onboard safe landing system is
+          compromised) should be selected."
         enum:
-        - "onboardSafeLandingSystemFunctioningNormally"
-        - "onboardSafeLandingSystemIsCompromised"
-        - "uaNotEquippedWithOnboardSafeLandingSystem"
+        - "ONBOARD_SAFE_LANDING_SYSTEM_FUNCTIONING_NORMALLY"
+        - "ONBOARD_SAFE_LANDING_SYSTEM_IS_COMPROMISED"
+        - "UA_NOT_EQUIPPED_WITH_ONBOARD_SAFE_LANDING_SYSTEM"
