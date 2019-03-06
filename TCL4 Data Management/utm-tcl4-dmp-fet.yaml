@@ -1,0 +1,147 @@
+info:
+  version: "v1.0"
+  title: UTM DMP TCL4 FET-UAS
+  description: Data model for FET-UAS submission. 
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: jaewoo.jung@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
+definitions:
+  FlightEssentialTelemetryAndUasStates:
+    description: >-
+      Flight essential telemetry and UAS state data for a UAS Operation in TCL4. Refer to the DMP documentation on specific requirements for a given run.   
+    required:
+      - metaData
+      - ac_type
+      - timestamp
+      - sensor
+      - value
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      timestamp:
+        description: >-
+          Time for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      ac_type:
+        description: >-
+          Type of aircraft.  FET has requirements for crewed vehicles.
+        type: string
+        enum:
+          - CREWED
+          - UAS
+      value:
+        type: number
+        description: value of sensor (double)
+      sensor:
+        type: string
+        enum:
+          - lat
+          - lon
+          - alt
+          - barometricAltitude_ft
+          - externalTemperature_c
+          - relativeHumidityPrct_nonDim
+          - navigationAccuracyCategoryPosition
+          - navigationIntegrityCategory
+          - heading_deg
+          - trueAirspeed_ftPerSec
+          - verticalSpeed_ftPerMin
+          - yaw_deg
+          - rollRate_degPerSec
+          - pitchRate_degPerSec
+          - yawRate_degPerSec
+          - vdop_nonDim
+          - batteryVoltage_v
+          - batteryCurrent_a
+          - numGpsSatellitesInView_nonDim
+          - motor10ControlThrottleCommand_nonDim
+          - motor11ControlThrottleCommand_nonDim
+          - motor12ControlThrottleCommand_nonDim
+          - motor13ControlThrottleCommand_nonDim
+          - motor14ControlThrottleCommand_nonDim
+          - motor15ControlThrottleCommand_nonDim
+          - motor16ControlThrottleCommand_nonDim
+          - motor1ControlThrottleCommand_nonDim
+          - motor2ControlThrottleCommand_nonDim
+          - motor3ControlThrottleCommand_nonDim
+          - motor4ControlThrottleCommand_nonDim
+          - motor5ControlThrottleCommand_nonDim
+          - motor6ControlThrottleCommand_nonDim
+          - motor7ControlThrottleCommand_nonDim
+          - motor8ControlThrottleCommand_nonDim
+          - motor9ControlThrottleCommand_nonDim
+          - numGpsSat_nonDim
+          - pitch_deg
+          - roll_deg
+          - rudderActuatorCommand_nonDim
+          - sideSlip_deg
+          - targetAirSpeed_ftPerSec
+          - targetGroundSpeed_ftPerSec
+          - targetWaypointAlt_ft
+          - targetWaypointLat_deg
+          - targetWaypointLon_deg
+          - velDown_ftPerSec
+          - velEast_ftPerSec
+          - velNorth_ftPerSec
+          - verticalNavPositionError_ft
+          - verticalNavVelocityError_ftPerSec
+          - aileronActuatorCommand_nonDim
+          - aircraftAirborneState_nonDim
+          - angleOfAttack_deg
+          - barometricPressure_psi
+          - batteryTemp_f
+          - elevatorActuatorCommand_nonDim
+          - externalTemperature_f
+          - aboveTerrainAltitude_ft
+          - accBodyX_ftPerSec2
+          - accBodyY_ftPerSec2
+          - accBodyZ_ftPerSec2
+          - geometricVerticalAccuracyCategory
+          - groundCourse_deg
+          - groundSpeed_ftPerSec
+          - hdop_nonDim
+          - indicatedAirspeed_ftPerSec
+          - lateralNavPositionError_ft
+          - lateralNavVelocityError_ftPerSec
+          
+
+
+
+
+
+
