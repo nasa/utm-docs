@@ -157,7 +157,7 @@ definitions:
 
   ConWxOperatingPointData:
     description: >-
-           Temperature, air pressure (inHg), windspeed (ft/sec), wind direction,
+           Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
            location, and timestamp associated with the measurement
     type: object
     required:
@@ -181,7 +181,7 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       temperature:
         description: >-
-          Degrees Celcius.
+          Degrees Celsius.
         type: number
         format: float
       pressure:
@@ -358,7 +358,7 @@ definitions:
     type: array
     items:
       type: object
-      required: ['provider', 'cellCoveragePolygon','cellCoverageDeadzonPolygon']
+      required: ['provider', 'cellCoveragePolygon','cellCoverageDeadZonePolygon']
       properties:
         provider:
           description: >-
@@ -374,9 +374,9 @@ definitions:
            maxItems: 300
            items:
              $ref: '#/definitions/LatLonArray'
-        cellCoverageDeadzonPolygon:
+        cellCoverageDeadZonePolygon:
             description: >-
-              list cell Coverage Dead zone Polygons
+              list cell Coverage Dead Zone Polygons
             type: array
             minItems: 1
             maxItems: 300
