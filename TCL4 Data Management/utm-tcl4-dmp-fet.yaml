@@ -1,7 +1,7 @@
 info:
   version: "v1.0"
-  title: UTM DMP TCL4 FET-UAS
-  description: Data model for FET-UAS submission. 
+  title: UTM DMP TCL4 CNS
+  description: Data model for CNS submission.
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
@@ -35,6 +35,19 @@ info:
     SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
+
+swagger: '2.0'
+
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
+
 definitions:
   FlightEssentialTelemetryAndUasStates:
     description: >-
