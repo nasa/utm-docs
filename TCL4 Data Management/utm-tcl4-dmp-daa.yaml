@@ -1,7 +1,7 @@
 info:
   version: "v1.0"
-  title: UTM TCL4 DMP Detect and Avoid (DAA) Specification
-  description: Data model for DAA submission. 
+  title: UTM DMP TCL4 DAA
+  description: Data model for CNS submission.
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
@@ -36,316 +36,37 @@ info:
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 
-definitions:
+swagger: '2.0'
 
-  DAA:
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
+
+definitions:
+  DaaSensor:
     type: object
-    required: 
-      [metaData,sensorConfiguration,conflictResolutionConfiguration,sensorMeasurement,conflictResolutionMeasurement,geofencingParameters]
+    required:
+      - metaData
+      - daaSensor
+      - sensorId
+      - useOfSensor
+      - typeOfSensor
+      - otherSensor
+      - probabilityIntruderDetectionPrct
+      - targetTrackCapacity
+      - updateRateSensor
+
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorConfiguration:
-        $ref: "#/definitions/sensorConfiguration"
-      conflictResolutionConfiguration:
-        $ref: "#/definitions/conflictResolutionConfiguration"
-      sensorMeasurement:
-        $ref: "#/definitions/sensorMeasurement"
-      conflictResolutionMeasurement:
-        $ref: "#/definitions/conflictResolutionMeasurement"
-      geofencingParameters:
-        $ref: "#/definitions/geofencingParameters"
-        
-  sensorConfiguration:
-    type: object
-    required: [sensor,sensorRange,sensorBearing,sensorRcs,sensorV2V]
-    properties:
-    
-      # useOfSensor
-      # typeOfSensor
-      # sensorId_nonDim
-      # probabilityIntruderDetectionPrct_nonDim
-      # targetTrackCapacity_nonDim
-      # updateRateSensor_hz
-      sensor:
-        type: array
-        items: 
-          $ref: "#/definitions/sensor"
-          
-      # sensorMaxHorzRangeData
-      # sensorMinHorzRangeData
-      # horRangeAccuracy_ft
-      # sensorMaxVertRangeData
-      # sensorMinVertRangeData
-      # erRangeAccuracy_ft
-      sensorRange:
-        type: array
-        items:
-          $ref: "#/definitions/sensorRange"
-          
-      # azimuthSensorMax_deg
-      # azimuthSensorMin_deg
-      # daaSensorAzimuthAccuracy_deg
-      # elevationSensorMax_deg
-      # elevationSensorMin_deg
-      # daaSensorElevationAccuracy_ft
-      sensorBearing:
-        type: array
-        items:
-          $ref: "#/definitions/sensorBearing"
-          
-      # maxRcsOfSensor_ft2
-      # minRcsOfSensor_ft2
-      sensorRcs:
-        type: array
-        items:
-          $ref: "#/definitions/sensorRcs"
-          
-      # txRadioFrequencyV2V_ghz
-      # txRadioFrequencyPowerEirpV2V_w
-      # txRadioFrequencyPowerErpV2V_w
-      sensorV2V:
-        type: array
-        items:
-          $ref: "#/definitions/sensorV2V"
-          
-  conflictResolutionConfiguration:
-    type: object
-    required: [lookAheadTime_sec,expectedOperatorResponseTime_sec,expectedUASResponseTime_sec,expectedCommLatency_sec,expectedClimbRateOwnship_ftPerSec,expectedDescendRateOwnship_ftPerSec,expectedTurnRateOwnship_degPerSec,expectedTimeToHover_sec,probabilityFalseAlarmPrct_nonDim,staticObstacleTable]
-    properties:
-      
-      # Separation Critera
-      # Alerting Critera
-      # Clear of Conflict Critera
-      criteria: 
-        type: array
-        items: 
-          type: object
-          required: [criterion,filename]
-          properties:
-            criterion: 
-              type: string
-              enum: [separation,alerting,clearing]
-            filename:
-              type: string
-
-      lookAheadTime_sec:
-        $ref: "#/definitions/seconds"
-      expectedOperatorResponseTime_sec:
-        $ref: "#/definitions/seconds"
-      expectedUASResponseTime_sec:
-        $ref: "#/definitions/seconds"
-      expectedCommLatency_sec:
-        $ref: "#/definitions/seconds"
-      expectedClimbRateOwnship_ftPerSec:
-        $ref: "#/definitions/seconds"
-      expectedDescendRateOwnship_ftPerSec:
-        $ref: "#/definitions/seconds"
-      expectedTurnRateOwnship_degPerSec:
-        $ref: "#/definitions/seconds"
-      expectedTimeToHover_sec:
-        $ref: "#/definitions/seconds"
-      probabilityFalseAlarmPrct_nonDim:
-        $ref: "#/definitions/percent" 
-        
-      # staticObstaclePolygonPoint
-      # staticObstacleMaxAlt_ft
-      # staticObstacleMinAlt_ft
-      staticObstacleTable:
-        type: array
-        items:
-          type: object
-          properties:
-            dynamicObstacleHeight_ft:
-              $ref: "#/definitions/feet"
-            # staticObstaclePolygonPoint
-            # staticObstacleMaxAlt_ft
-            # staticObstacleMinAlt_ft
-            perimeter:
-              $ref: "#/definitions/polygonBoundary"
-
-  sensorMeasurement:
-    type: object
-    required: [azimuthAccuracyTable,rangeAccuracyTable,v2vTable,numberOfLostTracksTable,timeToTrackTable,intruderAircraftDetectionTable,dynamicObstacleTable]
-    properties:
-    
-      # daaSensorAzimuthAccuracyRealTime_deg
-      # daaSensorAltitudeAccuracyRealTime_ft
-      azimuthAccuracyTable:
-        $ref: "#/definitions/azimuthAccuracyTable"
-        
-      # horRangeAccuracyRealTime_ft
-      # verRangeAccuracyRealTime_ft
-      rangeAccuracyTable:
-        $ref: "#/definitions/rangeAccuracyTable"
-      
-      # dataPacketRatioV2V_nonDim
-      # transmissionDelayV2V_sec
-      # packetSizeV2V_kb
-      v2vTable:
-        $ref: "#/definitions/v2vTable"
-        
-      # numberOfLostTracks_nonDim
-      numberOfLostTracksTable:
-        $ref: "#/definitions/numberOfLostTracksTable"
-        
-      # timeToTrack_sec
-      timeToTrackTable:
-        $ref: "#/definitions/timeToTrackTable"
-        
-      # intruderAircraftDetectionId_nonDim
-      # intruderAircraftDetectionPosition_deg
-      # intruderAircraftDetectionAlt_ft      
-      intruderAircraftDetectionTable:
-        $ref: "#/definitions/intruderAircraftDetectionTable"
-        
-      # dynamicObstaclePolygonPoint
-      # obstacleDetectionPosition_deg
-      # obstacleDetectionAlt_ft
-      dynamicObstacleTable:
-        $ref: "#/definitions/dynamicObstacleTable"
-
-  conflictResolutionMeasurement:
-    type: array
-    items: 
-      type: object
-      required: [otherGufi,otherUvin,typeOfConflictResolution_nonDim,conflictResolutionManeuver_nonDim,eventTimesTable]
-      properties:
-        otherGufi:
-          $ref: "#/definitions/gufi"
-        otherUvin:
-          $ref: '#/definitions/uvin'
-        typeOfConflictResolution_nonDim:
-          type: integer
-          enum: [0,1,2,3]
-        conflictResolutionManeuver_nonDim:
-          type: integer
-          enum: [0,1,2,3,4,5,6]
-        eventTimesTable:
-          type: array
-          items: 
-           type: object
-           required: [eventType,timeStamp,severityOfAlert,directionOfAlertResolution]
-           properties:
-              eventType:
-                type: string
-                enum: [timeAtEncounterInit,timeAtEncounterEnd,timeAtConflictAlert,timeAtConflictResManeuverInit,timeAtConflictResManeuverComplt,timeAtClearOfConflict,ussDaaAlertReceived,onboardDaaAlertIssued,groundDaaAlertIssued,caAlertIssued,ussCaAlertReceived,oaAlertIssued,ussOaAlertReceived]
-              timeStamp:
-                $ref: "#/definitions/timeStamp"
-              severityOfAlert:
-                type: integer
-                enum: [-1,0,1]
-              directionOfAlertResolution:
-                type: integer
-                enum: [-1,0,1]
-            
-  geofencingParameters:
-    type: object
-    required: [geoFenceTable]
-    properties:
-      geoFenceTable:
-        type: array
-        items: 
-          type: object
-          required: [geoFenceId_nonDim,geoFenceMeta]
-          properties:
-            geoFenceId_nonDim:
-              $ref: '#/definitions/uuid' 
-                  
-            # geoFenceStartTime
-            # geoFenceEndTime
-            # geoFenceType_nonDim
-            geoFenceMeta: 
-              $ref: "#/definitions/geofenceMeta"
-                
-      # geoFenceEnable_nonDim
-      geofenceEnableTable:
-        type: array
-        items:
-          type: object
-          required: [geoFenceId_nonDim,timeStamp,geofenceEnable_nonDim]
-          properties:
-            geoFenceId_nonDim:
-              $ref: '#/definitions/uuid'        
-            timeStamp:
-              $ref: '#/definitions/timeStamp' 
-            geofenceEnable_nonDim:
-              type: boolean          
-            
-      # geoFenceMinAltitude_ft
-      # geoFenceMaxAltitude_ft
-      # geoFenceCircularPointLat_deg
-      # geoFenceCircularPointLon_deg
-      # geoFenceCircularRadius_ft
-      circularBoundaryTable:
-        type: array
-        items: 
-          $ref: "#/definitions/circularBoundary"
-            
-      # geoFenceMinAltitude_ft
-      # geoFenceMaxAltitude_ft            
-      # geoFenceDynamicPolygonPoint_deg
-      polygonBoundaryTable:
-        type: array
-        items: 
-          type: object
-          required: [geoFencePolygonPoints]
-          properties:   
-            geoFencePolygonPoints:
-              $ref: "#/definitions/polygonBoundary"
-              
-# geofence support
-          
-  geofenceMeta:
-    type: object
-    required: [geoFenceStartTime,geoFenceEndTime,geoFenceType_nonDim]
-    properties:
-      geoFenceStartTime:
-        $ref: '#/definitions/timeStamp' 
-      geoFenceEndTime:
-        $ref: '#/definitions/timeStamp' 
-      geoFenceType_nonDim:
-        type: string
-        enum: [circular,polygon]
-
-  circularBoundary:
-    type: object
-    required: [geoFenceId_nonDim,min,max,geoFenceCircularPoint]
-    properties:
-      geoFenceId_nonDim:
-        $ref: '#/definitions/uuid'
-      min: 
-        type: number
-        format: float
-      max:
-        type: number
-        format: float
-      geoFenceCircularPoint:
-        $ref: "#/definitions/latLon"
-
-  polygonBoundary:
-    type: object
-    required: [min,max,polygonPoints]
-    properties:
-      min: 
-        type: number
-        format: float
-      max:
-        type: number
-        format: float
-      polygonPoints:
-        type: array
-        items:
-          $ref: "#/definitions/latLon"
-          
-  # sensorConfiguration support
-  
-  sensor:
-    type: object
-    required: [sensorId_nonDim,useOfSensor,typeOfSensor,otherSensor,probabilityIntruderDetectionPrct_nonDim,targetTrackCapacity_nonDim,updateRateSensor_hz]
-    properties:
-      sensorId_nonDim:
-        $ref: "#/definitions/sensorId_nonDim"
+      sensorId:
+        $ref: "#/definitions/SensorId"
       useOfSensor:
         type: string
         enum: [DAA,OA,CA]
@@ -354,20 +75,22 @@ definitions:
         enum: [USS Service, DSRC, C-2V2X, Wifi, ADS-B, Airborne Radar, Ground Radar, LiDAR, Acoustic, Optical, EO/IR, other]
       otherSensor:
         type: string
-      probabilityIntruderDetectionPrct_nonDim:
+      probabilityIntruderDetectionPrct:
         $ref: "#/definitions/percent"      
-      targetTrackCapacity_nonDim:
+      targetTrackCapacity:
         $ref: "#/definitions/count"
-      updateRateSensor_hz:
+      updateRateSensor:
         $ref: "#/definitions/hertz"
 
-  sensorRange:
-    type: object
-    required: [sensorId_nonDim,sensorMaxHorzRangeData,sensorMinHorzRangeData,horRangeAccuracy_ft,sensorMaxVertRangeData,sensorMinVertRangeData,verRangeAccuracy_ft]
+
+  DaaSensorRange:
+    required:
+      - metaData
     properties:
-      sensorId_nonDim:
-        $ref: "#/definitions/sensorId_nonDim"
-        
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
       sensorMaxHorzRangeData:
         $ref: "#/definitions/feet"
       sensorMinHorzRangeData:
@@ -380,260 +103,29 @@ definitions:
         $ref: "#/definitions/feet"
       verRangeAccuracy_ft:
         $ref: "#/definitions/feet"
-
-  sensorBearing:
-    type: object
-    required: [sensorId_nonDim,azimuthSensorMax_deg,azimuthSensorMin_deg,daaSensorAzimuthAccuracy_deg,elevationSensorMax_deg,elevationSensorMin_deg,daaSensorAltitudeAccuracy_ft]
-    properties:
-      sensorId_nonDim:
-        $ref: "#/definitions/sensorId_nonDim"
-
-      azimuthSensorMax_deg:
-        $ref: "#/definitions/degrees"
-      azimuthSensorMin_deg:
-        $ref: "#/definitions/degrees"
-      daaSensorAzimuthAccuracy_deg:
-        $ref: "#/definitions/degrees"        
-
-      elevationSensorMax_deg:
-        $ref: "#/definitions/degrees"        
-      elevationSensorMin_deg:
-        $ref: "#/definitions/degrees"
-      daaSensorAltitudeAccuracy_ft:
-        $ref: "#/definitions/feet"
-
-  sensorRcs:
-    type: object
-    required: [sensorId_nonDim,maxRcsOfSensor_ft2,minRcsOfSensor_ft2]
-    properties:
-      sensorId_nonDim:
-        $ref: "#/definitions/sensorId_nonDim"
-        
-      maxRcsOfSensor_ft2:
-        $ref: "#/definitions/squareFoot"      
-      minRcsOfSensor_ft2:
-        $ref: "#/definitions/squareFoot"          
-
-        
-  sensorV2V:
-    type: object
-    required: [sensorId_nonDim,txRadioFrequencyV2V_ghz,txRadioFrequencyPowerEirpV2V_w,txRadioFrequencyPowerErpV2V_w]
-    properties:
-      sensorId_nonDim:
-        $ref: "#/definitions/sensorId_nonDim"
-        
-      txRadioFrequencyV2V_ghz:
-        $ref: "#/definitions/gigaHertz"
-      txRadioFrequencyPowerEirpV2V_w:
-        $ref: "#/definitions/watt"
-      txRadioFrequencyPowerErpV2V_w:
-        $ref: "#/definitions/watt"      
- 
-# sensorMeasurement support     
-
-  azimuthAccuracyTable:
-    type: array
-    items: 
-      type: object
-      required: [sensorId_nonDim,timeStamp]
-      properties:  
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp' 
-
-        daaSensorAzimuthAccuracyRealTime_deg:
-          $ref: '#/definitions/degrees'
-        daaSensorAltitudeAccuracyRealTime_ft:
-          $ref: '#/definitions/degrees'
-          
-  rangeAccuracyTable:
-    type: array
-    items: 
-      type: object
-      required: [sensorId_nonDim,timeStamp,horRangeAccuracyRealTime_ft,verRangeAccuracyRealTime_ft]
-      properties:  
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp' 
-
-        horRangeAccuracyRealTime_ft:
-          $ref: '#/definitions/feet'
-        verRangeAccuracyRealTime_ft:
-          $ref: '#/definitions/feet'
-
-  v2vTable:
-    type: array
-    items: 
-      type: object
-      required: [sensorId_nonDim,timeStamp,dataPacketRatioV2V_nonDim,transmissionDelayV2V_sec,packetSizeV2V_kb]
-      properties:  
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp' 
-  
-        dataPacketRatioV2V_nonDim:
-          $ref: '#/definitions/ratio'
-        transmissionDelayV2V_sec:
-          $ref: "#/definitions/seconds"
-        packetSizeV2V_kb:
-          $ref: '#/definitions/kiloBytes'
-
-  numberOfLostTracksTable:
-    type: array
-    items: 
-      type: object
-      required: [sensorId_nonDim,timeStamp,numberOfLostTracks_nonDim]
-      properties:  
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp' 
-
-        numberOfLostTracks_nonDim:
-          $ref: '#/definitions/count'
-  
-  timeToTrackTable:
-    type: array
-    items: 
-      type: object
-      required: [sensorId_nonDim,timeStamp,timeToTrack_sec]
-      properties:  
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp' 
-
-        timeToTrack_sec:
-          $ref: '#/definitions/seconds'
-
-  intruderAircraftDetectionTable:
-    type: array
-    items:
-      type: object
-      required: [sensorId_nonDim,timeStamp,intruderAircraftDetectionId_nonDim,intruderTable]
-      properties:
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp' 
-        intruderTable:
-          type: array
-          items: 
-            type: object
-            required: [intruderAircraftDetectionId_nonDim,intruderAircraftDetectionPosition_deg,intruderAircraftDetectionAlt_ft]
-            properties:
-              intruderAircraftDetectionIdGufi_nonDim:
-                $ref: "#/definitions/gufi"
-              intruderAircraftDetectionIdUvin_nonDim:
-                $ref: "#/definitions/uvin"
-              intruderAircraftDetectionPosition_deg:
-                $ref: "#/definitions/latLon"
-              intruderAircraftDetectionAlt_ft:
-                $ref: "#/definitions/feet"
-        
-  dynamicObstacleTable:
-    type: array
-    items: 
-      type: object
-      required: [sensorId_nonDim,timeStamp,obstacleTable]
-      properties:
-        sensorId_nonDim:
-          $ref: "#/definitions/sensorId_nonDim"
-        timeStamp:
-          $ref: '#/definitions/timeStamp'
-        obstacleTable:
-          type: array
-          items: 
-            type: object
-            required: [dynamicObstaclePolygonPoint,obstacleDetectionPosition_deg,obstacleDetectionAlt_ft]
-            properties:
-              dynamicObstaclePolygonPoint:
-                 $ref: "#/definitions/polygonBoundary"            
-              obstacleDetectionPosition_deg:
-                $ref: "#/definitions/latLon"   
-              obstacleDetectionAlt_ft:
-                $ref: "#/definitions/feet"
-
-
-# UTM commons definitions, given short local aliases
-#
-  gufi:
-    $ref: "#definitions/uuid"
-    
-  uvin:
-    $ref: "#definitions/uuid"
-    
-  uuid:
-    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/UUID'
-    
-  timeStamp:
+# supporting definitions
+  SensorId: 
+    description: >-
+      Identifier for this sensor instance.  
     type: string
-  # temporary annotation, for ease of review: real timeStamp eats up too much vert space
-  #  $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-    
-  metaData:
-    $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+    format: uuid
+    maxLength: 36
+    minLength: 36
+    pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+    example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
-# simple types
-#
-  sensorId_nonDim:
-    type: number
-    format: integer
-
-  seconds:
-    type: number
-    format: integer
-    
-  degrees:
-    type: number
-    format: float
-  
-  feet:
-    type: number
-    format: float
-    
-  squareFoot:
-    type: number
-    format: float
-    
-  hertz:
-    type: number
-    format: float
-    
-  gigaHertz:
-    type: number
-    format: float
-    
   percent:
     type: number
     format: float
-    
   count:
     type: number
     format: integer
-    
-  watt:
+  hertz:
     type: number
     format: float
-    
-  ratio:
+  degrees:
     type: number
     format: float
-    
-  kiloBytes:
+  feet:
     type: number
     format: float
-    
-  latLon:
-    type: object
-    required: [lat,lon]
-    properties:
-      lat:
-        type: number
-        format: double
-      lon:
-        type: number
-        format: double
