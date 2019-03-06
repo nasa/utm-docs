@@ -70,7 +70,7 @@ definitions:
         broadcast_technology:
           description: >-
             Brief description of the technology used to broadcast information from
-            the UA.  If no broadcast technology is used, "NONE" os an
+            the UA.  If no broadcast technology is used, "NONE" is an
             appropriate response.
 
             Consistency is important in this field for analysis purposes, so
@@ -102,7 +102,7 @@ definitions:
         network_lookup_provided_expected_response:
           description: >-
             If USS Network used to look up this operation, did it return the expected
-            result? This means that if a negative result was expected and recieved
+            result? This means that if a negative result was expected and received
             this value would be 'true'.
 
             Required when network_lookup == true.

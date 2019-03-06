@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   description: >-
-    "TCL4 will require the submission of test data.  Some of these data are not readily collected via UTM means. This file describes the endpoints used for that data colleciton.  These models are referenced in the Data Management Plan (DMP), so this API and associated models are referred to using the acronym 'DMP'"
+    "TCL4 will require the submission of test data.  Some of these data are not readily collected via UTM means. This file describes the endpoints used for that data collection.  These models are referenced in the Data Management Plan (DMP), so this API and associated models are referred to using the acronym 'DMP'"
   version: '0.1'
   title: "API endpoints for TCL4 data collection"
   termsOfService: >
@@ -55,7 +55,7 @@ securityDefinitions:
 paths:
   '/uss-exchange-single/{uuid}':
     delete:
-      summary: Delete a previously updloaded USSExchange instance.
+      summary: Delete a previously uploaded USSExchange instance.
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
