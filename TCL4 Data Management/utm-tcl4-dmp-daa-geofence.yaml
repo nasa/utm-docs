@@ -7,17 +7,17 @@ info:
     collected as a soon as feasible.  Further details will be provided in other
     testing documentation."
   version: 'v1'
-  title: "Domain for Geofence Data"
+  title: "Domain for Geofence Data used in DAA"
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utm.arc.nasa.gov/'
     email: joseph.rios@nasa.gov
 
 definitions:
-  GeoFence:
+  DaaGeoFence:
     required:
+      - metaData
       - geofence_id
-      - gufi
       - timestamp
       - enabled
       - start_time
@@ -27,15 +27,7 @@ definitions:
       geofence_id:
         description: >-
           Identifier for this geofence data instance.  This id should remain
-          constant across multiple geofence samples for a dynamic geofence.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      gufi:
-        description: GUFI of the operation that used this geofence.
+          constant across multiple geofence samples for a dynamic geofence associated with the same metaData model
         type: string
         format: uuid
         maxLength: 36
