@@ -247,6 +247,28 @@ definitions:
         $ref: '#/definitions/feet'
       verRangeAccuracyRealTime:
         $ref: '#/definitions/feet'
+
+  DaaSensorV2vData:
+    required:
+      - metaData
+      - sensorId
+      - timestamp
+      - dataPacketRatioV2v
+      - transmissionDelayV2v
+      - packetSizeV2v
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      dataPacketRatioV2v:
+        $ref: '#/definitions/ratio'
+      transmissionDelayV2v:
+        $ref: "#/definitions/seconds"
+      packetSizeV2v:
+        $ref: '#/definitions/kiloBytes'
         
 # supporting definitions
   SensorId: 
