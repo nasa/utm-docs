@@ -182,7 +182,7 @@ definitions:
         description: >-
           Name of the testing location, such as NV, Moffett, Crows
           Landing, etc.  The supplier of the metadata should use a constant
-          value for this field when the same location is used mulitple times
+          value for this field when the same location is used multiple times
           across data submissions. E.g. "AMES" should always be "AMES" and not
           "ames" or "Ames" or "NASA Ames" at other various times.
         minLength: 1
@@ -226,14 +226,14 @@ definitions:
   timestamp:
     description: >-
       Timestamps MUST follow the guidance set forth in RFC3339.
-      This RFC defines a profile for ISO8601 forcused on interoperability of Internet
+      This RFC defines a profile for ISO8601 focused on interoperability of Internet
       based systems.  This profile makes certain design decisions based on
       reducing rarely used options, elimination of redundant information, and
       overall simplicity.
       From these goals and insight from building interoperable systems,
       RFC3339 provides a grammar for timestamps.  Please see
       https://tools.ietf.org/html/rfc3339#section-5.6
-      for that grammer and the sections preceding that grammar for more
+      for that grammar and the sections preceding that grammar for more
       detailed discussion.
       For UTM, we have attempted to reduce the grammar to a regular expression,
       but this does not take into account all rules.  For example, a valid
