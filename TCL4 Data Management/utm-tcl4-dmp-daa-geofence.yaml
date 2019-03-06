@@ -81,7 +81,7 @@ definitions:
         example: "POLYGON"
       min_altitude:
         description: >-
-          Altitude floor of the geogence.
+          Altitude floor of the geofence.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
         example:
           min_altitude:
@@ -90,7 +90,7 @@ definitions:
             units_of_measure: "FT"
       max_altitude:
         description: >-
-          Altitude ceiling of the geogence.
+          Altitude ceiling of the geofence.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
         example:
           max_altitude:
