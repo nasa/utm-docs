@@ -49,18 +49,18 @@ paths:
             when there are no paths, but domains do not contain paths.
 
 definitions:
-  FlightEssentialTelemetryAndUasStates:
+
+  SensorTuple:
     description: >-
-      Flight essential telemetry and UAS state data for a UAS Operation in TCL4. Refer to the DMP documentation on specific requirements for a given run.   
+      An individual sample of a sensor.  See DMP spreadsheet for definitions of
+      the various enum values.
+
+      Each sensor will have its own requirements on sample frequency.
     required:
-      - metaData
-      - ac_type
       - timestamp
       - sensor
       - value
     properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         description: >-
           Time for this sample.
@@ -70,6 +70,94 @@ definitions:
         maxLength: 24
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
+      value:
+        type: number
+        format: double
+        description: value of sensor reading
+      sensor:
+        type: string
+        enum:
+          - LAT
+          - LON
+          - ALT
+          - BAROMETRIC_ALTITUDE_FT
+          - EXTERNAL_TEMPERATURE_C
+          - RELATIVE_HUMIDITY_PRCT_NONDIM
+          - NAVIGATION_ACCURACY_CATEGORY_POSITION
+          - NAVIGATION_INTEGRITY_CATEGORY
+          - HEADING_DEG
+          - TRUE_AIRSPEED_FT_PER_SEC
+          - VERTICAL_SPEED_FT_PER_MIN
+          - YAW_DEG
+          - ROLLRATE_DEG_PER_SEC
+          - PITCH_RATE_DEG_PER_SEC
+          - YAW_RATE_DEG_PER_SEC
+          - VDOP_NONDIM
+          - BATTERY_VOLTAGE_V
+          - BATTERY_CURRENT_A
+          - NUM_GPS_SATELLITES_IN_VIEW_NONDIM
+          - MOTOR_10_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_11_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_12_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_13_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_14_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_15_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_16_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_1_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_2_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_3_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_4_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_5_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_6_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_7_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_8_CONTROL_THROTTLE_COMMAND_NONDIM
+          - MOTOR_9_CONTROL_THROTTLE_COMMAND_NONDIM
+          - NUM_GPS_SAT_NONDIM
+          - PITCH_DEG
+          - ROLL_DEG
+          - RUDDER_ACTUATOR_COMMAND_NONDIM
+          - SIDESLIP_DEG
+          - TARGET_AIRSPEED_FT_PER_SEC
+          - TARGET_GROUND_SPEED_FT_PER_SEC
+          - TARGET_WAYPOINT_ALT_FT
+          - TARGET_WAYPOINT_LAT_DEG
+          - TARGET_WAYPOINT_LON_DEG
+          - VEL_DOWN_FT_PER_SEC
+          - VEL_EAST_FT_PER_SEC
+          - VEL_NORTH_FT_PER_SEC
+          - VERTICAL_NAV_POSITION_ERROR_FT
+          - VERTICAL_NAV_VELOCITY_ERROR_FT_PER_SEC
+          - AILERON_ACTUATOR_COMMAND_NONDIM
+          - AIRCRAFT_AIRBORNE_STATE_NONDIM
+          - ANGLE_OF_ATTACK_DEG
+          - BAROMETRIC_PRESSURE_PSI
+          - BATTERY_TEMP_F
+          - ELEVATOR_ACTUATOR_COMMAND_NONDIM
+          - EXTERNAL_TEMPERATURE_F
+          - ABOVE_TERRAIN_ALTITUDE_FT
+          - ACC_BODY_X_FT_PER_SEC2
+          - ACC_BODY_Y_FT_PER_SEC2
+          - ACC_BODY_Z_FT_PER_SEC2
+          - GEOMETRIC_VERTICAL_ACCURACY_CATEGORY
+          - GROUND_COURSE_DEG
+          - GROUND_SPEED_FT_PER_SEC
+          - HDOP_NONDIM
+          - INDICATED_AIRSPEED_FT_PERSEC
+          - LATERAL_NAV_POSITION_ERROR_FT
+          - LATERAL_NAV_VELOCITY_ERROR_FT_PER_SEC
+
+  FlightEssentialTelemetryAndUasStates:
+    description: >-
+      Flight essential telemetry and UAS state data for a UAS Operation in
+      TCL4. Refer to the DMP documentation on specific requirements for a given
+      run.
+    required:
+      - metaData
+      - ac_type
+      - sensor_tuple
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       ac_type:
         description: >-
           Type of aircraft.  FET has requirements for crewed vehicles.
@@ -77,84 +165,13 @@ definitions:
         enum:
           - CREWED
           - UAS
-      value:
-        type: number
-        description: value of sensor (double)
-      sensor:
-        type: string
-        enum:
-          - lat
-          - lon
-          - alt
-          - barometricAltitude_ft
-          - externalTemperature_c
-          - relativeHumidityPrct_nonDim
-          - navigationAccuracyCategoryPosition
-          - navigationIntegrityCategory
-          - heading_deg
-          - trueAirspeed_ftPerSec
-          - verticalSpeed_ftPerMin
-          - yaw_deg
-          - rollRate_degPerSec
-          - pitchRate_degPerSec
-          - yawRate_degPerSec
-          - vdop_nonDim
-          - batteryVoltage_v
-          - batteryCurrent_a
-          - numGpsSatellitesInView_nonDim
-          - motor10ControlThrottleCommand_nonDim
-          - motor11ControlThrottleCommand_nonDim
-          - motor12ControlThrottleCommand_nonDim
-          - motor13ControlThrottleCommand_nonDim
-          - motor14ControlThrottleCommand_nonDim
-          - motor15ControlThrottleCommand_nonDim
-          - motor16ControlThrottleCommand_nonDim
-          - motor1ControlThrottleCommand_nonDim
-          - motor2ControlThrottleCommand_nonDim
-          - motor3ControlThrottleCommand_nonDim
-          - motor4ControlThrottleCommand_nonDim
-          - motor5ControlThrottleCommand_nonDim
-          - motor6ControlThrottleCommand_nonDim
-          - motor7ControlThrottleCommand_nonDim
-          - motor8ControlThrottleCommand_nonDim
-          - motor9ControlThrottleCommand_nonDim
-          - numGpsSat_nonDim
-          - pitch_deg
-          - roll_deg
-          - rudderActuatorCommand_nonDim
-          - sideSlip_deg
-          - targetAirSpeed_ftPerSec
-          - targetGroundSpeed_ftPerSec
-          - targetWaypointAlt_ft
-          - targetWaypointLat_deg
-          - targetWaypointLon_deg
-          - velDown_ftPerSec
-          - velEast_ftPerSec
-          - velNorth_ftPerSec
-          - verticalNavPositionError_ft
-          - verticalNavVelocityError_ftPerSec
-          - aileronActuatorCommand_nonDim
-          - aircraftAirborneState_nonDim
-          - angleOfAttack_deg
-          - barometricPressure_psi
-          - batteryTemp_f
-          - elevatorActuatorCommand_nonDim
-          - externalTemperature_f
-          - aboveTerrainAltitude_ft
-          - accBodyX_ftPerSec2
-          - accBodyY_ftPerSec2
-          - accBodyZ_ftPerSec2
-          - geometricVerticalAccuracyCategory
-          - groundCourse_deg
-          - groundSpeed_ftPerSec
-          - hdop_nonDim
-          - indicatedAirspeed_ftPerSec
-          - lateralNavPositionError_ft
-          - lateralNavVelocityError_ftPerSec
-          
-
-
-
-
-
-
+      sensor_tuple:
+        description: >-
+          An array of sensor samples.  Note that the types of samples can be
+          mixed in this array.  Also, since time is an element of the sample,
+          the samples can be from any variety of times.
+        type: array
+        items:
+          $ref: '#/definitions/SensorTuple'
+        minItems: 1
+        maxItems: 10000
