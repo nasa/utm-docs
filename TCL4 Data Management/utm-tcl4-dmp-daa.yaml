@@ -179,6 +179,8 @@ definitions:
       - probabilityFalseAlarmPrct
       - staticObstacleTable
     properties: 
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       lookAheadTime:
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
@@ -209,7 +211,24 @@ definitions:
             polygonBoundary:
               $ref: "#/definitions/PolygonBoundary"
               
-        
+
+  DaaSensorAzimuthAccuracy:
+    required:
+      - metaData
+      - sensorId
+      - timestamp
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      daaSensorAzimuthAccuracyRealTime:
+        $ref: '#/definitions/degrees'
+      daaSensorAltitudeAccuracyRealTime:
+        $ref: '#/definitions/degrees'
+      
 # supporting definitions
   SensorId: 
     description: >-
