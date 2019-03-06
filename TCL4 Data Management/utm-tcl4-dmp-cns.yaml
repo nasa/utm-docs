@@ -199,9 +199,9 @@ definitions:
   LandingOutcome:
     type: object
     required:
-      - metaData
-      - timestamp
-      - landingOutcomeValue
+      - "metaData"
+      - "timestamp"
+      - "landingOutcomeValue"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -209,20 +209,21 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       landingOutcomeValue:
         type: "string"
-        description: "Report this for every landing as enum, landing within contingency_polygon\
-          \ is also considered as safe landing"
+        description: >-
+          "Report this for every landing as enum, landing within
+          contingency_polygon is also considered as safe landing."
         enum:
-        - "SAFE_LANDING_WITHIN_OPERATION_VOLUME"
-        - "SAFE_LANDING_OUTSIDE_OF_OPERATION_VOLUME"
-        - "UNSAFE_LANDING_WITHIN_OPERATION_VOLUME"
-        - "UNSAFE_LANDING_OUTSIDE_OF_OPERATION_VOLUME"
+        - "LANDED_SAFELY_WITHIN_OPERATION_VOLUME"
+        - "LANDED_SAFELY_OUTSIDE_OF_OPERATION_VOLUME"
+        - "LANDED_UNSAFELY_WITHIN_OPERATION_VOLUME"
+        - "LANDED_UNSAFELY_OUTSIDE_OF_OPERATION_VOLUME"
 
   SafeToLandLocationReach:
     type: object
     required:
       - "metaData"
-      - timestamp
-      - canReachSafeToLandLocation
+      - "timestamp"
+      - "canReachSafeToLandLocation"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'

@@ -54,7 +54,7 @@ definitions:
     required:
       - "metadataTestSite"
       - "wxOperatingPoints"
-      - "cellCoverageArea"
+      - "cellCoverageAreas"
       - "flightTestRangePolygonPoints"
     properties:
       metadataTestSite:
@@ -99,10 +99,6 @@ definitions:
         $ref: '#/definitions/LatLonAltArray'
       rpicLocations:
         $ref: '#/definitions/LatLonAltArray'
-      wxOperatingPoints:
-        $ref: '#/definitions/LatLonAltArray'
-      cellCoverageArea:
-         $ref: '#/definitions/LatLonAltArray'
       distressBroadcastRate:
          description: >-
            Report configured distress broadcast rate. (Hz)
@@ -127,6 +123,7 @@ definitions:
       - "landingOffset"
       - "isBVLOS"
       - "isRooftop"
+      - "isNominal"
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -135,10 +132,27 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
       landingOffset:
+        description: >-
+          lateral distance between planned landing point and
+          actual landing point using vehicle independent GNSS or non-GNSS systems.
+          Could use tape to measure the center-to-center distance between the points
+          on the ground.
         type: number
       isBVLOS:
+        description: >-
+          Was this landing beyond the visual sight of its operator?
+          If so, indicate true here.  Otherwise indicate false.
         type: boolean
       isRooftop:
+        description: >-
+          Was this landing on top of a building?  If so, indicate true.
+          Otherwise, indicate false.
+        type: boolean
+      isNominal:
+        description: >-
+          Was this landing as planned (either pre-flight or dynamically updated
+          within flight) or within the scope of an announced contingency plan?
+          If so, indicate true here.  Otherwise indicate false.
         type: boolean
 
   ConWxOperatingPointData:
@@ -147,29 +161,43 @@ definitions:
            location, and timestamp associated with the measurement
     type: object
     required:
-      - "metaData"
-      - 'timestamp'
-      - 'temperature'
-      - 'pressure'
-      - 'windSpeed'
-      - 'windDir'
-      - 'location'
+      - "timestamp"
+      - "temperature"
+      - "pressure"
+      - "windSpeed"
+      - "windDir"
+      - "location"
     properties:
       metaData:
+        description: >-
+          This field is conditionally required if the weather sample is taken
+          from a vehicle.  metaData will indicate which operation provided
+          the sample.
+
+          If this sample is from a weather station, then this field must NOT
+          be provided.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       temperature:
+        description: >-
+          Degrees Celcius.
         type: number
         format: float
       pressure:
+        description: >-
+          TBD
         type: number
         format: float
       windSpeed:
+        description: >-
+          TBD
         type: number
         format: float
         minimum: 0.0
       windDir:
+        description: >-
+          TBD
         type: number
         minimum:  0.0
         maximum:  360
