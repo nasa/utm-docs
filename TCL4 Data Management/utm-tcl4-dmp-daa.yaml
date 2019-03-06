@@ -269,6 +269,23 @@ definitions:
         $ref: "#/definitions/seconds"
       packetSizeV2v:
         $ref: '#/definitions/kiloBytes'
+
+  DaaSensorNumberOfLostTracks:
+    required:
+      - metaData
+      - sensorId
+      - timestamp
+      - numberOfLostTracks
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      numberOfLostTracks:
+        $ref: '#/definitions/count'
+        
         
 # supporting definitions
   SensorId: 
