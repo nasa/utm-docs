@@ -31,7 +31,7 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/PersonOrOrganization'
       report_id:
         description: |-
-          A UUID assingned by the reporting USS for this instance of
+          A UUID assigned by the reporting USS for this instance of
            OffNominalReport.
         type: string
         format: uuid
@@ -65,7 +65,7 @@ definitions:
       scripted:
         description: >-
           true means operation includes scripted off-nominal event. If true, USS
-          must prmopt operator to file at least one report when the operation
+          must prompt operator to file at least one report when the operation
           closes.
         type: boolean
         example: false
@@ -101,7 +101,7 @@ definitions:
       comm_system:
         description: >-
           description of UAS communications system. Reporter MUST see the prompt
-          text bebore inputting data.
+          text before inputting data.
         x-utm-offnominal-prompt: >-
           Describe communications system including frequencies used for
           telemetry (aircraft to operator) and Command & Control (operator to
@@ -134,7 +134,7 @@ definitions:
           - PART_107X
           - PART_101E
           - OTHER
-      time_occurance:
+      time_occurrence:
         description: >-
             date and time of off-nominal event in UTC, ONLY to be filled when
             value for the variable "reason_for_report" is "VOLUNTEER"
@@ -156,7 +156,7 @@ definitions:
   LossOfUSS:
     description: >-
       An instance of this model should be submitted upon any planned or unplanned
-      loss of USS services during a test.  If the USS is unaviable multiple times
+      loss of USS services during a test.  If the USS is unavailable multiple times
       in a single test, one submission is sufficient.
     required:
       - "uss_loss_id"
@@ -214,9 +214,9 @@ definitions:
         maxLength: 3000
       active_gufis_under_management:
         description: >-
-          An arary of GUFIs for operations that were active at the time of USS
+          An array of GUFIs for operations that were active at the time of USS
           loss.  This may also include any operations that were to become active
-          during the time the USS was unaviable.
+          during the time the USS was unavailable.
         type: array
         items:
           type: string
@@ -227,7 +227,7 @@ definitions:
           example: "00000000-0000-4444-8888-FEEDDEADBEEF"
   USSHandoff:
     description: >-
-      An instance of this model should be submitted by each USS invovled in the
+      An instance of this model should be submitted by each USS involved in the
       handoff of management of an operation.  These data are not captured within
       the USSNetwork.  These data may inform future procedures and standards.
 
@@ -296,7 +296,7 @@ definitions:
         description: >-
           Time the handoff procedure was initiated.  This may be the time that
           the original USS loses contact, or the time that the operator or USS
-          begins communicting the intent to handoff.
+          begins communicating the intent to handoff.
         type: string
         format: date-time
         minLength: 24
@@ -305,7 +305,7 @@ definitions:
         example: '2015-08-20T14:11:56.118Z'
       time_handoff_procedure_completed:
         description: >-
-          Time the handoff procedure was completed.  THis would be the time that
+          Time the handoff procedure was completed.  This would be the time that
           the operation is fully under the management of the second USS.
         type: string
         format: date-time
@@ -486,7 +486,7 @@ definitions:
         description: >-
           Count of all messages received from the operator.  This value should
           NOT contain position reports.  It might contain operation plan information,
-          state information about the operation, or other messages as requried or
+          state information about the operation, or other messages as required or
           requested by the USS for the support of this operation.
         type: integer
         format: int32
@@ -519,14 +519,14 @@ definitions:
         description: >-
           Any additional notes to add context about the interaction between
           the USS and this operator.
-  DynamicRestrictionOccurence:
+  DynamicRestrictionOccurrence:
     description: >-
       This model captures the enactment of a Dynamic Restriction from the
       perspective of USS to operator interaction.  The goal is to capture how
       USSs inform operators and how those operators react.  These data will
       be correlated with data captured via the USS Network.
     required:
-      - "dr_occurence_id"
+      - "dr_occurrence_id"
       - "gufi"
       - "uss_name"
       - "operator"
@@ -537,9 +537,9 @@ definitions:
       - "message_to_operator"
 
     properties:
-      dr_occurence_id:
+      dr_occurrence_id:
         description: >-
-          A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurence.
+          A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurrence.
         type: string
         format: uuid
         maxLength: 36
@@ -595,7 +595,7 @@ definitions:
       time_response_from_operator_received:
         description: >-
           The time that the USS receives acknowledgement that the message was
-          recevied.  If an HTTP exchange this would be the time that the
+          received.  If an HTTP exchange this would be the time that the
           20X was received.  If some other exchange mechanism, then just the
           time that acknowledgement was received.
 
@@ -685,7 +685,7 @@ definitions:
           The primary key of the data that were exchanged.  For example, if an
           Operation was exchanged, then this field would contain the gufi.
 
-          In the case that multiple data elements were exchnaged (as in a GET
+          In the case that multiple data elements were exchanged (as in a GET
           to the Operations endpoint resulting in multiple Operations returned)
           then just populate this field with one of the primary keys. As a best
           practice, choose the first one in the array as they were sent between
