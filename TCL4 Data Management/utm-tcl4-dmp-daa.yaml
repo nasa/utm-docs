@@ -103,6 +103,50 @@ definitions:
         $ref: "#/definitions/feet"
       verRangeAccuracy_ft:
         $ref: "#/definitions/feet"
+
+  DaaSensorBearing:
+    required:
+      - metaData
+      - sensorId
+      - azimuthSensorMax
+      - azimuthSensorMin
+      - daaSensorAzimuthAccuracy
+      - elevationSensorMax
+      - elevationSensorMin
+      - daaSensorAltitudeAccuracy
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      azimuthSensorMax:
+        $ref: "#/definitions/degrees"
+      azimuthSensorMin:
+        $ref: "#/definitions/degrees"
+      daaSensorAzimuthAccuracy:
+        $ref: "#/definitions/degrees"        
+      elevationSensorMax:
+        $ref: "#/definitions/degrees"        
+      elevationSensorMin:
+        $ref: "#/definitions/degrees"
+      daaSensorAltitudeAccuracy:
+        $ref: "#/definitions/feet"
+
+  DaaSensorRcs: 
+    required:
+      - metaData
+      - sensorId
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      maxRcsOfSensor_ft2:
+        $ref: "#/definitions/squareFoot"      
+      minRcsOfSensor_ft2:
+        $ref: "#/definitions/squareFoot"          
+   
+
 # supporting definitions
   SensorId: 
     description: >-
@@ -127,5 +171,8 @@ definitions:
     type: number
     format: float
   feet:
+    type: number
+    format: float
+  squareFoot:
     type: number
     format: float
