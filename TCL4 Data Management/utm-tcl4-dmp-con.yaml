@@ -251,8 +251,9 @@ definitions:
 
   RpicConstraintMessage:
     description: >-
-      RPIC receives constraint message from the USS.  Report the data
-      associated with this message.
+      An instance of this model is required every time RPIC receives a
+      constraint message of any kind (likely a UVR) OR some action (by RPIC or
+      the UA) is taken based on receiving such a constraint.
     type: object
     required:
       - metaData
