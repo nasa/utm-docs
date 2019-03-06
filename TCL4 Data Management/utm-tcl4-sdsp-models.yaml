@@ -13,110 +13,19 @@ info:
     url: 'https://utm.arc.nasa.gov/'
     email: joseph.rios@nasa.gov
 
+swagger: '2.0'
+
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
+
 definitions:
-  UASState:
-    description: >-
-      Time dependent vehicle data.
-    required:
-      - "uas_state_id"
-      - "gufi"
-      - "timestamp"
-      - "target_waypoint"
-      - "target_waypoint_altitude"
-      - "target_ground_speed"
-      - "nav_position_error_lateral"
-      - "nav_position_error_vertical"
-      - "nav_velocity_error_lateral"
-      - "nav_velocity_error_vertical"
-    properties:
-      uas_state_id:
-        description: >-
-          Identifier for this uas state data instance.  Unique for each submission.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      gufi:
-        description: GUFI of the operation that is the source of these data.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      timestamp:
-        description: >-
-          Time for the uas data. The same time source MUST be used
-          for each sample for this operation.
-        type: string
-        format: date-time
-        minLength: 24
-        maxLength: 24
-        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
-        example: '2015-08-20T14:11:56.118Z'
-      target_waypoint:
-        description: >-
-          Current waypoint as of this timestamp that the vehicle is targeting.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
-      target_waypoint_altitude:
-        description: >-
-          Altitude of the current waypoint as of this timestamp that the vehicle is targeting.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
-        example:
-          target_waypoint_altitude:
-            altitude_value: 1800
-            altitude_reference: "W84"
-            units_of_measure: "FT"
-      target_ground_speed:
-        description: >-
-          The target ground speed of the vehicle at this timestamp.
-
-          Units of measure: ft/sec.
-        type: integer
-        format: int32
-        minimum: 0
-        maximum: 9999
-        example: 32
-      target_air_speed:
-        description: >-
-          The target air speed of the vehicle at this timestamp.
-
-          Units of measure: ft/sec.
-        type: integer
-        format: int32
-        minimum: -9999
-        maximum: 9999
-        example: 32
-      nav_position_error_lateral:
-        description: >-
-          Laternal navigation position error.  In feet.
-        type: number
-        format: float
-        minimum: 0.0
-        example: 12.3
-      nav_position_error_vertical:
-        description: >-
-          Vertical navigation position error.  In feet.
-        type: number
-        format: float
-        minimum: 0.0
-        example: 28.9
-      nav_velocity_error_lateral:
-        description: >-
-          Lateral navigation velocity error.  In feet/sec.
-        type: number
-        format: float
-        minimum: 0.0
-        example: 12.3
-      nav_velocity_error_vertical:
-        description: >-
-            Vertical navigation velocity error.  In feet/sec.
-        type: number
-        format: float
-        minimum: 0.0
-        example: 28.9
   CellSample:
     description: >-
       Time dependent battery cell data for an Operation.
