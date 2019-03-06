@@ -18,9 +18,9 @@ definitions:
     description: >-
       A single waypoint with associated data.
     required:
+      - "metaData"
       - "waypoint_id"
       - "waypoint_sequence_id"
-      - "gufi"
       - "position"
       - "altitude"
       - "timestamp"
@@ -28,6 +28,8 @@ definitions:
       - "target_ground_speed"
       - "hover_time"
     properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       waypoint_id:
         description: >-
           unique id for this data submission.
@@ -47,15 +49,6 @@ definitions:
         minimum: 1
         maximum: 9999
         example: 23
-      gufi:
-        description: >-
-          GUFI of the operation that used this flight plan.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       position:
         description: 2D position of the waypoint.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
