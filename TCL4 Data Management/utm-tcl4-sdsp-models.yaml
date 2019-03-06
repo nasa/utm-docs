@@ -63,7 +63,7 @@ definitions:
           battery_sample_ids.  For example, if the vehicle has 6 batteries on board as
           well as 12 batteries in reserve on the ground, and the vehicle is
           used in an operation with gufi 00000000-0000-4444-8888-FEEDDEADBEEF, then
-          everytime there is an instance of this model with the pairing of
+          every time there is an instance of this model with the pairing of
           00000000-0000-4444-8888-FEEDDEADBEEF and battery 3, we will assume that
           battery 3 is always the same battery.  Ideally, the operator would use
           the same battery number across all of its platforms and missions.
@@ -84,7 +84,7 @@ definitions:
           this identifier MUST map to the same physical cell across all
           cell_sample_ids.  For example, if the vehicle has 100 cell across all of its batteries, and is
           used in an operation with gufi 00000000-0000-4444-8888-FEEDDEADBEEF, then
-          everytime there is an instance of this model with the pairing of
+          every time there is an instance of this model with the pairing of
           00000000-0000-4444-8888-FEEDDEADBEEF and cell 3, we will assume that
           cell 3 is always the same cell.  This should hold across operations and
           vehicles as well for this cell (i.e. always use the same mapping of cell numbers
@@ -117,7 +117,7 @@ definitions:
         minimum: 0.0
         example: 4.53
       battery_temperature:
-        description: Temperature of the battery housing this cell at this timestamp.  In Celcius.
+        description: Temperature of the battery housing this cell at this timestamp.  In Celsius.
         type: number
         format: float
         example: 31.3
