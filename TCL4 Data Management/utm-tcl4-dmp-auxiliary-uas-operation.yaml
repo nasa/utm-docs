@@ -14,18 +14,20 @@ info:
 definitions:
   AuxiliaryUASOperation:
     required:
-      - gufi
+      - metaData
       - takeoff_time
       - takeoff_altitude
       - takeoff_position
-      - takeoff_weight_lb
+      - takeoff_weight
       - landing_time
       - landing_altitude
       - landing_position
       - gcs_altitude
       - gcs_position
     properties:
-      takeoff_weight_lb:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      takeoff_weight:
         description: >-
           The actual takeoff weight of the vehicle for this operation.
 
