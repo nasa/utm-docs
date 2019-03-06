@@ -145,8 +145,71 @@ definitions:
         $ref: "#/definitions/squareFoot"      
       minRcsOfSensor_ft2:
         $ref: "#/definitions/squareFoot"          
-   
 
+  DaaSensorV2V: 
+    required:
+      - metaData
+      - sensorId
+      - txRadioFrequencyV2V
+      - txRadioFrequencyPowerEirpV2V
+      - txRadioFrequencyPowerErpV2V
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      txRadioFrequencyV2V:
+        $ref: "#/definitions/gigaHertz"
+      txRadioFrequencyPowerEirpV2V:
+        $ref: "#/definitions/watt"
+      txRadioFrequencyPowerErpV2V:
+        $ref: "#/definitions/watt"      
+
+  ConflictResolutionConfiguration:
+    required:
+      - metaData
+      - lookAheadTime
+      - expectedOperatorResponseTime
+      - expectedUASResponseTime
+      - expectedCommLatency
+      - expectedClimbRateOwnship
+      - expectedDescendRateOwnship
+      - expectedTurnRateOwnship
+      - expectedTimeToHover
+      - probabilityFalseAlarmPrct
+      - staticObstacleTable
+    properties: 
+      lookAheadTime:
+        $ref: "#/definitions/seconds"
+      expectedOperatorResponseTime:
+        $ref: "#/definitions/seconds"
+      expectedUASResponseTime:
+        $ref: "#/definitions/seconds"
+      expectedCommLatency:
+        $ref: "#/definitions/seconds"
+      expectedClimbRateOwnship:
+        $ref: "#/definitions/seconds"
+      expectedDescendRateOwnship:
+        $ref: "#/definitions/seconds"
+      expectedTurnRateOwnship:
+        $ref: "#/definitions/seconds"
+      expectedTimeToHover:
+        $ref: "#/definitions/seconds"
+      probabilityFalseAlarmPrct:
+        $ref: "#/definitions/percent" 
+        
+      # staticObstaclePolygonPoint
+      # staticObstacleMaxAlt_ft
+      # staticObstacleMinAlt_ft
+      staticObstacleTable:
+        type: array
+        items:
+          type: object
+          properties:
+            polygonBoundary:
+              $ref: "#/definitions/PolygonBoundary"
+              
+        
 # supporting definitions
   SensorId: 
     description: >-
@@ -158,21 +221,71 @@ definitions:
     pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
     example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
-  percent:
-    type: number
-    format: float
-  count:
+  seconds:
     type: number
     format: integer
-  hertz:
-    type: number
-    format: float
+    
   degrees:
     type: number
     format: float
+  
   feet:
     type: number
     format: float
+    
   squareFoot:
     type: number
     format: float
+    
+  hertz:
+    type: number
+    format: float
+    
+  gigaHertz:
+    type: number
+    format: float
+    
+  percent:
+    type: number
+    format: float
+    
+  count:
+    type: number
+    format: integer
+    
+  watt:
+    type: number
+    format: float
+    
+  ratio:
+    type: number
+    format: float
+    
+  kiloBytes:
+    type: number
+    format: float
+ 
+  PolygonBoundary:
+    type: object
+    required: [min,max,polygonPoints]
+    properties:
+      min: 
+        type: number
+        format: float
+      max:
+        type: number
+        format: float
+      polygonPoints:
+        type: array
+        items:
+          $ref: "#/definitions/LatLon"
+  LatLon:
+    type: object
+    required: [lat,lon]
+    properties:
+      lat:
+        type: number
+        format: double
+      lon:
+        type: number
+        format: double
