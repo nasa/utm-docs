@@ -217,6 +217,8 @@ definitions:
       - metaData
       - sensorId
       - timestamp
+      - daaSensorAzimuthAccuracyRealTime
+      - daaSensorAltitudeAccuracyRealTime
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -228,7 +230,24 @@ definitions:
         $ref: '#/definitions/degrees'
       daaSensorAltitudeAccuracyRealTime:
         $ref: '#/definitions/degrees'
-      
+
+  DaaSensorRangeAccuracy:
+    required:
+      - metaData
+      - sensorId
+      - timestamp
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      horRangeAccuracyRealTime:
+        $ref: '#/definitions/feet'
+      verRangeAccuracyRealTime:
+        $ref: '#/definitions/feet'
+        
 # supporting definitions
   SensorId: 
     description: >-
