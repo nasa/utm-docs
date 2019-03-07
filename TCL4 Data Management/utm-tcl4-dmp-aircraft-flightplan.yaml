@@ -21,6 +21,7 @@ definitions:
       - "metaData"
       - "waypoint_id"
       - "waypoint_sequence_id"
+      - "waypoint_type"
       - "position"
       - "altitude"
       - "timestamp"
@@ -49,6 +50,13 @@ definitions:
         minimum: 1
         maximum: 9999
         example: 23
+      waypoint_type:
+        description: >-
+          Fly over or fly by?
+        type: string
+        enum:
+          - FLY_BY
+          - FLY_OVER
       position:
         description: 2D position of the waypoint.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
