@@ -175,6 +175,18 @@ definitions:
           - "DISTRESS"
 
   OffNominalMitigationOutcome:
+    description: >-
+      Outcome of offnominal events like UA to Operator C2 Link Loss, Operator
+      to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported as enum:
+
+      * Resolved_within_operation_volume,
+      * Resolved_but_triggered_nonconforming_state,
+      * Resolved_but_triggered_rogue_state,
+      * Unresolved_vehicle_flew_away,
+      * Unresolved_vehicle_crashed_to_ground,
+      * Unresolved_vehicle_collided_with_another_vehicle,
+      * Unresolved_vehicle_collided_with_building
+
     type: object
     required:
       - metaData
