@@ -376,7 +376,7 @@ definitions:
 
   DaaSensorDynamicObstacle:
     description: >-
-      Sensor detection of dynamic obstacle.  At each relavant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
+      Sensor detection of dynamic obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
     required:
       - metaData
       - sensorId
