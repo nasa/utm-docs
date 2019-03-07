@@ -52,7 +52,6 @@ definitions:
   DaaSensor:
     type: object
     required:
-      - metaData
       - daaSensor
       - sensorId
       - useOfSensor
@@ -61,8 +60,6 @@ definitions:
       - targetTrackCapacity
       - updateRateSensor
     properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/SensorId"
       useOfSensor:
@@ -100,31 +97,52 @@ definitions:
       updateRateSensor:
         $ref: "#/definitions/hertz"
 
-
-  DaaSensorRange:
-    required:
-      - metaData
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorId:
-        $ref: "#/definitions/SensorId"
       sensorMaxHorzRangeData:
         $ref: "#/definitions/feet"
       sensorMinHorzRangeData:
         $ref: "#/definitions/feet"
-      horRangeAccuracy_ft:
-        $ref: "#/definitions/degrees"
-      sensorMaxVertRangeData:
+      maxHorzRcsOfSensor:
+        description: >-
+          Maximum horizontal detectable Radar Cross Section (RCS) of the sensor
+          per manufacturer specification. (ft^2)
+        $ref: "#/definitions/squareFoot"
+      minHorzRcsOfSensor:
+        description: >-
+          Minimum horizontal detectable Radar Cross Section (RCS) of the sensor
+          per manufacturer specification. (ft^2)
+        $ref: "#/definitions/squareFoot"
+      horRangeAccuracy:
+        description: >-
+          Manufacturer provided specification of horizontal range accuracy of the
+          sensor: uncertainty of the horizontal range measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
         $ref: "#/definitions/feet"
-      sensorMinVertRangeData:
+
+      sensorMaxVertRange:
         $ref: "#/definitions/feet"
-      verRangeAccuracy_ft:
+      sensorMinVertRange:
+        $ref: "#/definitions/feet"
+      maxVertRcsOfSensor:
+        description: >-
+          Maximum vertical detectable Radar Cross Section (RCS) of the sensor
+          per manufacturer specification. (ft^2)
+        $ref: "#/definitions/squareFoot"
+      minVertRcsOfSensor:
+        description: >-
+          Minimum vertical detectable Radar Cross Section (RCS) of the sensor
+          per manufacturer specification. (ft^2)
+        $ref: "#/definitions/squareFoot"
+      verRangeAccuracy:
+        description: >-
+          Manufacturer provided specification of vertical range accuracy of the
+          sensor: uncertainty of the vertical range measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
         $ref: "#/definitions/feet"
 
   DaaSensorBearing:
     required:
-      - metaData
       - sensorId
       - azimuthSensorMax
       - azimuthSensorMin
@@ -133,8 +151,6 @@ definitions:
       - elevationSensorMin
       - daaSensorAltitudeAccuracy
     properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/SensorId"
       azimuthSensorMax:
@@ -150,37 +166,30 @@ definitions:
       daaSensorAltitudeAccuracy:
         $ref: "#/definitions/feet"
 
-  DaaSensorRcs:
-    required:
-      - metaData
-      - sensorId
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorId:
-        $ref: "#/definitions/SensorId"
-      maxRcsOfSensor_ft2:
-        $ref: "#/definitions/squareFoot"
-      minRcsOfSensor_ft2:
-        $ref: "#/definitions/squareFoot"
-
   DaaSensorV2V:
+    description: >-
+      A V2V sensor is expected to transmit on at least one frequency.  For each
+      frequency that a V2V sensor uses for transmission, provide one instance
+      of this model.
     required:
-      - metaData
       - sensorId
       - txRadioFrequencyV2V
       - txRadioFrequencyPowerEirpV2V
       - txRadioFrequencyPowerErpV2V
     properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/SensorId"
       txRadioFrequencyV2V:
         $ref: "#/definitions/gigaHertz"
       txRadioFrequencyPowerEirpV2V:
+        description: >-
+          Amount of equivalent isotropic radiated transmit power (EIRP) of radio
+          frequency that a transmitter/surveillance sensor produces as its output. (Watts)
         $ref: "#/definitions/watt"
       txRadioFrequencyPowerErpV2V:
+        description: >-
+          Amount of effective radiated transmit power (ERP) of radio frequency
+          that a transmitter/surveillance sensor produces as its output. (Watts)
         $ref: "#/definitions/watt"
 
   ConflictResolutionConfiguration:
