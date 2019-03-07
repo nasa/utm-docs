@@ -60,6 +60,16 @@ definitions:
       metadataTestSite:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metadataTestSite'
       flightTestRangePolygonPoints:
+        description: >-
+          Ordered list of the vertices of the polygon that defines the area of the test range.
+
+          Must be a simple polygon (non-intersecting).
+
+          First point and last point must be equal, thus closing the polygon.
+
+          Polygon need not be convex.
+
+          Report at least seven decimal degrees. (deg).
         $ref: '#/definitions/LatLonAltArray'
       wxOperatingPoints:
         $ref: '#/definitions/LatLonAltArray'
@@ -109,12 +119,7 @@ definitions:
     description: >-
       "Actual landing point that occurred during a (call_sign,test_run)
       pair.  Submit data to this end-point as soon as vehicle lands.  Specify
-      the two required booleans (is BVLOS? and is Rooftop?).
-
-      landingOffset is the lateral distance between planned landing point and
-      actual landing point using vehicle independent GNSS or non-GNSS systems.
-      Could use tape to measure the center-to-center distance between the points
-      on the ground."
+      the two required booleans (is BVLOS? and is Rooftop?)."
     type: object
     required:
       - "metaData"
