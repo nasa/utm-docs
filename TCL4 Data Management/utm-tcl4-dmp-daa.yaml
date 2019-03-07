@@ -62,8 +62,8 @@ definitions:
       missing fields after the submission process.
     type: object
     required:
-      - daaSensor
       - sensorId
+      - name
       - useOfSensor
       - typeOfSensor
       - probabilityIntruderDetectionPrct
@@ -72,6 +72,14 @@ definitions:
     properties:
       sensorId:
         $ref: "#/definitions/DaaUuid"
+      name:
+        description: >-
+          A brief, easily identifiable name for this sensor.  Should clearly
+          map to any other documentation provided external to this API regarding
+          this sensor.
+        type: string
+        minLength: 3
+        maxLength: 100
       useOfSensor:
         description: >-
           Report the use of this sensor.
@@ -102,13 +110,14 @@ definitions:
           If typeOfSensor is supplied as "OTHER" provide a description of the
           type of sensor here.
         type: string
+        minLength: 3
+        maxLength: 500
       probabilityIntruderDetectionPrct:
         $ref: "#/definitions/percent"
       targetTrackCapacity:
         $ref: "#/definitions/count"
       updateRateSensor:
         $ref: "#/definitions/hertz"
-
       sensorMaxHorzRangeData:
         $ref: "#/definitions/feet"
       sensorMinHorzRangeData:
@@ -182,6 +191,8 @@ definitions:
       - txRadioFrequencyPowerErpV2V
     properties:
       sensorId:
+        description: >-
+          A reference to a previously submitted DaaSensor via its sensorId.
         $ref: "#/definitions/DaaUuid"
       txRadioFrequencyV2V:
         $ref: "#/definitions/gigaHertz"
@@ -442,28 +453,98 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       typeOfConflictResolution:
-        type: integer
-        enum: [0,1,2,3]
+        description: >-
+          "Type of resolution: The level of control a UAS Operator has in resolving a given conflict as enum:
+          [0] Pilot IN the Loop,
+          [1] Pilot ON the Loop -mbc (manage by consent),
+          [2] Pilot ON the Loop -mbe (manage by exception),
+          [3] Automated resolution"
+        type: string
+        enum:
+          - PILOT_IN_LOOP
+          - MANAGE_BY_CONSENT
+          - MANAGE_BY_EXCEPTION
+          - AUTOMATED_RESOLUTION
       conflictResolutionManeuver:
-        type: integer
-        enum: [0,1,2,3,4,5,6]
+        description: >-
+          "The types of maneuvers performed (in real time) during a conflict resolution as enum:
+          [0] No maneuver,
+          [1] heading change,
+          [2] altitude change,
+          [3] hover,
+          [4] velocity change,
+          [5] added waypoint,
+          [6] other."
+        type: string
+        enum:
+          - NO_MANEUVER
+          - HEADING_CHANGE
+          - ALTITUDE_CHANGE
+          - HOVER
+          - VELOCITY_CHANGE
+          - ADDED_WAYPOINT
+          - OTHER
       eventTimesTable:
         type: array
         items:
           type: object
-          required: [eventType,timeStamp,severityOfAlert,directionOfAlertResolution]
+          required:
+            - eventType
+            - timeStamp
+            - severityOfAlert
+            - directionOfAlertResolution
           properties:
             eventType:
+              description: >-
+                timeAtEncounterInit	UTC time at Encounter Initiation.
+                timeAtEncounterEnd	UTC Time at Encounter End.
+                timeAtConflictAlert	UTC time at which a conflict alert is issued to a UAS Operator/UAS.
+                timeAtConflictResManeuverInit	UTC time at which the aircraft begins to maneuver to resolve a conflict.
+                timeAtConflictResManeuverComplt	UTC time at which the aircraft completes maneuver to resolve a conflict.
+                timeAtClearOfConflict	UTC time at which the aircraft/UAS Operator declares the aircraft is clear of the conflict.
+                ussDaaAlertReceived	UTC time when a DAA alert issued from the USS is received by the operator.
+                onboardDaaAlertIssued	UTC time when a DAA alert is issued onboard the UAS.
+                groundDaaAlertIssued	UTC time when a DAA alert is issued from the ground DAA system.
+                caAlertIssued	UTC time when an alert is issued from the CA system.
               type: string
-              enum: [timeAtEncounterInit,timeAtEncounterEnd,timeAtConflictAlert,timeAtConflictResManeuverInit,timeAtConflictResManeuverComplt,timeAtClearOfConflict,ussDaaAlertReceived,onboardDaaAlertIssued,groundDaaAlertIssued,caAlertIssued,ussCaAlertReceived,oaAlertIssued,ussOaAlertReceived]
+              enum:
+                - timeAtEncounterInit
+                - timeAtEncounterEnd
+                - timeAtConflictAlert
+                - timeAtConflictResManeuverInit
+                - timeAtConflictResManeuverComplt
+                - timeAtClearOfConflict
+                - ussDaaAlertReceived
+                - onboardDaaAlertIssued
+                - groundDaaAlertIssued
+                - caAlertIssued
+                - ussCaAlertReceived
+                - oaAlertIssued
+                - ussOaAlertReceived
             timeStamp:
                 $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
             severityOfAlert:
-              type: integer
-              enum: [-1,0,1]
+              description: >-
+                "Indicate strengthening or weakening of an alert as enum:
+                  weakening,
+                  neutral,
+                  strengthening "
+              type: string
+              enum:
+                - WEAKENING
+                - NEUTRAL
+                - STRENGTHENING
             directionOfAlertResolution:
-              type: integer
-              enum: [-1,0,1]
+              description: >-
+                "This will be used to determine direction of alert resolution as enum:
+                [-1] weakening,
+                [0] neutral,
+                [1] strengthening "
+              type: string
+              enum:
+                - WEAKENING
+                - NEUTRAL
+                - STRENGTHENING
 
 # supporting definitions
   DaaUuid:
