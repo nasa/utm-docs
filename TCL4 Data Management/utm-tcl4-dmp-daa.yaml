@@ -57,26 +57,44 @@ definitions:
       - sensorId
       - useOfSensor
       - typeOfSensor
-      - otherSensor
       - probabilityIntruderDetectionPrct
       - targetTrackCapacity
       - updateRateSensor
-
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/SensorId"
       useOfSensor:
+        description: >-
+          Report the use of this sensor.
         type: string
-        enum: [DAA,OA,CA]
+        enum:
+          - DETECT_AND_AVOID
+          - OBSTACLE_AVOIDANCE
+          - COLLISION_AVOIDANCE
       typeOfSensor:
         type: string
-        enum: [USS Service, DSRC, C-2V2X, Wifi, ADS-B, Airborne Radar, Ground Radar, LiDAR, Acoustic, Optical, EO/IR, other]
+        enum:
+          - USS_SERVICE
+          - DSRC
+          - C-2V2X
+          - WIFI
+          - ADS-B
+          - AIRBORNE_RADAR
+          - GROUND_RADAR
+          - LIDAR
+          - ACOUSTIC
+          - OPTICAL
+          - EO/IR
+          - OTHER
       otherSensor:
+        description: >-
+          If typeOfSensor is supplied as "OTHER" provide a description of the
+          type of sensor here.
         type: string
       probabilityIntruderDetectionPrct:
-        $ref: "#/definitions/percent"      
+        $ref: "#/definitions/percent"
       targetTrackCapacity:
         $ref: "#/definitions/count"
       updateRateSensor:
@@ -96,7 +114,7 @@ definitions:
       sensorMinHorzRangeData:
         $ref: "#/definitions/feet"
       horRangeAccuracy_ft:
-        $ref: "#/definitions/degrees"      
+        $ref: "#/definitions/degrees"
       sensorMaxVertRangeData:
         $ref: "#/definitions/feet"
       sensorMinVertRangeData:
@@ -124,15 +142,15 @@ definitions:
       azimuthSensorMin:
         $ref: "#/definitions/degrees"
       daaSensorAzimuthAccuracy:
-        $ref: "#/definitions/degrees"        
+        $ref: "#/definitions/degrees"
       elevationSensorMax:
-        $ref: "#/definitions/degrees"        
+        $ref: "#/definitions/degrees"
       elevationSensorMin:
         $ref: "#/definitions/degrees"
       daaSensorAltitudeAccuracy:
         $ref: "#/definitions/feet"
 
-  DaaSensorRcs: 
+  DaaSensorRcs:
     required:
       - metaData
       - sensorId
@@ -142,11 +160,11 @@ definitions:
       sensorId:
         $ref: "#/definitions/SensorId"
       maxRcsOfSensor_ft2:
-        $ref: "#/definitions/squareFoot"      
+        $ref: "#/definitions/squareFoot"
       minRcsOfSensor_ft2:
-        $ref: "#/definitions/squareFoot"          
+        $ref: "#/definitions/squareFoot"
 
-  DaaSensorV2V: 
+  DaaSensorV2V:
     required:
       - metaData
       - sensorId
@@ -163,7 +181,7 @@ definitions:
       txRadioFrequencyPowerEirpV2V:
         $ref: "#/definitions/watt"
       txRadioFrequencyPowerErpV2V:
-        $ref: "#/definitions/watt"      
+        $ref: "#/definitions/watt"
 
   ConflictResolutionConfiguration:
     required:
@@ -178,7 +196,7 @@ definitions:
       - expectedTimeToHover
       - probabilityFalseAlarmPrct
       - staticObstacleTable
-    properties: 
+    properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       lookAheadTime:
@@ -198,8 +216,8 @@ definitions:
       expectedTimeToHover:
         $ref: "#/definitions/seconds"
       probabilityFalseAlarmPrct:
-        $ref: "#/definitions/percent" 
-        
+        $ref: "#/definitions/percent"
+
       # staticObstaclePolygonPoint
       # staticObstacleMaxAlt_ft
       # staticObstacleMinAlt_ft
@@ -210,7 +228,7 @@ definitions:
           properties:
             polygonBoundary:
               $ref: "#/definitions/PolygonBoundary"
-              
+
 
   DaaSensorAzimuthAccuracy:
     required:
@@ -285,10 +303,10 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       numberOfLostTracks:
         $ref: '#/definitions/count'
-        
+
   DaaSensorTimeToTrack:
     description: >-
-      Time to Track of DAA sensor: time required to establish a track for the sensor since first detection. Include 3 decimal places of precision.  
+      Time to Track of DAA sensor: time required to establish a track for the sensor since first detection. Include 3 decimal places of precision.
     required:
       - metaData
       - sensorId
@@ -303,10 +321,10 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       timeRequiredForTrack:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-        
+
   DaaSensorIntruderAircraftDetection:
     description: >-
-      Timestamp,Lat,Lon,Alt of intruder aircraft detected position(s)-DAA (Detect And Avoid).  Include (uvin,gufi) of detected a/c 
+      Timestamp,Lat,Lon,Alt of intruder aircraft detected position(s)-DAA (Detect And Avoid).  Include (uvin,gufi) of detected a/c
     required:
       - metaData
       - sensorId
@@ -356,7 +374,7 @@ definitions:
       - timestamp
       - dynamicObstaclePolygon
       - dynamicObstacleHeight
-    properties: 
+    properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
@@ -381,7 +399,7 @@ definitions:
       - typeOfConflictResolution
       - conflictResolutionManeuver
       - eventTimesTable
-    properties: 
+    properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       typeOfConflictResolution:
@@ -392,7 +410,7 @@ definitions:
         enum: [0,1,2,3,4,5,6]
       eventTimesTable:
         type: array
-        items: 
+        items:
           type: object
           required: [eventType,timeStamp,severityOfAlert,directionOfAlertResolution]
           properties:
@@ -407,11 +425,13 @@ definitions:
             directionOfAlertResolution:
               type: integer
               enum: [-1,0,1]
-      
+
 # supporting definitions
-  SensorId: 
+  SensorId:
     description: >-
-      Identifier for this sensor instance.  
+      Identifier for this sensor instance.  Assigned by data originator and
+      held constant for a given sensor to uniquely identify it across data
+      submissions.
     type: string
     format: uuid
     maxLength: 36
@@ -422,52 +442,52 @@ definitions:
   seconds:
     type: number
     format: integer
-    
+
   degrees:
     type: number
     format: float
-  
+
   feet:
     type: number
     format: float
-    
+
   squareFoot:
     type: number
     format: float
-    
+
   hertz:
     type: number
     format: float
-    
+
   gigaHertz:
     type: number
     format: float
-    
+
   percent:
     type: number
     format: float
-    
+
   count:
     type: number
     format: integer
-    
+
   watt:
     type: number
     format: float
-    
+
   ratio:
     type: number
     format: float
-    
+
   kiloBytes:
     type: number
     format: float
- 
+
   PolygonBoundary:
     type: object
     required: [min,max,polygonPoints]
     properties:
-      min: 
+      min:
         type: number
         format: float
       max:

@@ -24,6 +24,7 @@ definitions:
       - landing_position
       - gcs_altitude
       - gcs_position
+      - equipped_sensors
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -87,11 +88,18 @@ definitions:
         description: >-
           GCS position WGS84 altitude. (ft)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
-      gufi:
-        description: GUFI of the operation that is the subject of this report.
-        type: string
-        format: uuid
-        maxLength: 36
-        minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
-        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      equipped_sensors:
+        description: >-
+          A list of identifiers indicating the types of sensors equipped. Descriptions
+          of these sensors are to be provided in advance via the DaaSensor model.
+
+          Provide as an array of SensorId values (UUIDs).
+
+          If no sensors as described by a DaaSensor model are included on this
+          vechicle during this operation, supply an empty (0-length) array since
+          this is a required field.
+        type: array
+        items:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/SensorId'
+        minItems: 0
+        maxItems: 100
