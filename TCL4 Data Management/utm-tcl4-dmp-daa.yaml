@@ -371,7 +371,43 @@ definitions:
         type: number
         minimum: 0
 
-
+  DaaConflictResolutionMeasurement:
+    description: >-
+      Conflict resolution data
+    required:
+      - metaData
+      - conflictGufi
+      - conflictUvin
+      - typeOfConflictResolution
+      - conflictResolutionManeuver
+      - eventTimesTable
+    properties: 
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      typeOfConflictResolution:
+        type: integer
+        enum: [0,1,2,3]
+      conflictResolutionManeuver:
+        type: integer
+        enum: [0,1,2,3,4,5,6]
+      eventTimesTable:
+        type: array
+        items: 
+          type: object
+          required: [eventType,timeStamp,severityOfAlert,directionOfAlertResolution]
+          properties:
+            eventType:
+              type: string
+              enum: [timeAtEncounterInit,timeAtEncounterEnd,timeAtConflictAlert,timeAtConflictResManeuverInit,timeAtConflictResManeuverComplt,timeAtClearOfConflict,ussDaaAlertReceived,onboardDaaAlertIssued,groundDaaAlertIssued,caAlertIssued,ussCaAlertReceived,oaAlertIssued,ussOaAlertReceived]
+            timeStamp:
+                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+            severityOfAlert:
+              type: integer
+              enum: [-1,0,1]
+            directionOfAlertResolution:
+              type: integer
+              enum: [-1,0,1]
+      
 # supporting definitions
   SensorId: 
     description: >-
