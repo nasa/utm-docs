@@ -50,6 +50,16 @@ paths:
 
 definitions:
   DaaSensor:
+    description: >-
+      A definition of a DAA Sensor.  Required for each sensor type used within
+      any of the scenarios.  If the same type of sensor is used on multiple
+      platforms, its description need only be submitted once.
+
+      Many fields are listed as 'optional' in this model, but if values are
+      known or have been indicated as required by the DMP team or documentation,
+      those values are required.  Thus, the submission process of a DaaSensor
+      may be indicated as error-free, the NASA team may reach out reagarding
+      missing fields after the submission process.
     type: object
     required:
       - daaSensor
@@ -61,7 +71,7 @@ definitions:
       - updateRateSensor
     properties:
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       useOfSensor:
         description: >-
           Report the use of this sensor.
@@ -77,7 +87,9 @@ definitions:
           - DSRC
           - C-2V2X
           - WIFI
-          - ADS-B
+          - ADSB_IN
+          - ADSB_OUT
+          - ADSB_IN_AND_OUT
           - AIRBORNE_RADAR
           - GROUND_RADAR
           - LIDAR
@@ -141,18 +153,6 @@ definitions:
           (e.g. for accuracy +/- 5, write "5"). (ft)
         $ref: "#/definitions/feet"
 
-  DaaSensorBearing:
-    required:
-      - sensorId
-      - azimuthSensorMax
-      - azimuthSensorMin
-      - daaSensorAzimuthAccuracy
-      - elevationSensorMax
-      - elevationSensorMin
-      - daaSensorAltitudeAccuracy
-    properties:
-      sensorId:
-        $ref: "#/definitions/SensorId"
       azimuthSensorMax:
         $ref: "#/definitions/degrees"
       azimuthSensorMin:
@@ -171,6 +171,10 @@ definitions:
       A V2V sensor is expected to transmit on at least one frequency.  For each
       frequency that a V2V sensor uses for transmission, provide one instance
       of this model.
+
+      This model kept out of DaaSensor model due to multiplicty (avoiding
+      arrays) and potential lack of applicability for some sensors.
+
     required:
       - sensorId
       - txRadioFrequencyV2V
@@ -178,7 +182,7 @@ definitions:
       - txRadioFrequencyPowerErpV2V
     properties:
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       txRadioFrequencyV2V:
         $ref: "#/definitions/gigaHertz"
       txRadioFrequencyPowerEirpV2V:
@@ -192,9 +196,37 @@ definitions:
           that a transmitter/surveillance sensor produces as its output. (Watts)
         $ref: "#/definitions/watt"
 
+  StaticObstacleTable:
+    required:
+      - saticObstacleId
+      - staticObstacleTable
+    properties:
+      staticOstacleId:
+        description: >-
+          UUID for this set of static obstacles.  Will be referenced within
+          AuxiliaryUASOperation model to indicate that operation's predefined
+          static obstacle data.  This ID may be re-used if muliple operations
+          use the exact same obstacle data.
+
+          This UUID is set by the submitter of the particular instance of this
+          model.  The submitter should ensure proper generation of a UUIDv4.
+
+          If there are more than 1000 polygons to be submitted, the list
+          must be divided into sublists of length no longer than 1000.
+        $ref: "#/definitions/DaaUuid"
+      staticObstacleTable:
+        description: >-
+          An array of 3D polygons representing static obstacles in the flight
+          environment.
+        type: array
+        items:
+          $ref: "#/definitions/PolygonBoundary"
+        minItems: 1
+        maxItems: 1000
+
   ConflictResolutionConfiguration:
     required:
-      - metaData
+      - conflictResolutionConfigId
       - lookAheadTime
       - expectedOperatorResponseTime
       - expectedUASResponseTime
@@ -204,10 +236,18 @@ definitions:
       - expectedTurnRateOwnship
       - expectedTimeToHover
       - probabilityFalseAlarmPrct
-      - staticObstacleTable
     properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      conflictResolutionConfigId:
+        description: >-
+          UUID for this set of conflict resolution properties.  Will be referenced within
+          AuxiliaryUASOperation model to indicate that operation's predefined
+          conflict resolution properties.  This ID may be re-used if muliple operations
+          use the exact configuration.
+
+          This UUID is set by the submitter of the particular instance of this
+          model.  The submitter should ensure proper generation of a UUIDv4.
+
+        $ref: "#/definitions/DaaUuid"
       lookAheadTime:
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
@@ -227,18 +267,6 @@ definitions:
       probabilityFalseAlarmPrct:
         $ref: "#/definitions/percent"
 
-      # staticObstaclePolygonPoint
-      # staticObstacleMaxAlt_ft
-      # staticObstacleMinAlt_ft
-      staticObstacleTable:
-        type: array
-        items:
-          type: object
-          properties:
-            polygonBoundary:
-              $ref: "#/definitions/PolygonBoundary"
-
-
   DaaSensorAzimuthAccuracy:
     required:
       - metaData
@@ -250,7 +278,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       daaSensorAzimuthAccuracyRealTime:
@@ -267,7 +295,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       horRangeAccuracyRealTime:
@@ -287,7 +315,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dataPacketRatioV2v:
@@ -307,7 +335,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       numberOfLostTracks:
@@ -315,7 +343,8 @@ definitions:
 
   DaaSensorTimeToTrack:
     description: >-
-      Time to Track of DAA sensor: time required to establish a track for the sensor since first detection. Include 3 decimal places of precision.
+      Time to Track of DAA sensor: time required to establish a track for the
+      sensor since first detection. Include 3 decimal places of precision.
     required:
       - metaData
       - sensorId
@@ -325,7 +354,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       firstDetectionTime:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       timeRequiredForTrack:
@@ -333,7 +362,8 @@ definitions:
 
   DaaSensorIntruderAircraftDetection:
     description: >-
-      Timestamp,Lat,Lon,Alt of intruder aircraft detected position(s)-DAA (Detect And Avoid).  Include (uvin,gufi) of detected a/c
+      Timestamp,Lat,Lon,Alt of intruder aircraft detected position(s)-DAA
+      (Detect And Avoid).  Include (uvin,gufi) of detected a/c
     required:
       - metaData
       - sensorId
@@ -345,7 +375,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       uvin:
@@ -387,7 +417,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
-        $ref: "#/definitions/SensorId"
+        $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dynamicObstaclePolygon:
@@ -436,7 +466,7 @@ definitions:
               enum: [-1,0,1]
 
 # supporting definitions
-  SensorId:
+  DaaUuid:
     description: >-
       Identifier for this sensor instance.  Assigned by data originator and
       held constant for a given sensor to uniquely identify it across data
@@ -493,19 +523,30 @@ definitions:
     format: float
 
   PolygonBoundary:
+    description: >-
+      A 3D polygon.  This is a simple polygon whose vertical sides are at
+      right angles to its floor and ceiling.  Thus the model asks for a polygon
+      and a floor and a ceiling.
     type: object
     required: [min,max,polygonPoints]
     properties:
-      min:
+      minimum_alt:
+        description: >-
+          The floor of this 3D polygon.  This is a WGS84 altitude provided in feet.
         type: number
         format: float
-      max:
+      maximum_alt:
+        description: >-
+          The ceiling of this 3D polygon.  This is a WGS84 altitude provided in feet.
         type: number
         format: float
       polygonPoints:
         type: array
         items:
           $ref: "#/definitions/LatLon"
+        minItems: 4
+        maxItems: 300
+
   LatLon:
     type: object
     required: [lat,lon]

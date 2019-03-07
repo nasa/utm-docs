@@ -25,6 +25,7 @@ definitions:
       - gcs_altitude
       - gcs_position
       - equipped_sensors
+      - static_obstacle_lists
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -51,7 +52,7 @@ definitions:
         example: '2015-08-20T14:11:56.118Z'
       takeoff_position:
         description: >-
-          "Takeoff position latitude (deg).
+          "Takeoff position latitude and longitude (deg).
 
           Report at least seven decimal degrees."
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
@@ -93,13 +94,36 @@ definitions:
           A list of identifiers indicating the types of sensors equipped. Descriptions
           of these sensors are to be provided in advance via the DaaSensor model.
 
-          Provide as an array of SensorId values (UUIDs).
+          Provide as an array of DaaId values (UUIDs) representing DaaSensor.sensorId
+          values that have been previously submitted. If an identifier is used in this
+          array that is not previously known to the DMP system, an error may
+          be thrown.
 
           If no sensors as described by a DaaSensor model are included on this
           vechicle during this operation, supply an empty (0-length) array since
           this is a required field.
         type: array
         items:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/SensorId'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
         minItems: 0
         maxItems: 100
+      static_obstacle_lists:
+        description: >-
+          A list of identifiers indicating collections of obstacle data known
+          to the UAS prior to departure.
+
+          These identifiers map to StaticObstacleTable.staticOstacleId values
+          that have been previously submitted.  If an identifier is used in this
+          array that is not previously known to the DMP system, an error may
+          be thrown.
+        type: array
+        items:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
+      conflict_resolution_configuration:
+        description: >-
+          A reference to a previously submitted ConflictResolutionConfiguration via
+          its conflictResolutionConfigId.
+
+          This field is optional in this model, but it is required when the
+          vehicle is implementing DAA capabilities.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'

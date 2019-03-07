@@ -26,8 +26,22 @@ definitions:
     properties:
       geofence_id:
         description: >-
-          Identifier for this geofence data instance.  This id should remain
-          constant across multiple geofence samples for a dynamic geofence associated with the same metaData model
+          Identifier for this geofence data instance.
+
+          Notes for static geofences:
+          1. Expecting a single DaaGeoFence submission for an operation with a
+          static geofence.
+
+          2. Timestamp can be any reasonable value.  Expect that it would be earlier
+          than the operation start time since the geofence would be defined
+          prior to operation commencement.
+
+          Notes for dynamic geofences:
+          1. This id should remain constant across multiple geofence samples for a
+          dynamic geofence associated with the same metaData model.
+
+          2. Samples for a single metaData model differtiated and ordered by 
+          timestamps.
         type: string
         format: uuid
         maxLength: 36
