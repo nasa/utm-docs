@@ -209,7 +209,7 @@ definitions:
         format: float
       windSpeed:
         description: >-
-          TBD
+          Feet Per Second
         type: number
         format: float
         minimum: 0.0
