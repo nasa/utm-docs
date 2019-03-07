@@ -286,6 +286,23 @@ definitions:
       numberOfLostTracks:
         $ref: '#/definitions/count'
         
+  DaaSensorTimeToTrack:
+    description: >-
+      Time to Track of DAA sensor: time required to establish a track for the sensor since first detection. Include 3 decimal places of precision. (sec)
+    required:
+      - metaData
+      - sensorId
+      - firstDetectionTime
+      - timeRequiredForTrack
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      firstDetectionTime:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      timeRequiredForTrack:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
         
 # supporting definitions
   SensorId: 
