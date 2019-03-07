@@ -82,6 +82,19 @@ definitions:
           $ref: '#/definitions/cellCoverageArea'
         minItems: 1
         maxItems: 4
+      facilityMapReference:
+        description: >-
+          If a facility map is used as part of the scenario, provide a reference
+          to that facility map.  This may be a link to the facility map or its
+          data definition.  If the facility map is not an operational FAA map,
+          then this may be a pointer to other documentation or data for the
+          facility map.
+
+          Note this is an optional field in this model description since it is
+          not relevant to every scenario/run.  This field is REQUIRED when the
+          scenario/run references/uses a facility map.
+        type: string
+        maxLength: 2000
 
   ConPreRunOp:
     type: object
