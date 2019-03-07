@@ -347,6 +347,29 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
 
+  DaaSensorDynamicObstacle:
+    description: >-
+      Sensor detection of dynamic obstacle.  At each relavant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
+    required:
+      - metaData
+      - sensorId
+      - timestamp
+      - dynamicObstaclePolygon
+      - dynamicObstacleHeight
+    properties: 
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/SensorId"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      dynamicObstaclePolygon:
+        $ref: "#/definitions/LatLonArray"
+      dynamicObstacleHeight:
+        description: >-
+          height in ft
+        type: number
+        minimum: 0
 
 
 # supporting definitions
@@ -463,3 +486,23 @@ definitions:
     exclusiveMinimum: false
     maximum: 100000.0
     exclusiveMaximum: false
+  LatLonAltArray:
+    description: >-
+      Array of (lat,lon,alt) tuples.
+
+      If used to describe a Polygon, the first point and the last point must
+      be equal.
+    type: array
+    items:
+      $ref: '#/definitions/LatLonAlt'
+    minItems: 1
+  LatLonArray:
+    description: >-
+      Array of (lat,lon) tuples.
+
+      If used to describe a Polygon, the first point and the last point must
+      be equal.
+    type: array
+    items:
+      $ref: '#/definitions/LatLon'
+    minItems: 1
