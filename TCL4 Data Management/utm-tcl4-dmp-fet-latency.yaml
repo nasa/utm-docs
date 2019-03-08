@@ -1,0 +1,134 @@
+info:
+  version: "v1.0"
+  title: UTM DMP TCL4 CNS
+  description: Data model for CNS submission.
+  contact:
+    name: 'NASA Ames Research Center, Aviation Systems Division'
+    url: 'https://utmregistry.arc.nasa.gov/'
+    email: jaewoo.jung@nasa.gov
+  license:
+    name: NASA Open Source Agreement
+    url: 'https://ti.arc.nasa.gov/opensource/nosa/'
+  termsOfService: >-
+    A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED \"AS IS\" WITHOUT ANY
+    WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING,
+    BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO
+    SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE
+    SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF
+    PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN
+    ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR
+    RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR
+    ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE. FURTHER,
+    GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
+    THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
+    IT \"AS IS.\"
+
+
+    B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
+    AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
+    WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
+    RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING
+    FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING
+    FROM, RECIPIENT''S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY
+    AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND
+    SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
+    LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
+    UNILATERAL TERMINATION OF THIS AGREEMENT.
+
+swagger: '2.0'
+
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
+
+definitions:
+
+  SensorLatencyTuple:
+    description: >-
+      Sensor latency tuple for a particular sensor measurement.  Report the time that the sensor measurement was sent from the UA and the time that the sensor measurement was recieved by the GCS.  Report  only for the data listed in the dmp fet requirements list. 
+    required:
+      - sensor
+      - time_sent
+      - time_recieved
+    properties:
+      time_sent:
+        description: >-
+          Time sensor measurement was sent by UA
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      time_received:
+        description: >-
+          Time sensor measurement was received by GCS.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      sensor:
+        type: string
+        enum:
+          - BAROMETRIC_ALTITUDE_FT
+          - BATTERY_CURRENT_A
+          - BATTERY_TEMP_C
+          - BATTERY_VOLTAGE_V
+          - EXTERNAL_TEMPERATURE_C
+          - GEOMETRIC_VERTICAL_ACCURACY_CATEGORY
+          - GROUND_COURSE_DEG
+          - GROUND_SPEED_FT_PER_SEC
+          - HDOP_NONDIM
+          - HEADING_DEG
+          - NAVIGATION_ACCURACY_CATEGORY_POSITION
+          - NAVIGATION_INTEGRITY_CATEGORY
+          - NUM_GPS_SATELLITES_IN_VIEW_NONDIM
+          - NUM_GPS_SAT_NONDIM
+          - PITCH_DEG
+          - PITCH_RATE_DEG_PER_SEC
+          - RELATIVE_HUMIDITY_PRCT_NONDIM
+          - ROLLRATE_DEG_PER_SEC
+          - ROLL_DEG
+          - TRUE_AIRSPEED_FT_PER_SEC
+          - VDOP_NONDIM
+          - VERTICAL_SPEED_FT_PER_MIN
+          - YAW_DEG
+          - YAW_RATE_DEG_PER_SEC
+
+  FlightEssentialTelemetryLatency:
+    description: >-
+      Flight essential telemetry latency measuremenents.
+      TCL4. Refer to the DMP documentation on specific requirements for a given
+      run.
+    required:
+      - metaData
+      - ac_type
+      - sensor_latency_tuple
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      ac_type:
+        description: >-
+          Type of aircraft.  FET has requirements for crewed vehicles.
+        type: string
+        enum:
+          - CREWED
+          - UAS
+      sensor_latency_tuple:
+        description: >-
+          An array of sensor latency samples.  Note that the types of samples can be
+          mixed in this array.  
+        type: array
+        items:
+          $ref: '#/definitions/SensorLatencyTuple'
+        minItems: 1
+        maxItems: 10000
