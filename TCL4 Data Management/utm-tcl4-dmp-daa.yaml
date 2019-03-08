@@ -528,7 +528,14 @@ definitions:
                 "Indicate strengthening or weakening of an alert as enum:
                   weakening,
                   neutral,
-                  strengthening "
+                  strengthening
+
+                This is a measure of the avoidance maneuver and how it is
+                changing.  For example if a climb is advised by the system,
+                is the strength of that climb increasing or decreasing with
+                time.
+
+                For more discussion, contact NASA UTM."
               type: string
               enum:
                 - WEAKENING
@@ -536,15 +543,19 @@ definitions:
                 - STRENGTHENING
             directionOfAlertResolution:
               description: >-
-                "This will be used to determine direction of alert resolution as enum:
-                [-1] weakening,
-                [0] neutral,
-                [1] strengthening "
+                "This will be used to determine direction of alert resolution to
+                determine if it changed from the previous time step or not.
+
+                For example if a system directs a right turn, and on the next
+                sample is directing a left turn, this value should indicate
+                changed.
+
+                For more discussion, contact NASA UTM."
+
               type: string
               enum:
-                - WEAKENING
-                - NEUTRAL
-                - STRENGTHENING
+                - NO_CHANGE
+                - CHANGED
 
 # supporting definitions
   DaaUuid:
