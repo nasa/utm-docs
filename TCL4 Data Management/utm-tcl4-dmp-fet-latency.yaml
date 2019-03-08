@@ -79,6 +79,9 @@ definitions:
       sensor:
         type: string
         enum:
+          - LAT
+          - LON
+          - ALT
           - BAROMETRIC_ALTITUDE_FT
           - BATTERY_CURRENT_A
           - BATTERY_TEMP_C
