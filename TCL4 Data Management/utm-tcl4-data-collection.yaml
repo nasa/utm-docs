@@ -151,8 +151,8 @@ definitions:
       loss of USS services during a test.  If the USS is unavailable multiple times
       in a single test, one submission is sufficient.
     required:
-      - "uss_loss_id"
       - "metaDataDmpUss"
+      - "uss_loss_id"
       - "time_loss_detected"
       - "time_uss_completely_restored"
       - "method_loss_detected"
@@ -160,7 +160,6 @@ definitions:
     properties:
       metaDataDmpUss:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/add-meta-to-dmp-uss/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
-
       uss_loss_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of LossOfUSS
@@ -219,14 +218,16 @@ definitions:
       handoff of management of an operation.  These data are not captured within
       the USSNetwork.  These data may inform future procedures and standards.
     required:
-      - "handoff_id"
       - "metaDataDmpUss"
+      - "handoff_id"
       - "other_uss_id"
       - "operator"
       - "time_handoff_procedure_initiated"
       - "time_handoff_procedure_completed"
       - "gufi"
     properties:
+      metaDataDmpUss:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/add-meta-to-dmp-uss/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       handoff_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
@@ -237,8 +238,6 @@ definitions:
         minLength: 36
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
-      metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/add-meta-to-dmp-uss/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       other_uss_id:
         description: >-
           The other USSs ID (on the other side of the handoff) as known by
@@ -318,8 +317,8 @@ definitions:
       the USSExchange model, since NegotiationMessages will be logged and supplied
       there.
     required:
-      - "negotiation_id"
       - "metaDataDmpUss"
+      - "negotiation_id"
       - "reporter_gufi"
       - "other_gufi"
       - "message_ids"
@@ -419,9 +418,9 @@ definitions:
       potential interactions between USS and Operator.  These data will
       be correlated with data captured via the USS Network.
     required:
+      - "metaDataDmpUss"
       - "uss_operator_exchange_id"
       - "gufi"
-      - "metaDataDmpUss"
       - "operator"
       - "human_interactions"
     properties:
@@ -503,9 +502,9 @@ definitions:
       USSs inform operators and how those operators react.  These data will
       be correlated with data captured via the USS Network.
     required:
+      - "metaDataDmpUss"
       - "dr_occurrence_id"
       - "gufi"
-      - "metaDataDmpUss"
       - "operator"
       - "time_uss_received"
       - "time_uss_sent"
@@ -624,13 +623,13 @@ definitions:
       may be an initial model that will be required operationally in terms of
       a USSs need to log interactions with other USSs.
     required:
+      - "metaDataDmpUss"
       - "measurement_id"
       - "event_id"
       - "exchanged_data_pk"
       - "exchanged_data_type"
       - "source_uss"
       - "target_uss"
-      - "metaDataDmpUss"
       - "time_request_initiation"
       - "time_request_completed"
       - "actual_http_response"
