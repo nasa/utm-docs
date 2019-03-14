@@ -52,11 +52,11 @@ definitions:
 
   SensorLatencyTuple:
     description: >-
-      Sensor latency tuple for a particular sensor measurement.  Report the time that the sensor measurement was sent from the UA and the time that the sensor measurement was recieved by the GCS.  Report  only for the data listed in the dmp fet requirements list. 
+      Sensor latency tuple for a particular sensor measurement.  Report the time that the sensor measurement was sent from the UA and the time that the sensor measurement was received by the GCS.  Report  only for the data listed in the dmp fet requirements list. 
     required:
       - sensor
       - time_sent
-      - time_recieved
+      - time_received
     properties:
       time_sent:
         description: >-
@@ -109,7 +109,7 @@ definitions:
 
   FlightEssentialTelemetryLatency:
     description: >-
-      Flight essential telemetry latency measuremenents.
+      Flight essential telemetry latency measurements.
       TCL4. Refer to the DMP documentation on specific requirements for a given
       run.
     required:
