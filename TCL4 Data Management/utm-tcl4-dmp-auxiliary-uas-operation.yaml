@@ -100,7 +100,7 @@ definitions:
           be thrown.
 
           If no sensors as described by a DaaSensor model are included on this
-          vechicle during this operation, supply an empty (0-length) array since
+          vehicle during this operation, supply an empty (0-length) array since
           this is a required field.
         type: array
         items:
@@ -112,7 +112,7 @@ definitions:
           A list of identifiers indicating collections of obstacle data known
           to the UAS prior to departure.
 
-          These identifiers map to StaticObstacleTable.staticOstacleId values
+          These identifiers map to StaticObstacleTable.staticObstacleId values
           that have been previously submitted.  If an identifier is used in this
           array that is not previously known to the DMP system, an error may
           be thrown.
