@@ -58,7 +58,7 @@ definitions:
       Many fields are listed as 'optional' in this model, but if values are
       known or have been indicated as required by the DMP team or documentation,
       those values are required.  Thus, the submission process of a DaaSensor
-      may be indicated as error-free, the NASA team may reach out reagarding
+      may be indicated as error-free, the NASA team may reach out regarding
       missing fields after the submission process.
     type: object
     required:
@@ -181,7 +181,7 @@ definitions:
       frequency that a V2V sensor uses for transmission, provide one instance
       of this model.
 
-      This model kept out of DaaSensor model due to multiplicty (avoiding
+      This model kept out of DaaSensor model due to multiplicity (avoiding
       arrays) and potential lack of applicability for some sensors.
 
     required:
@@ -209,14 +209,14 @@ definitions:
 
   StaticObstacleTable:
     required:
-      - saticObstacleId
+      - staticOstacleId
       - staticObstacleTable
     properties:
       staticOstacleId:
         description: >-
           UUID for this set of static obstacles.  Will be referenced within
           AuxiliaryUASOperation model to indicate that operation's predefined
-          static obstacle data.  This ID may be re-used if muliple operations
+          static obstacle data.  This ID may be re-used if multiple operations
           use the exact same obstacle data.
 
           This UUID is set by the submitter of the particular instance of this
