@@ -40,7 +40,7 @@ definitions:
           1. This id should remain constant across multiple geofence samples for a
           dynamic geofence associated with the same metaData model.
 
-          2. Samples for a single metaData model differtiated and ordered by 
+          2. Samples for a single metaData model differentiated and ordered by 
           timestamps.
         type: string
         format: uuid
