@@ -37,7 +37,7 @@ info:
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 
 definitions:
-  metaDataTestSite:
+  metadataTestSite:
     type: object
     required:
       - scenario
@@ -94,54 +94,6 @@ definitions:
         $ref: '#/definitions/metaData'
       timestamp:
         $ref: '#/definitions/timestamp'
-
-  metaDataDmpUss:
-    type: object
-    required:
-      - data_collection
-      - call_sign
-      - test_run
-      - uss_name
-    properties:
-      data_collection:
-        description: >-
-          If true these data are intended for Data Collection. Essentially
-          stating if particular data should be ignored during analysis. This
-          may be modified after submission in the case that there was an issue
-          during execution of the test/experiment that would invalidate the
-          data that were collected.
-        type: boolean
-      call_sign:
-        type: string
-        minLength: 1
-        maxLength: 100
-        description: >-
-          Expected values: a call sign, test card role, or flight ID that links
-          this operation to a particular test card flight. As an example, in our
-          TCL2 demo, "GCS3" could have been used here. For multiple flights
-          emanating from one location on a test card, this data element could
-          include further information to link the operation to the test card
-          flight, such as GCS1A.
-
-          Every operation requires a call_sign that is pre-determined in the
-          full test card description.
-      uss_name:
-        type: string
-        description: >-
-          This is a unique string that identifies the USS that is supporting
-          this operation.  It is the same identifier used in the basic
-          authentication mechanism required to obtain a token from FIMS
-          (Flight Information Management System).  It is also the subject claim
-          that identifies the principal that is the subject of the JWT.
-      test_run:
-        description: >-
-          An identifier for a specific run of a test_card.  In many cases, a
-          test_card may be only run once.  However, it is possible that a
-          test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
-
   metaData:
     type: object
     required:
