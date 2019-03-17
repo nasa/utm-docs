@@ -291,7 +291,38 @@ definitions:
         minLength: 1
         maxLength: 100
         type: string
-          
+
+  metaDataCallSignRunTs:
+    type: object
+    required:
+      - call_sign
+      - test_run
+    properties:
+      call_sign:
+        type: string
+        minLength: 1
+        maxLength: 100
+        description: >-
+          Expected values: a call sign, test card role, or flight ID that links
+          this operation to a particular test card flight. As an example, in our
+          TCL2 demo, "GCS3" could have been used here. For multiple flights
+          emanating from one location on a test card, this data element could
+          include further information to link the operation to the test card
+          flight, such as GCS1A.
+
+          Every operation requires a call_sign that is pre-determined in the
+          full test card description.
+      test_run:
+        description: >-
+          An identifier for a specific run of a test_card.  In many cases, a
+          test_card may be only run once.  However, it is possible that a
+          test_card is run multiple times.
+        minLength: 1
+        maxLength: 100
+        type: string
+      timestamp:
+        $ref: '#/definitions/timestamp'
+        
   timestamp:
     description: >-
       Timestamps MUST follow the guidance set forth in RFC3339.
