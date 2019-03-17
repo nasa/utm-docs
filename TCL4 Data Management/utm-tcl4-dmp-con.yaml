@@ -176,9 +176,10 @@ definitions:
   ConWxOperatingPointData:
     description: >-
            Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
-           location, and timestamp associated with the measurement
+           location, and timestamp associated with the measurement from a vehicle
     type: object
     required:
+      - "metaData"
       - "timestamp"
       - "temperature"
       - "pressure"
@@ -188,12 +189,8 @@ definitions:
     properties:
       metaData:
         description: >-
-          This field is conditionally required if the weather sample is taken
-          from a vehicle.  metaData will indicate which operation provided
-          the sample.
-
-          If this sample is from a weather station, then this field must NOT
-          be provided.
+          This field is required if the weather sample is taken
+          from a vehicle.  
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
@@ -224,6 +221,51 @@ definitions:
       location:
         $ref: '#/definitions/LatLonAlt'
 
+  ConWxOperatingPointDataStation:
+    description: >-
+           Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
+           location, and timestamp associated with the measurement from weather station
+    type: object
+    required:
+      - "metaDataTestSite"
+      - "timestamp"
+      - "temperature"
+      - "pressure"
+      - "windSpeed"
+      - "windDir"
+      - "location"
+    properties:
+      metaDataTestSite:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTestSite'
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      temperature:
+        description: >-
+          Degrees Fahrenheit
+        type: number
+        format: float
+      pressure:
+        description: >-
+          Inches Of Hg
+        type: number
+        format: float
+      windSpeed:
+        description: >-
+          Feet Per Second
+        type: number
+        format: float
+        minimum: 0.0
+      windDir:
+        description: >-
+          Degrees, True North Reference Frame
+        type: number
+        minimum:  0.0
+        maximum:  360
+        exclusiveMinimum: false
+        exclusiveMaximum: true
+      location:
+        $ref: '#/definitions/LatLonAlt'
+        
   CellServiceAvailability:
     description: >-
       Real-time availability of cellular service onboard the ownship during the
