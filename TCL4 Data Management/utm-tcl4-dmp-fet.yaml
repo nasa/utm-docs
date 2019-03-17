@@ -109,13 +109,14 @@ definitions:
 
   MetaDataAcTypeTsSensor:
     description: >-
+      Data model used to delete a fet instance.
     required:
-      - metaData
+      - metaDataCallSignRun
       - ac_type
       - sensor_double
     properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      metaDataCallSignRun:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataCallSignRun'
       ac_type:
         description: >-
           Type of aircraft.  FET has requirements for crewed vehicles.
