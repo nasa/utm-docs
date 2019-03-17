@@ -149,7 +149,6 @@ definitions:
       - test_run
       - uvin
       - gufi
-      - submit_time
       - uss_name
     properties:
       data_collection:
