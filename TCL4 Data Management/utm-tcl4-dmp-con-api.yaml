@@ -181,7 +181,7 @@ paths:
             - utm.nasa.gov_write.message
       parameters:
         - in: body
-          name: metaData
+          name: metaDataCallSignRun
           required: true
           schema:
             $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataCallSignRun'
