@@ -50,17 +50,17 @@ securityDefinitions:
     tokenUrl: 'https://utm.defined.host/oauth/token'
     flow: application
     scopes:
-      'utm.nasa.gov_write.message': Subject can read, create, and update message data such as UTM Message and Negotiations and DMP data
+      'utm.nasa.gov_write.message': Subject can create and delete DMP USS and vehicle-centric data
 
 paths:
 
 ##
-# con-pre-run
+# con-pre-run-range
 ##
   
-  '/con-pre-run':
+  '/con-pre-run-range':
     post:
-      summary: Upload a single instance of the ConPreRun model.  Only once such instance should be uploaded per (run_id,call_sign)
+      summary: Upload a single instance of the ConPreRunRange model.  Only once such instance should be uploaded per run of a test card.
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -68,12 +68,12 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: ConPreRun
-          description: The ConPreRun model 
+          name: ConPreRunRange
+          description: The ConPreRunRange model 
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConPreRun
+              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConPreRunRange
       responses:
         '200':
           description: Data received. No content returned.
@@ -97,16 +97,16 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     delete:
-      summary: Delete a previously uploaded instance of ConPreRun recorded during an operation corresponding to specified metadata
+      summary: Delete a previously uploaded instance of ConPreRunRange recorded during a run of a test card
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
       parameters:
         - in: body
-          name: metaData
+          name: metaDataTestSite
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTestSite'
           description: DELETE  
       responses:
         '200':
@@ -132,391 +132,3 @@ paths:
 
 
 
-##
-# con-actualLanding
-##
-  
-  '/con-actualLanding':
-    post:
-      summary: Upload array of ConActualLanding models.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      consumes:
-        - application/json
-      parameters:
-        - in: body
-          name: ConActualLanding
-          description: The ConActualBvlosLanding model 
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConActualLanding
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '400':
-          description: Bad request. Typically validation error. Fix your request and retry.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-    delete:
-      summary: Delete a previously uploaded instance of ConActualLanding recorded during an operation corresponding to specified metadata
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: body
-          name: metaData
-          required: true
-          schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-          description: DELETE  
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested model not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-##
-# con-wxOperatingPointData
-##
-  
-  '/con-wxOperatingPointData':
-    post:
-      summary: Upload array of ConWxOperatingPointData models.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      consumes:
-        - application/json
-      parameters:
-        - in: body
-          name: ConWxOperatingPointData
-          description: The ConWxOperatingPointData model 
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointData
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '400':
-          description: Bad request. Typically validation error. Fix your request and retry.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-    delete:
-      summary: Delete a previously uploaded instance of ConWxOperatingPointData recorded during an operation corresponding to specified metadata
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: body
-          name: metaData
-          required: true
-          schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested model not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-##
-# con-cellServiceAvailability
-##
-  
-  '/con-cellServiceAvailability':
-    post:
-      summary: Upload array of CellServiceAvailability models.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      consumes:
-        - application/json
-      parameters:
-        - in: body
-          name: CellServiceAvailability
-          description: The CellServiceAvailability model 
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/CellServiceAvailability
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '400':
-          description: Bad request. Typically validation error. Fix your request and retry.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-    delete:
-      summary: Delete a previously uploaded instance of CellServiceAvailability recorded during an operation corresponding to specified metadata
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: body
-          name: metaData
-          required: true
-          schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested model not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-
-##
-# con-cellServiceAvailability
-##
-  
-  '/con-distressV2V':
-    post:
-      summary: Upload array of DistressV2V models.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      consumes:
-        - application/json
-      parameters:
-        - in: body
-          name: DistressV2V
-          description: The DistressV2V model 
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/DistressV2V
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '400':
-          description: Bad request. Typically validation error. Fix your request and retry.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-    delete:
-      summary: Delete a previously uploaded instance of DistressV2V recorded during an operation corresponding to specified metadata
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: body
-          name: metaData
-          required: true
-          schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested model not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-              
-
-##
-# con-rpicConstraintMessage
-##
-  
-  '/con-rpicConstraintMessage':
-    post:
-      summary: Upload array of RpicConstraintMessage models.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      consumes:
-        - application/json
-      parameters:
-        - in: body
-          name: RpicConstraintMessage
-          description: The RpicConstraintMessage model 
-          required: true
-          schema:
-            type: array
-            items:
-              $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/RpicConstraintMessage
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '400':
-          description: Bad request. Typically validation error. Fix your request and retry.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-    delete:
-      summary: Delete a previously uploaded instance of RpicConstraintMessage recorded during an operation corresponding to specified metadata
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: body
-          name: metaData
-          required: true
-          schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested model not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-              
