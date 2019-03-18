@@ -329,6 +329,7 @@ definitions:
     required:
       - call_sign
       - test_run
+      - timestamp
     properties:
       call_sign:
         type: string
@@ -354,6 +355,24 @@ definitions:
         type: string
       timestamp:
         $ref: '#/definitions/timestamp'
+
+  MetaDataTsArray:
+    description: >-
+      Data model used to delete data by specifying a meta data data model and an array of timestamps.
+    required:
+      - metaDataCallSignRun
+      - timestampArray
+    properties:
+      metaDataCallSignRun:
+        $ref: '#/definitions/metaDataCallSignRun'
+      timestampArray:
+        description: >-
+          An array of timestamps to delete
+        type: array
+        items:
+          $ref: '#/definitions/timestamp'
+        minItems: 1
+        maxItems: 10000
         
   timestamp:
     description: >-
