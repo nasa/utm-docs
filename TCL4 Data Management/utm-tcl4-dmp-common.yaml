@@ -120,6 +120,17 @@ definitions:
       timestamp:
         $ref: '#/definitions/timestamp'
 
+  metaDataDmpUssUssHandoffId:
+    type: object
+    required:
+      - metaDataDmpUss
+      - handoff_id
+    properties:
+      metaDataDmpUss:
+        $ref: '#/definitions/metaDataDmpUss'
+      handoff_id:
+        $ref:'#/definitions/UUID'
+    
   metaDataDmpUss:
     type: object
     required:
