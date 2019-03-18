@@ -227,7 +227,7 @@ definitions:
       - "gufi"
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/uss-handoff-api/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       handoff_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
