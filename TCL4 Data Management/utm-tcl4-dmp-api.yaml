@@ -317,14 +317,14 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: metaDataDmpUssUssHandoffId
-          description: Insert UssHandoff
+          name: UssHandoff
+          description: Insert Array UssHandoff
           required: true
           schema:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/uss-handoff-api/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUssUssHandoffId
+                https://raw.githubusercontent.com/nasa/utm-docs/uss-handoff-api/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSHandoff
       responses:
         '201':
           description: Data received. No content returned.
