@@ -76,7 +76,39 @@ definitions:
         minLength: 1
         maxLength: 100
         type: string
-
+  metaDataTestSiteTs:
+    type: object
+    required:
+      - test_site
+      - test_card
+      - test_run
+      - timestamp
+    properties:
+      test_site:
+        description: >-
+          Name of the test site
+        minLength: 1
+        maxLength: 100
+        type: string
+      test_card:
+        description: >-
+          The name or number of the test card.  In many cases, a scenario will
+          have only one test_card, but it is possible that there are multiple
+          test_cards for a given scenario.
+        minLength: 1
+        maxLength: 100
+        type: string
+      test_run:
+        description: >-
+          An identifier for a specific run of a test_card.  In many cases, a
+          test_card may be only run once.  However, it is possible that a
+          test_card is run multiple times.
+        minLength: 1
+        maxLength: 100
+        type: string
+      timestamp:
+        $ref: '#/definitions/timestamp'
+        
   metaDataTs:
     type: object
     required:
