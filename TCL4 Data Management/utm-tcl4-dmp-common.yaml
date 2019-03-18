@@ -129,7 +129,7 @@ definitions:
       metaDataDmpUss:
         $ref: '#/definitions/metaDataDmpUss'
       handoff_id:
-        $ref:'#/definitions/UUID'
+        $ref: '#/definitions/UUID'
     
   metaDataDmpUss:
     type: object
