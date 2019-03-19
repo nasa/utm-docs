@@ -76,6 +76,7 @@ definitions:
         minLength: 1
         maxLength: 100
         type: string
+
   metaDataTestSiteTs:
     type: object
     required:
@@ -356,6 +357,9 @@ definitions:
       timestamp:
         $ref: '#/definitions/timestamp'
 
+  MetaDataCallSignRunTs:
+    $ref: '#/definitions/metaDataCallSignRunTs'
+        
   MetaDataTsArray:
     description: >-
       Data model used to delete data by specifying a meta data data model and an array of timestamps.
