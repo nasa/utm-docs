@@ -414,30 +414,29 @@ definitions:
       connect to service within dead zone area. Ensure that the service provider
       for elements cellCoverageArea and cellServiceAvailability_nonDim are the
       same.
-    type: array
-    items:
-      type: object
-      required: ['provider', 'cellCoveragePolygon','cellCoverageDeadZonePolygon']
-      properties:
-        provider:
-          description: >-
-            The provider of service described by the associated polygons.
-          type: string
-          minLength: 3
-          maxLength: 30
-        cellCoveragePolygon:
-           description: >-
-             list cell Coverage Polygons
-           type: array
-           minItems: 1
-           maxItems: 300
-           items:
-             $ref: '#/definitions/LatLonArray'
-        cellCoverageDeadZonePolygon:
-            description: >-
-              list cell Coverage Dead Zone Polygons
-            type: array
-            minItems: 1
-            maxItems: 300
-            items:
-              $ref: '#/definitions/LatLonArray'
+    type: object
+    required: ['provider', 'cellCoveragePolygons','cellCoverageDeadZonePolygons']
+    properties:
+      provider:
+        description: >-
+          The provider of service described by the associated polygons.
+        type: string
+        minLength: 3
+        maxLength: 30
+      cellCoveragePolygons:
+        description: >-
+          list cell Coverage Polygons
+        type: array
+        minItems: 1
+        maxItems: 300
+        items:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'
+      cellCoverageDeadZonePolygons:
+        description: >-
+          list cell Coverage Dead Zone Polygons
+        type: array
+        minItems: 1
+        maxItems: 300
+        items:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'
+
