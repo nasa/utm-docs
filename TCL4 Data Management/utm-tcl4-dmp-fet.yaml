@@ -1,11 +1,11 @@
 info:
   version: "v1.0"
-  title: UTM DMP TCL4 CNS
-  description: Data model for CNS submission.
+  title: UTM DMP TCL4 FET
+  description: Data model for FET submission.
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utmregistry.arc.nasa.gov/'
-    email: jaewoo.jung@nasa.gov
+    email: abraham.k.ishihara@nasa.gov
   license:
     name: NASA Open Source Agreement
     url: 'https://ti.arc.nasa.gov/opensource/nosa/'
