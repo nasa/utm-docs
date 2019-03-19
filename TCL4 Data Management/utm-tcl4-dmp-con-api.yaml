@@ -292,7 +292,7 @@ paths:
   
   '/con-wx-operating-point-data':
     post:
-      summary: Upload array of ConWxOperatingPointData models.
+      summary: Upload array of ConWxOperatingPointData models
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -306,8 +306,7 @@ paths:
           schema:
             type: array
             items: 
-              $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointData
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointData'
       responses:
         '200':
           description: Data received. No content returned.
@@ -331,18 +330,99 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     delete:
-      summary: Delete previously uploaded array of instances of ConWxOperatingPointData corresponding to specified metadata and timestamp.  If array is empty, the entire data set corresponding to the (call_sign,test_run) pair will be deleted.  
+      summary: Delete previously uploaded array of instances of ConWxOperatingPointData corresponding to specified metadata and timestamp.  
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
       parameters:
         - in: body
-          name: metaDataCallSignRunTs
+          name: metaDataCallSignRunTsArray
           required: true
           schema:
             type: array
             items: 
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataCallSignRunTs'
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '404':
+          description: Requested model not found.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+
+##
+# con-wx-operating-point-data-station
+##
+  
+  '/con-wx-operating-point-data-station':
+    post:
+      summary: Upload array of ConWxOperatingPointDataStation models.
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: ConWxOperatingPointDataStationArray
+          description: Array of ConWxOperatingPointDataStation models
+          required: true
+          schema:
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointDataStation
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '400':
+          description: Bad request. Typically validation error. Fix your request and retry.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+    delete:
+      summary: Delete previously uploaded array of instances of ConWxOperatingPointDataStation corresponding to specified metaDataTestSite and timestamp.    
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      parameters:
+        - in: body
+          name: metaDataTestSiteTs
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTestSiteTs'
           description: DELETE  
       responses:
         '200':
