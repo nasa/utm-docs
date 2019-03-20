@@ -73,9 +73,7 @@ definitions:
           An identifier for a specific run of a test_card.  In many cases, a
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
+        type: integer
 
   MetaDataTestSiteTs:
     type: object
@@ -104,9 +102,7 @@ definitions:
           An identifier for a specific run of a test_card.  In many cases, a
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
+        type: integer
       timestamp:
         $ref: '#/definitions/timestamp'
         
@@ -175,9 +171,7 @@ definitions:
           An identifier for a specific run of a test_card.  In many cases, a
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
+        type: integer
 
   metaData:
     type: object
@@ -225,9 +219,7 @@ definitions:
           An identifier for a specific run of a test_card.  In many cases, a
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
+        type: integer
       call_sign:
         type: string
         minLength: 1
@@ -332,9 +324,7 @@ definitions:
           An identifier for a specific run of a test_card.  In many cases, a
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
+        type: integer
 
   metaDataCallSignRunTs:
     type: object
@@ -362,9 +352,7 @@ definitions:
           An identifier for a specific run of a test_card.  In many cases, a
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
-        minLength: 1
-        maxLength: 100
-        type: string
+        type: integer
       timestamp:
         $ref: '#/definitions/timestamp'
 
