@@ -37,7 +37,7 @@ info:
     UNILATERAL TERMINATION OF THIS AGREEMENT.
 
 definitions:
-  metaDataTestSite:
+  MetaDataTestSite:
     type: object
     required:
       - scenario
@@ -77,7 +77,7 @@ definitions:
         maxLength: 100
         type: string
 
-  metaDataTestSiteTs:
+  MetaDataTestSiteTs:
     type: object
     required:
       - test_site
