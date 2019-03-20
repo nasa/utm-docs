@@ -106,7 +106,7 @@ paths:
           name: metaDataTestSite
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTestSite'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
           description: DELETE  
       responses:
         '200':
@@ -411,7 +411,7 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     delete:
-      summary: Delete previously uploaded array of instances of ConWxOperatingPointDataStation corresponding to specified metaDataTestSite and timestamp.    
+      summary: Delete previously uploaded array of instances of ConWxOperatingPointDataStation corresponding to specified MetaDataTestSite and timestamp.    
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -422,7 +422,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTestSiteTs'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSiteTs'
           description: DELETE  
       responses:
         '200':
