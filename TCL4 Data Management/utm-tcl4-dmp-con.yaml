@@ -58,7 +58,7 @@ definitions:
       - "flightTestRangePolygonPoints"
     properties:
       metaDataTestSite:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataTestSite'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
       flightTestRangePolygonPoints:
         description: >-
           Ordered list of the vertices of the polygon that defines the area of the test range.
