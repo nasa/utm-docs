@@ -132,7 +132,7 @@ definitions:
     description: >-
       "Actual landing point that occurred during a (call_sign,test_run)
       pair.  Submit data to this end-point as soon as vehicle lands.  Specify
-      the two required booleans (is BVLOS? and is Rooftop?)."
+      the three required booleans (is BVLOS? is Rooftop? is Nominal?)."
     type: object
     required:
       - "metaData"
