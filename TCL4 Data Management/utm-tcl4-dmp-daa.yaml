@@ -302,6 +302,8 @@ definitions:
       - metaData
       - sensorId
       - timestamp
+      - horRangeAccuracyRealTime
+      - verRangeAccuracyRealTime      
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
