@@ -210,7 +210,7 @@ definitions:
   StaticObstacleTable:
     required:
       - staticObstacleId
-      - staticObstacleTable
+      - staticObstacles
     properties:
       staticObstacleId:
         description: >-
@@ -225,7 +225,7 @@ definitions:
           If there are more than 1000 polygons to be submitted, the list
           must be divided into sublists of length no longer than 1000.
         $ref: "#/definitions/DaaUuid"
-      staticObstacleTable:
+      staticObstacles:
         description: >-
           An array of 3D polygons representing static obstacles in the flight
           environment.
@@ -302,6 +302,8 @@ definitions:
       - metaData
       - sensorId
       - timestamp
+      - horRangeAccuracyRealTime
+      - verRangeAccuracyRealTime
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
