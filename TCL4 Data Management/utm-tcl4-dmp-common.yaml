@@ -145,19 +145,7 @@ definitions:
           data that were collected.
         type: boolean
       call_sign:
-        type: string
-        minLength: 1
-        maxLength: 100
-        description: >-
-          Expected values: a call sign, test card role, or flight ID that links
-          this operation to a particular test card flight. As an example, in our
-          TCL2 demo, "GCS3" could have been used here. For multiple flights
-          emanating from one location on a test card, this data element could
-          include further information to link the operation to the test card
-          flight, such as GCS1A.
-
-          Every operation requires a call_sign that is pre-determined in the
-          full test card description.
+        $ref: '#/definitions/CallSign'
       uss_name:
         type: string
         description: >-
@@ -166,6 +154,8 @@ definitions:
           authentication mechanism required to obtain a token from FIMS
           (Flight Information Management System).  It is also the subject claim
           that identifies the principal that is the subject of the JWT.
+        minLength: 1
+        maxLength: 1000
       test_run:
         description: >-
           An identifier for a specific run of a test_card.  In many cases, a
@@ -221,19 +211,7 @@ definitions:
           test_card is run multiple times.
         type: integer
       call_sign:
-        type: string
-        minLength: 1
-        maxLength: 100
-        description: >-
-          Expected values: a call sign, test card role, or flight ID that links
-          this operation to a particular test card flight. As an example, in our
-          TCL2 demo, "GCS3" could have been used here. For multiple flights
-          emanating from one location on a test card, this data element could
-          include further information to link the operation to the test card
-          flight, such as GCS1A.
-
-          Every operation requires a call_sign that is pre-determined in the
-          full test card description.
+        $ref: '#/definitions/CallSign'
       test_type:
         type: string
         description: >-
@@ -292,6 +270,8 @@ definitions:
         $ref: '#/definitions/timestamp'
       uss_name:
         type: string
+        minLength: 1
+        maxLength: 1000
         description: >-
           This is a unique string that identifies the USS that is supporting
           this operation.  It is the same identifier used in the basic
@@ -299,26 +279,14 @@ definitions:
           (Flight Information Management System).  It is also the subject claim
           that identifies the principal that is the subject of the JWT.
 
-  metaDataCallSignRun:
+  MetaDataCallSignRun:
     type: object
     required:
       - call_sign
       - test_run
     properties:
       call_sign:
-        type: string
-        minLength: 1
-        maxLength: 100
-        description: >-
-          Expected values: a call sign, test card role, or flight ID that links
-          this operation to a particular test card flight. As an example, in our
-          TCL2 demo, "GCS3" could have been used here. For multiple flights
-          emanating from one location on a test card, this data element could
-          include further information to link the operation to the test card
-          flight, such as GCS1A.
-
-          Every operation requires a call_sign that is pre-determined in the
-          full test card description.
+        $ref: '#/definitions/CallSign'
       test_run:
         description: >-
           An identifier for a specific run of a test_card.  In many cases, a
@@ -326,7 +294,7 @@ definitions:
           test_card is run multiple times.
         type: integer
 
-  metaDataCallSignRunTs:
+  MetaDataCallSignRunTs:
     type: object
     required:
       - call_sign
@@ -334,19 +302,7 @@ definitions:
       - timestamp
     properties:
       call_sign:
-        type: string
-        minLength: 1
-        maxLength: 100
-        description: >-
-          Expected values: a call sign, test card role, or flight ID that links
-          this operation to a particular test card flight. As an example, in our
-          TCL2 demo, "GCS3" could have been used here. For multiple flights
-          emanating from one location on a test card, this data element could
-          include further information to link the operation to the test card
-          flight, such as GCS1A.
-
-          Every operation requires a call_sign that is pre-determined in the
-          full test card description.
+        $ref: '#/definitions/CallSign'
       test_run:
         description: >-
           An identifier for a specific run of a test_card.  In many cases, a
@@ -355,9 +311,6 @@ definitions:
         type: integer
       timestamp:
         $ref: '#/definitions/timestamp'
-
-  MetaDataCallSignRunTs:
-    $ref: '#/definitions/metaDataCallSignRunTs'
         
   MetaDataTsArray:
     description: >-
@@ -367,7 +320,7 @@ definitions:
       - timestampArray
     properties:
       metaDataCallSignRun:
-        $ref: '#/definitions/metaDataCallSignRun'
+        $ref: '#/definitions/MetaDataCallSignRun'
       timestampArray:
         description: >-
           An array of timestamps to delete
@@ -442,6 +395,15 @@ definitions:
       alt:
        $ref: '#/definitions/altitude'
 
+  CallSign: 
+    type: string
+    minLength: 1
+    maxLength: 100
+    description: >-
+      A UTM TCL4 globally unique identifier that is associated with a vehicle/operation
+      Every operation requires a call_sign that is pre-determined in the
+      full test card description.
+       
   latitude:
     description: >-
       The numeric value of the latitude. Note that min and max values are added as a sanity check.
@@ -522,3 +484,6 @@ definitions:
     format: int32
     minimum: 0
     example: 5
+
+
+    
