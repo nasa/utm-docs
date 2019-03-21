@@ -3,7 +3,7 @@ info:
   description: >-
     "TCL4 requires the submission of vehicle-centric data including from specialized sensors mounted on the vehicle which may collect data at various sampling rates.  These models are referenced in the Data Management Plan (DMP)."
   version: 'v1.0'
-  title: "API endpoints for UTM TCL DMP vehicles data collection"
+  title: "API endpoints for UTM TCL DMP FET Data Models"
   termsOfService: >
 
     A. No Warranty: THE SUBJECT SOFTWARE IS PROVIDED "AS IS" WITHOUT ANY
