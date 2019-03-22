@@ -117,15 +117,25 @@ definitions:
       timestamp:
         $ref: '#/definitions/timestamp'
 
-  metaDataDmpUssUssHandoffId:
+  MetaDataDmpUssId:
+    description: >-
+      Used to delete a DMP USS data model by UUID
     type: object
     required:
-      - metaDataDmpUss
-      - handoff_id
+      - uss_name
+      - id
     properties:
-      metaDataDmpUss:
-        $ref: '#/definitions/metaDataDmpUss'
-      handoff_id:
+      uss_name:
+        type: string
+        description: >-
+          This is a unique string that identifies the USS that is supporting
+          this operation.  It is the same identifier used in the basic
+          authentication mechanism required to obtain a token from FIMS
+          (Flight Information Management System).  It is also the subject claim
+          that identifies the principal that is the subject of the JWT.
+        minLength: 1
+        maxLength: 1000
+      id:
         $ref: '#/definitions/UUID'
     
   metaDataDmpUss:
