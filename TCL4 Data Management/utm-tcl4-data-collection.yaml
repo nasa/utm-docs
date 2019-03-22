@@ -7,7 +7,16 @@ info:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utm.arc.nasa.gov/'
     email: joseph.rios@nasa.gov
-
+swagger: "2.0"
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
 definitions:
   OffNominalReport:
     required:
