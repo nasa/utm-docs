@@ -40,7 +40,7 @@ info:
     url: 'https://ti.arc.nasa.gov/opensource/nosa/'
 
 host: utmregistry.arc.nasa.gov.
-basePath: /api/v2
+basePath: /api/v4
 schemes:
   - https
 
@@ -53,18 +53,22 @@ securityDefinitions:
       'utm.nasa.gov_write.message': Subject can read, create, and update message data such as UTM Message and Negotiations and DMP data
 
 paths:
-  '/uss-exchange-single/{uuid}':
+  '/uss-exchange':
     delete:
-      summary: Delete a previously uploaded USSExchange instance.
+      summary: Delete an array of previously uploaded USSExchange instances.
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
       parameters:
-        - in: path
-          name: uuid
+        - in: body
+          name: MetaDataDmpUssId
           required: true
-          type: string
-          description: DELETE of USSExchange with this uuid
+          schema:
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+          description: Delete models associated with array of MetaDataDmpUssId.
       responses:
         '200':
           description: Data received. No content returned.
@@ -87,9 +91,8 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
-  '/uss-exchange-single':
     post:
-      summary: Upload a single instance of the USSEXchange model
+      summary: Upload an array of models
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -97,12 +100,15 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: uss-exchange
-          description: The USSExchange data being sent
+          name: DataModelArray
+          description: Upload an array of models
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSExchange
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSExchange
+
       responses:
         '200':
           description: Data received. No content returned.
@@ -124,92 +130,23 @@ paths:
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-  '/uss-negotiation/{uuid}':
-    delete:
-      summary: Delete a previously uploaded USSNegotiation instance.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: path
-          name: uuid
-          required: true
-          type: string
-          description: DELETE of USSNegotiation with this uuid
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested uuid not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
 
   '/uss-negotiation':
-    post:
-      summary: Upload a single instance of the USSNegotiation model
+    delete:
+      summary: Delete an array of previously uploaded USSNegotiation instances.
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
-      consumes:
-        - application/json
       parameters:
         - in: body
-          name: uss-negotiation
-          description: The USSNegotiation data being sent
+          name: Array of MetaDataDmpUssId
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSNegotiation
-      responses:
-        '200':
-          description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '400':
-          description: Bad request. Typically validation error. Fix your request and retry.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-  '/off-nominal/{uuid}':
-    delete:
-      summary: Delete a previously uploaded OFFNominal instance.
-      security:
-        - ussapi_security:
-            - utm.nasa.gov_write.message
-      parameters:
-        - in: path
-          name: uuid
-          required: true
-          type: string
-          description: DELETE of USSOffnominal with this uuid
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+          description: Delete models associated with array of MetaDataDmpUssId.
       responses:
         '200':
           description: Data received. No content returned.
@@ -232,10 +169,8 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
-
-  '/off-nominal':
     post:
-      summary: Upload a single instance of the OFFNominal model
+      summary: Upload an array of models
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -243,12 +178,92 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: uss-negotiation
-          description: The OFFNominal data being sent
+          name: DataModelArray
+          description: Upload an array of models
           required: true
           schema:
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSNegotiation
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/OffNominalReport
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '400':
+          description: Bad request. Typically validation error. Fix your request and retry.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+  '/off-nominal':
+    delete:
+      summary: Delete an array of previously uploaded OffNominal instances.
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      parameters:
+        - in: body
+          name: Array of MetaDataDmpUssId
+          required: true
+          schema:
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+          description: Delete models associated with array of MetaDataDmpUssId.
+
+      responses:
+        '200':
+          description: Data received. No content returned.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '401':
+          description: Invalid or missing access_token provided.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '403':
+          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+        '404':
+          description: Requested uuid not found.
+          schema:
+            $ref: >-
+              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+
+    post:
+      summary: Upload an array of models
+      security:
+        - ussapi_security:
+            - utm.nasa.gov_write.message
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: DataModelArray
+          description: Upload an array of models
+          required: true
+          schema:
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/OffNominal
       responses:
         '200':
           description: Data received. No content returned.
@@ -273,20 +288,21 @@ paths:
               
   '/uss-handoff':
     delete:
-      summary: Delete a previously uploaded USSHandoff instance.
+      summary: Delete an array of previously uploaded USSHandoff instances.
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
       parameters:
         - in: body
-          name: metaDataDmpUssUssHandoffId
-          description: DELETE of USSExchange with this uuid
+          name: Array of MetaDataDmpUssId
           required: true
           schema:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/uss-handoff-api/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUssUssHandoffId
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+          description: Delete models associated with array of MetaDataDmpUssId.
+
       responses:
         '204':
           description: Data received. No content returned.
@@ -309,7 +325,7 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
     post:
-      summary: Upload a single instance of the USSHandoff model
+      summary: Upload an array of models
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -317,14 +333,14 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: UssHandoff
-          description: Insert Array UssHandoff
+          name: DataModelArray
+          description: Upload an array of models
           required: true
           schema:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/uss-handoff-api/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSHandoff
+                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSHandoff
       responses:
         '201':
           description: Data received. No content returned.
