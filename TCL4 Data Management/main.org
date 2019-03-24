@@ -1,0 +1,36 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="main.css"/>
+
+#+TITLE: UTM TCL4 DMP API and Data Models
+#+AUTHOR: Abraham K. Ishihara
+#+DATE: 2019-03-15
+#+OPTIONS: creator:nil
+* Introduction
+  This document describes the API specification and implementation *release schedule* for UTM TCL4 DMP data collection efforts.  It will be updated frequently.  The specification  and associated data models are described using OpenAPI Specification (OAS) 2.0 (=https://github.com/OAI/OpenAPI-Specification=) and can be found in the GIT repository located at
+  #+BEGIN_SRC 
+  https://github.com/nasa/utm-docs/tree/master/TCL4%20Data%20Management
+  #+END_SRC
+* API and Data Model Specification Release Schedule
+  The GIT repository for the DMP API and data models is actively used by at least three parties: 
+   - NUSS
+   - DMP
+   - External Partners
+   Since automated builds may directly incorporate the API and data models from the GIT repository, the following describes how changes will be conveyed and how continuous build cycles can be maintained while code is being developed to address the change.  
+
+The master branch will be tagged with a version identifier of the form vx.y.z.  Twenty four hours prior to a change, we will announce over the =uss_implementers= channel on slack that a change is forthcoming.  We will identify the new tag and the release branch that contains the intended changes.  During this time, developers can inspect the release branch and assess the impact to their code/build cycles.  If it is determined that the change will have an adverse impact, developers can point their code to the current (stable) GIT tag idenfitier.    
+
+  | Date Announced   | Review-Branch  | Date Implemented | Tag on Master | Breaking |
+  |------------------+----------------+------------------+---------------+----------|
+  | n/a              | n/a            | <2019-03-14 Thu> | v1.0.1        | n/a      |
+  | <2019-03-21 Thu> | release-v1.0.2 | <2019-03-22 Fri> | v1.0.2        | yes      |
+  |                  |                |                  |               |          |
+
+* API Release Schedule
+  This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
+  | Endpoint               | Location              | Release Date     |
+  |------------------------+-----------------------+------------------|
+  | api/v4/uss-exchange    | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
+  | api/v4/uss-negotiation | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
+  | api/v4/off-nominal     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
+  | api/v4/uss-handoff     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
+  | api/v4/loss-of-uss     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
+

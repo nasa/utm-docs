@@ -58,7 +58,7 @@ definitions:
       Many fields are listed as 'optional' in this model, but if values are
       known or have been indicated as required by the DMP team or documentation,
       those values are required.  Thus, the submission process of a DaaSensor
-      may be indicated as error-free, the NASA team may reach out reagarding
+      may be indicated as error-free, the NASA team may reach out regarding
       missing fields after the submission process.
     type: object
     required:
@@ -181,7 +181,7 @@ definitions:
       frequency that a V2V sensor uses for transmission, provide one instance
       of this model.
 
-      This model kept out of DaaSensor model due to multiplicty (avoiding
+      This model kept out of DaaSensor model due to multiplicity (avoiding
       arrays) and potential lack of applicability for some sensors.
 
     required:
@@ -209,14 +209,14 @@ definitions:
 
   StaticObstacleTable:
     required:
-      - saticObstacleId
-      - staticObstacleTable
+      - staticObstacleId
+      - staticObstacles
     properties:
-      staticOstacleId:
+      staticObstacleId:
         description: >-
           UUID for this set of static obstacles.  Will be referenced within
           AuxiliaryUASOperation model to indicate that operation's predefined
-          static obstacle data.  This ID may be re-used if muliple operations
+          static obstacle data.  This ID may be re-used if multiple operations
           use the exact same obstacle data.
 
           This UUID is set by the submitter of the particular instance of this
@@ -225,7 +225,7 @@ definitions:
           If there are more than 1000 polygons to be submitted, the list
           must be divided into sublists of length no longer than 1000.
         $ref: "#/definitions/DaaUuid"
-      staticObstacleTable:
+      staticObstacles:
         description: >-
           An array of 3D polygons representing static obstacles in the flight
           environment.
@@ -252,7 +252,7 @@ definitions:
         description: >-
           UUID for this set of conflict resolution properties.  Will be referenced within
           AuxiliaryUASOperation model to indicate that operation's predefined
-          conflict resolution properties.  This ID may be re-used if muliple operations
+          conflict resolution properties.  This ID may be re-used if multiple operations
           use the exact configuration.
 
           This UUID is set by the submitter of the particular instance of this
@@ -302,6 +302,8 @@ definitions:
       - metaData
       - sensorId
       - timestamp
+      - horRangeAccuracyRealTime
+      - verRangeAccuracyRealTime
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -417,7 +419,7 @@ definitions:
 
   DaaSensorDynamicObstacle:
     description: >-
-      Sensor detection of dynamic obstacle.  At each relavant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
+      Sensor detection of dynamic obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
     required:
       - metaData
       - sensorId

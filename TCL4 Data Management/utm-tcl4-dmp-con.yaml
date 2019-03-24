@@ -52,13 +52,13 @@ definitions:
   ConPreRunRange:
     type: object
     required:
-      - "metadataTestSite"
+      - "metaDataTestSite"
       - "wxOperatingPoints"
       - "cellCoverageAreas"
       - "flightTestRangePolygonPoints"
     properties:
-      metadataTestSite:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metadataTestSite'
+      metaDataTestSite:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
       flightTestRangePolygonPoints:
         description: >-
           Ordered list of the vertices of the polygon that defines the area of the test range.
@@ -132,7 +132,7 @@ definitions:
     description: >-
       "Actual landing point that occurred during a (call_sign,test_run)
       pair.  Submit data to this end-point as soon as vehicle lands.  Specify
-      the two required booleans (is BVLOS? and is Rooftop?)."
+      the three required booleans (is BVLOS? is Rooftop? is Nominal?)."
     type: object
     required:
       - "metaData"
@@ -176,9 +176,10 @@ definitions:
   ConWxOperatingPointData:
     description: >-
            Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
-           location, and timestamp associated with the measurement
+           location, and timestamp associated with the measurement from a vehicle
     type: object
     required:
+      - "metaData"
       - "timestamp"
       - "temperature"
       - "pressure"
@@ -188,12 +189,7 @@ definitions:
     properties:
       metaData:
         description: >-
-          This field is conditionally required if the weather sample is taken
-          from a vehicle.  metaData will indicate which operation provided
-          the sample.
-
-          If this sample is from a weather station, then this field must NOT
-          be provided.
+          Metadata corresponding to the vehicle that is taking the weather measurements.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
@@ -224,6 +220,51 @@ definitions:
       location:
         $ref: '#/definitions/LatLonAlt'
 
+  ConWxOperatingPointDataStation:
+    description: >-
+           Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
+           location, and timestamp associated with the measurement from weather station
+    type: object
+    required:
+      - "metaDataTestSite"
+      - "timestamp"
+      - "temperature"
+      - "pressure"
+      - "windSpeed"
+      - "windDir"
+      - "location"
+    properties:
+      metaDataTestSite:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      temperature:
+        description: >-
+          Degrees Fahrenheit
+        type: number
+        format: float
+      pressure:
+        description: >-
+          Inches Of Hg
+        type: number
+        format: float
+      windSpeed:
+        description: >-
+          Feet Per Second
+        type: number
+        format: float
+        minimum: 0.0
+      windDir:
+        description: >-
+          Degrees, True North Reference Frame
+        type: number
+        minimum:  0.0
+        maximum:  360
+        exclusiveMinimum: false
+        exclusiveMaximum: true
+      location:
+        $ref: '#/definitions/LatLonAlt'
+        
   CellServiceAvailability:
     description: >-
       Real-time availability of cellular service onboard the ownship during the
@@ -373,30 +414,29 @@ definitions:
       connect to service within dead zone area. Ensure that the service provider
       for elements cellCoverageArea and cellServiceAvailability_nonDim are the
       same.
-    type: array
-    items:
-      type: object
-      required: ['provider', 'cellCoveragePolygon','cellCoverageDeadZonePolygon']
-      properties:
-        provider:
-          description: >-
-            The provider of service described by the associated polygons.
-          type: string
-          minLength: 3
-          maxLength: 30
-        cellCoveragePolygon:
-           description: >-
-             list cell Coverage Polygons
-           type: array
-           minItems: 1
-           maxItems: 300
-           items:
-             $ref: '#/definitions/LatLonArray'
-        cellCoverageDeadZonePolygon:
-            description: >-
-              list cell Coverage Dead Zone Polygons
-            type: array
-            minItems: 1
-            maxItems: 300
-            items:
-              $ref: '#/definitions/LatLonArray'
+    type: object
+    required: ['provider', 'cellCoveragePolygons','cellCoverageDeadZonePolygons']
+    properties:
+      provider:
+        description: >-
+          The provider of service described by the associated polygons.
+        type: string
+        minLength: 3
+        maxLength: 30
+      cellCoveragePolygons:
+        description: >-
+          list cell Coverage Polygons
+        type: array
+        minItems: 1
+        maxItems: 300
+        items:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'
+      cellCoverageDeadZonePolygons:
+        description: >-
+          list cell Coverage Dead Zone Polygons
+        type: array
+        minItems: 1
+        maxItems: 300
+        items:
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'
+
