@@ -67,7 +67,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
           description: Delete models associated with array of MetaDataDmpUssId.
       responses:
         '200':
@@ -107,7 +107,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSExchange
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSExchange
 
       responses:
         '200':
@@ -145,7 +145,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
           description: Delete models associated with array of MetaDataDmpUssId.
       responses:
         '200':
@@ -185,7 +185,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSNegotiation
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSNegotiation
       responses:
         '200':
           description: Data received. No content returned.
@@ -222,7 +222,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
           description: Delete models associated with array of MetaDataDmpUssId.
 
       responses:
@@ -263,7 +263,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/OffNominal
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/OffNominal
       responses:
         '200':
           description: Data received. No content returned.
@@ -300,7 +300,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
           description: Delete models associated with array of MetaDataDmpUssId.
 
       responses:
@@ -340,7 +340,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSHandoff
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/USSHandoff
       responses:
         '201':
           description: Data received. No content returned.
@@ -378,7 +378,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
           description: Delete models associated with array of MetaDataDmpUssId.
       responses:
         '200':
@@ -418,7 +418,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/LossOfUSS
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml#/definitions/LossOfUSS
 
       responses:
         '200':

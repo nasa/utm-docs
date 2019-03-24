@@ -116,7 +116,7 @@ definitions:
       - sensor_double
     properties:
       metaDataCallSignRun:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.2/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
       ac_type:
         description: >-
           Type of aircraft.  FET has requirements for crewed vehicles.
