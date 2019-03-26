@@ -23,8 +23,6 @@ info:
     GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING
     THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES
     IT \"AS IS.\"
-
-
     B. Waiver and Indemnity: RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS
     AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS
     WELL AS ANY PRIOR RECIPIENT. IF RECIPIENT''S USE OF THE SUBJECT SOFTWARE
@@ -35,7 +33,6 @@ info:
     SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY
     LAW. RECIPIENT''S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE,
     UNILATERAL TERMINATION OF THIS AGREEMENT.
-
 swagger: '2.0'
 
 paths:
@@ -47,7 +44,6 @@ paths:
             Gone. Not implemented. Will not be implemented. Path included for
             proper use by automated tooling.  Tools sometimes do not like
             when there are no paths, but domains do not contain paths.
-
 definitions:
   CnsPreRun:
     type: object
@@ -93,7 +89,7 @@ definitions:
 
   UasTruthPosition:
     description: >-
-      Need description from Jaewoo or Hemil.
+      As reported by truth position system 
     type: object
     required:
       - "metaData"
@@ -178,7 +174,6 @@ definitions:
     description: >-
       Outcome of offnominal events like UA to Operator C2 Link Loss, Operator
       to UA C2 Link Loss, or Loss of Vehicle Navigation, is reported as enum:
-
       * Resolved_within_operation_volume,
       * Resolved_but_triggered_nonconforming_state,
       * Resolved_but_triggered_rogue_state,
@@ -186,7 +181,6 @@ definitions:
       * Unresolved_vehicle_crashed_to_ground,
       * Unresolved_vehicle_collided_with_another_vehicle,
       * Unresolved_vehicle_collided_with_building
-
     type: object
     required:
       - metaData
