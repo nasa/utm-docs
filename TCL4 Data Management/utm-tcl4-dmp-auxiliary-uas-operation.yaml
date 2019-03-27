@@ -28,7 +28,7 @@ definitions:
       - static_obstacle_lists
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       takeoff_weight:
         description: >-
           The actual takeoff weight of the vehicle for this operation.
@@ -104,7 +104,7 @@ definitions:
           this is a required field.
         type: array
         items:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
         minItems: 0
         maxItems: 100
       static_obstacle_lists:
@@ -118,7 +118,7 @@ definitions:
           be thrown.
         type: array
         items:
-          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
+          $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
       conflict_resolution_configuration:
         description: >-
           A reference to a previously submitted ConflictResolutionConfiguration via
@@ -126,4 +126,4 @@ definitions:
 
           This field is optional in this model, but it is required when the
           vehicle is implementing DAA capabilities.
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaId'

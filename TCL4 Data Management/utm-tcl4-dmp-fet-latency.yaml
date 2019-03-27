@@ -118,7 +118,7 @@ definitions:
       - sensor_latency_tuple
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       ac_type:
         description: >-
           Type of aircraft.  FET has requirements for crewed vehicles.

@@ -10,7 +10,8 @@
 for f in *.yaml
 do
     temp=$( mktemp )
-    cat $f | sed 's/\/release\-v[0-9]\.[0-9]\.[0-9]*\//\/master\//g' > $temp
+#    cat $f | sed 's/\/release\-v[0-9]\.[0-9]\.[0-9]*\//\/master\//g' > $temp
+    cat $f | sed 's:\/utm-docs\/master\/:\/utm-docs\/develop\/:g' > $temp
     mv $temp $f
 done
 
