@@ -417,31 +417,7 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
 
-  DaaSensorStaticObstacle:
-    description: >-
-      Sensor detection of static obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the static object.  Include an estimate of its height.
-    required:
-      - metaData
-      - sensorId
-      - timestamp
-      - staticObstaclePolygon
-      - staticObstacleHeight
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorId:
-        $ref: "#/definitions/DaaUuid"
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      staticObstaclePolygon:
-        $ref: "#/definitions/LatLonArray"
-      staticObstacleHeight:
-        description: >-
-          height in ft
-        type: number
-        minimum: 0
-
-  DaaSensorDynamicObstacle:
+  DaaSensorObstacle:
     description: >-
       Sensor detection of dynamic obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
     required:
@@ -450,6 +426,7 @@ definitions:
       - timestamp
       - dynamicObstaclePolygon
       - dynamicObstacleHeight
+      - obstacleType
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -464,6 +441,14 @@ definitions:
           height in ft
         type: number
         minimum: 0
+      obstacleType: 
+        description: >-
+          type of obstacle sensed
+        type: string
+        enum:
+          - STATIC
+          - DYNAMIC
+          - UNKNOWN
 
   DaaConflictResolutionMeasurement:
     description: >-
