@@ -117,18 +117,11 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
       circular_geofence_radius:
         description: >-
-          Radius of circular geofence.
+          Radius of circular geofence in ft
         type: number
         format: double
         minimum: 0.0
         example: 200.0
-      circular_geofence_radius_units:
-        description: >-
-          Units for the radius. Currently only feet are available.
-        type: string
-        enum:
-          - FT
-        example: "FT"
       polygonal_geofence_boundary:
         description: >-
           Geofence boundary if a polygon.
