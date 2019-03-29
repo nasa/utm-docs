@@ -287,11 +287,11 @@ definitions:
       - daaSensorAltitudeAccuracyRealTime
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       daaSensorAzimuthAccuracyRealTime:
         $ref: '#/definitions/degrees'
       daaSensorAltitudeAccuracyRealTime:
@@ -306,11 +306,11 @@ definitions:
       - verRangeAccuracyRealTime
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       horRangeAccuracyRealTime:
         $ref: '#/definitions/feet'
       verRangeAccuracyRealTime:
@@ -326,11 +326,11 @@ definitions:
       - packetSizeV2v
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dataPacketRatioV2v:
         $ref: '#/definitions/ratio'
       transmissionDelayV2v:
@@ -346,11 +346,11 @@ definitions:
       - numberOfLostTracks
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       numberOfLostTracks:
         $ref: '#/definitions/count'
 
@@ -365,13 +365,13 @@ definitions:
       - timeRequiredForTrack
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       firstDetectionTime:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       timeRequiredForTrack:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   DaaSensorIntruderAircraftDetection:
     description: >-
@@ -386,11 +386,11 @@ definitions:
       - latLonAlt
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       uvin:
         description: >-
           UTM Vehicle Identifier
@@ -417,6 +417,30 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
 
+  DaaSensorStaticObstacle:
+    description: >-
+      Sensor detection of static obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the static object.  Include an estimate of its height.
+    required:
+      - metaData
+      - sensorId
+      - timestamp
+      - staticObstaclePolygon
+      - staticObstacleHeight
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorId:
+        $ref: "#/definitions/DaaUuid"
+      timestamp:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      staticObstaclePolygon:
+        $ref: "#/definitions/LatLonArray"
+      staticObstacleHeight:
+        description: >-
+          height in ft
+        type: number
+        minimum: 0
+
   DaaSensorDynamicObstacle:
     description: >-
       Sensor detection of dynamic obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
@@ -428,11 +452,11 @@ definitions:
       - dynamicObstacleHeight
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dynamicObstaclePolygon:
         $ref: "#/definitions/LatLonArray"
       dynamicObstacleHeight:
@@ -453,7 +477,13 @@ definitions:
       - eventTimesTable
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      conflictGufi:
+        description: >-
+          "The GUFI of the vehicle in conflict with ownship"
+      conflictUvin:
+        description: >-
+          "The UVIN of the vehicle in conflict with ownship"
       typeOfConflictResolution:
         description: >-
           "Type of resolution: The level of control a UAS Operator has in resolving a given conflict as enum:
@@ -467,25 +497,6 @@ definitions:
           - MANAGE_BY_CONSENT
           - MANAGE_BY_EXCEPTION
           - AUTOMATED_RESOLUTION
-      conflictResolutionManeuver:
-        description: >-
-          "The types of maneuvers performed (in real time) during a conflict resolution as enum:
-          [0] No maneuver,
-          [1] heading change,
-          [2] altitude change,
-          [3] hover,
-          [4] velocity change,
-          [5] added waypoint,
-          [6] other."
-        type: string
-        enum:
-          - NO_MANEUVER
-          - HEADING_CHANGE
-          - ALTITUDE_CHANGE
-          - HOVER
-          - VELOCITY_CHANGE
-          - ADDED_WAYPOINT
-          - OTHER
       eventTimesTable:
         type: array
         items:
@@ -501,8 +512,19 @@ definitions:
                 timeAtEncounterInit	UTC time at Encounter Initiation.
                 timeAtEncounterEnd	UTC Time at Encounter End.
                 timeAtConflictAlert	UTC time at which a conflict alert is issued to a UAS Operator/UAS.
-                timeAtConflictResManeuverInit	UTC time at which the aircraft begins to maneuver to resolve a conflict.
-                timeAtConflictResManeuverComplt	UTC time at which the aircraft completes maneuver to resolve a conflict.
+                timeAtConflictResNoManeuverDecided - UTC time at which vehicle decides not to make a maneuver
+                timeAtConflictResHeadingChangeInit - UTC time at which vehicle begins heading change to resolve conflict.
+                timeAtConflictResHeadingChangeCmplt - UTC time at which vehicle completes heading change to resolve conflict.
+                timeAtConflictResAltitudeChangeInit - UTC time at which vehicle begins altitude change to resolve conflict.
+                timeAtConflictResAltitudeChangeCmplt - UTC time at which vehicle ends altitude change to resolve conflict.
+                timeAtConflictResVelocityChangeInit - UTC time at which vehicle begins velocity change to resolve conflict.
+                timeAtConflictResVelocityChangeCmplt - UTC time at which vehicle ends velocity change to resolve conflict.
+                timeAtConflictResHoverInit - UTC time at which vehicle begins hover to resolve conflict.
+                timeAtConflictResHoverCmplt - UTC time at which vehicle ends hover to resolve conflict.
+                timeAtConflictResAddedWaypointInit - UTC time at which vehicle begins adding waypoint to resolve conflict.
+                timeAtConflictResAddedWaypointCmplt - UTC time at which vehicle ends adding waypoint to resolve conflict.
+                timeAtConflictResOtherInit - UTC time at which vehicle begins other maneuver to resolve conflict.
+                timeAtConflictResOtherCmplt - UTC time at which vehicle ends other maneuver to resolve conflict.
                 timeAtClearOfConflict	UTC time at which the aircraft/UAS Operator declares the aircraft is clear of the conflict.
                 ussDaaAlertReceived	UTC time when a DAA alert issued from the USS is received by the operator.
                 onboardDaaAlertIssued	UTC time when a DAA alert is issued onboard the UAS.
@@ -513,8 +535,19 @@ definitions:
                 - timeAtEncounterInit
                 - timeAtEncounterEnd
                 - timeAtConflictAlert
-                - timeAtConflictResManeuverInit
-                - timeAtConflictResManeuverComplt
+                - timeAtConflictResNoManeuverDecided
+                - timeAtConflictResHeadingChangeInit
+                - timeAtConflictResHeadingChangeCmplt
+                - timeAtConflictResAltitudeChangeInit
+                - timeAtConflictResAltitudeChangeCmplt
+                - timeAtConflictResVelocityChangeInit
+                - timeAtConflictResVelocityChangeCmplt
+                - timeAtConflictResHoverInit
+                - timeAtConflictResHoverCmplt
+                - timeAtConflictResAddedWaypointInit
+                - timeAtConflictResAddedWaypointCmplt
+                - timeAtConflictResOtherInit
+                - timeAtConflictResOtherCmplt
                 - timeAtClearOfConflict
                 - ussDaaAlertReceived
                 - onboardDaaAlertIssued
@@ -524,7 +557,7 @@ definitions:
                 - oaAlertIssued
                 - ussOaAlertReceived
             timeStamp:
-                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
             severityOfAlert:
               description: >-
                 "Indicate strengthening or weakening of an alert as enum:
@@ -569,7 +602,7 @@ definitions:
     format: uuid
     maxLength: 36
     minLength: 36
-    pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
     example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
   seconds:
