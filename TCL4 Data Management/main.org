@@ -16,14 +16,14 @@
    - External Partners
    Since automated builds may directly incorporate the API and data models from the GIT repository, the following describes how changes will be conveyed and how continuous build cycles can be maintained while code is being developed to address the change.  
 
-The master branch will be tagged with a version identifier of the form vx.y.z.  Twenty four hours prior to a change, we will announce over the =uss_implementers= channel on slack that a change is forthcoming.  We will identify the new tag and the release branch that contains the intended changes.  During this time, developers can inspect the release branch and assess the impact to their code/build cycles.  If it is determined that the change will have an adverse impact, developers can point their code to the current (stable) GIT tag idenfitier.    
+The master branch will be tagged with a version identifier of the form vx.y.z.  Twenty four hours prior to a change, we will announce over the =uss_implementers= channel on slack that a change is forthcoming.  We will identify the new tag and the release branch that contains the intended changes.  During this time, developers can inspect the release branch and assess the impact to their code/build cycles.  If it is determined that the change will have an adverse impact, developers can point their code to the current (stable) GIT tag idenfitier.  Our GIT branching model for both specification and code generally follows the one outlined here: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
   | Date Announced   | Review-Branch  | Date Implemented | Tag on Master | Breaking |
   |------------------+----------------+------------------+---------------+----------|
   | n/a              | n/a            | <2019-03-14 Thu> | v1.0.1        | n/a      |
   | <2019-03-21 Thu> | release-v1.0.2 | <2019-03-22 Fri> | v1.0.2        | yes      |
-  |                  |                |                  |               |          |
-
+  | <2019-03-30 Sat> | release-v1.0.3 | <2019-04-01 Mon> | v1.0.3        | yes      |
+  
 * API Release Schedule
   This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
   | Endpoint               | Location              | Release Date     |
