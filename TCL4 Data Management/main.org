@@ -29,8 +29,5 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
   | Endpoint               | Location              | Release Date     |
   |------------------------+-----------------------+------------------|
   | api/v4/uss-exchange    | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
-  | api/v4/uss-negotiation | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
-  | api/v4/off-nominal     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
   | api/v4/uss-handoff     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
-  | api/v4/loss-of-uss     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
 
