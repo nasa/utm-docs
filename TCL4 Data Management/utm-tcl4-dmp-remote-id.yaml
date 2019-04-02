@@ -6,19 +6,30 @@ info:
     these data will be collected live, some after testing, but all should be
     collected as a soon as feasible.  Further details will be provided in other
     testing documentation."
-  version: 'v1'
+  version: "VF"
   title: "Domain for Remote ID Data"
   contact:
     name: 'NASA Ames Research Center, Aviation Systems Division'
     url: 'https://utm.arc.nasa.gov/'
     email: joseph.rios@nasa.gov
-
+swagger: "2.0"
+paths:
+  '/no-paths':
+    put:
+      responses:
+        '410':
+          description: >-
+            Gone. Not implemented. Will not be implemented. Path included for
+            proper use by automated tooling.  Tools sometimes do not like
+            when there are no paths, but domains do not contain paths.
 definitions:
     RemoteID:
       description: >-
         An instance of this model should be submitted every time an attempt is made
-        to lookup or identify an operation via the USSNetwork. Note that this might
-        mean several instances for a single gufi if several lookups are performed.
+        to lookup or identify an operation via the USSNetwork or non-USSNetwork. Note that this might
+        mean several instances for a single gufi if several lookups are performed. 
+        The timeline of events for Networked Remote ID detection must be = time_of_identification_initiation, time_of_detection, network_lookup_start_time, network_lookup_end_time, locate_operator_time, contact_operator_time. 
+        The timeline of events for Non-Networked Remote ID detection must be = time_of_identification_initiation, time_of_detection, locate_operator_time, contact_operator_time
       required:
         - "remote_id"
         - "gufi"
@@ -26,13 +37,14 @@ definitions:
         - "broadcast_technology"
         - "network_lookup"
         - "operator_contact_attempted"
-        - "time_of_detection"
         - "detection_position"
         - "detection_altitude"
         - "detection_position_method"
         - "vehicle_position"
         - "vehicle_altitude"
         - "vehicle_position_method"
+        - "time_of_identification_initiation"
+        - "time_of_detection"
       properties:
         remote_id:
           description: >-
@@ -46,7 +58,6 @@ definitions:
         gufi:
           description: >-
             GUFI of the operation that is looked up.
-
             If the GUFI does not exist (in a non-cooperative lookup, for example)
             use 00000000-0000-4444-8888-000000000000.
           type: string
@@ -62,7 +73,6 @@ definitions:
             information in some manner, thus requiring some device to detect that
             emission.  In the case that no device or technology is used (maybe
             just eyeballs), something like "VISUAL" is an appropriate response.
-
             Consistency is important in this field for analysis purposes, so
             use the same string whenever the same technology is used.
           type: "string"
@@ -72,13 +82,19 @@ definitions:
             Brief description of the technology used to broadcast information from
             the UA.  If no broadcast technology is used, "NONE" is an
             appropriate response.
-
             Consistency is important in this field for analysis purposes, so
             use the same string whenever the same technology is used.
           type: "string"
           maxLength: 1000
         network_lookup:
           description: Was USS Network used to look up this operation?
+          type: boolean
+        network_lookup_provided_expected_response:
+          description: >-
+            If USS Network used to look up this operation, did it return the expected
+            result? This means that if a negative result was expected and received
+            this value would be 'true'.
+            Required when network_lookup == true.
           type: boolean
         operator_contact_attempted:
           description: >-
@@ -87,25 +103,14 @@ definitions:
         operator_located_successful:
           description: >-
             Was the position of the operator correctly obtained?
-
             Required when operator_contact_attempted == true
           type: boolean
         operator_contact_successful:
           description: >-
             Was the position of the operator contacted?
-
             Required when operator_contact_attempted == true
-
             If operator_located_successful == false
             then operator_contact_attempted == false
-          type: boolean
-        network_lookup_provided_expected_response:
-          description: >-
-            If USS Network used to look up this operation, did it return the expected
-            result? This means that if a negative result was expected and received
-            this value would be 'true'.
-
-            Required when network_lookup == true.
           type: boolean
         detection_position:
           description: Where was the device/person that detected the UAS?
@@ -134,16 +139,6 @@ definitions:
             - MEASURED
             - ESTIMATED
           example: "MEASURED"
-        time_of_detection:
-          description: >-
-            Time the vehicle was detected by the device.  If visual detection only,
-            it is expected this value is an estimate.
-          type: string
-          format: date-time
-          minLength: 24
-          maxLength: 24
-          pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
-          example: '2015-08-20T14:11:56.118Z'
         time_of_identification_initiation:
           description: >-
             Time the device/person started the process of trying to identify
@@ -155,11 +150,20 @@ definitions:
           maxLength: 24
           pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
           example: '2015-08-20T14:11:56.118Z'
+        time_of_detection:
+          description: >-
+            Time the vehicle was detected by the device.  If visual detection only,
+            it is expected this value is an estimate.
+          type: string
+          format: date-time
+          minLength: 24
+          maxLength: 24
+          pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+          example: '2015-08-20T14:11:56.118Z'
         network_lookup_start_time:
           description: >-
             If USS Network used to look up this operation, at what
             time did the lookup begin?
-
             Required when network_lookup == true.
           type: string
           format: date-time
@@ -171,7 +175,6 @@ definitions:
           description: >-
             If USS Network used to look up this operation, at what time did the
             lookup return?
-
             Required when network_lookup == true.
           type: string
           format: date-time
@@ -181,9 +184,7 @@ definitions:
           example: '2015-08-20T14:11:56.118Z'
         locate_operator_time:
           description: >-
-            Measure of the time it takes for the Remote UAS ID operator to
-            locate operator of the vehicle of interest.
-
+            Time when the operator of the Remote ID device has located the operator of the vehicle of interest.
             Required when operator_located_successful == true
           type: string
           format: date-time
@@ -193,9 +194,7 @@ definitions:
           example: '2015-08-20T14:11:56.118Z'
         contact_operator_time:
           description: >-
-            Measure of the time it takes for the Remote UAS ID operator to
-            contact the operator of the vehicle of interest.
-
+            Time when the operator of the Remote ID device has contacted the operator of the vehicle of interest.
             Required when operator_contact_successful == true
           type: string
           format: date-time
