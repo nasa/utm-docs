@@ -88,7 +88,7 @@ definitions:
       - sensor_tuple
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       ac_type:
         description: >-
           Type of aircraft.  FET has requirements for crewed vehicles.
@@ -116,7 +116,7 @@ definitions:
       - sensor_double
     properties:
       metaDataCallSignRun:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
       ac_type:
         description: >-
           Type of aircraft.  FET has requirements for crewed vehicles.

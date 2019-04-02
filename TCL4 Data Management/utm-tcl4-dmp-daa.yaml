@@ -287,11 +287,11 @@ definitions:
       - daaSensorAltitudeAccuracyRealTime
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       daaSensorAzimuthAccuracyRealTime:
         $ref: '#/definitions/degrees'
       daaSensorAltitudeAccuracyRealTime:
@@ -306,11 +306,11 @@ definitions:
       - verRangeAccuracyRealTime
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       horRangeAccuracyRealTime:
         $ref: '#/definitions/feet'
       verRangeAccuracyRealTime:
@@ -326,11 +326,11 @@ definitions:
       - packetSizeV2v
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dataPacketRatioV2v:
         $ref: '#/definitions/ratio'
       transmissionDelayV2v:
@@ -346,11 +346,11 @@ definitions:
       - numberOfLostTracks
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       numberOfLostTracks:
         $ref: '#/definitions/count'
 
@@ -365,13 +365,13 @@ definitions:
       - timeRequiredForTrack
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       firstDetectionTime:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       timeRequiredForTrack:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   DaaSensorIntruderAircraftDetection:
     description: >-
@@ -386,11 +386,11 @@ definitions:
       - latLonAlt
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       uvin:
         description: >-
           UTM Vehicle Identifier
@@ -428,11 +428,11 @@ definitions:
       - staticObstacleHeight
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       staticObstaclePolygon:
         $ref: "#/definitions/LatLonArray"
       staticObstacleHeight:
@@ -452,11 +452,11 @@ definitions:
       - dynamicObstacleHeight
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dynamicObstaclePolygon:
         $ref: "#/definitions/LatLonArray"
       dynamicObstacleHeight:
@@ -477,7 +477,7 @@ definitions:
       - eventTimesTable
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       conflictGufi:
         description: >-
           "The GUFI of the vehicle in conflict with ownship"
@@ -557,7 +557,7 @@ definitions:
                 - oaAlertIssued
                 - ussOaAlertReceived
             timeStamp:
-                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
             severityOfAlert:
               description: >-
                 "Indicate strengthening or weakening of an alert as enum:
