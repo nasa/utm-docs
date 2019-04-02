@@ -421,17 +421,6 @@ definitions:
     minimum: -90.0
     maximum: 90.0
 
-  latitudeTest:
-    description: >-
-      The numeric value of the latitude. Note that min and max values are added as a sanity check.
-    type: object
-    properties:
-      test:
-        type: number
-        format: double
-        minimum: -90.0
-        maximum: 90.0
-
   longitude:
     description: >-
       The numeric value of the longitude. Note that min and max values are added as a sanity check.
