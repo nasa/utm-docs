@@ -646,7 +646,6 @@ definitions:
       - "exchanged_data_type"
       - "source_uss"
       - "target_uss"
-      - "reporting_uss_role"
       - "time_request_initiation"
       - "time_request_completed"
       - "actual_http_response"
