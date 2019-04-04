@@ -234,6 +234,7 @@ definitions:
       - "time_handoff_procedure_initiated"
       - "time_handoff_procedure_completed"
       - "gufi"
+      - "reason_for_handoff"
     properties:
       metaDataDmpUss:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
@@ -431,7 +432,11 @@ definitions:
       - "uss_operator_exchange_id"
       - "gufi"
       - "operator"
+      - "number_position_reports_received"
+      - "number_messages_from_operator_received"
+      - "number_messages_from_uss_sent"
       - "human_interactions"
+      - "continuous_uss_service"
     properties:
       metaDataDmpUss:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
@@ -504,6 +509,7 @@ definitions:
         description: >-
           Any additional notes to add context about the interaction between
           the USS and this operator.
+
   DynamicRestrictionOccurrence:
     description: >-
       This model captures the enactment of a Dynamic Restriction from the
@@ -520,6 +526,7 @@ definitions:
       - "time_response_from_operator_received"
       - "message_protocol"
       - "message_to_operator"
+      - "successful_operator_response"
 
     properties:
       metaDataDmpUss:

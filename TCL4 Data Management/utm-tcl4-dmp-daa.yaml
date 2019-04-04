@@ -113,14 +113,24 @@ definitions:
         minLength: 3
         maxLength: 500
       probabilityIntruderDetectionPrct:
+        description: >-
+          The likelihood of detection of a intruder aircraft within the surveillance coverage of the sensor. Express in percentage, between 0 and 100.
         $ref: "#/definitions/percent"
       targetTrackCapacity:
+        description: >-
+          Number of targets that can be tracked simultaneously.
         $ref: "#/definitions/count"
       updateRateSensor:
+        description: >-
+          Provide configured update rate / refresh rate of the sensor. (Hz)
         $ref: "#/definitions/hertz"
       sensorMaxHorzRangeData:
+        description: >-
+          Expected maximum relative horizontal range as detected by a sensor in the north east down reference frame of the ownship aircraft. Provided as a vector of Radar Cross Section and range: [RCS_min (ft^2), RCS_max (ft^2), range (ft)]
         $ref: "#/definitions/feet"
       sensorMinHorzRangeData:
+        description: >-
+          Expected minimum relative horizontal range as detected by a sensor in the north east down reference frame of the ownship aircraft. Provided as a vector of Radar Cross Section and range: [RCS_min (ft^2), RCS_max (ft^2), range (ft)]
         $ref: "#/definitions/feet"
       maxHorzRcsOfSensor:
         description: >-
@@ -163,16 +173,28 @@ definitions:
         $ref: "#/definitions/feet"
 
       azimuthSensorMax:
+        description: >-
+          Maximum Azimuth coverage of the sensor. (deg)
         $ref: "#/definitions/degrees"
       azimuthSensorMin:
+        description: >-
+          Minimum Azimuth coverage of the sensor. (deg)
         $ref: "#/definitions/degrees"
       daaSensorAzimuthAccuracy:
+        description: >-
+          Manufacturer provided specification of azimuth accuracy of the sensor: uncertainty of the azimuth measurement for the sensor. Accuracy = how close a measured value is to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (deg)
         $ref: "#/definitions/degrees"
       elevationSensorMax:
+        description: >-
+          Maximum Elevation coverage of the sensor. (deg)
         $ref: "#/definitions/degrees"
       elevationSensorMin:
+        description: >-
+          Minimum Elevation coverage of the sensor. (deg)
         $ref: "#/definitions/degrees"
-      daaSensorAltitudeAccuracy:
+      daaSensorElevationAccuracy:
+        description: >-
+          Manufacturer provided specification of elevation accuracy of the sensor: This is the accuracy uncertainty of the elevation measurement for the sensor. Accuracy = how close a measured value is to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (ft)
         $ref: "#/definitions/feet"
 
   DaaSensorV2V:
@@ -227,8 +249,7 @@ definitions:
         $ref: "#/definitions/DaaUuid"
       staticObstacles:
         description: >-
-          An array of 3D polygons representing static obstacles in the flight
-          environment.
+          An array of 3D polygons representing static obstacles.
         type: array
         items:
           $ref: "#/definitions/PolygonBoundary"
@@ -238,7 +259,7 @@ definitions:
   ConflictResolutionConfiguration:
     required:
       - conflictResolutionConfigId
-      - lookAheadTime
+      - expectedLookAheadTime
       - expectedOperatorResponseTime
       - expectedUASResponseTime
       - expectedCommLatency
@@ -259,58 +280,50 @@ definitions:
           model.  The submitter should ensure proper generation of a UUIDv4.
 
         $ref: "#/definitions/DaaUuid"
-      lookAheadTime:
+      expectedLookAheadTime:
+        description: >- Expected temporal parameter used to predict the anticipated actions of aircraft in the near future. Include 3 decimal places of precision. (sec)
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
+        description: >-
         $ref: "#/definitions/seconds"
       expectedUASResponseTime:
+        description: >-
         $ref: "#/definitions/seconds"
       expectedCommLatency:
+        description: >-
         $ref: "#/definitions/seconds"
       expectedClimbRateOwnship:
-        $ref: "#/definitions/seconds"
+        description: >-
+        $ref: "#/definitions/ftPerSec"
       expectedDescendRateOwnship:
-        $ref: "#/definitions/seconds"
+        description: >-
+        $ref: "#/definitions/ftPerSec"
       expectedTurnRateOwnship:
-        $ref: "#/definitions/seconds"
+        description: >-
+        $ref: "#/definitions/degPerSec"
       expectedTimeToHover:
+        description: >-
         $ref: "#/definitions/seconds"
       probabilityFalseAlarmPrct:
+        description: >-
         $ref: "#/definitions/percent"
 
-  DaaSensorAzimuthAccuracy:
+  DaaSensorAccuracyRealTime:
     required:
       - metaData
       - sensorId
       - timestamp
-      - daaSensorAzimuthAccuracyRealTime
-      - daaSensorAltitudeAccuracyRealTime
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      daaSensorAzimuthAccuracyRealTime:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+      azimuthAccuracyRealTime:
         $ref: '#/definitions/degrees'
-      daaSensorAltitudeAccuracyRealTime:
+      altitudeAccuracyRealTime:
         $ref: '#/definitions/degrees'
-
-  DaaSensorRangeAccuracy:
-    required:
-      - metaData
-      - sensorId
-      - timestamp
-      - horRangeAccuracyRealTime
-      - verRangeAccuracyRealTime
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorId:
-        $ref: "#/definitions/DaaUuid"
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       horRangeAccuracyRealTime:
         $ref: '#/definitions/feet'
       verRangeAccuracyRealTime:
@@ -326,11 +339,11 @@ definitions:
       - packetSizeV2v
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dataPacketRatioV2v:
         $ref: '#/definitions/ratio'
       transmissionDelayV2v:
@@ -346,11 +359,11 @@ definitions:
       - numberOfLostTracks
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       numberOfLostTracks:
         $ref: '#/definitions/count'
 
@@ -365,13 +378,13 @@ definitions:
       - timeRequiredForTrack
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       firstDetectionTime:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       timeRequiredForTrack:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   DaaSensorIntruderAircraftDetection:
     description: >-
@@ -386,11 +399,11 @@ definitions:
       - latLonAlt
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       uvin:
         description: >-
           UTM Vehicle Identifier
@@ -417,31 +430,7 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
 
-  DaaSensorStaticObstacle:
-    description: >-
-      Sensor detection of static obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the static object.  Include an estimate of its height.
-    required:
-      - metaData
-      - sensorId
-      - timestamp
-      - staticObstaclePolygon
-      - staticObstacleHeight
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorId:
-        $ref: "#/definitions/DaaUuid"
-      timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      staticObstaclePolygon:
-        $ref: "#/definitions/LatLonArray"
-      staticObstacleHeight:
-        description: >-
-          height in ft
-        type: number
-        minimum: 0
-
-  DaaSensorDynamicObstacle:
+  DaaSensorObstacle:
     description: >-
       Sensor detection of dynamic obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
     required:
@@ -450,13 +439,14 @@ definitions:
       - timestamp
       - dynamicObstaclePolygon
       - dynamicObstacleHeight
+      - obstacleType
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorId:
         $ref: "#/definitions/DaaUuid"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dynamicObstaclePolygon:
         $ref: "#/definitions/LatLonArray"
       dynamicObstacleHeight:
@@ -464,20 +454,25 @@ definitions:
           height in ft
         type: number
         minimum: 0
+      obstacleType: 
+        description: >-
+          type of obstacle sensed
+        type: string
+        enum:
+          - STATIC
+          - DYNAMIC
+          - UNKNOWN
 
   DaaConflictResolutionMeasurement:
     description: >-
       Conflict resolution data
     required:
       - metaData
-      - conflictGufi
-      - conflictUvin
       - typeOfConflictResolution
-      - conflictResolutionManeuver
       - eventTimesTable
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       conflictGufi:
         description: >-
           "The GUFI of the vehicle in conflict with ownship"
@@ -557,7 +552,7 @@ definitions:
                 - oaAlertIssued
                 - ussOaAlertReceived
             timeStamp:
-                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.3/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+                $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
             severityOfAlert:
               description: >-
                 "Indicate strengthening or weakening of an alert as enum:
@@ -614,6 +609,14 @@ definitions:
     format: float
 
   feet:
+    type: number
+    format: float
+
+  degPerSec:
+    type: number
+    format: float
+
+  ftPerSec:
     type: number
     format: float
 
