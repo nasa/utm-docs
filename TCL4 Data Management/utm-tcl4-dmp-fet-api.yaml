@@ -99,7 +99,7 @@ paths:
             - utm.nasa.gov_write.message
       parameters:
         - in: body
-          name: metaDataAcTypeTsSensor
+          name: metaDataCallSignRunTsSensor
           required: true
           schema:
             $ref: >-
