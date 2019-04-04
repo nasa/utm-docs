@@ -281,7 +281,8 @@ definitions:
 
         $ref: "#/definitions/DaaUuid"
       expectedLookAheadTime:
-        description: >- Expected temporal parameter used to predict the anticipated actions of aircraft in the near future. Include 3 decimal places of precision. (sec)
+        description: >-
+          Expected temporal parameter used to predict the anticipated actions of aircraft in the near future. Include 3 decimal places of precision. (sec)
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
         description: >-
