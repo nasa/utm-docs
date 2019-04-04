@@ -432,13 +432,13 @@ definitions:
 
   DaaSensorObstacle:
     description: >-
-      Sensor detection of dynamic obstacle.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the dynamic object.  Include an estimate of its height.
+      Sensor detection of dynamic or static obstacles.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the object.  Include an estimate of its height.
     required:
       - metaData
       - sensorId
       - timestamp
-      - dynamicObstaclePolygon
-      - dynamicObstacleHeight
+      - obstaclePolygon
+      - obstacleHeight
       - obstacleType
     properties:
       metaData:
@@ -447,9 +447,9 @@ definitions:
         $ref: "#/definitions/DaaUuid"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
-      dynamicObstaclePolygon:
+      obstaclePolygon:
         $ref: "#/definitions/LatLonArray"
-      dynamicObstacleHeight:
+      obstacleHeight:
         description: >-
           height in ft
         type: number
