@@ -23,6 +23,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
   | n/a              | n/a            | <2019-03-14 Thu> | v1.0.1        | n/a      |
   | <2019-03-21 Thu> | release-v1.0.2 | <2019-03-22 Fri> | v1.0.2        | yes      |
   | <2019-03-30 Sat> | release-v1.0.3 | <2019-04-01 Mon> | v1.0.3        | yes      |
+  | <2019-04-03 Wed> | release-v1.0.4 | <2019-04-04 Thu> | v1.0.4        | yes      |
   
 * API Release Schedule
   This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
@@ -30,4 +31,6 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
   |------------------------+-----------------------+------------------|
   | api/v4/uss-exchange    | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
   | api/v4/uss-handoff     | utm-tcl4-dmp-api.yaml | <2019-03-28 Thu> |
+  | api/v4/uss-negotiation | utm-tcl4-dmp-api.yaml | <2019-04-04 Thu> |
+
 

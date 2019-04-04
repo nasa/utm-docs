@@ -55,7 +55,7 @@ definitions:
       - "maximumOperatorToAircraftRoundTripLatencyTolerableForOperation_ms"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       minimumAircraftToOperatorDataTransferRateForOperation_bytesPerSec:
         description: >-
           "Report the minimum aircraft to operator data transfer rate (in Bytes
@@ -66,7 +66,7 @@ definitions:
         minimum: 0
       minimumOperatorToAircraftDataTransferRateForOperation_bytesPerSec:
         description: >-
-          "Report the minimum aircraft to operator data transfer rate (in Bytes
+          "Report the minimum operator to aircraft data transfer rate (in Bytes
           per second) necessary to execute the operation. Consider that data
           should be authenticated and checked for integrity. (bytesPerSec)"
         type: integer
@@ -99,14 +99,14 @@ definitions:
       - "timestamp"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       xCoordinate_ft:
         description: "X-Coordinate truth position of UA (ECEF: Earth Centered Earth\
           \ Fixed, inch-level resolution);\nas reported by the Ground Truth System\
           \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\n\
           Can be reported by the UAS but has to be independent of UAS's primary navigation\
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
-          \ at least least 2 decimal places of precision. (ft)"
+          \ at least 2 decimal places of precision. (ft)"
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
       yCoordinate_ft:
         description: "Y-Coordinate truth position of UA (ECEF: Earth Centered Earth\
@@ -114,7 +114,7 @@ definitions:
           \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\n\
           Can be reported by the UAS but has to be independent of UAS's primary navigation\
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
-          \ at least least 2 decimal places of precision. (ft)"
+          \ at least 2 decimal places of precision. (ft)"
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
       zCoordinate_ft:
         description: "Z-Coordinate truth position of UA (ECEF: Earth Centered Earth\
@@ -122,10 +122,10 @@ definitions:
           \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\n\
           Can be reported by the UAS but has to be independent of UAS's primary navigation\
           \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
-          \ at least least 2 decimal places of precision. (ft)"
+          \ at least 2 decimal places of precision. (ft)"
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   UasTruthEcefCoordinate_ft:
     type: "object"
@@ -159,9 +159,9 @@ definitions:
       - "emergencyPhaseValue"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       emergencyPhaseValue:
         type: string
         enum:
@@ -188,9 +188,9 @@ definitions:
       - offNominalMitigationOutcomeValue
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       offNominalMitigationOutcomeValue:
         type: "string"
         enum:
@@ -210,9 +210,9 @@ definitions:
       - "landingOutcomeValue"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       landingOutcomeValue:
         type: "string"
         description: >-
@@ -232,9 +232,9 @@ definitions:
       - "canReachSafeToLandLocation"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       canReachSafeToLandLocation:
         type: "boolean"
         description: >-
@@ -252,9 +252,9 @@ definitions:
       - "onBoardSafeLandingCapabilityStatus"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       onBoardSafeLandingCapabilityStatus:
         type: "string"
         description: >-

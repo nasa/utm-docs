@@ -81,21 +81,13 @@ definitions:
     description: >-
       Flight essential telemetry and UAS state data for a UAS Operation in
       TCL4. Refer to the DMP documentation on specific requirements for a given
-      run.
+      run.  Use this model for crewed vehicles as well.  
     required:
       - metaData
-      - ac_type
       - sensor_tuple
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      ac_type:
-        description: >-
-          Type of aircraft.  FET has requirements for crewed vehicles.
-        type: string
-        enum:
-          - CREWED
-          - UAS
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensor_tuple:
         description: >-
           An array of sensor samples.  Note that the types of samples can be
@@ -107,23 +99,15 @@ definitions:
         minItems: 1
         maxItems: 10000
 
-  MetaDataAcTypeTsSensor:
+  MetaDataCallSignRunTsSensor:
     description: >-
       Data model used to delete a fet instance.
     required:
       - metaDataCallSignRun
-      - ac_type
       - sensor_double
     properties:
       metaDataCallSignRun:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
-      ac_type:
-        description: >-
-          Type of aircraft.  FET has requirements for crewed vehicles.
-        type: string
-        enum:
-          - CREWED
-          - UAS
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
       sensor_double:
         description: >-
           An array of SensorDouble models to delete

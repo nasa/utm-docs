@@ -293,10 +293,13 @@ definitions:
     type: object
     required:
       - call_sign
+      - uvin
       - test_run
     properties:
       call_sign:
         $ref: '#/definitions/CallSign'
+      uvin:
+        $ref: '#/definitions/UUID'
       test_run:
         description: >-
           An identifier for a specific run of a test_card.  In many cases, a
@@ -387,7 +390,7 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
       ts:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   LatLonAlt:
     description: Latitude and Longitude should have precision of 7 or more digits
@@ -420,17 +423,6 @@ definitions:
     format: double
     minimum: -90.0
     maximum: 90.0
-
-  latitudeTest:
-    description: >-
-      The numeric value of the latitude. Note that min and max values are added as a sanity check.
-    type: object
-    properties:
-      test:
-        type: number
-        format: double
-        minimum: -90.0
-        maximum: 90.0
 
   longitude:
     description: >-

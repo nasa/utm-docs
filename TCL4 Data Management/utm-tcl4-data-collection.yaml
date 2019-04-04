@@ -33,7 +33,7 @@ definitions:
       - gufi
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       contact:
         description: >-
           Contact information of the reporter. Reference utm-commons for model.
@@ -168,7 +168,7 @@ definitions:
       - "active_gufis_under_management"
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       uss_loss_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of LossOfUSS
@@ -234,9 +234,10 @@ definitions:
       - "time_handoff_procedure_initiated"
       - "time_handoff_procedure_completed"
       - "gufi"
+      - "reason_for_handoff"
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       handoff_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
@@ -337,7 +338,7 @@ definitions:
       - "all_messages_within_spec"
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       negotiation_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
@@ -431,10 +432,14 @@ definitions:
       - "uss_operator_exchange_id"
       - "gufi"
       - "operator"
+      - "number_position_reports_received"
+      - "number_messages_from_operator_received"
+      - "number_messages_from_uss_sent"
       - "human_interactions"
+      - "continuous_uss_service"
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       uss_operator_exchange_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USS2OperatorExchange.
@@ -504,6 +509,7 @@ definitions:
         description: >-
           Any additional notes to add context about the interaction between
           the USS and this operator.
+
   DynamicRestrictionOccurrence:
     description: >-
       This model captures the enactment of a Dynamic Restriction from the
@@ -520,10 +526,11 @@ definitions:
       - "time_response_from_operator_received"
       - "message_protocol"
       - "message_to_operator"
+      - "successful_operator_response"
 
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       dr_occurrence_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of DynamicRestrictionOccurrence.
@@ -646,7 +653,7 @@ definitions:
       - "http_method"
     properties:
       metaDataDmpUss:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       measurement_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of USSExchange.
