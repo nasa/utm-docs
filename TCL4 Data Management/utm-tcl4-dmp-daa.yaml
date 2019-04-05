@@ -477,9 +477,11 @@ definitions:
       conflictGufi:
         description: >-
           "The GUFI of the vehicle in conflict with ownship"
+        $ref: "#/definitions/DaaUuid"
       conflictUvin:
         description: >-
           "The UVIN of the vehicle in conflict with ownship"
+        $ref: "#/definitions/DaaUuid"
       typeOfConflictResolution:
         description: >-
           "Type of resolution: The level of control a UAS Operator has in resolving a given conflict as enum:
@@ -594,6 +596,8 @@ definitions:
       Identifier for this sensor instance.  Assigned by data originator and
       held constant for a given sensor to uniquely identify it across data
       submissions.
+
+      Also used as UUIDs in other models.
     type: string
     format: uuid
     maxLength: 36
