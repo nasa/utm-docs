@@ -73,7 +73,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConPreRunRange
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConPreRunRange
       responses:
         '200':
           description: Data received. No content returned.
@@ -106,7 +106,7 @@ paths:
           name: metaDataTestSite
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
           description: DELETE  
       responses:
         '200':
@@ -151,7 +151,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConPreRunOp
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConPreRunOp
       responses:
         '200':
           description: Data received. No content returned.
@@ -184,7 +184,7 @@ paths:
           name: metaDataCallSignRun
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
           description: DELETE  
       responses:
         '200':
@@ -229,7 +229,7 @@ paths:
           required: true
           schema:
             $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConActualLanding
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConActualLanding
       responses:
         '200':
           description: Data received. No content returned.
@@ -262,7 +262,7 @@ paths:
           name: metaDataCallSignRunTs
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
+            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
           description: DELETE  
       responses:
         '200':
@@ -306,7 +306,7 @@ paths:
           schema:
             type: array
             items: 
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointData'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointData'
       responses:
         '200':
           description: Data received. No content returned.
@@ -342,7 +342,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs
       responses:
         '200':
           description: Data received. No content returned.
@@ -387,7 +387,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointDataStation
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/ConWxOperatingPointDataStation
       responses:
         '200':
           description: Data received. No content returned.
@@ -422,7 +422,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSiteTs'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSiteTs'
           description: DELETE  
       responses:
         '200':
@@ -469,7 +469,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/CellServiceAvailability
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/CellServiceAvailability
       responses:
         '200':
           description: Data received. No content returned.
@@ -504,7 +504,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
           description: DELETE  
       responses:
         '200':
@@ -549,7 +549,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/DistressV2V
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/DistressV2V
       responses:
         '200':
           description: Data received. No content returned.
@@ -584,7 +584,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
           description: DELETE  
       responses:
         '200':
@@ -629,7 +629,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/RpicConstraintMessage
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-con.yaml#/definitions/RpicConstraintMessage
       responses:
         '200':
           description: Data received. No content returned.
@@ -664,7 +664,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.4/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRunTs'
           description: DELETE  
       responses:
         '200':
