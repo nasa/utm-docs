@@ -310,6 +310,7 @@ definitions:
   MetaDataCallSignRunTs:
     type: object
     required:
+      - uvin
       - call_sign
       - test_run
       - timestamp
@@ -322,6 +323,8 @@ definitions:
           test_card may be only run once.  However, it is possible that a
           test_card is run multiple times.
         type: integer
+      uvin:
+        $ref: '#/definitions/UUID'
       timestamp:
         $ref: '#/definitions/timestamp'
         
