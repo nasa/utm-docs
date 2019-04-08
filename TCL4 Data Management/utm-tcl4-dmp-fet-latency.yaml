@@ -49,7 +49,6 @@ paths:
             when there are no paths, but domains do not contain paths.
 
 definitions:
-
   SensorLatencyTuple:
     description: >-
       Sensor latency tuple for a particular sensor measurement.  Report the time that the sensor measurement was sent from the UA and the time that the sensor measurement was received by the GCS.  Report  only for the data listed in the dmp fet requirements list. 
@@ -114,11 +113,11 @@ definitions:
       run.
     required:
       - metaData
-      - sensor_latency_tuple
+      - sensorLatencyTuple
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensor_latency_tuple:
+      sensorLatencyTupleArray:
         description: >-
           An array of sensor latency samples.  Note that the types of samples can be
           mixed in this array.  
@@ -127,3 +126,39 @@ definitions:
           $ref: '#/definitions/SensorLatencyTuple'
         minItems: 1
         maxItems: 10000
+
+  MetaDataCallSignRunTsSensorLatency:
+    description: >-
+      Data model used to delete a fet-latency instance.
+    required:
+      - metaDataCallSignRun
+      - sensorDoubleLatencyArray
+    properties:
+      metaDataCallSignRun:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+      sensorDoubleLatencyArray:
+        description: >-
+          An array of SensorDoubleLatency models to delete
+        type: array
+        items:
+          $ref: '#/definitions/SensorDoubleLatency'
+        minItems: 1
+        maxItems: 10000
+        
+  SensorDoubleLatency:
+    description: >-
+    required:
+      - timeSent
+      - sensor
+    properties:
+      timeSent:
+        description: >-
+          Time sent for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      sensor:
+        $ref: '#/definitions/SensorList'
