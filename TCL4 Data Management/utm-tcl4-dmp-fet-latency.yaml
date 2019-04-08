@@ -76,36 +76,7 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
-        type: string
-        enum:
-          - LAT
-          - LON
-          - ALT
-          - BAROMETRIC_ALTITUDE_FT
-          - BATTERY_CURRENT_A
-          - BATTERY_TEMP_C
-          - BATTERY_VOLTAGE_V
-          - EXTERNAL_TEMPERATURE_C
-          - GEOMETRIC_VERTICAL_ACCURACY_CATEGORY
-          - GROUND_COURSE_DEG
-          - GROUND_SPEED_FT_PER_SEC
-          - HDOP_NONDIM
-          - HEADING_DEG
-          - NAVIGATION_ACCURACY_CATEGORY_POSITION
-          - NAVIGATION_INTEGRITY_CATEGORY
-          - NUM_GPS_SATELLITES_IN_VIEW_NONDIM
-          - NUM_GPS_SAT_NONDIM
-          - PITCH_DEG
-          - PITCH_RATE_DEG_PER_SEC
-          - RELATIVE_HUMIDITY_PRCT_NONDIM
-          - ROLLRATE_DEG_PER_SEC
-          - ROLL_DEG
-          - TRUE_AIRSPEED_FT_PER_SEC
-          - VDOP_NONDIM
-          - VERTICAL_SPEED_FT_PER_MIN
-          - YAW_DEG
-          - YAW_RATE_DEG_PER_SEC
-
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
   FlightEssentialTelemetryLatency:
     description: >-
       Flight essential telemetry latency measurements.
