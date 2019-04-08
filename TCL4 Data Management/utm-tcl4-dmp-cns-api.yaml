@@ -65,7 +65,7 @@ paths:
       parameters:
         - in: body
           name: CnsPreRun
-          description: The CnsPreRun model 
+          description: The CnsPreRun model
           required: true
           schema:
             $ref: >-
@@ -104,7 +104,7 @@ paths:
           schema:
             $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
 
-          description: DELETE  
+          description: DELETE
       responses:
         '200':
           description: Data received. No content returned.
@@ -127,7 +127,7 @@ paths:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
-              
+
 ##
 # UasTruthPosition
 ##
@@ -143,11 +143,11 @@ paths:
       parameters:
         - in: body
           name: UasTruthPosition
-          description: The UasTruthPosition model 
+          description: The UasTruthPosition model
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/Coordinates
+              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/UasTruthPosition
       responses:
         '200':
           description: Data received. No content returned.
@@ -202,7 +202,7 @@ paths:
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-              
+
 
 ##
 # EmergencyPhase
@@ -219,11 +219,11 @@ paths:
       parameters:
         - in: body
           name: EmergencyPhase
-          description: The EmergencyPhase model 
+          description: The EmergencyPhase model
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: >-
                 https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/EmergencyPhase
       responses:
@@ -299,11 +299,11 @@ paths:
       parameters:
         - in: body
           name: OffNominalMitigationOutcome
-          description: The OffNominalMitigationOutcome model 
+          description: The OffNominalMitigationOutcome model
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: >-
                 https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/OffNominalMitigationOutcome
       responses:
@@ -362,8 +362,8 @@ paths:
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-              
-              
+
+
 ##
 # LandingOutcome
 ##
@@ -379,11 +379,11 @@ paths:
       parameters:
         - in: body
           name: LandingOutcome
-          description: The LandingOutcome model 
+          description: The LandingOutcome model
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: >-
                 https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/LandingOutcome
       responses:
@@ -447,7 +447,7 @@ paths:
 
 
 
-              
+
 ##
 # SafeToLandLocationReach
 ##
@@ -463,11 +463,11 @@ paths:
       parameters:
         - in: body
           name: SafeToLandLocationReach
-          description: The SafeToLandLocationReach model 
+          description: The SafeToLandLocationReach model
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: >-
                 https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/SafeToLandLocationReach
       responses:
@@ -544,11 +544,11 @@ paths:
       parameters:
         - in: body
           name: OnBoardSafeLandingCapability
-          description: The OnBoardSafeLandingCapability model 
+          description: The OnBoardSafeLandingCapability model
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: >-
                 https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/OnBoardSafeLandingCapability
       responses:
@@ -607,4 +607,3 @@ paths:
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
