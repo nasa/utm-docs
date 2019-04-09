@@ -147,7 +147,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.5/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/Coordinates
+              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.5/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/UasTruthPosition
       responses:
         '200':
           description: Data received. No content returned.
