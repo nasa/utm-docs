@@ -74,12 +74,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -89,7 +89,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     post:
       summary: Upload an array of models
@@ -114,17 +114,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -152,12 +152,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -167,7 +167,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     post:
       summary: Upload an array of models
@@ -191,17 +191,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -230,12 +230,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -245,7 +245,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     post:
       summary: Upload an array of models
@@ -269,17 +269,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -308,12 +308,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -323,7 +323,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
     post:
       summary: Upload an array of models
       security:
@@ -346,17 +346,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -385,12 +385,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -400,7 +400,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     post:
       summary: Upload an array of models
@@ -425,17 +425,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -465,12 +465,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -480,7 +480,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
     post:
       summary: Upload an array of models
       security:
@@ -503,17 +503,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -543,12 +543,12 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:
@@ -558,7 +558,7 @@ paths:
           description: Requested uuid not found.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
     post:
       summary: Upload an array of models
       security:
@@ -581,17 +581,17 @@ paths:
           description: Data received. No content returned.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '401':
           description: Invalid or missing access_token provided.
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
+              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '403':
           description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
           schema:

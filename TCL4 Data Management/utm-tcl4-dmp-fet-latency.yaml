@@ -49,7 +49,6 @@ paths:
             when there are no paths, but domains do not contain paths.
 
 definitions:
-
   SensorLatencyTuple:
     description: >-
       Sensor latency tuple for a particular sensor measurement.  Report the time that the sensor measurement was sent from the UA and the time that the sensor measurement was received by the GCS.  Report  only for the data listed in the dmp fet requirements list. 
@@ -77,36 +76,7 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
-        type: string
-        enum:
-          - LAT
-          - LON
-          - ALT
-          - BAROMETRIC_ALTITUDE_FT
-          - BATTERY_CURRENT_A
-          - BATTERY_TEMP_C
-          - BATTERY_VOLTAGE_V
-          - EXTERNAL_TEMPERATURE_C
-          - GEOMETRIC_VERTICAL_ACCURACY_CATEGORY
-          - GROUND_COURSE_DEG
-          - GROUND_SPEED_FT_PER_SEC
-          - HDOP_NONDIM
-          - HEADING_DEG
-          - NAVIGATION_ACCURACY_CATEGORY_POSITION
-          - NAVIGATION_INTEGRITY_CATEGORY
-          - NUM_GPS_SATELLITES_IN_VIEW_NONDIM
-          - NUM_GPS_SAT_NONDIM
-          - PITCH_DEG
-          - PITCH_RATE_DEG_PER_SEC
-          - RELATIVE_HUMIDITY_PRCT_NONDIM
-          - ROLLRATE_DEG_PER_SEC
-          - ROLL_DEG
-          - TRUE_AIRSPEED_FT_PER_SEC
-          - VDOP_NONDIM
-          - VERTICAL_SPEED_FT_PER_MIN
-          - YAW_DEG
-          - YAW_RATE_DEG_PER_SEC
-
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
   FlightEssentialTelemetryLatency:
     description: >-
       Flight essential telemetry latency measurements.
@@ -114,11 +84,11 @@ definitions:
       run.
     required:
       - metaData
-      - sensor_latency_tuple
+      - sensorLatencyTuple
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensor_latency_tuple:
+      sensorLatencyTupleArray:
         description: >-
           An array of sensor latency samples.  Note that the types of samples can be
           mixed in this array.  
@@ -127,3 +97,40 @@ definitions:
           $ref: '#/definitions/SensorLatencyTuple'
         minItems: 1
         maxItems: 10000
+
+  MetaDataCallSignRunTsSensorLatency:
+    description: >-
+      Data model used to delete a fet-latency instance.
+    required:
+      - metaDataCallSignRun
+      - sensorDoubleLatencyArray
+    properties:
+      metaDataCallSignRun:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+      sensorDoubleLatencyArray:
+        description: >-
+          An array of SensorDoubleLatency models to delete
+        type: array
+        items:
+          $ref: '#/definitions/SensorDoubleLatency'
+        minItems: 1
+        maxItems: 10000
+        
+  SensorDoubleLatency:
+    description: >-
+      Sensor double latency
+    required:
+      - timeSent
+      - sensor
+    properties:
+      timeSent:
+        description: >-
+          Time sent for this sample.
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
+        example: '2015-08-20T14:11:56.118Z'
+      sensor:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'        

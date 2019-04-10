@@ -54,9 +54,9 @@ securityDefinitions:
 
 paths:
 
-  '/fet':
+  '/fet-latency':
     post:
-      summary: Upload a single instance of the FlightEssentialTelemetryUasStates model
+      summary: Upload a single instance of the FlightEssentialTelemetryLatency model
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -64,12 +64,12 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: FlightEssentialTelemetryUasStates
-          description: The FlightEssentialTelemetryAndUasStates model 
+          name: FlightEssentialTelemetryLatency
+          description: The FlightEssentialTelemetryLatency model 
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-fet.yaml#/definitions/FlightEssentialTelemetryAndUasStates
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-fet-latency.yaml#/definitions/FlightEssentialTelemetryLatency
       responses:
         '200':
           description: Data received. No content returned.
@@ -93,17 +93,17 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     delete:
-      summary: Delete one or more (sensor,timestamp) pairs associated with a (call_sign,test_run) pair specified in metadata
+      summary: Delete one or more (sensor,timeSent) pairs associated with a (call_sign,test_run) pair specified in metadata
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
       parameters:
         - in: body
-          name: metaDataCallSignRunTsSensor
+          name: metaDataCallSignRunTsSensorLatency
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-fet.yaml#/definitions/MetaDataCallSignRunTsSensor
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-fet-latency.yaml#/definitions/MetaDataCallSignRunTsSensorLatency
           description: DELETE one or more sensor data elements associated with pair (call_sign,test_run)
       responses:
         '200':

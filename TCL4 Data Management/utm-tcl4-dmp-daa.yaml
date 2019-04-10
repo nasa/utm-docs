@@ -281,7 +281,8 @@ definitions:
 
         $ref: "#/definitions/DaaUuid"
       expectedLookAheadTime:
-        description: >- Expected temporal parameter used to predict the anticipated actions of aircraft in the near future. Include 3 decimal places of precision. (sec)
+        description: >-
+          Expected temporal parameter used to predict the anticipated actions of aircraft in the near future. Include 3 decimal places of precision. (sec)
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
         description: >-
@@ -411,7 +412,7 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[8-b][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: >-
@@ -425,7 +426,7 @@ definitions:
         format: uuid
         maxLength: 36
         minLength: 36
-        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[8-b][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
@@ -454,7 +455,7 @@ definitions:
           height in ft
         type: number
         minimum: 0
-      obstacleType: 
+      obstacleType:
         description: >-
           type of obstacle sensed
         type: string
@@ -476,9 +477,11 @@ definitions:
       conflictGufi:
         description: >-
           "The GUFI of the vehicle in conflict with ownship"
+        $ref: "#/definitions/DaaUuid"
       conflictUvin:
         description: >-
           "The UVIN of the vehicle in conflict with ownship"
+        $ref: "#/definitions/DaaUuid"
       typeOfConflictResolution:
         description: >-
           "Type of resolution: The level of control a UAS Operator has in resolving a given conflict as enum:
@@ -593,11 +596,13 @@ definitions:
       Identifier for this sensor instance.  Assigned by data originator and
       held constant for a given sensor to uniquely identify it across data
       submissions.
+
+      Also used as UUIDs in other models.
     type: string
     format: uuid
     maxLength: 36
     minLength: 36
-    pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+    pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[8-b][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
     example: "00000000-0000-4444-8888-FEEDDEADBEEF"
 
   seconds:
