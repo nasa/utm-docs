@@ -212,7 +212,11 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/developpv/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        type: string
+        format: date-time
+        minLength: 24
+        maxLength: 24
+        example: "2015-08-20T14:11:56.118Z"
       landingOutcomeValue:
         type: "string"
         description: >-
