@@ -100,9 +100,6 @@ definitions:
     type: object
     required:
       - "metaData"
-      - "plannedBvlosLandingPoints"
-      - "plannedVlosLandingPoints"
-      - "plannedRooftopLandingPoints"
       - "safeLandingLocations"
       - "safeLandingLocationPolygonPoints"
       - "rpicLocations"
@@ -181,10 +178,6 @@ definitions:
     required:
       - "metaData"
       - "timestamp"
-      - "temperature"
-      - "pressure"
-      - "windSpeed"
-      - "windDir"
       - "location"
     properties:
       metaData:
