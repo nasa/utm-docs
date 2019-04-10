@@ -369,8 +369,8 @@ definitions:
       time stamps.  This is why the min and max length are fixed at 24.
       Note that this UTM format specifies UTC time indicated by a trailing 'Z'.
       Note that this UTM format specifies date and time separation with a 'T'.
-    type: "string"
-    format: "date-time"
+    type: string
+    format: date-time
     minLength: 24
     maxLength: 24
     example: "2015-08-20T14:11:56.118Z"
