@@ -76,7 +76,7 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.5/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
   FlightEssentialTelemetryLatency:
     description: >-
       Flight essential telemetry latency measurements.
@@ -87,7 +87,7 @@ definitions:
       - sensorLatencyTuple
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.5/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorLatencyTupleArray:
         description: >-
           An array of sensor latency samples.  Note that the types of samples can be
@@ -106,7 +106,7 @@ definitions:
       - sensorDoubleLatencyArray
     properties:
       metaDataCallSignRun:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.5/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
       sensorDoubleLatencyArray:
         description: >-
           An array of SensorDoubleLatency models to delete
@@ -133,4 +133,4 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.5/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'        
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'        
