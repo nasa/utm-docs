@@ -370,7 +370,7 @@ definitions:
       Note that this UTM format specifies UTC time indicated by a trailing 'Z'.
       Note that this UTM format specifies date and time separation with a 'T'.
     type: "string"
-    format: "iso8601"
+    format: "date-time"
     minLength: 24
     maxLength: 24
     example: "2015-08-20T14:11:56.118Z"
