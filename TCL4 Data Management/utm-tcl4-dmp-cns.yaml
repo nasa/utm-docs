@@ -212,7 +212,7 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       timestamp:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/developpv/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       landingOutcomeValue:
         type: "string"
         description: >-

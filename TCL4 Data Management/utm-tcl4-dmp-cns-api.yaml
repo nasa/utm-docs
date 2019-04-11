@@ -385,7 +385,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/developpv/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/LandingOutcome
+                https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-cns.yaml#/definitions/LandingOutcome
       responses:
         '200':
           description: Data received. No content returned.
