@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-16 Tue 21:57 -->
+<!-- 2019-04-16 Tue 22:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>UTM TCL4 DMP API and Data Models</title>
@@ -235,17 +235,17 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4aac2da">1. Introduction</a></li>
-<li><a href="#org23d44d8">2. API and Data Model Specification Release Schedule</a></li>
-<li><a href="#org0762f92">3. API Release Schedule</a></li>
-<li><a href="#orgb645fd2">4. Data Integrity in TCL4</a>
+<li><a href="#org0820787">1. Introduction</a></li>
+<li><a href="#orgcbc2d59">2. API and Data Model Specification Release Schedule</a></li>
+<li><a href="#orgf7f8da4">3. API Release Schedule</a></li>
+<li><a href="#orgfeb1ee8">4. Data Integrity in TCL4</a>
 <ul>
-<li><a href="#org6f2c2aa">4.1. Collaborative Simulation</a>
+<li><a href="#org507e23f">4.1. Collaborative Simulation</a>
 <ul>
-<li><a href="#org50f60c1">4.1.1. Scenario 2: <code>(uss_name,call_sign)</code></a></li>
-<li><a href="#orgce35077">4.1.2. Scenario 2: <code>(uvin,call_sign)</code></a></li>
-<li><a href="#orgc01514d">4.1.3. Scenario 4: <code>(uss_name,call_sign)</code></a></li>
-<li><a href="#orgca12a8f">4.1.4. Scenario 4: <code>(uvin,call_sign)</code></a></li>
+<li><a href="#orgf3414e4">4.1.1. Scenario 2: <code>(uss_name,call_sign)</code></a></li>
+<li><a href="#org93635c9">4.1.2. Scenario 2: <code>(uvin,call_sign)</code></a></li>
+<li><a href="#org3b09bf3">4.1.3. Scenario 4: <code>(uss_name,call_sign)</code></a></li>
+<li><a href="#orgb44fffe">4.1.4. Scenario 4: <code>(uvin,call_sign)</code></a></li>
 </ul>
 </li>
 </ul>
@@ -253,8 +253,8 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-org4aac2da" class="outline-2">
-<h2 id="org4aac2da"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org0820787" class="outline-2">
+<h2 id="org0820787"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This document describes the API specification and implementation <b>release schedule</b> for UTM TCL4 DMP data collection efforts.  It will be updated frequently.  The specification  and associated data models are described using OpenAPI Specification (OAS) 2.0 (<code>https://github.com/OAI/OpenAPI-Specification</code>) and can be found in the GIT repository located at
@@ -264,8 +264,8 @@ https://github.com/nasa/utm-docs/tree/master/TCL4%20Data%20Management
 </pre>
 </div>
 </div>
-<div id="outline-container-org23d44d8" class="outline-2">
-<h2 id="org23d44d8"><span class="section-number-2">2</span> API and Data Model Specification Release Schedule</h2>
+<div id="outline-container-orgcbc2d59" class="outline-2">
+<h2 id="orgcbc2d59"><span class="section-number-2">2</span> API and Data Model Specification Release Schedule</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The GIT repository for the DMP API and data models is actively used by at least three parties: 
@@ -359,9 +359,8 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 </div>
 </div>
 
-
-<div id="outline-container-org0762f92" class="outline-2">
-<h2 id="org0762f92"><span class="section-number-2">3</span> API Release Schedule</h2>
+<div id="outline-container-orgf7f8da4" class="outline-2">
+<h2 id="orgf7f8da4"><span class="section-number-2">3</span> API Release Schedule</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
@@ -639,15 +638,15 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 </table>
 </div>
 </div>
-<div id="outline-container-orgb645fd2" class="outline-2">
-<h2 id="orgb645fd2"><span class="section-number-2">4</span> Data Integrity in TCL4</h2>
+<div id="outline-container-orgfeb1ee8" class="outline-2">
+<h2 id="orgfeb1ee8"><span class="section-number-2">4</span> Data Integrity in TCL4</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In order to provide data integrity for the vast amounts of data collected over the course of TCL4, we require the set of <code>(uss_name,call_sign)</code> pairs and the set of <code>(uvin,call_sign)</code> pairs to be pre-determined and immutable.  For the collaborative simulation, shakedown, and the primary demonstration, these pre-determined sets will be stated in this document and uploaded to this github directory.
 </p>
 </div>
-<div id="outline-container-org6f2c2aa" class="outline-3">
-<h3 id="org6f2c2aa"><span class="section-number-3">4.1</span> Collaborative Simulation</h3>
+<div id="outline-container-org507e23f" class="outline-3">
+<h3 id="org507e23f"><span class="section-number-3">4.1</span> Collaborative Simulation</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>Data can be found in the following files: 
@@ -659,8 +658,8 @@ In order to provide data integrity for the vast amounts of data collected over t
 </ul></li>
 </ul>
 </div>
-<div id="outline-container-org50f60c1" class="outline-4">
-<h4 id="org50f60c1"><span class="section-number-4">4.1.1</span> Scenario 2: <code>(uss_name,call_sign)</code></h4>
+<div id="outline-container-orgf3414e4" class="outline-4">
+<h4 id="orgf3414e4"><span class="section-number-4">4.1.1</span> Scenario 2: <code>(uss_name,call_sign)</code></h4>
 <div class="outline-text-4" id="text-4-1-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -845,8 +844,8 @@ In order to provide data integrity for the vast amounts of data collected over t
 </table>
 </div>
 </div>
-<div id="outline-container-orgce35077" class="outline-4">
-<h4 id="orgce35077"><span class="section-number-4">4.1.2</span> Scenario 2: <code>(uvin,call_sign)</code></h4>
+<div id="outline-container-org93635c9" class="outline-4">
+<h4 id="org93635c9"><span class="section-number-4">4.1.2</span> Scenario 2: <code>(uvin,call_sign)</code></h4>
 <div class="outline-text-4" id="text-4-1-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1091,8 +1090,8 @@ In order to provide data integrity for the vast amounts of data collected over t
 </table>
 </div>
 </div>
-<div id="outline-container-orgc01514d" class="outline-4">
-<h4 id="orgc01514d"><span class="section-number-4">4.1.3</span> Scenario 4: <code>(uss_name,call_sign)</code></h4>
+<div id="outline-container-org3b09bf3" class="outline-4">
+<h4 id="org3b09bf3"><span class="section-number-4">4.1.3</span> Scenario 4: <code>(uss_name,call_sign)</code></h4>
 <div class="outline-text-4" id="text-4-1-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1277,8 +1276,8 @@ In order to provide data integrity for the vast amounts of data collected over t
 </table>
 </div>
 </div>
-<div id="outline-container-orgca12a8f" class="outline-4">
-<h4 id="orgca12a8f"><span class="section-number-4">4.1.4</span> Scenario 4: <code>(uvin,call_sign)</code></h4>
+<div id="outline-container-orgb44fffe" class="outline-4">
+<h4 id="orgb44fffe"><span class="section-number-4">4.1.4</span> Scenario 4: <code>(uvin,call_sign)</code></h4>
 <div class="outline-text-4" id="text-4-1-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1529,7 +1528,7 @@ In order to provide data integrity for the vast amounts of data collected over t
 <div id="postamble" class="status">
 <p class="date">Date: 2019-03-15</p>
 <p class="author">Author: Abraham K. Ishihara</p>
-<p class="date">Created: 2019-04-16 Tue 21:57</p>
+<p class="date">Created: 2019-04-16 Tue 22:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
