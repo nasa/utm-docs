@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-09 Tue 09:02 -->
+<!-- 2019-04-16 Tue 21:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>UTM TCL4 DMP API and Data Models</title>
@@ -235,14 +235,26 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org85d3b15">1. Introduction</a></li>
-<li><a href="#orga81e435">2. API and Data Model Specification Release Schedule</a></li>
-<li><a href="#org96f6aca">3. API Release Schedule</a></li>
+<li><a href="#org4aac2da">1. Introduction</a></li>
+<li><a href="#org23d44d8">2. API and Data Model Specification Release Schedule</a></li>
+<li><a href="#org0762f92">3. API Release Schedule</a></li>
+<li><a href="#orgb645fd2">4. Data Integrity in TCL4</a>
+<ul>
+<li><a href="#org6f2c2aa">4.1. Collaborative Simulation</a>
+<ul>
+<li><a href="#org50f60c1">4.1.1. Scenario 2: <code>(uss_name,call_sign)</code></a></li>
+<li><a href="#orgce35077">4.1.2. Scenario 2: <code>(uvin,call_sign)</code></a></li>
+<li><a href="#orgc01514d">4.1.3. Scenario 4: <code>(uss_name,call_sign)</code></a></li>
+<li><a href="#orgca12a8f">4.1.4. Scenario 4: <code>(uvin,call_sign)</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org85d3b15" class="outline-2">
-<h2 id="org85d3b15"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org4aac2da" class="outline-2">
+<h2 id="org4aac2da"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This document describes the API specification and implementation <b>release schedule</b> for UTM TCL4 DMP data collection efforts.  It will be updated frequently.  The specification  and associated data models are described using OpenAPI Specification (OAS) 2.0 (<code>https://github.com/OAI/OpenAPI-Specification</code>) and can be found in the GIT repository located at
@@ -252,8 +264,8 @@ https://github.com/nasa/utm-docs/tree/master/TCL4%20Data%20Management
 </pre>
 </div>
 </div>
-<div id="outline-container-orga81e435" class="outline-2">
-<h2 id="orga81e435"><span class="section-number-2">2</span> API and Data Model Specification Release Schedule</h2>
+<div id="outline-container-org23d44d8" class="outline-2">
+<h2 id="org23d44d8"><span class="section-number-2">2</span> API and Data Model Specification Release Schedule</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The GIT repository for the DMP API and data models is actively used by at least three parties: 
@@ -334,13 +346,22 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">v1.0.5</td>
 <td class="org-left">yes</td>
 </tr>
+
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-16 Tue&gt;</span></span></td>
+<td class="org-left">release-v1.0.6</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-17 Wed&gt;</span></span></td>
+<td class="org-left">v1.0.6</td>
+<td class="org-left">yes</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<div id="outline-container-org96f6aca" class="outline-2">
-<h2 id="org96f6aca"><span class="section-number-2">3</span> API Release Schedule</h2>
+
+<div id="outline-container-org0762f92" class="outline-2">
+<h2 id="org0762f92"><span class="section-number-2">3</span> API Release Schedule</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
@@ -358,12 +379,15 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <col  class="org-left" />
 
 <col  class="org-left" />
+
+<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
 <th scope="col" class="org-left">Endpoint</th>
 <th scope="col" class="org-left">Location</th>
 <th scope="col" class="org-left">status</th>
+<th scope="col" class="org-left">POC</th>
 <th scope="col" class="org-left">Sprint</th>
 <th scope="col" class="org-left">Release Date</th>
 </tr>
@@ -373,6 +397,7 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">/uss-exchange</td>
 <td class="org-left">utm-tcl4-dmp-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">AF</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-25 Mon&gt;</span></span></td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-28 Thu&gt;</span></span></td>
 </tr>
@@ -381,6 +406,7 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">/uss-handoff</td>
 <td class="org-left">utm-tcl4-dmp-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">AF</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-25 Mon&gt;</span></span></td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-28 Thu&gt;</span></span></td>
 </tr>
@@ -389,6 +415,7 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">/uss-negotiation</td>
 <td class="org-left">utm-tcl4-dmp-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">SL</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-25 Mon&gt;</span></span></td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-04 Thu&gt;</span></span></td>
 </tr>
@@ -397,30 +424,16 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">/uss-2-operator-exchange</td>
 <td class="org-left">utm-tcl4-dmp-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">SL</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-25 Mon&gt;</span></span></td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-04 Thu&gt;</span></span></td>
-</tr>
-
-<tr>
-<td class="org-left">/off-nominal</td>
-<td class="org-left">utm-tcl4-dmp-api.yaml</td>
-<td class="org-left">incomplete</td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
-</tr>
-
-<tr>
-<td class="org-left">/loss-of-uss</td>
-<td class="org-left">utm-tcl4-dmp-api.yaml</td>
-<td class="org-left">incomplete</td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/dynamic-restriction-occurrence</td>
 <td class="org-left">utm-tcl4-dmp-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">SL</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
 </tr>
@@ -429,96 +442,126 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">/fet</td>
 <td class="org-left">utm-tcl4-dmp-fet-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">DS</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">[2019-04-11 Thu]</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/fet-latency</td>
 <td class="org-left">utm-tcl4-dmp-fet-latency-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">DS</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
-<td class="org-left">/con-rpic-constraint-message</td>
-<td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
+<td class="org-left">/off-nominal</td>
+<td class="org-left">utm-tcl4-dmp-api.yaml</td>
 <td class="org-left">done</td>
+<td class="org-left">AF</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-17 Wed&gt;</span></span></td>
+</tr>
+
+<tr>
+<td class="org-left">/loss-of-uss</td>
+<td class="org-left">utm-tcl4-dmp-api.yaml</td>
+<td class="org-left">done</td>
+<td class="org-left">AF</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-17 Wed&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/cns-pre-run</td>
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
-<td class="org-left">incomplete</td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-11 Thu&gt;</span></span></td>
+<td class="org-left">in progress</td>
+<td class="org-left">AF</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
-<td class="org-left">/aux-ops</td>
-<td class="org-left">TBD</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
-<td class="org-left">TBD</td>
+<td class="org-left">/con-rpic-constraint-message</td>
+<td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
+<td class="org-left">in progress</td>
+<td class="org-left">SL</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-pre-run-range</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left">AF</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-pre-run-op</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left">AF</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-actual-landing</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left">SL</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-wx-operating-point-data</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left">in progress</td>
+<td class="org-left">DS</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-wx-operating-point-data-station</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left">DS</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-cell-service-availability</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left">SL</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-left">/con-distress-v2v</td>
 <td class="org-left">utm-tcl4-dmp-con-api.yaml</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">DS</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-15 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-25 Thu&gt;</span></span></td>
+</tr>
+
+<tr>
+<td class="org-left">/aux-ops</td>
 <td class="org-left">TBD</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -526,7 +569,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -534,7 +578,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -542,7 +587,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -550,7 +596,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -558,7 +605,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -566,7 +614,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -574,7 +623,8 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-cns-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-22 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -582,17 +632,904 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 <td class="org-left">utm-tcl4-dmp-daa-api.yaml</td>
 <td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left">TBD</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-29 Mon&gt;</span></span></td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-09 Thu&gt;</span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgb645fd2" class="outline-2">
+<h2 id="orgb645fd2"><span class="section-number-2">4</span> Data Integrity in TCL4</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+In order to provide data integrity for the vast amounts of data collected over the course of TCL4, we require the set of <code>(uss_name,call_sign)</code> pairs and the set of <code>(uvin,call_sign)</code> pairs to be pre-determined and immutable.  For the collaborative simulation, shakedown, and the primary demonstration, these pre-determined sets will be stated in this document and uploaded to this github directory.
+</p>
+</div>
+<div id="outline-container-org6f2c2aa" class="outline-3">
+<h3 id="org6f2c2aa"><span class="section-number-3">4.1</span> Collaborative Simulation</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>Data can be found in the following files: 
+<ul class="org-ul">
+<li><code>NV-CollabSim-Sc2-USSClientId-CallSign_unique.csv</code></li>
+<li><code>NV-CollabSim-Sc2-UVIN-CallSign.csv</code></li>
+<li><code>NV-CollabSim-Sc4-USSClientId-CallSign_unique.csv</code></li>
+<li><code>NV-CollabSim-Sc4-UVIN-CallSign.csv</code></li>
+</ul></li>
+</ul>
+</div>
+<div id="outline-container-org50f60c1" class="outline-4">
+<h4 id="org50f60c1"><span class="section-number-4">4.1.1</span> Scenario 2: <code>(uss_name,call_sign)</code></h4>
+<div class="outline-text-4" id="text-4-1-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left"><code>uss_name</code></th>
+<th scope="col" class="org-left"><code>call_sign</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Yoda</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Luke</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">HanSolo</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">DarthVader</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Jabba</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Wicket</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Leia</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Kenobi</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">BobaFett</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">R2-D2</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">C-3PO</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Ackbar</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Emperor</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Lando</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Chewie</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Tarkin</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Greedo</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Sarlac</td>
+</tr>
+
+<tr>
+<td class="org-left">uss-dev.flyanra.net</td>
+<td class="org-left">Grievous</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Dooku</td>
+</tr>
+
+<tr>
+<td class="org-left">uss-dev.flyanra.net</td>
+<td class="org-left">Anakin</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">DarthMaul</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">JarJar</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Padme</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Palpatine</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">MaceWindu</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Qui-Gon</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">JangoFett</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">BailOrgana</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Sebulba</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Watto</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Nute</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Valorum</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgce35077" class="outline-4">
+<h4 id="orgce35077"><span class="section-number-4">4.1.2</span> Scenario 2: <code>(uvin,call_sign)</code></h4>
+<div class="outline-text-4" id="text-4-1-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left"><code>uvin</code></th>
+<th scope="col" class="org-left"><code>call_sign</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">155cd3bc-a70c-46ef-9020-e0c71ed4fc42</td>
+<td class="org-left">Yoda</td>
+</tr>
+
+<tr>
+<td class="org-left">0654918c-0d04-4219-805c-0b97560fc137</td>
+<td class="org-left">Yoda</td>
+</tr>
+
+<tr>
+<td class="org-left">068e2e34-d792-4c99-aab6-2631fe1987ca</td>
+<td class="org-left">Luke</td>
+</tr>
+
+<tr>
+<td class="org-left">33d38948-5695-44f9-ac51-6a566b37a362</td>
+<td class="org-left">Luke</td>
+</tr>
+
+<tr>
+<td class="org-left">e44db783-9059-4aba-b894-3e934498ce22</td>
+<td class="org-left">HanSolo</td>
+</tr>
+
+<tr>
+<td class="org-left">c8e163e2-ddcf-4bee-a1b6-894534c21996</td>
+<td class="org-left">HanSolo</td>
+</tr>
+
+<tr>
+<td class="org-left">a7fc22dc-70a7-428c-8f79-3f9ed0a7f855</td>
+<td class="org-left">DarthVader</td>
+</tr>
+
+<tr>
+<td class="org-left">fcb4c8b9-b384-4e27-8624-aebaf13d68bf</td>
+<td class="org-left">DarthVader</td>
+</tr>
+
+<tr>
+<td class="org-left">d378764f-63b5-4ee9-8413-c03b0de4281f</td>
+<td class="org-left">Jabba</td>
+</tr>
+
+<tr>
+<td class="org-left">47d996ea-f7e1-4ec5-ae3f-055dd8938101</td>
+<td class="org-left">Wicket</td>
+</tr>
+
+<tr>
+<td class="org-left">59ab85d3-4425-423f-8e3b-b462d26f205e</td>
+<td class="org-left">Leia</td>
+</tr>
+
+<tr>
+<td class="org-left">9504ccc6-2663-44e7-a783-c6838a0ae0c8</td>
+<td class="org-left">Leia</td>
+</tr>
+
+<tr>
+<td class="org-left">b33dc068-8d87-4680-a1cb-d970dcf4a5a4</td>
+<td class="org-left">Kenobi</td>
+</tr>
+
+<tr>
+<td class="org-left">95dfccf9-c2ab-43ef-9aec-9006ad3d5579</td>
+<td class="org-left">Kenobi</td>
+</tr>
+
+<tr>
+<td class="org-left">d9280b93-62e3-4e5f-935f-f37fb07161f6</td>
+<td class="org-left">BobaFett</td>
+</tr>
+
+<tr>
+<td class="org-left">903fde18-0078-4477-ac97-0ed0604f61fc</td>
+<td class="org-left">BobaFett</td>
+</tr>
+
+<tr>
+<td class="org-left">9c07864f-542e-4af8-94c7-d1277a4de126</td>
+<td class="org-left">R2-D2</td>
+</tr>
+
+<tr>
+<td class="org-left">d7bfc1a4-c0a2-468b-9159-4b9ad71cec82</td>
+<td class="org-left">R2-D2</td>
+</tr>
+
+<tr>
+<td class="org-left">b3fefef2-2aed-4568-a3ff-f93ea501b2f8</td>
+<td class="org-left">C-3PO</td>
+</tr>
+
+<tr>
+<td class="org-left">9a0f3464-ce85-4334-8d0a-1f467c35a2fe</td>
+<td class="org-left">Ackbar</td>
+</tr>
+
+<tr>
+<td class="org-left">2f17654f-b8f3-475b-958b-7af5ad740161</td>
+<td class="org-left">Emperor</td>
+</tr>
+
+<tr>
+<td class="org-left">f8f0d0c5-2971-4cd2-ade5-6de2820b46d8</td>
+<td class="org-left">Emperor</td>
+</tr>
+
+<tr>
+<td class="org-left">c9d20e39-4760-4da0-9697-433c65ddff82</td>
+<td class="org-left">Lando</td>
+</tr>
+
+<tr>
+<td class="org-left">dfcd11d0-fadc-4067-8e1c-7a0d179d8c4f</td>
+<td class="org-left">Lando</td>
+</tr>
+
+<tr>
+<td class="org-left">f4e2e663-29bd-48d4-ae70-3c61410eb262</td>
+<td class="org-left">Chewie</td>
+</tr>
+
+<tr>
+<td class="org-left">950e960b-8eb5-480f-a1a9-6135b9ffaa84</td>
+<td class="org-left">Chewie</td>
+</tr>
+
+<tr>
+<td class="org-left">ca5b2cfd-e716-438a-a62d-f7ec1ad92d5d</td>
+<td class="org-left">Tarkin</td>
+</tr>
+
+<tr>
+<td class="org-left">776d4114-2a8e-43ec-8a19-9e52c75f1164</td>
+<td class="org-left">Tarkin</td>
+</tr>
+
+<tr>
+<td class="org-left">984747e1-5f34-466d-96b7-6eca54bc3a63</td>
+<td class="org-left">Greedo</td>
+</tr>
+
+<tr>
+<td class="org-left">9175c9cc-d0df-4914-8812-fa455c6f63dc</td>
+<td class="org-left">Sarlac</td>
+</tr>
+
+<tr>
+<td class="org-left">fc3b6789-909e-437c-806a-7c8d5a7a1f87</td>
+<td class="org-left">Grievous</td>
+</tr>
+
+<tr>
+<td class="org-left">e28162d8-7f1a-4067-bbca-a26c5f8be708</td>
+<td class="org-left">Dooku</td>
+</tr>
+
+<tr>
+<td class="org-left">5eee4029-1871-46a3-98bf-1901dc492295</td>
+<td class="org-left">Anakin</td>
+</tr>
+
+<tr>
+<td class="org-left">e5a1f209-ecf9-4820-ba54-3b7d437ce4df</td>
+<td class="org-left">DarthMaul</td>
+</tr>
+
+<tr>
+<td class="org-left">51a73140-abac-4b25-9ffa-9a0a1d61ab85</td>
+<td class="org-left">JarJar</td>
+</tr>
+
+<tr>
+<td class="org-left">70aa1657-bcd1-42e5-8739-38b6e531ff23</td>
+<td class="org-left">Padme</td>
+</tr>
+
+<tr>
+<td class="org-left">49e69e47-2e65-4092-a3eb-3db48e428433</td>
+<td class="org-left">Palpatine</td>
+</tr>
+
+<tr>
+<td class="org-left">4cdcf634-108d-4e1d-b290-853a6b0fcd81</td>
+<td class="org-left">MaceWindu</td>
+</tr>
+
+<tr>
+<td class="org-left">8107e232-368c-400b-838e-679c1f5554bf</td>
+<td class="org-left">Qui-Gon</td>
+</tr>
+
+<tr>
+<td class="org-left">f4061f82-01bd-4602-977e-8c5d57e8c5b6</td>
+<td class="org-left">JangoFett</td>
+</tr>
+
+<tr>
+<td class="org-left">386d73df-0268-425c-bd68-c0165284d59e</td>
+<td class="org-left">BailOrgana</td>
+</tr>
+
+<tr>
+<td class="org-left">83c3ffa2-fe77-4012-8fa9-fb466e88a8d7</td>
+<td class="org-left">Sebulba</td>
+</tr>
+
+<tr>
+<td class="org-left">f64babff-de52-4075-81ce-3da215ad0a12</td>
+<td class="org-left">Watto</td>
+</tr>
+
+<tr>
+<td class="org-left">040bf56c-1b21-4f7d-8432-d4007288aed5</td>
+<td class="org-left">Nute</td>
+</tr>
+
+<tr>
+<td class="org-left">d215015a-36f0-439e-a2c7-81ba1e9ebfd4</td>
+<td class="org-left">Valorum</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgc01514d" class="outline-4">
+<h4 id="orgc01514d"><span class="section-number-4">4.1.3</span> Scenario 4: <code>(uss_name,call_sign)</code></h4>
+<div class="outline-text-4" id="text-4-1-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left"><code>uss_name</code></th>
+<th scope="col" class="org-left"><code>call_sign</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">JonSnow</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">JonSnow</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Daenerys</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Daenerys</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Cersei</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Cersei</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">LittleFinger</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Tyrion</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Eddard</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Bran</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Sansa</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Arya</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Gendy</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Bronn</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Oberyn</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Varys</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">NightKing</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Tywin</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Stark</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Lannister</td>
+</tr>
+
+<tr>
+<td class="org-left">airxos.co</td>
+<td class="org-left">Baratheon</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Targaryen</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Frey</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Tarly</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.airmap.com</td>
+<td class="org-left">Martell</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Bolton</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Whitewalker</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Tyrell</td>
+</tr>
+
+<tr>
+<td class="org-left">uss.avisionrobotics.com</td>
+<td class="org-left">Mormont</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Greyjoy</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Clegane</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Arryn</td>
+</tr>
+
+<tr>
+<td class="org-left">uber.com</td>
+<td class="org-left">Sand</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgca12a8f" class="outline-4">
+<h4 id="orgca12a8f"><span class="section-number-4">4.1.4</span> Scenario 4: <code>(uvin,call_sign)</code></h4>
+<div class="outline-text-4" id="text-4-1-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left"><code>uvin</code></th>
+<th scope="col" class="org-left"><code>call_sign</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">91464982-c3f8-499e-8679-01e586ad65c9</td>
+<td class="org-left">JonSnow</td>
+</tr>
+
+<tr>
+<td class="org-left">65504a35-7d6d-4c74-98e2-50ad53c0634b</td>
+<td class="org-left">JonSnow</td>
+</tr>
+
+<tr>
+<td class="org-left">5375f921-503a-40d8-9a90-0150fe191573</td>
+<td class="org-left">Daenerys</td>
+</tr>
+
+<tr>
+<td class="org-left">335639d6-68a6-490c-92ec-15f7f41690e6</td>
+<td class="org-left">Daenerys</td>
+</tr>
+
+<tr>
+<td class="org-left">f82ccd50-d5eb-423c-93aa-a10c124feb0b</td>
+<td class="org-left">Cersei</td>
+</tr>
+
+<tr>
+<td class="org-left">0ce11c80-aa19-4a8a-8c5a-b93e80fb8d11</td>
+<td class="org-left">Cersei</td>
+</tr>
+
+<tr>
+<td class="org-left">a14c1c7a-79a9-4d41-ae24-2ba9e348582c</td>
+<td class="org-left">LittleFinger</td>
+</tr>
+
+<tr>
+<td class="org-left">83c7a7a7-a044-49f7-a661-c327c26cef58</td>
+<td class="org-left">LittleFinger</td>
+</tr>
+
+<tr>
+<td class="org-left">5c8755c3-18e4-422d-8e8c-6cb23e0c02cc</td>
+<td class="org-left">Tyrion</td>
+</tr>
+
+<tr>
+<td class="org-left">932c1fb9-066e-4385-94cf-6030f5cbe970</td>
+<td class="org-left">Tyrion</td>
+</tr>
+
+<tr>
+<td class="org-left">5d0622f4-3b9f-4c63-bde6-459436644789</td>
+<td class="org-left">Eddard</td>
+</tr>
+
+<tr>
+<td class="org-left">25ce6765-02da-498a-97ee-2ef2b56dfd19</td>
+<td class="org-left">Eddard</td>
+</tr>
+
+<tr>
+<td class="org-left">52b43eec-d64e-4309-b527-fdec3469f0e1</td>
+<td class="org-left">Bran</td>
+</tr>
+
+<tr>
+<td class="org-left">ccdce87a-987c-493a-9c9e-2e9777367720</td>
+<td class="org-left">Bran</td>
+</tr>
+
+<tr>
+<td class="org-left">ad761462-21f3-4965-8265-e002a3383432</td>
+<td class="org-left">Sansa</td>
+</tr>
+
+<tr>
+<td class="org-left">0c273002-dd84-4068-8f1e-e7c2108b7154</td>
+<td class="org-left">Sansa</td>
+</tr>
+
+<tr>
+<td class="org-left">674c5c89-47ec-4b92-b387-1e17d217f408</td>
+<td class="org-left">Arya</td>
+</tr>
+
+<tr>
+<td class="org-left">3c4e2d1a-9a02-412f-b4b6-0b2b1f472aaf</td>
+<td class="org-left">Arya</td>
+</tr>
+
+<tr>
+<td class="org-left">3b5ea8d6-e14a-4d95-89cc-14402295d82e</td>
+<td class="org-left">Gendy</td>
+</tr>
+
+<tr>
+<td class="org-left">3e1a2dca-104e-43ef-810f-4da52dfd11ce</td>
+<td class="org-left">Gendy</td>
+</tr>
+
+<tr>
+<td class="org-left">fb032d64-351a-42d5-8ccf-691db28bd343</td>
+<td class="org-left">Bronn</td>
+</tr>
+
+<tr>
+<td class="org-left">bec982a6-020f-4322-9a0c-27cb1eec3e73</td>
+<td class="org-left">Bronn</td>
+</tr>
+
+<tr>
+<td class="org-left">df80a061-1093-4e8e-9c78-b637c169f91d</td>
+<td class="org-left">Oberyn</td>
+</tr>
+
+<tr>
+<td class="org-left">7741db09-87a1-4666-ab00-ba7245a29b51</td>
+<td class="org-left">Oberyn</td>
+</tr>
+
+<tr>
+<td class="org-left">276fafe4-d732-44cc-9345-a06a9b6444af</td>
+<td class="org-left">Varys</td>
+</tr>
+
+<tr>
+<td class="org-left">7707e5ca-dbb3-4d36-bb44-a6ea0e44eadd</td>
+<td class="org-left">Varys</td>
+</tr>
+
+<tr>
+<td class="org-left">7829a77d-7dca-4c68-a3f7-37d47be108c9</td>
+<td class="org-left">NightKing</td>
+</tr>
+
+<tr>
+<td class="org-left">522c903f-dc64-4922-8b6a-ed463dd0e43c</td>
+<td class="org-left">NightKing</td>
+</tr>
+
+<tr>
+<td class="org-left">570dd10d-bf9d-409a-9fc4-b0641218b9bd</td>
+<td class="org-left">Tywin</td>
+</tr>
+
+<tr>
+<td class="org-left">bf410a44-a259-4985-b9c0-0a1a012a3308</td>
+<td class="org-left">Tywin</td>
+</tr>
+
+<tr>
+<td class="org-left">25ed7cfe-4086-4d9e-aaad-8e474cf2e67b</td>
+<td class="org-left">Stark</td>
+</tr>
+
+<tr>
+<td class="org-left">e74efb11-4988-4c10-93cc-298d202bce69</td>
+<td class="org-left">Lannister</td>
+</tr>
+
+<tr>
+<td class="org-left">6bd4d283-c2b1-400b-b407-c5933f474591</td>
+<td class="org-left">Baratheon</td>
+</tr>
+
+<tr>
+<td class="org-left">1d5e3bfc-f3bb-4e52-b42c-a460889424dd</td>
+<td class="org-left">Targaryen</td>
+</tr>
+
+<tr>
+<td class="org-left">fbe691c7-4ff3-45a8-8472-95f5e27c5d48</td>
+<td class="org-left">Frey</td>
+</tr>
+
+<tr>
+<td class="org-left">1d843c69-c278-447a-be20-51db4445cc2f</td>
+<td class="org-left">Tarly</td>
+</tr>
+
+<tr>
+<td class="org-left">eb2eaec0-4c74-474b-a548-24885698b04d</td>
+<td class="org-left">Martell</td>
+</tr>
+
+<tr>
+<td class="org-left">ac117712-c24d-4db9-9f0c-d958367bf8f8</td>
+<td class="org-left">Bolton</td>
+</tr>
+
+<tr>
+<td class="org-left">64903780-37fa-4907-876b-36bba7550460</td>
+<td class="org-left">Whitewalker</td>
+</tr>
+
+<tr>
+<td class="org-left">1f8a61b7-7879-476d-83c6-e3655de8988f</td>
+<td class="org-left">Tyrell</td>
+</tr>
+
+<tr>
+<td class="org-left">c7d2fd91-4656-41b5-80b7-2318e858464d</td>
+<td class="org-left">Mormont</td>
+</tr>
+
+<tr>
+<td class="org-left">7ddf108d-db66-4414-a984-e67c91eac338</td>
+<td class="org-left">Greyjoy</td>
+</tr>
+
+<tr>
+<td class="org-left">bbb9b2c5-c260-4733-8550-378b1352f02a</td>
+<td class="org-left">Clegane</td>
+</tr>
+
+<tr>
+<td class="org-left">6228a46c-1cbb-422e-80d6-8702ffc332b8</td>
+<td class="org-left">Arryn</td>
+</tr>
+
+<tr>
+<td class="org-left">5491d035-05b1-4a8b-b3e3-3110ef880e15</td>
+<td class="org-left">Sand</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div id="postamble" class="status">
 <p class="date">Date: 2019-03-15</p>
 <p class="author">Author: Abraham K. Ishihara</p>
-<p class="date">Created: 2019-04-09 Tue 09:02</p>
+<p class="date">Created: 2019-04-16 Tue 21:57</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
