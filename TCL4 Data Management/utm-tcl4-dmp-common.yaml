@@ -393,7 +393,7 @@ definitions:
       latLonAlt:
         $ref: '#/definitions/LatLonAlt'
       ts:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.6/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   LatLonAlt:
     description: Latitude and Longitude should have precision of 7 or more digits
