@@ -39,7 +39,7 @@ definitions:
       - "hover_time"
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.6/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       waypoint_id:
         description: >-
           unique id for this data submission.

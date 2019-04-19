@@ -84,11 +84,11 @@ definitions:
       run.  Use this model for crewed vehicles as well.  
     required:
       - metaData
-      - sensor_tuple
+      - sensorTuple
     properties:
       metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensor_tuple:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.6/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorTuple:
         description: >-
           An array of sensor samples.  Note that the types of samples can be
           mixed in this array.  Also, since time is an element of the sample,
@@ -107,7 +107,7 @@ definitions:
       - sensor_double
     properties:
       metaDataCallSignRun:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.6/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
       sensor_double:
         description: >-
           An array of SensorDouble models to delete
