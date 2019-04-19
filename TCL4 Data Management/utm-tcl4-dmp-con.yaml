@@ -220,7 +220,7 @@ definitions:
     type: object
     required:
       - "metaDataTestSite"
-      - "stationIdd"
+      - "stationId"
       - "timestamp"
       - "temperature"
       - "pressure"
