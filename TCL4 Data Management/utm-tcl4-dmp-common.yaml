@@ -68,6 +68,10 @@ definitions:
         minLength: 1
         maxLength: 100
         type: string
+        enum:
+          - NV
+          - TX
+
       test_run:
         description: >-
           An identifier for a specific run of a test_card.  In many cases, a
