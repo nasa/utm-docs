@@ -220,7 +220,7 @@ definitions:
     type: object
     required:
       - "metaDataTestSite"
-      - "station_id"
+      - "stationId"
       - "timestamp"
       - "temperature"
       - "pressure"
@@ -258,9 +258,9 @@ definitions:
         exclusiveMaximum: true
       location:
         $ref: '#/definitions/LatLonAlt'
-      station_id:
+      stationId:
         description: >-
-          A unique string identifier for the weather station
+          A unique string identifier for a weather station belonging to given test site
         type: string
         minLength: 1
         maxLength: 1000
