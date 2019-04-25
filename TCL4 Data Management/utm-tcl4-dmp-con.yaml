@@ -100,9 +100,6 @@ definitions:
     type: object
     required:
       - "metaData"
-      - "plannedBvlosLandingPoints"
-      - "plannedVlosLandingPoints"
-      - "plannedRooftopLandingPoints"
       - "safeLandingLocations"
       - "safeLandingLocationPolygonPoints"
       - "rpicLocations"
@@ -181,10 +178,6 @@ definitions:
     required:
       - "metaData"
       - "timestamp"
-      - "temperature"
-      - "pressure"
-      - "windSpeed"
-      - "windDir"
       - "location"
     properties:
       metaData:
@@ -227,6 +220,7 @@ definitions:
     type: object
     required:
       - "metaDataTestSite"
+      - "station_id"
       - "timestamp"
       - "temperature"
       - "pressure"
@@ -264,6 +258,12 @@ definitions:
         exclusiveMaximum: true
       location:
         $ref: '#/definitions/LatLonAlt'
+      station_id:
+        description: >-
+          A unique string identifier for the weather station
+        type: string
+        minLength: 1
+        maxLength: 1000
         
   CellServiceAvailability:
     description: >-

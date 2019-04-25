@@ -84,11 +84,11 @@ definitions:
       run.  Use this model for crewed vehicles as well.  
     required:
       - metaData
-      - sensor_tuple
+      - sensorTuple
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensor_tuple:
+      sensorTuple:
         description: >-
           An array of sensor samples.  Note that the types of samples can be
           mixed in this array.  Also, since time is an element of the sample,

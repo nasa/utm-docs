@@ -324,7 +324,7 @@ definitions:
       azimuthAccuracyRealTime:
         $ref: '#/definitions/degrees'
       altitudeAccuracyRealTime:
-        $ref: '#/definitions/degrees'
+        $ref: '#/definitions/feet'
       horRangeAccuracyRealTime:
         $ref: '#/definitions/feet'
       verRangeAccuracyRealTime:
@@ -336,7 +336,6 @@ definitions:
       - sensorId
       - timestamp
       - dataPacketRatioV2v
-      - transmissionDelayV2v
       - packetSizeV2v
     properties:
       metaData:
@@ -663,7 +662,7 @@ definitions:
       right angles to its floor and ceiling.  Thus the model asks for a polygon
       and a floor and a ceiling.
     type: object
-    required: [min,max,polygonPoints]
+    required: [minimum_alt,maximum_alt,polygonPoints]
     properties:
       minimum_alt:
         description: >-
