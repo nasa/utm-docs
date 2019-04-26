@@ -134,7 +134,7 @@ paths:
 
   '/cns-uasTruthPosition':
     post:
-      summary: Upload array of UasTruthPosition models
+      summary: Upload instance of a UasTruthPosition model
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
