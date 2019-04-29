@@ -85,7 +85,6 @@ definitions:
     required:
       - metaData
       - sensorLatencyTuple
-      - ac_type
     properties:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
@@ -98,13 +97,6 @@ definitions:
           $ref: '#/definitions/SensorLatencyTuple'
         minItems: 1
         maxItems: 10000
-      ac_type:
-        description: >-
-          Type of aircraft.  FET has requirements for crewed vehicles.
-        type: string
-        enum:
-          - CREWED
-          - UAS
 
   MetaDataCallSignRunTsSensorLatency:
     description: >-
