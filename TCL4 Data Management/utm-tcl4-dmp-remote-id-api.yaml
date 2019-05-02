@@ -67,7 +67,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.7/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/UUID
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/UUID
           description: Delete models of remote ID.
       responses:
         '200':
@@ -107,7 +107,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.7/TCL4%20Data%20Management/utm-tcl4-dmp-remote-id.yaml#/definitions/RemoteID
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-remote-id.yaml#/definitions/RemoteID
 
       responses:
         '200':
