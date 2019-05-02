@@ -69,7 +69,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-fet-latency.yaml#/definitions/FlightEssentialTelemetryLatency
+              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.7/TCL4%20Data%20Management/utm-tcl4-dmp-fet-latency.yaml#/definitions/FlightEssentialTelemetryLatency
       responses:
         '200':
           description: Data received. No content returned.
@@ -103,7 +103,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-fet-latency.yaml#/definitions/MetaDataCallSignRunTsSensorLatency
+              https://raw.githubusercontent.com/nasa/utm-docs/release-v1.0.7/TCL4%20Data%20Management/utm-tcl4-dmp-fet-latency.yaml#/definitions/MetaDataCallSignRunTsSensorLatency
           description: DELETE one or more sensor data elements associated with pair (call_sign,test_run)
       responses:
         '200':
