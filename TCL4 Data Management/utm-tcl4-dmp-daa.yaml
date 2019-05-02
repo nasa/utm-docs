@@ -59,7 +59,8 @@ definitions:
       known or have been indicated as required by the DMP team or documentation,
       those values are required.  Thus, the submission process of a DaaSensor
       may be indicated as error-free, the NASA team may reach out regarding
-      missing fields after the submission process.
+      missing fields after the submission process.  DaaSensor.sensorId will be
+      referenced in auxiliary operations - see utm-tcl4-dmp-auxiliary-uas-operation.yaml
     type: object
     required:
       - sensorId
@@ -204,7 +205,8 @@ definitions:
       of this model.
 
       This model kept out of DaaSensor model due to multiplicity (avoiding
-      arrays) and potential lack of applicability for some sensors.
+      arrays) and potential lack of applicability for some sensors.  DaaSensorV2V.sensorId will be
+      referenced in auxiliary operations - see utm-tcl4-dmp-auxiliary-uas-operation.yaml
 
     required:
       - sensorId
@@ -246,6 +248,7 @@ definitions:
 
           If there are more than 1000 polygons to be submitted, the list
           must be divided into sublists of length no longer than 1000.
+          StaticObstacleTable.staticObstacleId will be referenced in auxiliary operations - see utm-tcl4-dmp-auxiliary-uas-operation.yaml
         $ref: "#/definitions/DaaUuid"
       staticObstacles:
         description: >-
