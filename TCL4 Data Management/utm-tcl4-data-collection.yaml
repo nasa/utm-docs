@@ -19,6 +19,11 @@ paths:
             when there are no paths, but domains do not contain paths.
 definitions:
   OffNominalReport:
+    description: >-
+      ---- IMPORTANT NOTE ----
+      Please be advised: 'time_occurence' is to be included with ALL submissions
+      of this data model (despite not being listed as a "required" field).
+      -----------------------
     required:
       - metaDataDmpUss
       - report_id
@@ -137,8 +142,9 @@ definitions:
           - OTHER
       time_occurrence:
         description: >-
-            date and time of off-nominal event in UTC, ONLY to be filled when
-            value for the variable "reason_for_report" is "VOLUNTEER"
+            date and time of off-nominal event in UTC.
+
+            This field is REQUIRED for all Off-Nominal Reports
         type: string
         format: date-time
         minLength: 24
