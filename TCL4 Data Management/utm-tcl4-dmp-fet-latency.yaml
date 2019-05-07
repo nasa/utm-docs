@@ -49,6 +49,26 @@ paths:
             when there are no paths, but domains do not contain paths.
 
 definitions:
+  FlightEssentialTelemetryLatency:
+    description: >-
+      Flight essential telemetry latency measurements.
+      Use this model for both UAS and crewed vehicles.
+      Refer to the DMP documentation on specific requirements for a given run.
+    required:
+      - metaData
+      - sensorLatencyTuple
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorLatencyTupleArray:
+        description: >-
+          An individual sensor latency sample: sensor, time_sent, & time_received
+        type: array
+        items:
+          $ref: '#/definitions/SensorLatencyTuple'
+        minItems: 1
+        maxItems: 10000
+
   SensorLatencyTuple:
     description: >-
       Sensor latency tuple for a particular sensor measurement.  Report the time
@@ -82,26 +102,6 @@ definitions:
         description: >-
           Refer to DMP for individual definitions of each of these sensors.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
-
-  FlightEssentialTelemetryLatency:
-    description: >-
-      Flight essential telemetry latency measurements.
-      Use this model for both UAS and crewed vehicles.
-      Refer to the DMP documentation on specific requirements for a given run.
-    required:
-      - metaData
-      - sensorLatencyTuple
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorLatencyTupleArray:
-        description: >-
-          An individual sensor latency sample: sensor, time_sent, & time_received
-        type: array
-        items:
-          $ref: '#/definitions/SensorLatencyTuple'
-        minItems: 1
-        maxItems: 10000
 
   MetaDataCallSignRunTsSensorLatency:
     description: >-

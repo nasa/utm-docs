@@ -50,6 +50,26 @@ paths:
 
 definitions:
 
+  FlightEssentialTelemetryAndUasStates:
+    description: >-
+      Flight essential telemetry and UAS state data.
+      Use this model for both UAS and crewed vehicles.
+      Refer to DMP to identify which data are required for UAS vs. crewed.
+    required:
+      - metaData
+      - sensorTuple
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorTuple:
+        description: >-
+          An individual sensor sample: timestamp, sensor, & value
+        type: array
+        items:
+          $ref: '#/definitions/SensorTuple'
+        minItems: 1
+        maxItems: 10000
+
   SensorTuple:
     description: >-
       An individual sample of a sensor.  See DMP spreadsheet for definitions of
@@ -84,26 +104,6 @@ definitions:
         description: >-
           Refer to DMP for individual definitions and units of each of these sensors.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
-
-  FlightEssentialTelemetryAndUasStates:
-    description: >-
-      Flight essential telemetry and UAS state data.
-      Use this model for both UAS and crewed vehicles.
-      Refer to DMP to identify which data are required for UAS vs. crewed.
-    required:
-      - metaData
-      - sensorTuple
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorTuple:
-        description: >-
-          An individual sensor sample: timestamp, sensor, & value
-        type: array
-        items:
-          $ref: '#/definitions/SensorTuple'
-        minItems: 1
-        maxItems: 10000
 
   MetaDataCallSignRunTsSensor:
     description: >-
