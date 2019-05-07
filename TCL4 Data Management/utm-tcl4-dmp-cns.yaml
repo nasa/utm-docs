@@ -74,22 +74,22 @@ definitions:
         minimum: 0
       maximumAircraftToOperatorRoundTripLatencyTolerableForOperation_ms:
         description: >-
-          "Report the maximum tolerable Round-trip latency from source to
-          destination to execute the operation, in millisecond (ms)"
+          "Report the maximum tolerable Round-trip latency from source (aircraft)
+          to destination (operator) to execute the operation, in millisecond (ms)"
         type: integer
         format: int32
         minimum: 0
       maximumOperatorToAircraftRoundTripLatencyTolerableForOperation_ms:
         description: >-
-          "Report the maximum tolerable Round-trip latency from source to
-          destination to execute the operation, in millisecond (ms)"
+          "Report the maximum tolerable Round-trip latency from source (operator)
+          to destination (aircraft) to execute the operation, in millisecond (ms)"
         type: number
         format: int32
         minimum: 0
 
   UasTruthPosition:
     description: >-
-      As reported by truth position system 
+      As reported by truth position system
     type: object
     required:
       - "metaData"
@@ -101,28 +101,31 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       xCoordinate_ft:
-        description: "X-Coordinate truth position of UA (ECEF: Earth Centered Earth\
-          \ Fixed, inch-level resolution);\nas reported by the Ground Truth System\
-          \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\n\
-          Can be reported by the UAS but has to be independent of UAS's primary navigation\
-          \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
-          \ at least 2 decimal places of precision. (ft)"
+        description: >-
+          X-Coordinate truth position of UA (ECEF: Earth Centered Earth
+          Fixed, inch-level resolution); as reported by the Ground Truth System
+          (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).
+          Can be reported by the UAS but has to be independent of UAS's primary navigation
+          system, use of separate RTK system is allowed (UTC time stamped). Report
+          at least 2 decimal places of precision. (ft)
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
       yCoordinate_ft:
-        description: "Y-Coordinate truth position of UA (ECEF: Earth Centered Earth\
-          \ Fixed, inch-level resolution);\nas reported by the Ground Truth System\
-          \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\n\
-          Can be reported by the UAS but has to be independent of UAS's primary navigation\
-          \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
-          \ at least 2 decimal places of precision. (ft)"
+        description: >-
+          Y-Coordinate truth position of UA (ECEF: Earth Centered Earth
+          Fixed, inch-level resolution); as reported by the Ground Truth System
+          (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).
+          Can be reported by the UAS but has to be independent of UAS's primary navigation
+          system, use of separate RTK system is allowed (UTC time stamped). Report
+          at least 2 decimal places of precision. (ft)
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
       zCoordinate_ft:
-        description: "Z-Coordinate truth position of UA (ECEF: Earth Centered Earth\
-          \ Fixed, inch-level resolution);\nas reported by the Ground Truth System\
-          \ (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).\n\
-          Can be reported by the UAS but has to be independent of UAS's primary navigation\
-          \ system,\nuse of separate RTK system is allowed (UTC time stamped).\nReport\
-          \ at least 2 decimal places of precision. (ft)"
+        description: >-
+          Z-Coordinate truth position of UA (ECEF: Earth Centered Earth
+          Fixed, inch-level resolution); as reported by the Ground Truth System
+          (Truth Reference System, e.g. optical, radar, LiDAR, nav. beacon, etc).
+          Can be reported by the UAS but has to be independent of UAS's primary navigation
+          system, use of separate RTK system is allowed (UTC time stamped). Report
+          at least 2 decimal places of precision. (ft)
         $ref: "#/definitions/UasTruthEcefCoordinate_ft"
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'

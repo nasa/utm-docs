@@ -51,7 +51,10 @@ paths:
 definitions:
   SensorLatencyTuple:
     description: >-
-      Sensor latency tuple for a particular sensor measurement.  Report the time that the sensor measurement was sent from the UA and the time that the sensor measurement was received by the GCS.  Report  only for the data listed in the dmp fet requirements list. 
+      Sensor latency tuple for a particular sensor measurement.  Report the time
+      that the sensor measurement was sent from the aircraft and the time that
+      the sensor measurement was received by the GCS.  Report  only for the data
+      listed in the dmp fet requirements list.
     required:
       - sensor
       - time_sent
@@ -59,7 +62,7 @@ definitions:
     properties:
       time_sent:
         description: >-
-          Time sensor measurement was sent by UA
+          Time sensor measurement was sent by aircraft.
         type: string
         format: date-time
         minLength: 24
@@ -68,7 +71,7 @@ definitions:
         example: '2015-08-20T14:11:56.118Z'
       time_received:
         description: >-
-          Time sensor measurement was received by GCS.
+          Time sensor measurement was received by: GCS (if UA) or DAA system (if crewed).
         type: string
         format: date-time
         minLength: 24
@@ -76,12 +79,15 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
+        description: >-
+          Refer to DMP for individual definitions of each of these sensors.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
+
   FlightEssentialTelemetryLatency:
     description: >-
       Flight essential telemetry latency measurements.
-      TCL4. Refer to the DMP documentation on specific requirements for a given
-      run.
+      Use this model for both UAS and crewed vehicles.
+      Refer to the DMP documentation on specific requirements for a given run.
     required:
       - metaData
       - sensorLatencyTuple
@@ -90,8 +96,7 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       sensorLatencyTupleArray:
         description: >-
-          An array of sensor latency samples.  Note that the types of samples can be
-          mixed in this array.  
+          An individual sensor latency sample: sensor, time_sent, & time_received
         type: array
         items:
           $ref: '#/definitions/SensorLatencyTuple'
@@ -115,7 +120,7 @@ definitions:
           $ref: '#/definitions/SensorDoubleLatency'
         minItems: 1
         maxItems: 10000
-        
+
   SensorDoubleLatency:
     description: >-
       Sensor double latency
@@ -133,4 +138,4 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'        
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'

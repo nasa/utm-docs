@@ -274,6 +274,8 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
+        description: >-
+          A registered entity who conducts/manages a particular flight activity.
         type: "string"
         minLength: 4
         maxLength: 100
@@ -460,6 +462,8 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
+        description: >-
+          A registered entity who conducts/manages a particular flight activity.
         type: "string"
         minLength: 4
         maxLength: 100
@@ -551,6 +555,8 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
+        description: >-
+          A registered entity who conducts/manages a particular flight activity.
         type: "string"
         minLength: 4
         maxLength: 100
@@ -699,13 +705,23 @@ definitions:
           - OTHER_SEE_COMMENT
         example: "POSITION"
       source_uss:
+        description: >-
+          This is the uss_name of the source_uss.
+
+          See reference for definition of uss_name.
         type: "string"
         format: "dns-name"
         example: "uss.provider123.net"
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       target_uss:
+        description: >-
+          This is the uss_name of the target_uss.
+
+          See reference for definition of uss_name.
         type: "string"
         format: "dns-name"
         example: "utm.cool-uss-team.com"
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
       reporting_uss_role:
         description: >-
           An enum indicating if the USS providing these data was the one that initiated the request (SOURCE_USS) or the USS that received the request (TARGET_USS).
