@@ -115,7 +115,8 @@ definitions:
         maxLength: 500
       probabilityIntruderDetectionPrct:
         description: >-
-          The likelihood of detection of a intruder aircraft within the surveillance coverage of the sensor. Express in percentage, between 0 and 100.
+          The likelihood of detection of a intruder aircraft within the surveillance coverage of the sensor.
+          Express in percentage, between 0 and 100.
         $ref: "#/definitions/percent"
       targetTrackCapacity:
         description: >-
@@ -127,11 +128,13 @@ definitions:
         $ref: "#/definitions/hertz"
       sensorMaxHorzRangeData:
         description: >-
-          Expected maximum relative horizontal range as detected by a sensor in the north east down reference frame of the ownship aircraft. Provided as a vector of Radar Cross Section and range: [RCS_min (ft^2), RCS_max (ft^2), range (ft)]
+          Expected maximum relative horizontal range as detected by a sensor in
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       sensorMinHorzRangeData:
         description: >-
-          Expected minimum relative horizontal range as detected by a sensor in the north east down reference frame of the ownship aircraft. Provided as a vector of Radar Cross Section and range: [RCS_min (ft^2), RCS_max (ft^2), range (ft)]
+          Expected minimum relative horizontal range as detected by a sensor in
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       maxHorzRcsOfSensor:
         description: >-
@@ -154,12 +157,12 @@ definitions:
       sensorMaxVertRange:
         description: >-
           Expected maximum relative vertical range as detected by a sensor in
-          the north east down reference frame of the ownship aircraft.
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       sensorMinVertRange:
         description: >-
           Expected minimum relative vertical range as detected by a sensor in
-          the north east down reference frame of the ownship aircraft.
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       maxVertRcsOfSensor:
         description: >-
@@ -189,7 +192,10 @@ definitions:
         $ref: "#/definitions/degrees"
       daaSensorAzimuthAccuracy:
         description: >-
-          Manufacturer provided specification of azimuth accuracy of the sensor: uncertainty of the azimuth measurement for the sensor. Accuracy = how close a measured value is to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (deg)
+          Manufacturer provided specification of azimuth accuracy of the sensor:
+            uncertainty of the azimuth measurement for the sensor.
+            Accuracy = how close a measured value is to the actual (true) value
+            (e.g. for accuracy +/- 5, write "5"). (deg)
         $ref: "#/definitions/degrees"
       elevationSensorMax:
         description: >-
@@ -201,7 +207,10 @@ definitions:
         $ref: "#/definitions/degrees"
       daaSensorElevationAccuracy:
         description: >-
-          Manufacturer provided specification of elevation accuracy of the sensor: This is the accuracy uncertainty of the elevation measurement for the sensor. Accuracy = how close a measured value is to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (ft)
+          Manufacturer provided specification of elevation accuracy of the sensor:
+          This is the accuracy uncertainty of the elevation measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
         $ref: "#/definitions/feet"
 
   DaaSensorV2V:
@@ -317,7 +326,7 @@ definitions:
         $ref: "#/definitions/seconds"
       expectedClimbRateOwnship:
         description: >-
-          Expected Vehicle Climb Rates of the ownship used in the conflict
+          Expected Vehicle Climb Rate of the ownship used in the conflict
           resolution algorithm. (ft/s)
         $ref: "#/definitions/ftPerSec"
       expectedDescendRateOwnship:
@@ -358,8 +367,9 @@ definitions:
       azimuthAccuracyRealTime:
         description: >-
           Azimuth accuracy of the sensor (real time): uncertainty of the azimuth
-          measurement for the sensor. Accuracy = how close a measured value is
-          to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (deg)
+          measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (deg)
 
           Required if sensor is capable of capturing this data.
         $ref: '#/definitions/degrees'
@@ -376,8 +386,9 @@ definitions:
         description: >-
           Horizontal range accuracy of the sensor (real time). This is the
           accuracy or uncertainty of the horizontal range measurement for the
-          sensor. Accuracy = how close a measured value is to the actual (true)
-          value (e.g. for accuracy +/- 5, write "5"). (ft)
+          sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
 
           Required if sensor is capable of capturing this data.
         $ref: '#/definitions/feet'
@@ -516,7 +527,9 @@ definitions:
 
   DaaSensorObstacle:
     description: >-
-      Sensor detection of dynamic or static obstacles.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the object.  Include an estimate of its height.
+      Sensor detection of dynamic or static obstacles.
+      At each relevant timestamp, report the polygon that the sensor constructs
+      as an estimate of the object.  Include an estimate of its height.
     required:
       - metaData
       - sensorId

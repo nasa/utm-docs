@@ -53,7 +53,8 @@ definitions:
     description: >-
       Flight essential telemetry latency measurements.
       Use this model for both UAS and crewed vehicles.
-      Refer to the DMP documentation on specific requirements for a given run.
+      Refer to DMP to identify which data are required for UAS vs. crewed and for
+      more specific requirements.
     required:
       - metaData
       - sensorLatencyTuple
@@ -92,6 +93,7 @@ definitions:
       time_received:
         description: >-
           Time sensor measurement was received by: GCS (if UA) or DAA system (if crewed).
+          See DMP for more detailed description.
         type: string
         format: date-time
         minLength: 24
