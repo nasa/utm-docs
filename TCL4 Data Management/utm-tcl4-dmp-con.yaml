@@ -158,7 +158,7 @@ definitions:
          description: >-
            Report configured distress broadcast rate. (Hz)
 
-           Report a broadcrast rate of 0 Hz if the vehilce is not equipped
+           Report a broadcrast rate of 0 Hz if the vehicle is not equipped
            with distressV2V capability.
          type: number
          format: float

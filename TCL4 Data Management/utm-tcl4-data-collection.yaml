@@ -57,7 +57,20 @@ definitions:
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       reason_for_report:
         description: >-
-          The reason for this report. When activated operation enters nonconforming or rogue state, includes scripted off-nominal event, or unplanned RTL, loitering, landing occurs during operation, USS must prompt operator to file at least one report when the operation closes. Reason must be one of the following Enum value, [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER]. NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason. ROGUE means the operation closed after entering rogue state. NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed. UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status). UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link). UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status). VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
+          The reason for this report. When an activated operation enters nonconforming
+          or rogue state, includes scripted off-nominal event, or unplanned RTL,
+          loitering, landing occurs during operation, USS must prompt operator to
+          file at least one report when the operation closes.
+
+          Reason must be one of the following Enum values:
+          [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER].
+          NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason.
+          ROGUE means the operation closed after entering rogue state.
+          NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed.
+          UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status).
+          UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link).
+          UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status).
+          VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
         type: string
         enum:
           - NONCONFORMING
@@ -133,7 +146,9 @@ definitions:
         maxLength: 15000
       flight_rule:
         description: >-
-          FAA rule for the operation, ONLY to be filled when value for the variable "reason_for_report" is "VOLUNTEER". Use the following Enum values. [PART_107, PART_107X, PART_101E, OTHER]
+          FAA rule for the operation, ONLY to be filled when value for the variable
+          "reason_for_report" is "VOLUNTEER".
+          Use the following Enum values: [PART_107, PART_107X, PART_101E, OTHER]
         type: string
         enum:
           - PART_107
@@ -785,7 +800,8 @@ definitions:
         example: "PUT"
       expected_http_response:
         description: >-
-          The expected HTTP response code.  This is required ONLY if the reporting_uss_role is SOURCE_USS.
+          The expected HTTP response code.
+          This is required ONLY if the reporting_uss_role is SOURCE_USS.
         type: "integer"
         format: "int32"
         minimum: 100
@@ -795,7 +811,8 @@ definitions:
         example: 204
       actual_http_response:
         description: >-
-          The actual HTTP response code sent by the TARGET_USS to the SOURCE_USS. Must be reported by USSs in either role.
+          The actual HTTP response code sent by the TARGET_USS to the SOURCE_USS.
+          Must be reported by USSs in either role.
         type: "integer"
         format: "int32"
         minimum: 100
