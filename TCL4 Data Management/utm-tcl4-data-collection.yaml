@@ -19,6 +19,11 @@ paths:
             when there are no paths, but domains do not contain paths.
 definitions:
   OffNominalReport:
+    description: >-
+      ---- IMPORTANT NOTE ----
+      Please be advised: 'time_occurence' is to be included with ALL submissions
+      of this data model (despite not being listed as a "required" field).
+      -----------------------
     required:
       - metaDataDmpUss
       - report_id
@@ -52,7 +57,20 @@ definitions:
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       reason_for_report:
         description: >-
-          The reason for this report. When activated operation enters nonconforming or rogue state, includes scripted off-nominal event, or unplanned RTL, loitering, landing occurs during operation, USS must prompt operator to file at least one report when the operation closes. Reason must be one of the following Enum value, [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER]. NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason. ROGUE means the operation closed after entering rogue state. NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed. UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status). UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link). UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status). VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
+          The reason for this report. When an activated operation enters nonconforming
+          or rogue state, includes scripted off-nominal event, or unplanned RTL,
+          loitering, landing occurs during operation, USS must prompt operator to
+          file at least one report when the operation closes.
+
+          Reason must be one of the following Enum values:
+          [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER].
+          NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason.
+          ROGUE means the operation closed after entering rogue state.
+          NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed.
+          UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status).
+          UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link).
+          UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status).
+          VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
         type: string
         enum:
           - NONCONFORMING
@@ -128,7 +146,9 @@ definitions:
         maxLength: 15000
       flight_rule:
         description: >-
-          FAA rule for the operation, ONLY to be filled when value for the variable "reason_for_report" is "VOLUNTEER". Use the following Enum values. [PART_107, PART_107X, PART_101E, OTHER]
+          FAA rule for the operation, ONLY to be filled when value for the variable
+          "reason_for_report" is "VOLUNTEER".
+          Use the following Enum values: [PART_107, PART_107X, PART_101E, OTHER]
         type: string
         enum:
           - PART_107
@@ -137,8 +157,9 @@ definitions:
           - OTHER
       time_occurrence:
         description: >-
-            date and time of off-nominal event in UTC, ONLY to be filled when
-            value for the variable "reason_for_report" is "VOLUNTEER"
+            date and time of off-nominal event in UTC.
+
+            This field is REQUIRED for all Off-Nominal Reports
         type: string
         format: date-time
         minLength: 24
@@ -274,6 +295,8 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
+        description: >-
+          A registered entity who conducts/manages a particular flight activity.
         type: "string"
         minLength: 4
         maxLength: 100
@@ -460,6 +483,8 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
+        description: >-
+          A registered entity who conducts/manages a particular flight activity.
         type: "string"
         minLength: 4
         maxLength: 100
@@ -551,6 +576,8 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       operator:
+        description: >-
+          A registered entity who conducts/manages a particular flight activity.
         type: "string"
         minLength: 4
         maxLength: 100
@@ -699,13 +726,23 @@ definitions:
           - OTHER_SEE_COMMENT
         example: "POSITION"
       source_uss:
+        description: >-
+          This is the uss_name of the source_uss.
+
+          See reference for definition of uss_name.
         type: "string"
         format: "dns-name"
         example: "uss.provider123.net"
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
       target_uss:
+        description: >-
+          This is the uss_name of the target_uss.
+
+          See reference for definition of uss_name.
         type: "string"
         format: "dns-name"
         example: "utm.cool-uss-team.com"
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
       reporting_uss_role:
         description: >-
           An enum indicating if the USS providing these data was the one that initiated the request (SOURCE_USS) or the USS that received the request (TARGET_USS).
@@ -763,7 +800,8 @@ definitions:
         example: "PUT"
       expected_http_response:
         description: >-
-          The expected HTTP response code.  This is required ONLY if the reporting_uss_role is SOURCE_USS.
+          The expected HTTP response code.
+          This is required ONLY if the reporting_uss_role is SOURCE_USS.
         type: "integer"
         format: "int32"
         minimum: 100
@@ -773,7 +811,8 @@ definitions:
         example: 204
       actual_http_response:
         description: >-
-          The actual HTTP response code sent by the TARGET_USS to the SOURCE_USS. Must be reported by USSs in either role.
+          The actual HTTP response code sent by the TARGET_USS to the SOURCE_USS.
+          Must be reported by USSs in either role.
         type: "integer"
         format: "int32"
         minimum: 100

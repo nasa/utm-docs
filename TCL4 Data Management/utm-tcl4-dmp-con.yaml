@@ -72,6 +72,11 @@ definitions:
           Report at least seven decimal degrees. (deg).
         $ref: '#/definitions/LatLonAltArray'
       wxOperatingPoints:
+        description: >-
+          Lat/Lon/Alt list of points where weather data is collected.
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft).
         $ref: '#/definitions/LatLonAltArray'
       cellCoverageAreas:
         description: >-
@@ -108,20 +113,53 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       plannedBvlosLandingPoints:
+        description: >-
+          Lat/Lon/Alt list of planned BVLOS landing point(s).
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft)
         $ref: '#/definitions/LatLonAltArray'
       plannedVlosLandingPoints:
+        description: >-
+          Lat/Lon/Alt list of planned VLOS landing point(s).
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft)
         $ref: '#/definitions/LatLonAltArray'
       plannedRooftopLandingPoints:
+        description: >-
+          Lat/Lon/Alt list of planned rooftop landing point(s).
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft)
         $ref: '#/definitions/LatLonAltArray'
       safeLandingLocations:
+        description: >-
+          Lat/Lon/Alt list of dedicated pre-defined safe landing locations.
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft)
         $ref: '#/definitions/LatLonAltArray'
       safeLandingLocationPolygonPoints:
+        description: >-
+          Lat/Lon/Alt list of the vertices of the polygons around 'safeLandingLocations'.
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft)
         $ref: '#/definitions/LatLonAltArray'
       rpicLocations:
+        descrpition: >-
+          Lat/Lon/Alt list of RPIC locations.
+
+          For Lat/Lon, report at least seven decimal degrees. (deg)
+          For Alt, express in WGS84 standard. (ft)
         $ref: '#/definitions/LatLonAltArray'
       distressBroadcastRate:
          description: >-
            Report configured distress broadcast rate. (Hz)
+
+           Report a broadcrast rate of 0 Hz if the vehicle is not equipped
+           with distressV2V capability.
          type: number
          format: float
 
@@ -148,10 +186,10 @@ definitions:
         $ref: '#/definitions/LatLonAlt'
       landingOffset:
         description: >-
-          lateral distance between planned landing point and
+          Lateral distance between planned landing point and
           actual landing point using vehicle independent GNSS or non-GNSS systems.
           Could use tape to measure the center-to-center distance between the points
-          on the ground.
+          on the ground. (ft)
         type: number
       isBVLOS:
         description: >-
@@ -172,8 +210,9 @@ definitions:
 
   ConWxOperatingPointData:
     description: >-
-           Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
-           location, and timestamp associated with the measurement from a vehicle
+      Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
+      location, and timestamp associated with the measurement from a sensor
+      on a UA.
     type: object
     required:
       - "metaData"
@@ -215,8 +254,9 @@ definitions:
 
   ConWxOperatingPointDataStation:
     description: >-
-           Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
-           location, and timestamp associated with the measurement from weather station
+      Temperature, air pressure (in Hg), windspeed (ft/sec), wind direction,
+      location, and timestamp associated with the measurement from a
+      weather station on the ground.
     type: object
     required:
       - "metaDataTestSite"
@@ -264,7 +304,7 @@ definitions:
         type: string
         minLength: 1
         maxLength: 1000
-        
+
   CellServiceAvailability:
     description: >-
       Real-time availability of cellular service onboard the ownship during the
@@ -281,6 +321,11 @@ definitions:
       metaData:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       cellServiceAvailabilityValue:
+        description: >-
+          Real-time availability of cellular service onboard the ownship during
+          the flight, specify status as enum.
+
+          Report at least at 1Hz sampling frequency or higher.
         type: string
         enum:
           - CONNECTED
@@ -389,6 +434,9 @@ definitions:
 
       If used to describe a Polygon, the first point and the last point must
       be equal.
+
+      Lat/Lon, should have precision of 7 or more digits.
+      For Alt, express in WGS84 standard. (ft)
     type: array
     items:
       $ref: '#/definitions/LatLonAlt'
@@ -400,6 +448,8 @@ definitions:
 
       If used to describe a Polygon, the first point and the last point must
       be equal.
+
+      Lat/Lon, should have precision of 7 or more digits.
     type: array
     items:
       $ref: '#/definitions/LatLon'
@@ -439,4 +489,3 @@ definitions:
         maxItems: 300
         items:
           $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/master/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'
-
