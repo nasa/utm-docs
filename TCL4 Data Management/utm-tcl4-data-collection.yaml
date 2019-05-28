@@ -729,20 +729,18 @@ definitions:
         description: >-
           This is the uss_name of the source_uss.
 
-          See reference for definition of uss_name.
+          See MetaDataDmpUssId for definition of uss_name.
         type: "string"
         format: "dns-name"
         example: "uss.provider123.net"
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
       target_uss:
         description: >-
           This is the uss_name of the target_uss.
 
-          See reference for definition of uss_name.
+          See MetaDataDmpUssId for definition of uss_name.
         type: "string"
         format: "dns-name"
         example: "utm.cool-uss-team.com"
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
       reporting_uss_role:
         description: >-
           An enum indicating if the USS providing these data was the one that initiated the request (SOURCE_USS) or the USS that received the request (TARGET_USS).
