@@ -36,8 +36,8 @@ info:
     name: NASA Open Source Agreement
     url: 'https://ti.arc.nasa.gov/opensource/nosa/'
 
-host: utmregistry.arc.nasa.gov.
-basePath: /api/v4
+host: utmalpha.arc.nasa.gov
+basePath: /eventdata
 schemes:
   - https
 

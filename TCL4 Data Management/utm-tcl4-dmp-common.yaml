@@ -109,7 +109,7 @@ definitions:
         type: integer
       timestamp:
         $ref: '#/definitions/timestamp'
-        
+
   metaDataTs:
     type: object
     required:
@@ -141,7 +141,7 @@ definitions:
         maxLength: 1000
       id:
         $ref: '#/definitions/UUID'
-    
+
   metaDataDmpUss:
     type: object
     required:
@@ -331,7 +331,7 @@ definitions:
         $ref: '#/definitions/UUID'
       timestamp:
         $ref: '#/definitions/timestamp'
-        
+
   MetaDataTsArray:
     description: >-
       Data model used to delete data by specifying a meta data data model and an array of timestamps.
@@ -349,7 +349,7 @@ definitions:
           $ref: '#/definitions/timestamp'
         minItems: 1
         maxItems: 10000
-        
+
   timestamp:
     description: >-
       Timestamps MUST follow the guidance set forth in RFC3339.
@@ -414,7 +414,7 @@ definitions:
       alt:
        $ref: '#/definitions/altitude'
 
-  CallSign: 
+  CallSign:
     type: string
     minLength: 1
     maxLength: 100
@@ -422,7 +422,7 @@ definitions:
       A UTM TCL4 globally unique identifier that is associated with a vehicle/operation
       Every operation requires a call_sign that is pre-determined in the
       full test card description.
-       
+
   latitude:
     description: >-
       The numeric value of the latitude. Note that min and max values are added as a sanity check.
@@ -492,8 +492,10 @@ definitions:
     format: int32
     minimum: 0
     example: 5
-    
+
   SensorList:
+    description: >-
+      Refer to DMP for individual definitions and units of each of these sensors.
     type: string
     enum:
       - LAT

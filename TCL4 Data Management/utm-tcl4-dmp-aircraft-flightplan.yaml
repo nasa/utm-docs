@@ -67,10 +67,11 @@ definitions:
           - FLY_BY
           - FLY_OVER
       position:
-        description: 2D position of the waypoint.
+        description: 2D position of the waypoint. (Lat/Lon)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
       altitude:
-        description: targeted altitude of the waypoint.
+        description: >-
+          Targeted altitude of the waypoint expressed in WGS84 reference frame (ft)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
       timestamp:
         description: >-
@@ -103,7 +104,7 @@ definitions:
         example: 32
       hover_time:
         description: >-
-          number of seconds the vehicle plans to hover or loiter at this waypoint.
+          Number of seconds the vehicle plans to hover or loiter at this waypoint.
         type: integer
         format: int32
         minimum: 0

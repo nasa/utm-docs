@@ -50,12 +50,37 @@ paths:
 
 definitions:
 
+  FlightEssentialTelemetryAndUasStates:
+    description: >-
+      Flight essential telemetry and UAS state data.
+      Use this model for both UAS and crewed vehicles.
+      Refer to DMP to identify which data are required for UAS vs. crewed.
+    required:
+      - metaData
+      - sensorTuple
+    properties:
+      metaData:
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
+      sensorTuple:
+        description: >-
+          An individual sensor sample: timestamp, sensor, & value
+        type: array
+        items:
+          $ref: '#/definitions/SensorTuple'
+        minItems: 1
+        maxItems: 10000
+
   SensorTuple:
     description: >-
       An individual sample of a sensor.  See DMP spreadsheet for definitions of
       the various enum values.
 
       Each sensor will have its own requirements on sample frequency.
+
+      NOTE: If 'sensor' = "AIRCRAFT_AIRBORNE_STATE_NONDIM" then 'value' = 0 or 1
+      0 = on ground
+      1 = in air
+      Report at least 1 Hz frequency.
     required:
       - timestamp
       - sensor
@@ -73,31 +98,12 @@ definitions:
       value:
         type: number
         format: double
-        description: value of sensor reading
-      sensor:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
-
-  FlightEssentialTelemetryAndUasStates:
-    description: >-
-      Flight essential telemetry and UAS state data for a UAS Operation in
-      TCL4. Refer to the DMP documentation on specific requirements for a given
-      run.  Use this model for crewed vehicles as well.  
-    required:
-      - metaData
-      - sensorTuple
-    properties:
-      metaData:
-        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
-      sensorTuple:
         description: >-
-          An array of sensor samples.  Note that the types of samples can be
-          mixed in this array.  Also, since time is an element of the sample,
-          the samples can be from any variety of times.
-        type: array
-        items:
-          $ref: '#/definitions/SensorTuple'
-        minItems: 1
-        maxItems: 10000
+          Value of sensor reading.
+      sensor:
+        description: >-
+          Refer to DMP for individual definitions and units of each of these sensors.
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'
 
   MetaDataCallSignRunTsSensor:
     description: >-
@@ -110,7 +116,7 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataCallSignRun'
       sensor_double:
         description: >-
-          An array of SensorDouble models to delete
+          An array of SensorDouble models to delete.
         type: array
         items:
           $ref: '#/definitions/SensorDouble'
@@ -119,6 +125,7 @@ definitions:
 
   SensorDouble:
     description: >-
+      An array of models to delete.
     required:
       - timestamp
       - sensor
@@ -133,6 +140,4 @@ definitions:
         pattern: "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]{3})Z$"
         example: '2015-08-20T14:11:56.118Z'
       sensor:
-        $ref: '#/definitions/SensorList'
-
-      
+        $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/SensorList'

@@ -53,7 +53,7 @@ definitions:
           1. This id should remain constant across multiple geofence samples for a
           dynamic geofence associated with the same metaData model.
 
-          2. Samples for a single metaData model differentiated and ordered by 
+          2. Samples for a single metaData model differentiated and ordered by
           timestamps.
         type: string
         format: uuid
@@ -108,7 +108,7 @@ definitions:
         example: "POLYGON"
       min_altitude:
         description: >-
-          Altitude floor of the geofence.
+          Altitude floor of the geofence in WGS84. (ft)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
         example:
           min_altitude:
@@ -117,7 +117,7 @@ definitions:
             units_of_measure: "FT"
       max_altitude:
         description: >-
-          Altitude ceiling of the geofence.
+          Altitude ceiling of the geofence in WGS84. (ft)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/Altitude'
         example:
           max_altitude:
@@ -126,7 +126,7 @@ definitions:
             units_of_measure: "FT"
       circular_geofence_center:
         description: >-
-          Circular origin point of the geofence, if circular.
+          Circular origin point of the geofence, if circular. (Lat/Lon)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Point'
       circular_geofence_radius:
         description: >-
@@ -137,5 +137,5 @@ definitions:
         example: 200.0
       polygonal_geofence_boundary:
         description: >-
-          Geofence boundary if a polygon.
+          Geofence boundary if a polygon. (Lat/Lon)
         $ref: 'https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-geojson.yaml#/definitions/Polygon'

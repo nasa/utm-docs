@@ -115,7 +115,8 @@ definitions:
         maxLength: 500
       probabilityIntruderDetectionPrct:
         description: >-
-          The likelihood of detection of a intruder aircraft within the surveillance coverage of the sensor. Express in percentage, between 0 and 100.
+          The likelihood of detection of a intruder aircraft within the surveillance coverage of the sensor.
+          Express in percentage, between 0 and 100.
         $ref: "#/definitions/percent"
       targetTrackCapacity:
         description: >-
@@ -127,11 +128,13 @@ definitions:
         $ref: "#/definitions/hertz"
       sensorMaxHorzRangeData:
         description: >-
-          Expected maximum relative horizontal range as detected by a sensor in the north east down reference frame of the ownship aircraft. Provided as a vector of Radar Cross Section and range: [RCS_min (ft^2), RCS_max (ft^2), range (ft)]
+          Expected maximum relative horizontal range as detected by a sensor in
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       sensorMinHorzRangeData:
         description: >-
-          Expected minimum relative horizontal range as detected by a sensor in the north east down reference frame of the ownship aircraft. Provided as a vector of Radar Cross Section and range: [RCS_min (ft^2), RCS_max (ft^2), range (ft)]
+          Expected minimum relative horizontal range as detected by a sensor in
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       maxHorzRcsOfSensor:
         description: >-
@@ -152,8 +155,14 @@ definitions:
         $ref: "#/definitions/feet"
 
       sensorMaxVertRange:
+        description: >-
+          Expected maximum relative vertical range as detected by a sensor in
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       sensorMinVertRange:
+        description: >-
+          Expected minimum relative vertical range as detected by a sensor in
+          the north east down reference frame of the ownship aircraft. (ft)
         $ref: "#/definitions/feet"
       maxVertRcsOfSensor:
         description: >-
@@ -183,7 +192,10 @@ definitions:
         $ref: "#/definitions/degrees"
       daaSensorAzimuthAccuracy:
         description: >-
-          Manufacturer provided specification of azimuth accuracy of the sensor: uncertainty of the azimuth measurement for the sensor. Accuracy = how close a measured value is to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (deg)
+          Manufacturer provided specification of azimuth accuracy of the sensor:
+            uncertainty of the azimuth measurement for the sensor.
+            Accuracy = how close a measured value is to the actual (true) value
+            (e.g. for accuracy +/- 5, write "5"). (deg)
         $ref: "#/definitions/degrees"
       elevationSensorMax:
         description: >-
@@ -195,7 +207,10 @@ definitions:
         $ref: "#/definitions/degrees"
       daaSensorElevationAccuracy:
         description: >-
-          Manufacturer provided specification of elevation accuracy of the sensor: This is the accuracy uncertainty of the elevation measurement for the sensor. Accuracy = how close a measured value is to the actual (true) value (e.g. for accuracy +/- 5, write "5"). (ft)
+          Manufacturer provided specification of elevation accuracy of the sensor:
+          This is the accuracy uncertainty of the elevation measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
         $ref: "#/definitions/feet"
 
   DaaSensorV2V:
@@ -219,6 +234,8 @@ definitions:
           A reference to a previously submitted DaaSensor via its sensorId.
         $ref: "#/definitions/DaaUuid"
       txRadioFrequencyV2V:
+        description: >-
+          Provide V2V Radio Frequency communication band (GHz).
         $ref: "#/definitions/gigaHertz"
       txRadioFrequencyPowerEirpV2V:
         description: >-
@@ -289,27 +306,50 @@ definitions:
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
         description: >-
+          Expected UAS Operator response time: temporal parameter used in the
+          conflict resolution algorithm to estimate the UAS Operators time
+          needed to initiate a resolution maneuver. Include 3 decimal places of
+          precision. (sec)
         $ref: "#/definitions/seconds"
       expectedUASResponseTime:
         description: >-
+          Expected Time for aircraft maneuver: temporal parameter used in the
+          conflict resolution algorithm to predict the time needed for the
+          aircraft to perform a resolution maneuver. Include 3 decimal places of
+          precision. (sec)
         $ref: "#/definitions/seconds"
       expectedCommLatency:
         description: >-
+          Total Expected Transmission Latency: total communication latency
+          expected in the conflict resolution (e.g. round-trip time). Include 3
+          decimal places of precision. (sec)
         $ref: "#/definitions/seconds"
       expectedClimbRateOwnship:
         description: >-
+          Expected Vehicle Climb Rate of the ownship used in the conflict
+          resolution algorithm. (ft/s)
         $ref: "#/definitions/ftPerSec"
       expectedDescendRateOwnship:
         description: >-
+          Expected Vehicle Descend Rate of the ownship used in the conflict
+          resolution algorithm. (ft/s)
         $ref: "#/definitions/ftPerSec"
       expectedTurnRateOwnship:
         description: >-
+          Expected Vehicle Turn Rate of the ownship used in the conflict
+          resolution algorithm. (deg/s)
         $ref: "#/definitions/degPerSec"
       expectedTimeToHover:
         description: >-
+          Expected time required for a vehicle to arrest forward motion and
+          hover at a position. (sec)
         $ref: "#/definitions/seconds"
       probabilityFalseAlarmPrct:
         description: >-
+          Manufacturer provided specification of probability of False Alarm:
+          the likelihood of an alert being issued that would result in no loss
+          of separation (if action was not taken).
+          Express in percentage, between 0 and 100.
         $ref: "#/definitions/percent"
 
   DaaSensorAccuracyRealTime:
@@ -325,12 +365,41 @@ definitions:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       azimuthAccuracyRealTime:
+        description: >-
+          Azimuth accuracy of the sensor (real time): uncertainty of the azimuth
+          measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (deg)
+
+          Required if sensor is capable of capturing this data.
         $ref: '#/definitions/degrees'
       altitudeAccuracyRealTime:
+        description: >-
+          Elevation accuracy of the sensor (real time): This is the accuracy
+          uncertainty of the elevation measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
+
+          Required if sensor is capable of capturing this data.
         $ref: '#/definitions/feet'
       horRangeAccuracyRealTime:
+        description: >-
+          Horizontal range accuracy of the sensor (real time). This is the
+          accuracy or uncertainty of the horizontal range measurement for the
+          sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
+
+          Required if sensor is capable of capturing this data.
         $ref: '#/definitions/feet'
       verRangeAccuracyRealTime:
+        description: >-
+          Vertical range accuracy of the sensor (real time): uncertainty of the
+          vertical range measurement for the sensor.
+          Accuracy = how close a measured value is to the actual (true) value
+          (e.g. for accuracy +/- 5, write "5"). (ft)
+
+          Required if sensor is capable of capturing this data.
         $ref: '#/definitions/feet'
 
   DaaSensorV2vData:
@@ -348,10 +417,20 @@ definitions:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       dataPacketRatioV2v:
+        description: >-
+          Packet Delivery/Reception Ratio: ratio of data-packets-received to
+          data-packets-sent between UA and UA (V2V).
         $ref: '#/definitions/ratio'
       transmissionDelayV2v:
+        description: >-
+          Transmission time delay associated with transmitting data packet
+          information from a source to a destination (V2V). Include 3 decimal
+          places of precision. (sec)
         $ref: "#/definitions/seconds"
       packetSizeV2v:
+        description: >-
+          Size of V2V data packet that is transmitted from a source transponder
+          (ownship) to a destination receiver (intruder). (kilobytes)
         $ref: '#/definitions/kiloBytes'
 
   DaaSensorNumberOfLostTracks:
@@ -368,6 +447,8 @@ definitions:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       numberOfLostTracks:
+        description: >-
+          Number of established tracks lost at this timestamp.
         $ref: '#/definitions/count'
 
   DaaSensorTimeToTrack:
@@ -385,14 +466,22 @@ definitions:
       sensorId:
         $ref: "#/definitions/DaaUuid"
       firstDetectionTime:
+        description: >-
+          UTC time when first detection by the sensor occurred.
+
+          NOTE: 'firstDetectionTime' and 'timeRequiredForTrack' correspond to the SAME track.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       timeRequiredForTrack:
+        description: >-
+          UTC time when the sensor has established a track.
+
+          NOTE: 'firstDetectionTime' and 'timeRequiredForTrack' correspond to the SAME track.
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
 
   DaaSensorIntruderAircraftDetection:
     description: >-
-      Timestamp,Lat,Lon,Alt of intruder aircraft detected position(s)-DAA
-      (Detect And Avoid).  Include (uvin,gufi) of detected a/c
+      Timestamp,Lat,Lon,Alt of intruder aircraft detected position(s).
+      Include (uvin,gufi) of detected a/c.
     required:
       - metaData
       - sensorId
@@ -409,7 +498,7 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       uvin:
         description: >-
-          UTM Vehicle Identifier
+          UTM Vehicle Identifier of the detected aircraft.
         type: string
         format: uuid
         maxLength: 36
@@ -418,12 +507,13 @@ definitions:
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       gufi:
         description: >-
-          GUFI of the operation that is the source of these data. Note that this
-          GUFI is repeated in the Position model, so they must match.  In addition
-          this GUFI will map to operational data in the UTM data stores.  Thus
-          the values for call_sign, test_card, test_run must match the metadata
-          supplied with that Operation's metadata.  Mismatches will cause the
-          data submission to be rejected.
+          GUFI of the detected aircraft.
+
+          Note that this GUFI is repeated in the Position model, so they must
+          match. In addition this GUFI will map to operational data in the UTM
+          data stores. Thus the values for call_sign, test_card, test_run must
+          match the metadata supplied with that Operation's metadata. Mismatches
+          will cause the data submission to be rejected.
         type: string
         format: uuid
         maxLength: 36
@@ -431,11 +521,15 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[8-b][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       latLonAlt:
+        description: >-
+          Location of intruder (Lat,Lon,Alt).
         $ref: '#/definitions/LatLonAlt'
 
   DaaSensorObstacle:
     description: >-
-      Sensor detection of dynamic or static obstacles.  At each relevant timestamp, report the polygon that the sensor constructs as an estimate of the object.  Include an estimate of its height.
+      Sensor detection of dynamic or static obstacles.
+      At each relevant timestamp, report the polygon that the sensor constructs
+      as an estimate of the object.  Include an estimate of its height.
     required:
       - metaData
       - sensorId
@@ -451,10 +545,19 @@ definitions:
       timestamp:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/timestamp'
       obstaclePolygon:
+        description: >-
+          Time stamped (UTC) Lat/Lon list of the vertices of the polygons around
+          terrestrial dynamic obstacles in the environment.
+
+          Report at least seven decimal degrees. (deg)
         $ref: "#/definitions/LatLonArray"
       obstacleHeight:
         description: >-
-          height in ft
+          If 'STATIC' -> Static obstacle altitude express in the WGS84
+          reference frame. (ft)
+
+          If 'DYNAMIC' -> Maximum height (difference between the
+          highest and the lowest dimensional point) of the dynamic obstacle. (ft)
         type: number
         minimum: 0
       obstacleType:
@@ -478,11 +581,15 @@ definitions:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaData'
       conflictGufi:
         description: >-
-          "The GUFI of the vehicle in conflict with ownship"
+          The GUFI of the vehicle in conflict with ownship.
+
+          Required if in conflict with another aircraft.
         $ref: "#/definitions/DaaUuid"
       conflictUvin:
         description: >-
-          "The UVIN of the vehicle in conflict with ownship"
+          The UVIN of the vehicle in conflict with ownship.
+
+          Required if in conflict with another aircraft.
         $ref: "#/definitions/DaaUuid"
       typeOfConflictResolution:
         description: >-
@@ -509,9 +616,9 @@ definitions:
           properties:
             eventType:
               description: >-
-                timeAtEncounterInit	UTC time at Encounter Initiation.
-                timeAtEncounterEnd	UTC Time at Encounter End.
-                timeAtConflictAlert	UTC time at which a conflict alert is issued to a UAS Operator/UAS.
+                timeAtEncounterInit	- UTC time at Encounter Initiation.
+                timeAtEncounterEnd	- UTC Time at Encounter End.
+                timeAtConflictAlert	- UTC time at which a conflict alert is issued to a UAS Operator/UAS.
                 timeAtConflictResNoManeuverDecided - UTC time at which vehicle decides not to make a maneuver
                 timeAtConflictResHeadingChangeInit - UTC time at which vehicle begins heading change to resolve conflict.
                 timeAtConflictResHeadingChangeCmplt - UTC time at which vehicle completes heading change to resolve conflict.
@@ -525,11 +632,14 @@ definitions:
                 timeAtConflictResAddedWaypointCmplt - UTC time at which vehicle ends adding waypoint to resolve conflict.
                 timeAtConflictResOtherInit - UTC time at which vehicle begins other maneuver to resolve conflict.
                 timeAtConflictResOtherCmplt - UTC time at which vehicle ends other maneuver to resolve conflict.
-                timeAtClearOfConflict	UTC time at which the aircraft/UAS Operator declares the aircraft is clear of the conflict.
-                ussDaaAlertReceived	UTC time when a DAA alert issued from the USS is received by the operator.
-                onboardDaaAlertIssued	UTC time when a DAA alert is issued onboard the UAS.
-                groundDaaAlertIssued	UTC time when a DAA alert is issued from the ground DAA system.
-                caAlertIssued	UTC time when an alert is issued from the CA system.
+                timeAtClearOfConflict	- UTC time at which the aircraft/UAS Operator declares the aircraft is clear of the conflict.
+                ussDaaAlertReceived	- UTC time when a DAA alert issued from the USS is received by the operator.
+                onboardDaaAlertIssued	- UTC time when a DAA alert is issued onboard the UAS.
+                groundDaaAlertIssued - UTC time when a DAA alert is issued from the ground DAA system.
+                caAlertIssued	- UTC time when an alert is issued from the CA system.
+                ussCaAlertReceived - UTC time when a CA alert issued from the USS is received by the operator.
+                oaAlertIssued - UTC time when an alert is issued from the Obstacle Avoidance system (OA).
+                ussOaAlertReceived - UTC time when an OA alert issued from the USS is received by the operator.
               type: string
               enum:
                 - timeAtEncounterInit
@@ -678,6 +788,8 @@ definitions:
         type: number
         format: float
       polygonPoints:
+        description: >-
+          The first point and the last point must be equal.
         type: array
         items:
           $ref: "#/definitions/LatLon"
@@ -735,6 +847,9 @@ definitions:
 
       If used to describe a Polygon, the first point and the last point must
       be equal.
+
+      Latitude, Longitude, Altitude should have precision of 7 or more digits.
+      Report altitude in WGS84. (ft)
     type: array
     items:
       $ref: '#/definitions/LatLonAlt'
@@ -745,6 +860,8 @@ definitions:
 
       If used to describe a Polygon, the first point and the last point must
       be equal.
+
+      Latitude, Longitude, Altitude should have precision of 7 or more digits.
     type: array
     items:
       $ref: '#/definitions/LatLon'
