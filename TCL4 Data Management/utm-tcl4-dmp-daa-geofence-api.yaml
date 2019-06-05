@@ -51,7 +51,7 @@ securityDefinitions:
 
 paths:
 
-  '/daa-geofence':
+  '/daa-geo-fence':
     post:
       security:
         - ussapi_security:
