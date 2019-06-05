@@ -56,7 +56,7 @@ paths:
 
   '/flight-plan':
     post:
-      summary: Upload a single instance of the Waypoint model.  
+      summary: Upload a array of the Waypoint models.  
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -64,18 +64,17 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: Waypoint
-          description: The Waypoint model 
+          name: WaypointArray
+          description: Upload array of Waypoint models 
           required: true
           schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-aircraft-flightplan.yaml#/definitions/Waypoint
+            type: array
+            items: 
+              $ref: >-
+                https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-aircraft-flightplan.yaml#/definitions/Waypoint
       responses:
         '204':
           description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
         '400':
           description: Bad request. Typically validation error. Fix your request and retry.
           schema:
@@ -93,7 +92,7 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
 
     delete:
-      summary: Delete a previously instance of the Waypoint model recorded during a run of a test card
+      summary: Delete array of  Waypoint models
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -102,14 +101,13 @@ paths:
           name: MetaDataDmpUssId
           required: true
           schema:
-            $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataTestSite'
+            type: array
+            items: 
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
           description: DELETE  
       responses:
-        '200':
+        '204':
           description: Data received. No content returned.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId
         '401':
           description: Invalid or missing access_token provided.
           schema:
