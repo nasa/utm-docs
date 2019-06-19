@@ -375,7 +375,7 @@ definitions:
       Note that this UTM format specifies date and time separation with a 'T'.
     type: string
     format: date-time
-    minLength: 24
+    minLength: 22
     maxLength: 24
     example: "2015-08-20T14:11:56.118Z"
 
