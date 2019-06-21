@@ -54,7 +54,25 @@ definitions:
     description: >-
       Flight essential telemetry and UAS state data.
       Use this model for both UAS and crewed vehicles.
-      Refer to DMP to identify which data are required for UAS vs. crewed.
+      List of required elements below:
+
+      *ALL* enums are required for UA (see SensorList).
+      Provide "MOTOR_#_CONTROL_THROTTLE_COMMAND_NONDIM" for each motor on UA (where "#" is the motor number ranging from 1 to 16)
+
+      Required enums to submit for Crewed (see SensorList):
+        - LAT
+        - LON
+        - ALT
+        - HEADING_DEG
+        - HDOP_NONDIM
+        - VDOP_NONDIM
+        - NUM_GPS_SATELLITES_IN_VIEW_NONDIM
+        - NUM_GPS_SAT_NONDIM
+        - GROUND_COURSE_DEG
+        - GROUND_SPEED_FT_PER_SEC
+
+      Refer to DMP for more details.
+
     required:
       - metaData
       - sensorTuple

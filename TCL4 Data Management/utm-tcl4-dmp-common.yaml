@@ -47,7 +47,7 @@ definitions:
     properties:
       scenario:
         description: >-
-          Proper formatting for SOW scenarios is "SCENARIO_n" where n is 1-5.
+          Proper formatting for scenarios is "TCL4_Sc#" where "#" is 1-5.
 
           For other scenarios, the appropriate value should be provided by the
           POC for that activity.
@@ -203,7 +203,7 @@ definitions:
         type: boolean
       scenario:
         description: >-
-          Proper formatting for SOW scenarios is "SCENARIO_n" where n is 1-5.
+          Proper formatting for scenarios is "TCL4_Sc#" where "#" is 1-5.
 
           For other scenarios, the appropriate value should be provided by the
           POC for that activity.
@@ -375,7 +375,7 @@ definitions:
       Note that this UTM format specifies date and time separation with a 'T'.
     type: string
     format: date-time
-    minLength: 24
+    minLength: 22
     maxLength: 24
     example: "2015-08-20T14:11:56.118Z"
 
@@ -496,6 +496,22 @@ definitions:
   SensorList:
     description: >-
       Refer to DMP for individual definitions and units of each of these sensors.
+
+      *ALL* enums are required for UA.
+      Provide "MOTOR_#_CONTROL_THROTTLE_COMMAND_NONDIM" for each motor on UA (where "#" is the motor number ranging from 1 to 16)
+
+      Required enums to submit for Crewed:
+        - LAT
+        - LON
+        - ALT
+        - HEADING_DEG
+        - HDOP_NONDIM
+        - VDOP_NONDIM
+        - NUM_GPS_SATELLITES_IN_VIEW_NONDIM
+        - NUM_GPS_SAT_NONDIM
+        - GROUND_COURSE_DEG
+        - GROUND_SPEED_FT_PER_SEC
+
     type: string
     enum:
       - LAT
