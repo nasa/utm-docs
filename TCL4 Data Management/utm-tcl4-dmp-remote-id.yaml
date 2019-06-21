@@ -27,8 +27,8 @@ definitions:
       description: >-
         An instance of this model should be submitted every time an attempt is made
         to lookup or identify an operation via the USSNetwork or non-USSNetwork. Note that this might
-        mean several instances for a single gufi if several lookups are performed. 
-        The timeline of events for Networked Remote ID detection must be = time_of_identification_initiation, time_of_detection, network_lookup_start_time, network_lookup_end_time, locate_operator_time, contact_operator_time. 
+        mean several instances for a single gufi if several lookups are performed.
+        The timeline of events for Networked Remote ID detection must be = time_of_identification_initiation, time_of_detection, network_lookup_start_time, network_lookup_end_time, locate_operator_time, contact_operator_time.
         The timeline of events for Non-Networked Remote ID detection must be = time_of_identification_initiation, time_of_detection, locate_operator_time, contact_operator_time
       required:
         - "remote_id"
@@ -75,6 +75,11 @@ definitions:
             just eyeballs), something like "VISUAL" is an appropriate response.
             Consistency is important in this field for analysis purposes, so
             use the same string whenever the same technology is used.
+
+            If a ground-based Remote ID device is used, report the following:
+            "Remote Terrestrial Identification of UAS through [XYZ] Technology"
+            (where "XYZ" is the technology used).
+
           type: "string"
           maxLength: 1000
         broadcast_technology:
