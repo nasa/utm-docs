@@ -64,7 +64,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensor
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensor
       responses:
         '200':
           description: Data received. No content returned.
@@ -99,7 +99,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorV2V
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorV2V
       responses:
         '200':
           description: Data received. No content returned.
@@ -134,7 +134,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/StaticObstacleTable
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/StaticObstacleTable
       responses:
         '200':
           description: Data received. No content returned.
@@ -169,7 +169,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/ConflictResolutionConfiguration
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/ConflictResolutionConfiguration
       responses:
         '200':
           description: Data received. No content returned.
@@ -205,7 +205,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorAccuracyRealTime
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorAccuracyRealTime
 
       responses:
         '200':
@@ -244,7 +244,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorV2vData
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorV2vData
 
       responses:
         '200':
@@ -283,7 +283,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorNumberOfLostTracks
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorNumberOfLostTracks
 
       responses:
         '200':
@@ -321,7 +321,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorTimeToTrack
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorTimeToTrack
 
       responses:
         '200':
@@ -359,7 +359,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorIntruderAircraftDetection
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorIntruderAircraftDetection
 
       responses:
         '200':
@@ -398,7 +398,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorObstacle
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaSensorObstacle
 
       responses:
         '200':
@@ -436,7 +436,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaConflictResolutionMeasurement
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/DaaConflictResolutionMeasurement
 
       responses:
         '200':
@@ -474,7 +474,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-auxiliary-uas-operation.yaml#/definitions/AuxiliaryUASOperation
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-auxiliary-uas-operation.yaml#/definitions/AuxiliaryUASOperation
 
       responses:
         '200':
@@ -512,7 +512,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -550,7 +550,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -588,7 +588,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -627,7 +627,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -665,7 +665,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -703,7 +703,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -741,7 +741,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
@@ -779,7 +779,7 @@ paths:
 #          required: true
 #          schema:
 #            $ref: >-
-#              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
+#              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa.yaml#/definitions/xxx
 #
 #      responses:
 #        '200':
