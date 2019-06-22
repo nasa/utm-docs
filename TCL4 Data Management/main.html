@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-05-01 Wed 22:12 -->
+<!-- 2019-06-22 Sat 13:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>UTM TCL4 DMP API and Data Models</title>
@@ -180,7 +180,14 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="main.css"/>
+<link rel="stylesheet" type="text/css" href=""/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<style> #content{max-width:1800px;}</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -235,14 +242,25 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org55a6f79">1. Introduction</a></li>
-<li><a href="#orgb7ad2c1">2. API and Data Model Specification Release Schedule</a></li>
-<li><a href="#org4383633">3. API Release Schedule</a></li>
+<li><a href="#orge202a1b">1. Introduction</a></li>
+<li><a href="#orgfe4d485">2. API and Data Model Specification Release Schedule</a></li>
+<li><a href="#org410d3d8">3. API Release Schedule</a></li>
+<li><a href="#org141ea44">4. Guidelines for Testing and Uploading Data</a>
+<ul>
+<li><a href="#org3c8954a">4.1. Testing and Connectivity</a></li>
+<li><a href="#org7503963">4.2. Extensive Testing</a></li>
+</ul>
+</li>
+<li><a href="#org2e8a297">5. Data Model Notes</a>
+<ul>
+<li><a href="#org478fe46">5.1. Uss Exchange</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org55a6f79" class="outline-2">
-<h2 id="org55a6f79"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orge202a1b" class="outline-2">
+<h2 id="orge202a1b"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This document describes the API specification and implementation <b>release schedule</b> for UTM TCL4 DMP data collection efforts.  It will be updated frequently.  The specification  and associated data models are described using OpenAPI Specification (OAS) 2.0 (<code>https://github.com/OAI/OpenAPI-Specification</code>) and can be found in the GIT repository located at
@@ -252,8 +270,8 @@ https://github.com/nasa/utm-docs/tree/master/TCL4%20Data%20Management
 </pre>
 </div>
 </div>
-<div id="outline-container-orgb7ad2c1" class="outline-2">
-<h2 id="orgb7ad2c1"><span class="section-number-2">2</span> API and Data Model Specification Release Schedule</h2>
+<div id="outline-container-orgfe4d485" class="outline-2">
+<h2 id="orgfe4d485"><span class="section-number-2">2</span> API and Data Model Specification Release Schedule</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The GIT repository for the DMP API and data models is actively used by at least three parties: 
@@ -270,6 +288,7 @@ Since automated builds may directly incorporate the API and data models from the
 <p>
 The master branch will be tagged with a version identifier of the form vx.y.z.  Twenty four hours prior to a change, we will announce over the <code>uss_implementers</code> channel on slack that a change is forthcoming.  We will identify the new tag and the release branch that contains the intended changes.  During this time, developers can inspect the release branch and assess the impact to their code/build cycles.  If it is determined that the change will have an adverse impact, developers can point their code to the current (stable) GIT tag idenfitier.  Our GIT branching model for both specification and code generally follows the one outlined here: <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow</a>
 </p>
+
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -291,7 +310,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <th scope="col" class="org-left">Review-Branch</th>
 <th scope="col" class="org-left">Date Implemented</th>
 <th scope="col" class="org-left">Tag on Master</th>
-<th scope="col" class="org-left">Breaking</th>
+<th scope="col" class="org-left">Desc</th>
 </tr>
 </thead>
 <tbody>
@@ -300,7 +319,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">n/a</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-14 Thu&gt;</span></span></td>
 <td class="org-left">v1.0.1</td>
-<td class="org-left">n/a</td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -308,7 +327,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">release-v1.0.2</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-03-22 Fri&gt;</span></span></td>
 <td class="org-left">v1.0.2</td>
-<td class="org-left">yes</td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -316,7 +335,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">release-v1.0.3</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-01 Mon&gt;</span></span></td>
 <td class="org-left">v1.0.3</td>
-<td class="org-left">yes</td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -324,7 +343,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">release-v1.0.4</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-04 Thu&gt;</span></span></td>
 <td class="org-left">v1.0.4</td>
-<td class="org-left">yes</td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -332,7 +351,7 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">release-v1.0.5</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-10 Wed&gt;</span></span></td>
 <td class="org-left">v1.0.5</td>
-<td class="org-left">yes</td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -340,16 +359,55 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
 <td class="org-left">release-v1.0.6</td>
 <td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-04-17 Wed&gt;</span></span></td>
 <td class="org-left">v1.0.6</td>
-<td class="org-left">yes</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-01 Wed&gt;</span></span></td>
+<td class="org-left">release-v1.0.7</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-05-02 Thu&gt;</span></span></td>
+<td class="org-left">v1.0.7</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-05 Wed&gt;</span></span></td>
+<td class="org-left">n/a</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-05 Wed&gt;</span></span></td>
+<td class="org-left">v1.0.8</td>
+<td class="org-left">Add flight plan api yaml; description changes</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-05 Wed&gt;</span></span></td>
+<td class="org-left">n/a</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-05 Wed&gt;</span></span></td>
+<td class="org-left">v1.0.9</td>
+<td class="org-left">Add daa geofence api yaml</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-21 Fri&gt;</span></span></td>
+<td class="org-left">release-v1.1.0</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-21 Fri&gt;</span></span></td>
+<td class="org-left">v1.1.0</td>
+<td class="org-left">Change timestamp length to 22-24; add more descriptions</td>
+</tr>
+
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-22 Sat&gt;</span></span></td>
+<td class="org-left">release-v1.1.1</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-06-22 Sat&gt;</span></span></td>
+<td class="org-left">v1.1.1</td>
+<td class="org-left">Provide information on testing and uss-exchange call-signs</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-
-<div id="outline-container-org4383633" class="outline-2">
-<h2 id="org4383633"><span class="section-number-2">3</span> API Release Schedule</h2>
+<div id="outline-container-org410d3d8" class="outline-2">
+<h2 id="org410d3d8"><span class="section-number-2">3</span> API Release Schedule</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
@@ -574,11 +632,123 @@ This schedule is intended to convey to UTM TCL4 participants when NASA servers w
 </table>
 </div>
 </div>
+<div id="outline-container-org141ea44" class="outline-2">
+<h2 id="org141ea44"><span class="section-number-2">4</span> Guidelines for Testing and Uploading Data</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org3c8954a" class="outline-3">
+<h3 id="org3c8954a"><span class="section-number-3">4.1</span> Testing and Connectivity</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+We recognize testing is essential in developing your APIs.  However, since testing impacts production servers, the following guidelines must be strictly adhered to.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">call_sign</th>
+<th scope="col" class="org-left">test_run range</th>
+<th scope="col" class="org-left">uvin</th>
+<th scope="col" class="org-left">hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">test_&lt;uss_name&gt;_&lt;site&gt;</td>
+<td class="org-left">8000-8999</td>
+<td class="org-left">3d34bd51-5386-488b-9e63-f35b90a6ea48</td>
+<td class="org-left">5AM - 11PM PT and outside of flight test windows</td>
+</tr>
+
+<tr>
+<td class="org-left">conn_&lt;uss_name&gt;_&lt;site&gt;</td>
+<td class="org-left">TBD</td>
+<td class="org-left">3d34bd51-5386-488b-9e63-f35b90a6ea48</td>
+<td class="org-left">pre-flight window only</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+In the above, <code>&lt;uss_name&gt;</code>, refers to your client id, that is, what is submitted in the subclaim of the JWT.  <code>&lt;site&gt;</code> can be set to <code>nv</code> or <code>tx</code>.  
+Examples: 
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">call_sign</th>
+<th scope="col" class="org-right">test_run</th>
+<th scope="col" class="org-left">uvin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">test_utmalpha.arc.nasa.gov_nv</td>
+<td class="org-right">8001</td>
+<td class="org-left">3d34bd51-5386-488b-9e63-f35b90a6ea48</td>
+</tr>
+
+<tr>
+<td class="org-left">conn_utmalpha.arc.nasa.gov_nv</td>
+<td class="org-right">9001</td>
+<td class="org-left">3d34bd51-5386-488b-9e63-f35b90a6ea48</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org7503963" class="outline-3">
+<h3 id="org7503963"><span class="section-number-3">4.2</span> Extensive Testing</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+If you would like to perform testing with actual call signs and high data rates, give us a heads up.  Specifically, provide
+</p>
+<ul class="org-ul">
+<li>Objective of the test.</li>
+<li>Call-signs you are going to use.</li>
+<li>Time window (upper bound is what we are looking for).</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2e8a297" class="outline-2">
+<h2 id="org2e8a297"><span class="section-number-2">5</span> Data Model Notes</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org478fe46" class="outline-3">
+<h3 id="org478fe46"><span class="section-number-3">5.1</span> Uss Exchange</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+The metadata for the uss-exchange data model described in <a href="https://github.com/nasa/utm-docs/blob/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml">https://github.com/nasa/utm-docs/blob/master/TCL4 Data Management/utm-tcl4-data-collection.yaml</a> requires a call-sign.  For <b>every</b> uss-exchange model that you submit, please use the call-sign <code>ex_&lt;uss_name&gt;_&lt;site&gt;</code>
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2019-03-15</p>
 <p class="author">Author: Abraham K. Ishihara</p>
-<p class="date">Created: 2019-05-01 Wed 22:12</p>
+<p class="date">Created: 2019-06-22 Sat 13:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
