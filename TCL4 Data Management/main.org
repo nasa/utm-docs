@@ -1,4 +1,12 @@
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="main.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href=""/>
+
+
+
+
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+#+OPTIONS: ^:nil
+
 
 #+TITLE: UTM TCL4 DMP API and Data Models
 #+AUTHOR: Abraham K. Ishihara
@@ -18,6 +26,7 @@
 
 The master branch will be tagged with a version identifier of the form vx.y.z.  Twenty four hours prior to a change, we will announce over the =uss_implementers= channel on slack that a change is forthcoming.  We will identify the new tag and the release branch that contains the intended changes.  During this time, developers can inspect the release branch and assess the impact to their code/build cycles.  If it is determined that the change will have an adverse impact, developers can point their code to the current (stable) GIT tag idenfitier.  Our GIT branching model for both specification and code generally follows the one outlined here: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
+
   | Date Announced   | Review-Branch  | Date Implemented | Tag on Master | Desc                                                    |
   |------------------+----------------+------------------+---------------+---------------------------------------------------------|
   | n/a              | n/a            | <2019-03-14 Thu> | v1.0.1        |                                                         |
@@ -30,9 +39,8 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
   | <2019-06-05 Wed> | n/a            | <2019-06-05 Wed> | v1.0.8        | Add flight plan api yaml; description changes           |
   | <2019-06-05 Wed> | n/a            | <2019-06-05 Wed> | v1.0.9        | Add daa geofence api yaml                               |
   | <2019-06-21 Fri> | release-v1.1.0 | <2019-06-21 Fri> | v1.1.0        | Change timestamp length to 22-24; add more descriptions |
-  |                  |                |                  |               |                                                         |
+  | <2019-06-22 Sat> | release-v1.1.1 | <2019-06-22 Sat> | v1.1.1        | Provide information on testing and uss-exchange call-signs |
 
-  
 * API Release Schedule
   This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
   | Endpoint                             | Location                                  | Sprint           | Release Date     |
@@ -65,3 +73,26 @@ The master branch will be tagged with a version identifier of the form vx.y.z.  
   | /cns-onboard-safe-landing-capability | utm-tcl4-dmp-cns-api.yaml                 | <2019-04-22 Mon> | <2019-05-02 Thu> |
   | /remote-id                           | utm-tcl4-dmp-remote-id-api.yaml           | <2019-04-29 Mon> | <2019-05-09 Thu> |
   | /daa - all                           | utm-tcl4-dmp-daa-api.yaml                 | <2019-04-29 Mon> | <2019-05-02 Thu> |
+* Guidelines for Testing and Uploading Data
+** Testing and Connectivity
+   We recognize testing is essential in developing your APIs.  However, since testing impacts production servers, the following guidelines must be strictly adhered to.
+   | call_sign                 | test_run range | uvin                                 | hours                                         |
+   |---------------------------+----------------+--------------------------------------+-----------------------------------------------|
+   | test_<uss_name>_<site>    | 8000-8999      | 3d34bd51-5386-488b-9e63-f35b90a6ea48 | 5AM - 11PM PT and outside of flight test windows |
+   | conn_<uss_name>_<site>    | TBD            | 3d34bd51-5386-488b-9e63-f35b90a6ea48 | pre-flight window only                        |
+
+   In the above, =<uss_name>=, refers to your client id, that is, what is submitted in the subclaim of the JWT.  =<site>= can be set to =nv= or =tx=.  
+   Examples: 
+   | call_sign                     | test_run | uvin                                 |
+   |-------------------------------+----------+--------------------------------------|
+   | test_utmalpha.arc.nasa.gov_nv |     8001 | 3d34bd51-5386-488b-9e63-f35b90a6ea48 |
+   | conn_utmalpha.arc.nasa.gov_nv |     9001 | 3d34bd51-5386-488b-9e63-f35b90a6ea48 |
+** Extensive Testing   
+   If you would like to perform testing with actual call signs and high data rates, give us a heads up.  Specifically, provide
+   - Objective of the test. 
+   - Call-signs you are going to use.
+   - Time window (upper bound is what we are looking for).
+
+* Data Model Notes
+** Uss Exchange 
+  The metadata for the uss-exchange data model described in https://github.com/nasa/utm-docs/blob/master/TCL4%20Data%20Management/utm-tcl4-data-collection.yaml requires a call-sign.  For *every* uss-exchange model that you submit, please use the call-sign =ex_<uss_name>_<site>=
