@@ -64,7 +64,7 @@ paths:
           required: true
           schema:
             $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-daa-geofence.yaml#/definitions/DaaGeoFence
+              https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-daa-geofence.yaml#/definitions/DaaGeoFence
       responses:
         '200':
           description: Data received. No content returned.

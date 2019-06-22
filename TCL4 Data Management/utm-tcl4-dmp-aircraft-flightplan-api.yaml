@@ -71,7 +71,7 @@ paths:
             type: array
             items: 
               $ref: >-
-                https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-aircraft-flightplan.yaml#/definitions/Waypoint
+                https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-aircraft-flightplan.yaml#/definitions/Waypoint
       responses:
         '204':
           description: Data received. No content returned.
@@ -103,7 +103,7 @@ paths:
           schema:
             type: array
             items: 
-              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/develop/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
+              $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
           description: DELETE  
       responses:
         '204':
