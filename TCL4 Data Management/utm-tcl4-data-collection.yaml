@@ -632,6 +632,7 @@ definitions:
           - WEBSOCKETS
           - EMAIL
           - SMS
+          - OTHER
       message_to_operator:
         description: >-
           The actual data payload sent to the operator from the USS. May be
