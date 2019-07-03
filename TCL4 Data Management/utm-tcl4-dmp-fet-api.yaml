@@ -65,7 +65,7 @@ paths:
       parameters:
         - in: body
           name: FlightEssentialTelemetryUasStates
-          description: The FlightEssentialTelemetryAndUasStates model 
+          description: The FlightEssentialTelemetryAndUasStates model
           required: true
           schema:
             $ref: >-
@@ -106,24 +106,8 @@ paths:
               https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-fet.yaml#/definitions/MetaDataCallSignRunTsSensor
           description: DELETE one or more sensor data elements associated with pair (call_sign,test_run)
       responses:
-        '200':
-          description: Data received. No content returned.
+        '410':
+          description: Gone.
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '401':
-          description: Invalid or missing access_token provided.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested ts not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-

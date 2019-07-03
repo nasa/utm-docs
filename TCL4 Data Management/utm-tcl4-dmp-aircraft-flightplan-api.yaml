@@ -56,7 +56,7 @@ paths:
 
   '/flight-plan':
     post:
-      summary: Upload a array of the Waypoint models.  
+      summary: Upload a array of the Waypoint models.
       security:
         - ussapi_security:
             - utm.nasa.gov_write.message
@@ -65,11 +65,11 @@ paths:
       parameters:
         - in: body
           name: WaypointArray
-          description: Upload array of Waypoint models 
+          description: Upload array of Waypoint models
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: >-
                 https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-aircraft-flightplan.yaml#/definitions/Waypoint
       responses:
@@ -102,26 +102,12 @@ paths:
           required: true
           schema:
             type: array
-            items: 
+            items:
               $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/MetaDataDmpUssId'
-          description: DELETE  
+          description: DELETE
       responses:
-        '204':
-          description: Data received. No content returned.
-        '401':
-          description: Invalid or missing access_token provided.
+        '410':
+          description: Gone.
           schema:
             $ref: >-
               https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '403':
-          description: Forbidden. Do not retry with same access token. Reason not provided, but do you have the right scopes? Does uss_name match the sub claim?
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-        '404':
-          description: Requested model not found.
-          schema:
-            $ref: >-
-              https://raw.githubusercontent.com/nasa/utm-apis/v4-draft/utm-domains/utm-domain-commons.yaml#/definitions/UTMRestResponse
-
-
