@@ -351,7 +351,7 @@ definitions:
       there.
     required:
       - "metaDataDmpUss"
-      - "negotiation_id"
+      - "ussnegotiation_id"
       - "reporter_gufi"
       - "other_gufi"
       - "message_ids"
@@ -362,10 +362,26 @@ definitions:
     properties:
       metaDataDmpUss:
         $ref: 'https://raw.githubusercontent.com/nasa/utm-docs/master/TCL4%20Data%20Management/utm-tcl4-dmp-common.yaml#/definitions/metaDataDmpUss'
-      negotiation_id:
+      ussnegotiation_id:
         description: >-
           A UUID assigned by the reporting USS for this instance of
            USSNegotiation.
+        type: string
+        format: uuid
+        maxLength: 36
+        minLength: 36
+        pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
+        example: "00000000-0000-4444-8888-FEEDDEADBEEF"
+      negotiation_id:
+        description: >-
+          The negotiation_id used in this negotiation.  Specifically it is
+          this value:
+
+            https://github.com/nasa/utm-apis/blob/00cd509349d6e617f7bcee6d6fbf917f0a852733/utm-domains/utm-domain-commons.yaml#L1841
+
+          Note that value is to be held constant through a single negotation process
+          between two GUFIs.  So there may be several message_ids for each
+          negotiation_id.
         type: string
         format: uuid
         maxLength: 36
@@ -380,6 +396,15 @@ definitions:
         description: >-
           GUFI of the operation managed by reporting USS involved in this
           negotiation.
+
+          To be more specific:  this is YOUR GUFI.  You are the one providing this
+          USSNegotiation data model, thus YOU are the reporter with respect to
+          this data model.  Note that this means that this value may be different
+          than the "originator" in the NegotiationMessage and NegotiationAgreement
+          models in the case that YOU were the one that received the initial
+          NegotiationMessage from another USS.  In this case you'd be the
+          "receiver" in the NegotiationMessage, but the "reporter" in this
+          data model.
 
           If GUFI does not exist, use 00000000-0000-4444-8888-000000000000.
           If GUFI was generated after the negotiation, include that value.
@@ -401,7 +426,11 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       message_ids:
-        description: Complete list of UUIDs from each NegotiationMessage involved.
+        description: >-
+          Complete list of message_id UUIDs from each NegotiationMessage involved.
+
+          Specifically:
+            https://github.com/nasa/utm-apis/blob/00cd509349d6e617f7bcee6d6fbf917f0a852733/utm-domains/utm-domain-commons.yaml#L1834
         type: array
         items:
           type: string
