@@ -352,6 +352,7 @@ definitions:
     required:
       - "metaDataDmpUss"
       - "ussnegotiation_id"
+      - "negotiation_id"
       - "reporter_gufi"
       - "other_gufi"
       - "message_ids"
