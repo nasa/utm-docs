@@ -370,6 +370,10 @@ definitions:
           hover at a position.
 
           Please report in milliseconds (ms).
+
+          NOTE:
+            The reference here is for "seconds" which requires an integer.
+            The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
       probabilityFalseAlarmPrct:
         description: >-
