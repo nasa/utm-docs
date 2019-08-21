@@ -456,7 +456,7 @@ definitions:
           Please report in milliseconds (ms).
 
           NOTE:
-            DMP-Rev3 asks asks this to be reported with 3 decimals of precision.
+            DMP-Rev3 asks this to be reported with 3 decimals of precision.
             However, the reference here is for "seconds" which requires an integer.
             The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
