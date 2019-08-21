@@ -526,7 +526,7 @@ definitions:
           For the duration of this operation was there continuous availability
           of USS services?  The discontinuity or unavailability of services
           may have been planned or unplanned.  If this field has a value of
-          'true' then the 'notes' field is mandatory to provide some insight
+          'false' then the 'notes' field is mandatory to provide some insight
           into this interaction.
         type: boolean
       notes:
@@ -632,6 +632,7 @@ definitions:
           - WEBSOCKETS
           - EMAIL
           - SMS
+          - OTHER
       message_to_operator:
         description: >-
           The actual data payload sent to the operator from the USS. May be

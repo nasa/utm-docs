@@ -27,19 +27,20 @@
 The master branch will be tagged with a version identifier of the form vx.y.z.  Twenty four hours prior to a change, we will announce over the =uss_implementers= channel on slack that a change is forthcoming.  We will identify the new tag and the release branch that contains the intended changes.  During this time, developers can inspect the release branch and assess the impact to their code/build cycles.  If it is determined that the change will have an adverse impact, developers can point their code to the current (stable) GIT tag idenfitier.  Our GIT branching model for both specification and code generally follows the one outlined here: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
 
-  | Date Announced   | Review-Branch  | Date Implemented | Tag on Master | Desc                                                    |
-  |------------------+----------------+------------------+---------------+---------------------------------------------------------|
-  | n/a              | n/a            | <2019-03-14 Thu> | v1.0.1        |                                                         |
-  | <2019-03-21 Thu> | release-v1.0.2 | <2019-03-22 Fri> | v1.0.2        |                                                         |
-  | <2019-03-30 Sat> | release-v1.0.3 | <2019-04-01 Mon> | v1.0.3        |                                                         |
-  | <2019-04-03 Wed> | release-v1.0.4 | <2019-04-04 Thu> | v1.0.4        |                                                         |
-  | <2019-04-09 Tue> | release-v1.0.5 | <2019-04-10 Wed> | v1.0.5        |                                                         |
-  | <2019-04-16 Tue> | release-v1.0.6 | <2019-04-17 Wed> | v1.0.6        |                                                         |
-  | <2019-05-01 Wed> | release-v1.0.7 | <2019-05-02 Thu> | v1.0.7        |                                                         |
-  | <2019-06-05 Wed> | n/a            | <2019-06-05 Wed> | v1.0.8        | Add flight plan api yaml; description changes           |
-  | <2019-06-05 Wed> | n/a            | <2019-06-05 Wed> | v1.0.9        | Add daa geofence api yaml                               |
-  | <2019-06-21 Fri> | release-v1.1.0 | <2019-06-21 Fri> | v1.1.0        | Change timestamp length to 22-24; add more descriptions |
-  | <2019-06-22 Sat> | release-v1.1.1 | <2019-06-22 Sat> | v1.1.1        | Provide information on testing and uss-exchange call-signs |
+  | Date Announced   | Review-Branch  | Date Implemented | Tag on Master | Desc                                                                              |
+  |------------------+----------------+------------------+---------------+-----------------------------------------------------------------------------------|
+  | n/a              | n/a            | <2019-03-14 Thu> | v1.0.1        |                                                                                   |
+  | <2019-03-21 Thu> | release-v1.0.2 | <2019-03-22 Fri> | v1.0.2        |                                                                                   |
+  | <2019-03-30 Sat> | release-v1.0.3 | <2019-04-01 Mon> | v1.0.3        |                                                                                   |
+  | <2019-04-03 Wed> | release-v1.0.4 | <2019-04-04 Thu> | v1.0.4        |                                                                                   |
+  | <2019-04-09 Tue> | release-v1.0.5 | <2019-04-10 Wed> | v1.0.5        |                                                                                   |
+  | <2019-04-16 Tue> | release-v1.0.6 | <2019-04-17 Wed> | v1.0.6        |                                                                                   |
+  | <2019-05-01 Wed> | release-v1.0.7 | <2019-05-02 Thu> | v1.0.7        |                                                                                   |
+  | <2019-06-05 Wed> | n/a            | <2019-06-05 Wed> | v1.0.8        | Add flight plan api yaml; description changes                                     |
+  | <2019-06-05 Wed> | n/a            | <2019-06-05 Wed> | v1.0.9        | Add daa geofence api yaml                                                         |
+  | <2019-06-21 Fri> | release-v1.1.0 | <2019-06-21 Fri> | v1.1.0        | Change timestamp length to 22-24; add more descriptions                           |
+  | <2019-06-22 Sat> | release-v1.1.1 | <2019-06-22 Sat> | v1.1.1        | Provide information on testing and uss-exchange call-signs                        |
+  | <2019-08-21 Wed> | release-v1.1.2 | <2019-08-21 Wed> | v1.1.2        | Update DAA data model descriptions; update FET list of sensors that are available |
 
 * API Release Schedule
   This schedule is intended to convey to UTM TCL4 participants when NASA servers will support the various end-points described in the OpenAPI specification.  It is to be assumed that the endpoints, when released, will support the latest tag on the master branch.    
