@@ -302,27 +302,52 @@ definitions:
         $ref: "#/definitions/DaaUuid"
       expectedLookAheadTime:
         description: >-
-          Expected temporal parameter used to predict the anticipated actions of aircraft in the near future. Include 3 decimal places of precision. (sec)
+          Expected temporal parameter used to predict the anticipated actions of aircraft in the near future.
+
+          Please report in milliseconds (ms).
+
+          NOTE:
+            DMP-Rev3 asks this to be reported with 3 decimals of precision.
+            However, the reference here is for "seconds" which requires an integer.
+            The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
       expectedOperatorResponseTime:
         description: >-
           Expected UAS Operator response time: temporal parameter used in the
           conflict resolution algorithm to estimate the UAS Operators time
-          needed to initiate a resolution maneuver. Include 3 decimal places of
-          precision. (sec)
+          needed to initiate a resolution maneuver.
+
+          Please report in milliseconds (ms).
+
+          NOTE:
+            DMP-Rev3 asks this to be reported with 3 decimals of precision.
+            However, the reference here is for "seconds" which requires an integer.
+            The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
       expectedUASResponseTime:
         description: >-
           Expected Time for aircraft maneuver: temporal parameter used in the
           conflict resolution algorithm to predict the time needed for the
-          aircraft to perform a resolution maneuver. Include 3 decimal places of
-          precision. (sec)
+          aircraft to perform a resolution maneuver.
+
+          Please report in milliseconds (ms).
+
+          NOTE:
+            DMP-Rev3 asks this to be reported with 3 decimals of precision.
+            However, the reference here is for "seconds" which requires an integer.
+            The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
       expectedCommLatency:
         description: >-
           Total Expected Transmission Latency: total communication latency
-          expected in the conflict resolution (e.g. round-trip time). Include 3
-          decimal places of precision. (sec)
+          expected in the conflict resolution (e.g. round-trip time).
+
+          Please report in milliseconds (ms).
+
+          NOTE:
+            DMP-Rev3 asks this to be reported with 3 decimals of precision.
+            However, the reference here is for "seconds" which requires an integer.
+            The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
       expectedClimbRateOwnship:
         description: >-
@@ -342,7 +367,13 @@ definitions:
       expectedTimeToHover:
         description: >-
           Expected time required for a vehicle to arrest forward motion and
-          hover at a position. (sec)
+          hover at a position.
+
+          Please report in milliseconds (ms).
+
+          NOTE:
+            The reference here is for "seconds" which requires an integer.
+            For consistency, please submit in milliseconds.
         $ref: "#/definitions/seconds"
       probabilityFalseAlarmPrct:
         description: >-
@@ -424,8 +455,14 @@ definitions:
       transmissionDelayV2v:
         description: >-
           Transmission time delay associated with transmitting data packet
-          information from a source to a destination (V2V). Include 3 decimal
-          places of precision. (sec)
+          information from a source to a destination (V2V).
+
+          Please report in milliseconds (ms).
+
+          NOTE:
+            DMP-Rev3 asks this to be reported with 3 decimals of precision.
+            However, the reference here is for "seconds" which requires an integer.
+            The workaround for this is to submit in milliseconds.
         $ref: "#/definitions/seconds"
       packetSizeV2v:
         description: >-
