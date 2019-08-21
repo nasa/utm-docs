@@ -373,7 +373,7 @@ definitions:
 
           NOTE:
             The reference here is for "seconds" which requires an integer.
-            The workaround for this is to submit in milliseconds.
+            For consistency, please submit in milliseconds.
         $ref: "#/definitions/seconds"
       probabilityFalseAlarmPrct:
         description: >-
