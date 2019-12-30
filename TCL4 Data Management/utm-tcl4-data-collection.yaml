@@ -56,21 +56,21 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       reason_for_report:
-        description: >-
+        description: |
           The reason for this report. When an activated operation enters nonconforming
           or rogue state, includes scripted off-nominal event, or unplanned RTL,
           loitering, landing occurs during operation, USS must prompt operator to
           file at least one report when the operation closes.
 
-          Reason must be one of the following Enum values:
-          [NONCONFORMING, ROGUE, NONCONFORMING2ROGUE, UNPLANNED_RTL, UNPLANNED_LOITER, UNPLANNED_LANDING, VOLUNTEER].
-          NONCONFORMING means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason.
-          ROGUE means the operation closed after entering rogue state.
-          NONCONFORMING2ROGUE means the operation entered nonconforming state then rogue state then closed.
-          UNPLANNED_RTL means UA made unplanned return to the launch location (e.g., due to unexpected low battery status).
-          UNPLANNED_LOITER means UA performed unplanned loitering or hovering (e.g., to regain C2 link).
-          UNPLANNED_LANDING means UA made unplanned landing (e.g., due to unexpected low battery status).
-          VOLUNTEER means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
+          Must be one of the following Enum values:
+          
+          * **NONCONFORMING** means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason.
+          * **ROGUE** means the operation closed after entering rogue state.
+          * **NONCONFORMING2ROGUE** means the operation entered nonconforming state then rogue state then closed.
+          * **UNPLANNED_RTL** means UA made unplanned return to the launch location (e.g., due to unexpected low battery status).
+          * **UNPLANNED_LOITER** means UA performed unplanned loitering or hovering (e.g., to regain C2 link).
+          * **UNPLANNED_LANDING** means UA made unplanned landing (e.g., due to unexpected low battery status).
+          * **VOLUNTEER** means this report is filed in addition to USS prompted mandatory one, OR filed without USS prompt (e.g., reporter requests the form to be made available).
         type: string
         enum:
           - NONCONFORMING
