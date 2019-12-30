@@ -56,13 +56,10 @@ definitions:
         pattern: "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-4[0-9a-fA-F]{3}\\-[8-b][0-9a-fA-F]{3}\\-[0-9a-fA-F]{12}$"
         example: "00000000-0000-4444-8888-FEEDDEADBEEF"
       reason_for_report:
-        description: |
-          The reason for this report. When an activated operation enters nonconforming
-          or rogue state, includes scripted off-nominal event, or unplanned RTL,
-          loitering, landing occurs during operation, USS must prompt operator to
-          file at least one report when the operation closes.
+        description: |-
+          The reason for this report. When an activated operation enters nonconforming or rogue state, includes scripted off-nominal event, or unplanned RTL, loitering, landing occurs during operation, USS must prompt operator to file at least one report when the operation closes.
 
-          Must be one of the following Enum values:
+          _Must be one of the following Enum values_
           
           * **NONCONFORMING** means the operation closed after entering nonconforming state. When multiple nonconformances occur use the first one as the reason.
           * **ROGUE** means the operation closed after entering rogue state.
@@ -103,7 +100,7 @@ definitions:
         minLength: 1
         maxLength: 5000
       autopilot_maker:
-        description: maker of UA's autopilot
+        description: Maker of UA's autopilot
         type: string
         minLength: 1
         maxLength: 1000
@@ -113,14 +110,13 @@ definitions:
         minLength: 1
         maxLength: 1000
       gcs_program:
-        description: name of UAS ground control system or program
+        description: Name of UAS ground control system or program
         type: string
         minLength: 1
         maxLength: 1000
       comm_system:
         description: >-
-          description of UAS communications system. Reporter MUST see the prompt
-          text before inputting data.
+          Description of UAS communications system. Reporter MUST see the prompt text before inputting data.
         x-utm-offnominal-prompt: >-
           Describe communications system including frequencies used for
           telemetry (aircraft to operator) and Command & Control (operator to
@@ -130,7 +126,7 @@ definitions:
         maxLength: 5000
       reporter_narrative:
         description: >-
-          reporter narrative about the off-nominal event. Reporter MUST see the
+          Reporter narrative about the off-nominal event. Reporter MUST see the
           prompt text before inputting data.
         x-utm-offnominal-prompt: >-
           Keeping in mind the topics shown below, discuss those that you feel
@@ -148,7 +144,6 @@ definitions:
         description: >-
           FAA rule for the operation, ONLY to be filled when value for the variable
           "reason_for_report" is "VOLUNTEER".
-          Use the following Enum values: [PART_107, PART_107X, PART_101E, OTHER]
         type: string
         enum:
           - PART_107
@@ -157,7 +152,7 @@ definitions:
           - OTHER
       time_occurrence:
         description: >-
-            date and time of off-nominal event in UTC.
+            Date and time of off-nominal event in UTC.
 
             This field is REQUIRED for all Off-Nominal Reports
         type: string
