@@ -1,23 +1,15 @@
 openapi: 3.0.0
 info:
   title: ETM Operator API
-  version: 0.1.1
+  version: 0.1.2
   description: Endpoints for managing Operational Data with data models in reference of ASTM.
 
 security:
   - Authority:
     - operations.non-sensitive.read
     - operations.non-sensitive.write
-    - operations.sensitive.read
-    - operations.sensitive.write
-    - operations.sensitive-protected.read
-    - operations.sensitive-protected.write
     - uvr.non-sensitive.read
     - uvr.non-sensitive.write
-    - uvr.sensitive.read
-    - uvr.sensitive.write
-    - uvr.sensitive-protected.read
-    - uvr.sensitive-protected.write
 
 tags:
   - name: Operations
@@ -40,8 +32,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       responses:
         "201":
           description: >-
@@ -84,8 +74,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.read
-          - operations.sensitive.read
-          - operations.sensitive-protected.read
       parameters:
         - name: gufi
           in: path
@@ -136,8 +124,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       description: >-
         If the requestBody doesn't contain a GUFI, a random GUFI shall be assigned to the
         Operation.
@@ -183,8 +169,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       description: >-
         Update an existing operation, which is specified by gufi in the request
       responses:
@@ -236,8 +220,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.read
-          - operations.sensitive.read
-          - operations.sensitive-protected.read
       parameters:
         - in: path
           name: gufi
@@ -286,8 +268,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.read
-          - operations.sensitive.read
-          - operations.sensitive-protected.read
       description: >-
         Look at the passed-in volume(s), and determine if there are any Operations or Constraints that have conflicting/overlapping volumes. Return the entire Operation and Constraint info, not just the intersecting parts.
       responses:
@@ -337,8 +317,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.write
-          - uvr.sensitive.write
-          - uvr.sensitive-protected.write
       operationId: postConstraint
       requestBody:
         content:
@@ -370,8 +348,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.write
-          - uvr.sensitive.write
-          - uvr.sensitive-protected.write
       operationId: putConstraint
       requestBody:
         content:
@@ -410,8 +386,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.read
-          - uvr.sensitive.read
-          - uvr.sensitive-protected.read
       operationId: getConstraintById
       parameters:
         - name: id
@@ -454,8 +428,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.write
-          - uvr.sensitive.write
-          - uvr.sensitive-protected.write
       operationId: deleteConstraintById
       parameters:
         - name: id
@@ -502,8 +474,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       operationId: postPosition
       requestBody:
         content:
@@ -546,16 +516,8 @@ components:
           scopes:
             operations.non-sensitive.read: Allow read of non-sensitive operations
             operations.non-sensitive.write: Allow write of non-sensitive operations
-            operations.sensitive.read: Allow read of sensitive operations
-            operations.sensitive.write: Allow read of sensitive operations
-            operations.sensitive-protected.read: Allow read of sensitive protected operations
-            operations.sensitive-protected.write: Allow write of sensitive protected operations
             uvr.non-sensitive.read: Allow read of non-sensitive airspace constraints
             uvr.non-sensitive.write: Allow write of non-sensitive airspace constraints
-            uvr.sensitive.read: Allow read of sensitive airspace constraints
-            uvr.sensitive.write: Allow write of sensitive airspace constraints
-            uvr.sensitive-protected.read: Allow read of sensitive-protected airspace constraints
-            uvr.sensitive-protected.write: Allow write of sensitive-protected airspace constraints
       description: |-
         Authorization from, or on behalf of, an authorization authority.  This authority shall issue access tokens that are JSON Web Tokens as defined in RFC 7519, using the `RS256` algorithm for the signature, publish to all providers the public key for verifying that signature, and implement standard OAuth server discovery mechanisms as described in RFC 8414.
 
@@ -692,13 +654,16 @@ components:
   
     CommonOperatingProcedure:
       description: >-
-        Common operating procedure, integer values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
-      type: integer
+        Common operating procedure, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
+        COP1_FIRST_RESERVED - De-confliction through first-reserved-first-served principle
+        COP2_PREDEFINED_AGREEMENT - De-confliction through pre-defined agreement
+        COP3_DYNAMIC_AGREEMENT - De-confliction through dynamically generated/negotiated agreement
+      type: string
       enum:
-      - 1
-      - 2
-      - 3
-      default: 1
+      - COP1_FIRST_RESERVED
+      - COP2_PREDEFINED_AGREEMENT
+      - COP3_DYNAMIC_AGREEMENT
+      default: COP1_FIRST_RESERVED
 
     NegotiatedOperators:
       description: >-
