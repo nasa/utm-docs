@@ -1,27 +1,21 @@
 openapi: 3.0.0
 info:
-  title: NUP Operator API
-  version: 5.0.0
+  title: ETM Operator API
+  version: 0.1.2
   description: Endpoints for managing Operational Data with data models in reference of ASTM.
-  
+
 security:
   - Authority:
     - operations.non-sensitive.read
     - operations.non-sensitive.write
-    - operations.sensitive.read
-    - operations.sensitive.write
-    - operations.sensitive-protected.read
-    - operations.sensitive-protected.write
     - uvr.non-sensitive.read
     - uvr.non-sensitive.write
-    - uvr.sensitive.read
-    - uvr.sensitive.write
-    - uvr.sensitive-protected.read
-    - uvr.sensitive-protected.write
-      
+
 tags:
   - name: Operations
     description: Add and view Operations
+  - name: Conflicts
+    description: Get conflicting Operational Intents
   - name: Messages
     description: Add and view Operator Messages
   - name: Positions
@@ -38,12 +32,10 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       responses:
         "201":
           description: >-
-            Acknowledge that request was received. This does not guarantee that the Message was successfully processed in the PSU network.
+            Acknowledge that request was received. This does not guarantee that the Message was successfully processed in the ESS network.
           content:
             application/json:
               schema:
@@ -82,8 +74,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.read
-          - operations.sensitive.read
-          - operations.sensitive-protected.read
       parameters:
         - name: gufi
           in: path
@@ -125,6 +115,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OperatorResponse"
+
   "/operations":
     post:
       tags:
@@ -133,22 +124,19 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       description: >-
         If the requestBody doesn't contain a GUFI, a random GUFI shall be assigned to the
         Operation.
         If the requestBody contains a non-existing GUFI, then the supplied GUFI will be
         used for the new operation.
-
       responses:
         "201":
           description: >-
-            Acknowledge that request was received. This does not guarantee that the Operation was successfully added to the PSU network.
+            Acknowledge that request was received. This does not guarantee that the Operation was successfully added to the ESS network.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OperatorResponse"
+                $ref: "#/components/schemas/OperatorResponseWithConflicts"
         "400":
           description: Invalid Request was received.
           content:
@@ -181,18 +169,16 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       description: >-
         Update an existing operation, which is specified by gufi in the request
       responses:
         "200":
           description: >-
-            Acknowledge that request was received. This does not guarantee that the Operation was successfully updated in the PSU network.
+            Acknowledge that request was received. This does not guarantee that the Operation was successfully updated in the ESS network.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OperatorResponse"
+                $ref: "#/components/schemas/OperatorResponseWithConflicts"
         "400":
           description: Invalid Request was received.
           content:
@@ -234,8 +220,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.read
-          - operations.sensitive.read
-          - operations.sensitive-protected.read
       parameters:
         - in: path
           name: gufi
@@ -276,21 +260,63 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperatorResponse"
 
+  "/conflicts/query":
+    post:
+      tags:
+        - Conflicts
+      summary: Submit a query to find any Operations or Constraints that overlap/conflict with some specified 4D volumes.
+      security:
+        - Authority:
+          - operations.non-sensitive.read
+      description: >-
+        Look at the passed-in volume(s), and determine if there are any Operations or Constraints that have conflicting/overlapping volumes. Return the entire Operation and Constraint info, not just the intersecting parts.
+      responses:
+        "201":
+          description: >-
+            Acknowledge that request was received. Return Operations and Constraints with conflicting/overlapping operational intents, if any.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperatorResponseWithConflicts"
+        "400":
+          description: Invalid Request was received.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperatorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperatorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OperatorResponse"
+      requestBody:
+        description: 4D Volumes to check for conflict/overlap
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConflictCheckParameters"
+        required: true
+
   "/constraints":
     post:
       tags:
         - Constraints for elevated privileges
       summary: Submit a Constraint Request to NUP
       description: >-
-        Submit a Constraint Request. NUP shall attempt to submit the Constraint to the PSU network.
+        Submit a Constraint Request. NUP shall attempt to submit the Constraint to the ESS network.
         If the requestBody doesn't contain an id, a random id shall be assigned to the Operation.
         If the requestBody contains a non-existing id, then the supplied id will be
         used for the new operation.
       security:
         - Authority:
           - uvr.non-sensitive.write
-          - uvr.sensitive.write
-          - uvr.sensitive-protected.write
       operationId: postConstraint
       requestBody:
         content:
@@ -302,7 +328,7 @@ paths:
       responses:
         "201":
           description: >-
-            Acknowledge that Constraint Request was received. This does not guarantee that the Constraint was successfully added to the PSU network.
+            Acknowledge that Constraint Request was received. This does not guarantee that the Constraint was successfully added to the ESS network.
           content:
             application/json:
               schema:
@@ -322,8 +348,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.write
-          - uvr.sensitive.write
-          - uvr.sensitive-protected.write
       operationId: putConstraint
       requestBody:
         content:
@@ -335,7 +359,7 @@ paths:
       responses:
         "200":
           description: >-
-            Acknowledge that Constraint Request was received. This does not guarantee that the Constraint was successfully updated in the PSU network.
+            Acknowledge that Constraint Request was received. This does not guarantee that the Constraint was successfully updated in the ESS network.
           content:
             application/json:
               schema:
@@ -362,8 +386,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.read
-          - uvr.sensitive.read
-          - uvr.sensitive-protected.read
       operationId: getConstraintById
       parameters:
         - name: id
@@ -393,7 +415,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperatorResponse"
         "500":
-          description: Error related to being unable to retrieve the Constraint from the PSU network
+          description: Error related to being unable to retrieve the Constraint from the ESS network
           content:
             application/json:
               schema:
@@ -406,8 +428,6 @@ paths:
       security:
         - Authority:
           - uvr.non-sensitive.write
-          - uvr.sensitive.write
-          - uvr.sensitive-protected.write
       operationId: deleteConstraintById
       parameters:
         - name: id
@@ -420,7 +440,7 @@ paths:
       responses:
         "200":
           description:
-            Acknowledge that a delete Constraint Request was received. This does not guarantee that the Constraint was deleted from the PSU network.
+            Acknowledge that a delete Constraint Request was received. This does not guarantee that the Constraint was deleted from the ESS network.
           content:
             application/json:
               schema:
@@ -438,7 +458,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperatorResponse"
         "500":
-          description: Error related to being unable to retrieve the Constraint from the PSU network
+          description: Error related to being unable to retrieve the Constraint from the ESS network
           content:
             application/json:
               schema:
@@ -454,8 +474,6 @@ paths:
       security:
         - Authority:
           - operations.non-sensitive.write
-          - operations.sensitive.write
-          - operations.sensitive-protected.write
       operationId: postPosition
       requestBody:
         content:
@@ -486,7 +504,7 @@ paths:
                 $ref: "#/components/schemas/OperatorResponse"
 
 servers:
-  - url: "https://some.host/npsu/operator"
+  - url: "https://some.host/ess/operator"
 
 components:
   securitySchemes:
@@ -498,16 +516,8 @@ components:
           scopes:
             operations.non-sensitive.read: Allow read of non-sensitive operations
             operations.non-sensitive.write: Allow write of non-sensitive operations
-            operations.sensitive.read: Allow read of sensitive operations
-            operations.sensitive.write: Allow read of sensitive operations
-            operations.sensitive-protected.read: Allow read of sensitive protected operations
-            operations.sensitive-protected.write: Allow write of sensitive protected operations
             uvr.non-sensitive.read: Allow read of non-sensitive airspace constraints
             uvr.non-sensitive.write: Allow write of non-sensitive airspace constraints
-            uvr.sensitive.read: Allow read of sensitive airspace constraints
-            uvr.sensitive.write: Allow write of sensitive airspace constraints
-            uvr.sensitive-protected.read: Allow read of sensitive-protected airspace constraints
-            uvr.sensitive-protected.write: Allow write of sensitive-protected airspace constraints
       description: |-
         Authorization from, or on behalf of, an authorization authority.  This authority shall issue access tokens that are JSON Web Tokens as defined in RFC 7519, using the `RS256` algorithm for the signature, publish to all providers the public key for verifying that signature, and implement standard OAuth server discovery mechanisms as described in RFC 8414.
 
@@ -532,15 +542,15 @@ components:
         user_id:
           type: string
           description: operator user id.
-        uss_name:
+        ess_name:
           type: string
-          description: USS name that owns the operation.
+          description: ESS name that owns the operation.
         sensitivity_type:
           $ref: "#/components/schemas/SensitivityType"
         update_time:
           description: >-
-            A timestamp set by the USS any time the state of the operation is
-            updated within the USS Network.
+            A timestamp set by the ESS any time the state of the operation is
+            updated within the ESS Network.
           type: string
           format: date-time
           example: "2015-08-20T14:11:56.118Z"
@@ -569,7 +579,6 @@ components:
               This Operation is executing a contingency action, either because it has been
               NonConforming for a certain period of time, or because of operator initiation.
               This state must transition to Ended.
-
           enum:
             - Proposed
             - Accepted
@@ -584,11 +593,13 @@ components:
           description: The actual geographical and time information for the operation.
           items:
             $ref: "#/components/schemas/Volume4D"
+        wind_source:
+          $ref: '#/components/schemas/WindSource'
         comments:
           maxLength: 1000
           type: string
           description:
-            Informative text about the operatkon. Not used by the UTM System.
+            Informative text about the operatkon. Not used by the ETM System.
             Only for human stakeholders.
           default: NOT PROVIDED
         version:
@@ -596,8 +607,109 @@ components:
           type: integer
           format: int32
 
+    Operator:
+      description: >-
+        The information about an operator, including the name, email, and telephone number.
+      type: object
+      properties:
+        operator_name:
+          type: string
+          maxLength: 256
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+          format: phone
+
+    VehicleMaker:
+      description: The name of the manufacturer of the vehicle.
+      type: string
+      maxLength: 256
+
+    VehicleModel:
+      description: The name of the model of the vehicle.
+      type: string
+      maxLength: 256
+
+    MissionType:
+       description: >-
+         Designation of mission type, whether public or private. Default to PUBLIC.
+       type: string
+       enum:
+       - PUBLIC
+       - PRIVATE
+       default: PUBLIC
+
+    MissionDescription:
+      description: >-
+        Description of the mission, e.g. describing the mission, such as fly to the Gulf of Mexico and loiter for 6 months providing a service.
+      type: string
+      maxLength: 1000
+
+    ContingencyHandlingDescription:
+      description: Description of the contigency handling procedures.
+      type: string
+      maxLength: 10000
+  
+    CommonOperatingProcedure:
+      description: >-
+        Common operating procedure, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
+        COP1_FIRST_RESERVED - De-confliction through first-reserved-first-served principle
+        COP2_PREDEFINED_AGREEMENT - De-confliction through pre-defined agreement
+        COP3_DYNAMIC_AGREEMENT - De-confliction through dynamically generated/negotiated agreement
+      type: string
+      enum:
+      - COP1_FIRST_RESERVED
+      - COP2_PREDEFINED_AGREEMENT
+      - COP3_DYNAMIC_AGREEMENT
+      default: COP1_FIRST_RESERVED
+
+    NegotiatedOperators:
+      description: >-
+       List of other operators that the operator of this operation has agreements with, for the purposes of negotiation outside of the common operating procedures.
+      type: array
+      maxItems: 1024
+      items:
+        type: string
+        maxLength: 256
+
+    WindSource:
+      description: Source of wind data used for trajectory forecasting
+      type: string
+      enum:
+        - GFS
+        - Other
+
+    ConflictCheckParameters:
+      required:
+        - volumes
+      type: object
+      properties:
+        volumes:
+          description: >-
+            The actual geographical and time information for the operation.
+            For each operation volume, the properties of time_start and time_end are required.
+          maxItems: 250
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Volume4D"
+        include_intersections:
+          description: >-
+            Whether to also include the intersecting portions of any conflicting/overlapping operations (but not constraints).
+          type: boolean
+
     ProposeOperationParameters:
       required:
+        - vehicle_maker
+        - vehicle_model
+        - mission_type
+        - mission_description
+        - contingency_handling_description
+        - common_operating_procedures
+        - negotiated_operators
+        - poc_for_coordination
         - volumes
       type: object
       properties:
@@ -605,32 +717,58 @@ components:
           type: string
           format: uuid
           example: 00000000-0000-4444-8888-feeddeadbeef
+        vehicle_maker:
+          $ref: "#/components/schemas/VehicleMaker"
+        vehicle_model:
+          $ref: "#/components/schemas/VehicleModel"
+        mission_type:
+          $ref: "#/components/schemas/MissionType"
+        mission_description:
+          $ref: "#/components/schemas/MissionDescription"
+        contingency_handling_description:
+          $ref: '#/components/schemas/ContingencyHandlingDescription'
+        common_operating_procedures:
+          $ref: '#/components/schemas/CommonOperatingProcedure'
+        negotiated_operators:
+          $ref: '#/components/schemas/NegotiatedOperators'
+        poc_for_coordination:
+          $ref: '#/components/schemas/Operator'
         volumes:
-          maxItems: 250
-          minItems: 1
-          type: array
           description: >-
             The actual geographical and time information for the operation.
             For each operation volume, the properties of time_start and time_end are required.
+          maxItems: 250
+          minItems: 1
+          type: array
           items:
             $ref: "#/components/schemas/Volume4D"
+        wind_source:
+          $ref: '#/components/schemas/WindSource'
         comments:
           maxLength: 1000
           type: string
           description:
-            Informative text about the aircraft. Not used by the UTM System.
+            Informative text about the aircraft. Not used by the ETM System.
             Only for human stakeholders.
           default: NOT PROVIDED
         sensitivity_type:
           $ref: "#/components/schemas/SensitivityType"
+
     UpdateOperationParameters:
       description: >-
         Forked from /components/schemas/ProposeOperationParameter.
-
         Modifications Include:
         - Make gufi required
       required:
         - gufi
+        - vehicle_maker
+        - vehicle_model
+        - mission_type
+        - mission_description
+        - contingency_handling_description
+        - common_operating_procedures
+        - negotiated_operators
+        - poc_for_coordination
         - volumes
       type: object
       properties:
@@ -638,6 +776,22 @@ components:
           type: string
           format: uuid
           example: 00000000-0000-4444-8888-feeddeadbeef
+        vehicle_maker:
+          $ref: "#/components/schemas/VehicleMaker"
+        vehicle_model:
+          $ref: "#/components/schemas/VehicleModel"
+        mission_type:
+          $ref: "#/components/schemas/MissionType"
+        mission_description:
+          $ref: "#/components/schemas/MissionDescription"
+        contingency_handling_description:
+          $ref: '#/components/schemas/ContingencyHandlingDescription'
+        common_operating_procedures:
+          $ref: '#/components/schemas/CommonOperatingProcedure'
+        negotiated_operators:
+          $ref: '#/components/schemas/NegotiatedOperators'
+        poc_for_coordination:
+          $ref: '#/components/schemas/Operator'
         volumes:
           maxItems: 250
           minItems: 1
@@ -647,19 +801,63 @@ components:
             For each operation volume, the properties of time_start and time_end are required.
           items:
             $ref: "#/components/schemas/Volume4D"
+        wind_source:
+          $ref: '#/components/schemas/WindSource'
         comments:
           maxLength: 1000
           type: string
           description:
-            Informative text about the aircraft. Not used by the UTM System.
+            Informative text about the aircraft. Not used by the ETM System.
             Only for human stakeholders.
           default: NOT PROVIDED
         sensitivity_type:
           $ref: "#/components/schemas/SensitivityType"
 
+    ConflictingOperation:
+      description: >-
+        Minimum necessary info to be returned for operations that conflict or overlap with another operation or operational area.
+      type: object
+      properties:
+        gufi:
+          type: string
+          format: uuid
+          example: 00000000-0000-4444-8888-feeddeadbeef
+        vehicle_maker:
+          $ref: "#/components/schemas/VehicleMaker"
+        vehicle_model:
+          $ref: "#/components/schemas/VehicleModel"
+        mission_type:
+          $ref: "#/components/schemas/MissionType"
+        mission_description:
+          $ref: "#/components/schemas/MissionDescription"
+        contingency_handling_description:
+          $ref: '#/components/schemas/ContingencyHandlingDescription'
+        common_operating_procedures:
+          $ref: '#/components/schemas/CommonOperatingProcedure'
+        poc_for_coordination:
+          $ref: '#/components/schemas/Operator'
+        volumes:
+          maxItems: 250
+          minItems: 1
+          type: array
+          description: >-
+            The actual geographical and time information for the operation.
+            For each operation volume, the properties of time_start and time_end are required.
+          items:
+            $ref: "#/components/schemas/Volume4D"
+        wind_source:
+          $ref: '#/components/schemas/WindSource'
+        comments:
+          maxLength: 1000
+          type: string
+          description:
+            Informative text about the aircraft. Not used by the ETM System.
+            Only for human stakeholders.
+          default: NOT PROVIDED
+
     Message:
       description: >-
-        A UTM operator message. Used to make other stakeholders aware about an issue.
+        An ETM operator message. Used to make other stakeholders aware about an issue.
       type: object
       required:
         - message_type
@@ -675,13 +873,15 @@ components:
         origin:
           type: string
           description: >-
-            CLIENT: Message is from a UTM Client to the UTM System.
-            UTM: Message was automatically generated by the UTM System.
+            CLIENT: Message is from an ETM Client to the ETM System.
+            ETM: Message was automatically generated by the ETM System.
+            UTM: Message is from a UTM Client to the ETM System.
           enum:
             - CLIENT
+            - ETM
             - UTM
         time_sent:
-          $ref: "https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/Time"
+          $ref: "#/components/schemas/Time"
         message_type:
           type: string
           description: |-
@@ -720,17 +920,17 @@ components:
             17. INTENT_OPERATION_ALL_CLEAR
               This operation was in Accepted state and wants to transition to Activated state.
             18. INTENT_OPERATION_CONTINGENCY
-              This message requests USS to change the operation to Contingent state.
+              This message requests ESS to change the operation to Contingent state.
             19. INTENT_OPERATION_CLOSE
               The operator wants to close this operation.  This will move the operation to Closed state.
             20. ALERT_OPERATION_NONCONFORMING
-              The USS uses this message to alert the operator that the operation position is not conformed to the planned volumes.
+              The ESS uses this message to alert the operator that the operation position is not conformed to the planned volumes.
             21. ALERT_OPERATION_CONFORMING
-              The USS uses this message to alert the operator that the operation position is back to be conformed to the planned volumes.
+              The ESS uses this message to alert the operator that the operation position is back to be conformed to the planned volumes.
             22. ALERT_OPERATION_CONTINGENT
-              The USS uses this message to alert the operator that the operation position is in contingent state.
+              The ESS uses this message to alert the operator that the operation position is in contingent state.
             23. ALERT_OPERATION_REPLAN
-              The USS requests the operator to replan the operation.  The reason could be either A) that USS received a constraint update from another USS or B) an update of contingent operation from another USS that overlaps with the operation, see reason field for the discription.  The operator is required to replan the operation to avoid the conflict.
+              The ESS requests the operator to replan the operation.  The reason could be either A) that ESS received a constraint update from another ESS or B) an update of contingent operation from another ESS that overlaps with the operation, see reason field for the discription.  The operator is required to replan the operation to avoid the conflict.
           enum:
             - INFORM_OPERATION_ACCEPTED
             - INFORM_OPERATION_REJECTED
@@ -764,7 +964,7 @@ components:
             The violation type refers to the constriant type of violation, e.g. OPERATION
             or CONSTRANIT.  The constraining_id is the UUID associated with each constraint;
             When applicable, violating_volumes indicates the ordinals of volumes that are in
-            violation. This allows for querying UTM for more information details.
+            violation. This allows for querying ETM for more information details.
           items:
             $ref: "#/components/schemas/Violation"
         free_text:
@@ -879,6 +1079,215 @@ components:
           $ref: >-
             https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/ConstraintDetails/properties/type
 
+    Time:
+      description: Forked from ASTM /components/schemas/Time.
+      required:
+        - value
+        - format
+      type: object
+      properties:
+        value:
+          type: string
+          description: RFC3339-formatted time/date string.  The time zone must be 'Z'.
+          format: date-time
+          example: '1985-04-12T23:20:50.52Z'
+        format:
+          type: string
+          enum:
+            - RFC3339
+
+    Radius:
+      description: Forked from ASTM /components/schemas/Radius.
+      required:
+        - value
+        - units
+      type: object
+      properties:
+        value:
+          format: float
+          description: Distance from the centerpoint of a circular/elliptical area, along the WGS84 ellipsoid.
+          type: number
+          example: 300.183
+        units:
+          type: string
+          description: FIXM-compatible units. Only meters ("M") are acceptable for ETM.
+          enum:
+            - M
+
+    Angle:
+      required:
+        - value
+        - units
+      type: object
+      properties:
+        value:
+          description: The magnitude of the angle.
+          format: float
+          type: number
+        units:
+          description: The units being used to measure the angle.
+          type: string
+          enum:
+            - DEG
+            - RAD
+
+    Altitude:
+      description: Forked from ASTM /components/schemas/Altitude.
+      type: object
+      required:
+        - value
+        - reference
+        - units
+      properties:
+        value:
+          description: |-
+            The numeric value of the altitude. Note that min and max values are
+            added as a sanity check. As use cases evolve and more options are
+            made available in terms of units of measure or reference systems,
+            these bounds should be re-evaluated.
+          type: number
+          format: double
+          minimum: -8000
+          exclusiveMinimum: false
+          maximum: 100000
+          exclusiveMaximum: false
+        reference:
+          description: |-
+            A code indicating the reference for a vertical distance. See AIXM 5.1
+            and FIXM 4.2.0. Currently, ETM only allows WGS84 with no immediate
+            plans to allow other options. FIXM and AIXM allow for 'SFC' which is
+            equivalent to AGL.
+          type: string
+          enum:
+            - W84
+        units:
+          description: |-
+            The reference quantities used to express the value of altitude. See
+            FIXM 4.2. Currently, ETM only allows meters with no immediate plans
+            to allow other options.
+          type: string
+          enum:
+            - M
+
+    Latitude:
+      description: Degrees of latitude north of the equator, with reference to the WGS84 ellipsoid.
+
+        Forked from ASTM /components/schemas/Latitude.
+      maximum: 90
+      exclusiveMaximum: false
+      minimum: -90
+      exclusiveMinimum: false
+      type: number
+      format: double
+      example: 34.123
+
+    Longitude:
+      description: Degrees of longitude east of the Prime Meridian, with reference to the WGS84 ellipsoid.
+
+        Forked from ASTM /components/schemas/Longitude.
+      minimum: -180
+      exclusiveMaximum: false
+      maximum: 180
+      exclusiveMinimum: false
+      type: number
+      format: double
+      example: -118.456
+
+    Polygon:
+      description: |-
+        An enclosed area on the earth.
+        The bounding edges of this polygon shall be the shortest paths between connected vertices.  This means, for instance, that the edge between two points both defined at a particular latitude is not generally contained at that latitude.
+        The winding order shall be interpreted as the order which produces the smaller area.
+        The path between two vertices shall be the shortest possible path between those vertices.
+        Edges may not cross.
+        Vertices may not be duplicated.  In particular, the final polygon vertex shall not be identical to the first vertex.
+
+        Forked from ASTM /components/schemas/Polygon.
+      required:
+        - vertices
+      type: object
+      properties:
+        vertices:
+          minItems: 3
+          type: array
+          items:
+            $ref: '#/components/schemas/LatLngPoint'
+
+    LatLngPoint:
+      description: Point on the earth's surface.
+      required:
+        - lat
+        - lng
+      type: object
+      properties:
+        lng:
+          $ref: '#/components/schemas/Longitude'
+        lat:
+          $ref: '#/components/schemas/Latitude'
+
+    Circle:
+      description: |-
+        A circular area on the surface of the earth.
+
+        Forked from ASTM /components/schemas/Circle.
+      type: object
+      properties:
+        center:
+          $ref: '#/components/schemas/LatLngPoint'
+        radius:
+          $ref: '#/components/schemas/Radius'
+
+    Ellipse:
+      description: |-
+        An elliptical area on the surface of the earth.
+      type: object
+      properties:
+        center:
+          $ref: '#/components/schemas/LatLngPoint'
+        semi-major_axis:
+          $ref: '#/components/schemas/Radius'
+        semi-minor_axis:
+          $ref: '#/components/schemas/Radius'
+        axis_rotation:
+          description: The counter-clockwise rotation of the semi-major axis, relative to the x-axis.
+          allOf:
+            - $ref: '#/components/schemas/Angle'
+
+    Volume3D:
+      description: |-
+        A three-dimensional geographic volume consisting of a vertically-extruded shape.  Exactly one of
+        `outline_polygon` or `outline_circle` must be specified.
+
+        Forked from ASTM /components/schemas/Volume3D.
+
+        Modifications Include:
+          - Add possible outline shape of ellipse.
+      required:
+        - altitude_lower
+        - altitude_upper
+      type: object
+      properties:
+        outline_circle:
+          anyOf:
+            - $ref: '#/components/schemas/Circle'
+          description: A circular geographic shape on the surface of the earth.
+        outline_polygon:
+          anyOf:
+            - $ref: '#/components/schemas/Polygon'
+          description: A polygonal geographic shape on the surface of the earth.
+        outline_ellipse:
+          anyOf:
+            - $ref: '#/components/schemas/Ellipse'
+          description: An elliptical geographic shape on the surface of the earth.
+        altitude_lower:
+          description: Minimum bounding altitude of this volume.
+          anyOf:
+            - $ref: '#/components/schemas/Altitude'
+        altitude_upper:
+          description: Maximum bounding altitude of this volume.
+          anyOf:
+            - $ref: '#/components/schemas/Altitude'
+
     Position:
       description: >-
         Forked from ASTM /components/schemas/VehicleTelemetry
@@ -906,8 +1315,7 @@ components:
           $ref: >-
             https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/Velocity
         time_measured:
-          $ref: >-
-            https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/Time
+          $ref: '#/components/schemas/Time'
       externalDocs:
         url: https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml
 
@@ -919,6 +1327,7 @@ components:
 
         Modifications Include:
         - Make time_start and time_end required
+        - Add 
       required:
         - volume
         - time_start
@@ -926,11 +1335,23 @@ components:
       type: object
       properties:
         volume:
-          $ref: "https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/Volume3D"
+          $ref: '#/components/schemas/Volume3D'
         time_start:
-          $ref: "https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/Time"
+          $ref: '#/components/schemas/Time'
         time_end:
-          $ref: "https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/Time"
+          $ref: '#/components/schemas/Time'
+        containment_confidence:
+          description: Confidence of aircraft staying inside of 4D volume
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        confidence_distribution:
+          description: Containment confidence probability distribution type
+          type: string
+          enum:
+          - Uniform
+          - Normal
 
     OperatorResponse:
       type: object
@@ -947,6 +1368,33 @@ components:
         request_id:
           type: string
 
+    OperatorResponseWithConflicts:
+      type: object
+      properties:
+        status_code:
+          description: the status code of the response
+          type: integer
+          format: int32
+        msg:
+          type: string
+        entity_id:
+          type: string
+          format: uuid
+        request_id:
+          type: string
+        conflicting_operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConflictingOperation'
+        intersecting_operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConflictingOperation'
+        conflicting_constraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Constraint'
+
     SensitivityType:
       description: >-
         Sensitivity of the operation
@@ -956,4 +1404,3 @@ components:
         - 'sensitive'
         - 'sensitive-protected'
       default: 'non-sensitive'
-
