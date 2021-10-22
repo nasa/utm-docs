@@ -1268,24 +1268,24 @@ components:
       type: object
       properties:
         outline_circle:
-          anyOf:
-            - $ref: '#/components/schemas/Circle'
           description: A circular geographic shape on the surface of the earth.
+          allOf:
+            - $ref: '#/components/schemas/Circle'
         outline_polygon:
-          anyOf:
-            - $ref: '#/components/schemas/Polygon'
           description: A polygonal geographic shape on the surface of the earth.
+          allOf:
+            - $ref: '#/components/schemas/Polygon'
         outline_ellipse:
-          anyOf:
-            - $ref: '#/components/schemas/Ellipse'
           description: An elliptical geographic shape on the surface of the earth.
+          allOf:
+            - $ref: '#/components/schemas/Ellipse'
         altitude_lower:
           description: Minimum bounding altitude of this volume.
-          anyOf:
+          allOf:
             - $ref: '#/components/schemas/Altitude'
         altitude_upper:
           description: Maximum bounding altitude of this volume.
-          anyOf:
+          allOf:
             - $ref: '#/components/schemas/Altitude'
 
     Position:
