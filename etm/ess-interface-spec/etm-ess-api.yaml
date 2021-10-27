@@ -1033,8 +1033,10 @@ components:
       properties:
         volumes:
           description: >-
-            Volumes that wholly contain the operational intent while being as
-            small as practical.
+            Volumes that wholly contain the operational intent while being within
+            an externally defined convention for maximum size. Once this size is
+            reached the confidence value for the OperationalIntentVolume4D should
+            decrease rather than the volume size increasing.
 
             Start and end times, as well as lower and upper altitudes, are
             required for each volume. The end time may not be in the past.
@@ -1045,7 +1047,7 @@ components:
             May not contain any items when the operational intent is Contingent.
           type: array
           items:
-            $ref: '#/components/schemas/Volume4D'
+            $ref: '#/components/schemas/OperationalIntentVolume4D'
           default: [ ]
         off_nominal_volumes:
           description: >-
@@ -2351,7 +2353,7 @@ components:
       required:
       - status
       - constant 
-      - growthRate
+      - growth_rate
       type: object
       properties:
         status:
@@ -2367,7 +2369,7 @@ components:
           exclusiveMinimum: false
           description: the constant portion of the root-mean-square error for the tracking error at a given direction
           example: 1.00
-        growthRate:
+        growth_rate:
           format: float
           type: number
           multipleOf: 0.01
@@ -2375,6 +2377,24 @@ components:
           exclusiveMinimum: false
           description: the rate portion of the root-mean-square error for the tracking error at a given direction
           example: 1.00
+      OperationalIntentVolume4D:
+        type: object
+        description: >-
+          Four dimensional volume used for communicating operational intent. This volume includes a containment
+          confidence level to communicate to other operators the likelihood of being inside of a designated volume
+          in order to avoid high-uncertainty vehicles having volumes larger than acceptable by the current design.
+        properties:
+          volume:
+            $ref: '#/components/schemas/Volume4D'
+          containtment_confidence_level:
+            $ref: '#/components/schemas/ContainmentConfidenceLevel'
+      ContainmentConfidenceLevel:
+        description: >-
+          A confidence value between 0.0 - 1.0 that expresses the likelihood that a vehicle will be within a volume.
+        type: number
+        format: float
+        minimum: 0.0
+        maximum: 1.0
 paths:
   #
   # DSS endpoints for operational intents
