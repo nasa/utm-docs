@@ -3,7 +3,7 @@ info:
   title: ETM API (ESS->DSS and ESS->ESS)
   version: 1.0.0
   description: >-
-    Interface definitions for communication between a ESS
+    Interface definitions for communication between an ETM Service Supplier (ESS)
     and a DSS, as well as for
     communication between two ESSs.
 
@@ -108,7 +108,7 @@ components:
         tokens, and absent guidance on behalf of the competent authority to the
         contrary, the JWT `aud` claim requested by the client must be included
         in each access token and must contain the fully qualified domain name of
-        the URL the access token will be used to access.  For example, if a ESS
+        the URL the access token will be used to access.  For example, if an ESS
         were querying the endpoint at
         https://dss.example.com:8888/rid/v2/dss/identification_service_areas,
         the access token included in the request should specify `"aud":
@@ -347,7 +347,7 @@ components:
           - $ref: '#/components/schemas/Time'
     ErrorResponse:
       description: >-
-        Human-readable string returned when an error occurs as a result of a ESS
+        Human-readable string returned when an error occurs as a result of an ESS
         - DSS transaction.
       type: object
       properties:
@@ -402,10 +402,10 @@ components:
           $ref: '#/components/schemas/SubscriptionID'
         version:
           description: >-
-            Version of the subscription that the DSS changes every time a ESS
+            Version of the subscription that the DSS changes every time an ESS
             changes the subscription.  The DSS incrementing the
             notification_index does not constitute a change that triggers a new
-            version.  A ESS must specify this version when modifying an existing
+            version. An ESS must specify this version when modifying an existing
             subscription to ensure consistency in read-modify-write operations
             and distributed systems.
           type: string
@@ -539,7 +539,7 @@ components:
           default: false
     SubscriptionEssBaseURL:
       description: >-
-        The base URL of a ESS implementation of the parts of the ESS-ESS API
+        The base URL of an ESS implementation of the parts of the ESS-ESS API
         necessary for receiving the notifications requested by this
         subscription.
       anyOf:
@@ -578,7 +578,7 @@ components:
           $ref: '#/components/schemas/Subscription'
     EssBaseURL:
       description: >-
-        The base URL of a ESS implementation of part or all of the ESS-ESS API.
+        The base URL of an ESS implementation of part or all of the ESS-ESS API.
         Per the ESS-ESS API, the full URL of a particular resource can be
         constructed by appending, e.g., `/ess/v1/{resource}/{id}` to this base
         URL. Accordingly, this URL may not have a trailing '/' character.
@@ -628,7 +628,7 @@ components:
     OperationalIntentReference:
       description: >-
         The high-level information of a planned or active operational intent
-        with the URL of a ESS to query for details.  Note: 'ovn' is returned
+        with the URL of an ESS to query for details.  Note: 'ovn' is returned
         ONLY to the ESS that created the operational intent but NEVER to other
         ESS instances.
       required:
@@ -652,7 +652,7 @@ components:
             Created by the DSS based on creating client's ID (via access
             token).  Used internal to the DSS for restricting mutation and
             deletion operations to manager.  Used by ESSs to reject operational
-            intent update notifications originating from a ESS that does not
+            intent update notifications originating from an ESS that does not
             manage the operational intent.
         ess_availability:
           $ref: '#/components/schemas/EssAvailabilityState'
@@ -663,7 +663,7 @@ components:
           description: >-
             Numeric version of this operational intent which increments upon
             each change in the operational intent, regardless of whether any
-            field of the operational intent reference changes.  A ESS with the
+            field of the operational intent reference changes. An ESS with the
             details of this operational intent when it was at a particular
             version does not need to retrieve the details again until the
             version changes.
@@ -697,7 +697,7 @@ components:
           - $ref: '#/components/schemas/SubscriptionID'
     OperationalIntentEssBaseURL:
       description: >-
-        The base URL of a ESS implementation that implements the parts of the
+        The base URL of an ESS implementation that implements the parts of the
         ESS-ESS API necessary for providing the details of this operational
         intent, and telemetry during non-conformance or contingency, if
         applicable.
@@ -783,7 +783,7 @@ components:
       properties:
         ess_base_url:
           description: >-
-            The base URL of a ESS implementation of the parts of the ESS-ESS API
+            The base URL of an ESS implementation of the parts of the ESS-ESS API
             necessary for receiving the notifications that the operational
             intent must be aware of.  This includes, at least, notifications for
             relevant changes in operational intents.
@@ -878,7 +878,7 @@ components:
             Created by the DSS based on creating client's ID (via access
             token).  Used internal to the DSS for restricting mutation and
             deletion operations to manager.  Used by ESSs to reject constraint
-            update notifications originating from a ESS that does not manage the
+            update notifications originating from an ESS that does not manage the
             constraint.
         ess_availability:
           $ref: '#/components/schemas/EssAvailabilityState'
@@ -889,7 +889,7 @@ components:
           description: >-
             Numeric version of this constraint which increments upon each change
             in the constraint, regardless of whether any field of the constraint
-            reference changes.  A ESS with the details of this constraint when
+            reference changes. An ESS with the details of this constraint when
             it was at a particular version does not need to retrieve the details
             again until the version changes.
         ovn:
@@ -909,7 +909,7 @@ components:
           $ref: '#/components/schemas/ConstraintEssBaseURL'
     ConstraintEssBaseURL:
       description: >-
-        The base URL of a ESS implementation that implements the parts of the
+        The base URL of an ESS implementation that implements the parts of the
         ESS-ESS API necessary for providing the details of this constraint.
       anyOf:
       - $ref: '#/components/schemas/EssBaseURL'
@@ -1345,9 +1345,9 @@ components:
       - Normal
       - Down
       description: >-
-        A ESS is presumed to be in the Unknown state absent indication otherwise
-        by a ESS with availability arbitration scope.  Upon determination via
-        availability arbitration, a ESS is Down when it does not respond
+        An ESS is presumed to be in the Unknown state absent indication otherwise
+        by an ESS with availability arbitration scope.  Upon determination via
+        availability arbitration, an ESS is Down when it does not respond
         appropriately, and a Down ESS may not perform the following operations
         in the DSS:
 
@@ -1358,8 +1358,8 @@ components:
 
         * Delete an operational intent
 
-        A ESS in the Unknown state possesses all the capabilities, within the
-        DSS, of a ESS in the Normal state.
+        An ESS in the Unknown state possesses all the capabilities, within the
+        DSS, of an ESS in the Normal state.
     SetEssAvailabilityStatusParameters:
       type: object
       required:
@@ -1423,7 +1423,7 @@ components:
           default: [ ]
         operator_associations:
           description: >-
-            For a ESS that manages operational intents, associations of an
+            For an ESS that manages operational intents, associations of an
             operator with operational intents that transitioned to the Accepted
             state.
           type: array
@@ -1432,7 +1432,7 @@ components:
           default: [ ]
         planning_attempts:
           description: >-
-            For a ESS that manages operational intents, instances where an
+            For an ESS that manages operational intents, instances where an
             operational intent could not be planned or replanned due to
             conflicts with other operational intents or constraints.
           type: array
@@ -1441,7 +1441,7 @@ components:
           default: [ ]
         operational_intent_positions:
           description: >-
-            For a ESS performing conformance monitoring, all position data used
+            For an ESS performing conformance monitoring, all position data used
             for conformance monitoring that is ingested from the UA.
           type: array
           items:
@@ -1449,7 +1449,7 @@ components:
           default: [ ]
         constraint_provider_associations:
           description: >-
-            For a ESS that performs constraint management, associations of an
+            For an ESS that performs constraint management, associations of an
             authorized constraint provider with all constraints that transition
             to the valid state.
           type: array
@@ -2093,11 +2093,15 @@ components:
     #
     OperationalProfileDetails:
       description: >- 
-        Details of the operational profile. Note that this date is not stored
+        Details of the operational profile. Note that this data is not stored
         in the DSS; only with the clients. Contains information outside of the
         operational intent pertaining to the mission profile
       type: object
       properties:
+        vehicle_make:
+          $ref: '#/components/schemas/VehicleMake'
+        vehicle_model:
+          $ref: '#/components/schemas/VehicleModel'
         aircraft_registration:
           $ref: '#/components/schemas/AircraftRegistration'
         operator:
@@ -2114,8 +2118,14 @@ components:
           $ref: '#/components/schemas/NegotiatedOperators'
         regular_updates:
           $ref: '#/components/schemas/RegularUpdate'
-        trajectory:
-          $ref: '#/components/schemas/Trajectory'
+    VehicleMake:
+      type: string
+      description: >-
+        A string descriptor for the maker of the vehicle corresponding to a given operation.
+    VehicleModel:
+      type: string
+      description: >-
+        A string descriptor for the model of the vehicle corresponding to a given operation
     AircraftRegistration:
       type: string
       pattern: "[A-Z0-9]{1,7}"
@@ -2140,6 +2150,7 @@ components:
           format: email
         phone_number:
           type: string
+          format: phone-number
     OperatorName:
       description: The identifier of the ETM Operator.
       type: string
@@ -2162,19 +2173,25 @@ components:
         Description of the mission, e.g. describing the mission, such as fly to the Gulf of 
         Mexico and loiter for 6 months providing a service @spencer this should be a enum/type
         field
-      maximum: 1000
+      maxLength: 1000
     ContingencyHandlingDescription:
       type: string
       description: >-
         Description of the contigency handling procedures @spencer this should be a enum/type
         field
-      maximum: 1000
+      maxLength: 10000
     CommonOperatingProcedure:
-      type: integer
-      description: common operating procedure, integer values denote a specific type of rules
-        by which the operation will interact with other operations by default. Does not preclude
-        operator-operator negotiation or agreements @todo better description @spencer
-      default: 1
+      description: >-
+        Common operating procedure, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
+        COP1_FIRST_RESERVED - De-confliction through first-reserved-first-served principle
+        COP2_PREDEFINED_AGREEMENT - De-confliction through pre-defined agreement
+        COP3_DYNAMIC_AGREEMENT - De-confliction through dynamically generated/negotiated agreement
+      type: string
+      enum:
+      - COP1_FIRST_RESERVED
+      - COP2_PREDEFINED_AGREEMENT
+      - COP3_DYNAMIC_AGREEMENT
+      default: COP1_FIRST_RESERVED
     NegotiatedOperators:
       type: array
       description: >-
@@ -2188,26 +2205,36 @@ components:
         True or false descriptor for whether or not there is an expectation that the operational
         intent for this operation will be regularlary updated.
       default: false
-    Trajectory:
+    FlightPlan:
+      description: >- 
+        Detailed flight plan that will inform the operational intent generotor, which has been built for developing operation
+        intent based on detailed flight plan, flight mode, and certain level of wind information. The Flight Plan model is not
+        shared in the operational intent details, but is instead available through a separate endpoint in the event that
+        conflict is determined to be outside of the acceptable risk tolerance and additional information exchanges need to
+        occur for further operator negotiation.
+      type: object
+      properties:
+        flight_plan_waypoint_array:
+          $ref: '#/components/schemas/FlightPlanWayPointArray'
+        trajectory_performance:
+          $ref: '#/components/schemas/TrajectoryPerformance'
+    FlightPlanWayPointArray:
       type: array
       minItems: 2
       maxItems: 1000
       description: |-
-        The list of TrajectoryPoints for this operation.  This list must contain
-        all significant TrajectoryPoints. For additional insight on 
-        points to be included, see the enumeration of property types in the 
-        TrajectoryPoint4D model.
+        The list of flight waypoints and associated flight modes for this operation. This list must contain all significant flight waypoints. 
       items:
-        $ref: '#/components/schemas/TrajectoryPoint4D'
-    TrajectoryPoint4D:
+        $ref: '#/components/schemas/FlightPlanWayPoint'
+    FlightPlanWayPoint:
       description: >-
-        A point for use within a planned trajectory.
+        A waypoint and associate mode for use within a flight plan.
       required:
         - lat_lng_point
         - altitude
-        - time
-        - speed
-        - trajectory_property_array
+        - true_air_speed
+        - flight_mode
+        - controlled_arrival_time_tolerance
       type: object
       properties:
         point_designator:
@@ -2225,60 +2252,129 @@ components:
             point it should be the same value as from specific airspace structure point.
           anyOf:
             - $ref: '#/components/schemas/Altitude'  
-        time:
+        true_air_speed:
           description: |-
-            Estimated time when the vehicle will be at the location of the TrajectoryPoint
-          $ref: '#/components/schemas/Time'
-        speed:
-          description: |-
-            Speed of the vehicle at this TrajectoryPoint.
-            FIXM allows for two speed entries:  predictedAirspeed and predictedGroundspeed
+            Speed of the vehicle from current waypoint to next waypoint in the flight plan.
           anyOf:
-            - $ref: '#/components/schemas/Velocity'
-        trajectory_property_array:
+            - $ref: '#/components/schemas/TrueAirSpeed'
+        flight_mode:
           description: |-
-            Describes any applicable properties of the trajectory point.
-            May include multiple properties per point. FIXM allows up to 2000 properties per
-            trajectory point.
-
-            The first point of initial plan must include at a minimum: AIRPORT_REFERENCE_LOCATION, WHEELS_OFF
-            The last point must include at a minimum: AIRPORT_REFERENCE_LOCATION, WHEELS_ON
-            A named airspace structure point must include at a minimum: WAYPOINT
-          type: array
-          minItems: 1
-          maxItems: 2000
-          items:
-            $ref: '#/components/schemas/TrajectoryProperty'
-          externalDocs:
-            url: https://fixm.aero/releases/FIXM-4.2.0/doc/schema_documentation/Fixm_TrajectoryPoint4DType.html#Link2AC
-      externalDocs:
-        description: See FIXM 4.2.0 for further information.
-        url: https://www.fixm.aero/releases/FIXM-4.2.0/doc/schema_documentation/Fixm_TrajectoryPoint4DType.html#Link116
-    TrajectoryProperty:
-      description: Describes any applicable properties of the trajectory point.
+            Provides the flight mode between current waypoint to next waypoint
+          type: object
+          required:
+          - lateral_mode
+          - vertical_mode
+          properties:
+            lateral_mode:
+              type: string
+              enum:
+              - CONSTANT_VELOCITY
+              - CONSTANT_ACCELERATION
+              - CONSTANT_TURN
+              - STATION_KEEPING
+            vertical_mode:
+              type: string
+              enum:
+              - CONSTANT_CLIMB_DESCENT
+              - CONSTANT_ALTITUDE
+        controlled_time_of_arrival_tolerance:
+          description: |-
+            Provides controlled arrival time tolerance in minutes at the associated waypoint
+          anyOf:
+           - $ref: '#/components/schemas/ControlledTimeOfArrivalTolerance'
+    TrajectoryPerformance:
+      description: Describes any applicable trajectory performance that can be used to build trajectory uncertainty.
       type: object
       required:
-        - property_type
+        - along_track_error_rms
+        - cross_track_error_rms
+        - vertical_track_error_rms
       properties:
-        property_type:
+        along_track_error_rms:
           description: |
-            Provides the type of trajectory point property. Enum list is based on the FIXM definition
-            of TrajectoryPointPropertyType.
+            Provides root-mean-square for flight's along-track error, including the constant (zeroth order) and rate (first order)
+          anyOf:
+           - $ref: '#/components/schemas/TrackingErrorRMS'
+        cross_track_error_rms:
+          description: |
+            Provides root-mean-square for flight's cross-track error, including the constant (zeroth order) and rate (first order)
+          anyOf:
+           - $ref: '#/components/schemas/TrackingErrorRMS'
+        vertical_track_error_rms:
+          description: |
+            Provides root-mean-square for flight's vertical-track error, including the constant (zeroth order) and rate (first order)
+          anyOf:
+           - $ref: '#/components/schemas/TrackingErrorRMS'
+    TrueAirSpeed:
+      required:
+      - speed
+      - units_speed
+      type: object
+      properties:
+        speed:
+          format: float
+          type: number
+          multipleOf: 0.01
+          minimum: 0.0
+          exclusiveMinimum: false
+          description: Ground speed in meters/second.
+          example: 200.1
+        units_speed:
           type: string
           enum:
-            - TOP_OF_CLIMB
-            - TOP_OF_DESCENT
-            - TCP_VERTICAL
-            - TCP_SPEED
-            - TCP_LATERAL
-            - WHEELS_OFF
-            - WHEELS_ON
-            - AIRPORT_REFERENCE_LOCATION
-            - WAYPOINT
-          externalDocs:
-            description: FIXM definition of TrajectoryPointPropertyType
-            url: https://fixm.aero/releases/FIXM-4.2.0/doc/schema_documentation/Fixm_TrajectoryPointPropertyType.html#Link2B0
-
+          - Knots
+    ControlledTimeOfArrivalTolerance:
+      required:
+      - status 
+      - value
+      - units
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ACTIVATED
+          - INACTIVATED
+        value:
+          format: float
+          type: number
+          multipleOf: 0.1
+          minimum: 0.0
+          exclusiveMinimum: false
+          description: Tolerance for controlled time of arrival at a waypoint
+          example: 10.0
+        units:
+          type: string
+          enum:
+          - Minutes
+    TrackingErrorRMS:
+      required:
+      - status
+      - constant 
+      - growthRate
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ACTIVATED
+          - INACTIVATED
+        constant:
+          format: float
+          type: number
+          multipleOf: 0.01
+          minimum: 0.00
+          exclusiveMinimum: false
+          description: the constant portion of the root-mean-square error for the tracking error at a given direction
+          example: 1.00
+        growthRate:
+          format: float
+          type: number
+          multipleOf: 0.01
+          minimum: 0.00
+          exclusiveMinimum: false
+          description: the rate portion of the root-mean-square error for the tracking error at a given direction
+          example: 1.00
 paths:
   #
   # DSS endpoints for operational intents
@@ -3091,7 +3187,7 @@ paths:
         from this parameter.
 
         Only subscriptions belonging to the caller are returned.  This endpoint
-        would be used if a ESS lost track of subscriptions they had created
+        would be used if an ESS lost track of subscriptions they had created
         and/or wanted to resolve an error indicating that they had too many
         existing subscriptions in an area.
       summary: >-
@@ -3314,7 +3410,7 @@ paths:
         information.
 
         The standard requires each operational intent to have a subscription
-        that cover the 4D volume of the operational intent.  If a ESS attempts
+        that cover the 4D volume of the operational intent.  If an ESS attempts
         to update a subscription upon which an operational intent depends, and
         this update would cause the operational intent to lose subscription
         coverage, the update will be rejected by the DSS as a bad request.
@@ -3397,7 +3493,7 @@ paths:
       operationId: deleteSubscription
       description: >-
         The standard requires each operational intent to have a subscription
-        that cover the 4D volume of the operational intent.  If a ESS attempts
+        that cover the 4D volume of the operational intent.  If an ESS attempts
         to delete a subscription upon which an operational intent depends, the
         deletion will be rejected by the DSS as a bad request.
       responses:
@@ -3530,7 +3626,7 @@ paths:
   # DSS endpoints for ESS availability
   #
   /dss/v1/ess_availability/{ess_id}:
-    summary: Availability status of a ESS
+    summary: Availability status of an ESS
     parameters:
     - name: ess_id
       description: >-
@@ -3544,9 +3640,9 @@ paths:
       security:
       - Authority:
         - etm.availability_arbitration
-      summary: Set availability status of a ESS.
+      summary: Set availability status of an ESS.
       operationId: setEssAvailability
-      description: Set availability status of a ESS.
+      description: Set availability status of an ESS.
       requestBody:
         content:
           application/json:
@@ -3601,9 +3697,9 @@ paths:
         - etm.strategic_coordination
       - Authority:
         - etm.conformance_monitoring_sa
-      summary: Get availability status of a ESS.
+      summary: Get availability status of an ESS.
       operationId: getEssAvailability
-      description: Get availability status of a ESS.
+      description: Get availability status of an ESS.
       tags:
       - Availability
       - dss
@@ -3649,7 +3745,7 @@ paths:
   # ESS endpoints for operational intents
   #
   /ess/v1/operational_intents/{entityid}:
-    summary: Query detailed information of an operational intent from a ESS.
+    summary: Query detailed information of an operational intent from an ESS.
     parameters:
     - name: entityid
       description: EntityID for this operational intent.
@@ -3664,12 +3760,12 @@ paths:
       security:
       - Authority:
         - etm.strategic_coordination
-      summary: Retrieve the specified operational intent details from a ESS.
+      summary: Retrieve the specified operational intent details from an ESS.
       description: >-
         The ESS hosting this endpoint returns the details (and reference) of an
         operational intent it manages.  While the ESS has a pending request to
         change the operational intent in the DSS, the ESS should report the most
-        recent version the ESS knows was accepted by the DSS.  So, before a ESS
+        recent version the ESS knows was accepted by the DSS.  So, before an ESS
         receives a response to create an operational intent reference in the
         DSS, it should return 404 if queried for that operational intent at this
         endpoint.
@@ -3735,7 +3831,7 @@ paths:
         - etm.conformance_monitoring_sa
       summary: >-
         Query detailed information on the position of an off-nominal operational
-        intent from a ESS.
+        intent from an ESS.
       operationId: getOperationalIntentTelemetry
       responses:
         '200':
@@ -3795,7 +3891,7 @@ paths:
             The client issued too many requests in a short period of time.
   /ess/v1/operational_intents:
     summary: >-
-      A ESS's representation of detailed information about operational intents.
+      An ESS's representation of detailed information about operational intents.
     post:
       tags:
       - Operational intent details
@@ -3868,7 +3964,7 @@ paths:
   # ESS endpoints for constraints
   #
   /ess/v1/constraints/{entityid}:
-    summary: Query detailed information of a constraint from a ESS.
+    summary: Query detailed information of a constraint from an ESS.
     parameters:
     - name: entityid
       description: EntityID of the constraint.
@@ -3883,13 +3979,13 @@ paths:
       security:
       - Authority:
         - etm.constraint_processing
-      summary: Retrieve the specified constraint details from a ESS.
+      summary: Retrieve the specified constraint details from an ESS.
       operationId: getConstraintDetails
       description: >-
         The ESS hosting this endpoint returns the details (and reference) of a
         constraint it manages.  While the ESS has a pending request to change
         the constraint in the DSS, the ESS should report the most recent version
-        the ESS knows was accepted by the DSS.  So, before a ESS receives a
+        the ESS knows was accepted by the DSS.  So, before an ESS receives a
         response to create a constraint reference in the DSS, it should return
         404 if queried for that constraint at this endpoint.
       responses:
@@ -3935,7 +4031,7 @@ paths:
           description: >-
             The client issued too many requests in a short period of time.
   /ess/v1/constraints:
-    summary: A ESS's representation of detailed information about constraints.
+    summary: An ESS's representation of detailed information about constraints.
     post:
       tags:
       - Constraint details
@@ -4098,7 +4194,7 @@ paths:
       summary: Get ESS logs
       operationId: getLogSet
       description: >-
-        A ESS will not usually implement this endpoint directly, but rather will
+        An ESS will not usually implement this endpoint directly, but rather will
         be capable of exporting log data in a format equivalent to the response
         format of this pseudo-endpoint according to the requirements of the
         standard.
