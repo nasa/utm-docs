@@ -131,7 +131,7 @@ components:
       description: >-
         Identifier for an Entity communicated through the DSS.  Formatted as a
         UUIDv4.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/UUIDv4Format'
       example: 2f8343be-6482-4d1b-a474-16847e01af1e
     EntityOVN:
@@ -152,7 +152,7 @@ components:
       description: >-
         Identifier for a subscription communicated through the DSS.  Formatted
         as a UUIDv4.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/UUIDv4Format'
       example: 78ea3fe8-71c2-4f5c-9b44-9c02f5563c6f
     Key:
@@ -309,11 +309,11 @@ components:
       type: object
       properties:
         outline_circle:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Circle'
           description: A circular geographic shape on the surface of the earth.
         outline_polygon:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Polygon'
           description: >-
             A polygonal geographic shape on the surface of the earth.
@@ -321,13 +321,13 @@ components:
           description: >-
             Minimum bounding altitude of this volume. Must be less than
             altitude_upper, if specified.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Altitude'
         altitude_upper:
           description: >-
             Maximum bounding altitude of this volume. Must be greater than
             altitude_lower, if specified.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Altitude'
     Volume4D:
       description: Contiguous block of geographic spacetime.
@@ -339,11 +339,11 @@ components:
           $ref: '#/components/schemas/Volume3D'
         time_start:
           description: Beginning time of this volume. Must be before time_end.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         time_end:
           description: End time of this volume. Must be after time_start.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
     ErrorResponse:
       description: >-
@@ -415,13 +415,13 @@ components:
           description: >-
             If set, this subscription will not receive notifications involving
             airspace changes entirely before this time.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         time_end:
           description: >-
             If set, this subscription will not receive notifications involving
             airspace changes entirely after this time.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         ess_base_url:
           $ref: '#/components/schemas/SubscriptionEssBaseURL'
@@ -517,7 +517,7 @@ components:
 
             Note that some Entities triggering notifications may lie entirely
             outside the requested area.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Volume4D'
         ess_base_url:
           $ref: '#/components/schemas/SubscriptionEssBaseURL'
@@ -542,7 +542,7 @@ components:
         The base URL of an ESS implementation of the parts of the ESS-ESS API
         necessary for receiving the notifications requested by this
         subscription.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/EssBaseURL'
     PutSubscriptionResponse:
       description: Response for a request to create or update a subscription.
@@ -677,15 +677,15 @@ components:
             is not managed by the ESS retrieving or providing it (instead, the
             ESS must obtain the OVN from the details retrieved from the managing
             ESS).
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityOVN'
         time_start:
           description: Beginning time of operational intent.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         time_end:
           description: End time of operational intent.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         ess_base_url:
           $ref: '#/components/schemas/OperationalIntentEssBaseURL'
@@ -693,7 +693,7 @@ components:
           description: >-
             The ID of the subscription that is ensuring the operational intent
             manager receives relevant airspace updates.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/SubscriptionID'
     OperationalIntentEssBaseURL:
       description: >-
@@ -701,7 +701,7 @@ components:
         ESS-ESS API necessary for providing the details of this operational
         intent, and telemetry during non-conformance or contingency, if
         applicable.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/EssBaseURL'
     PutOperationalIntentReferenceParameters:
       description: >-
@@ -744,7 +744,7 @@ components:
             associated with this operational intent triggers notifications for
             constraints.  The key does not need to contain the OVN for the
             operational intent being updated.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Key'
         state:
           $ref: '#/components/schemas/OperationalIntentState'
@@ -761,7 +761,7 @@ components:
             subscription specified by this ID must cover at least the area over
             which this operational intent is conducted, and it must provide
             notifications for operational intents.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         new_subscription:
           description: >-
@@ -771,7 +771,7 @@ components:
             field is populated, an implicit subscription will be created and
             associated with this operational intent, and will generally be
             deleted automatically upon the deletion of this operational intent.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/ImplicitSubscriptionParameters'
     ImplicitSubscriptionParameters:
       description: >-
@@ -787,7 +787,7 @@ components:
             necessary for receiving the notifications that the operational
             intent must be aware of.  This includes, at least, notifications for
             relevant changes in operational intents.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/SubscriptionEssBaseURL'
         notify_for_constraints:
           description: >-
@@ -899,7 +899,7 @@ components:
             it.  Not populated when the ConstraintReference is not managed by
             the ESS retrieving or providing it (instead, the ESS must obtain the
             OVN from the details retrieved from the managing ESS).
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityOVN'
         time_start:
           $ref: '#/components/schemas/Time'
@@ -911,7 +911,7 @@ components:
       description: >-
         The base URL of an ESS implementation that implements the parts of the
         ESS-ESS API necessary for providing the details of this constraint.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/EssBaseURL'
     PutConstraintReferenceParameters:
       description: >-
@@ -1106,14 +1106,14 @@ components:
       properties:
         operational_intent_id:
           description: ID of operational intent that has changed.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         operational_intent:
           description: >-
             Full information about the operational intent that has changed.  If
             this field is omitted, the operational intent was deleted.  The
             `ovn` field in the nested `reference` must be populated.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/OperationalIntent'
         subscriptions:
           type: array
@@ -1157,7 +1157,7 @@ components:
           description: >-
             If this constraint is an ED-269 compliant geo zone, the details
             about that geo zone.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/GeoZone'
     Constraint:
       description: Full specification of a ETM constraint.
@@ -1183,14 +1183,14 @@ components:
       properties:
         constraint_id:
           description: ID of constraint that has changed.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         constraint:
           description: >-
             Full information about the constraint that has changed.  If this
             field is omitted, the constraint was deleted.  The `ovn` field in
             the nested `reference` must be populated.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Constraint'
         subscriptions:
           description: Subscription(s) prompting this notification.
@@ -1220,7 +1220,7 @@ components:
           description: >-
             ID of the operational intent which the vehicle reporting telemetry
             is flying.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         telemetry:
           $ref: '#/components/schemas/VehicleTelemetry'
@@ -1231,7 +1231,7 @@ components:
             generally not poll the endpoint providing this response data again
             until at or after that time.  If this field is omitted, then there
             is no current expectation of new telemetry becoming available.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
     VehicleTelemetry:
       description: Vehicle position, altitude, and velocity.
@@ -1493,7 +1493,7 @@ components:
           - Server
         request_time:
           description: The time at which the request was sent/received.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         request_body:
           description: Base64-encoded body content sent/received as a request.
@@ -1501,7 +1501,7 @@ components:
           default: ''
         response_time:
           description: The time at which the response was sent/received.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         response_body:
           type: string
@@ -1530,7 +1530,7 @@ components:
             ID assigned by the server receiving the report.  Not populated when
             submitting a report.
         exchange:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/ExchangeRecord'
           description: >-
             The request (by this ESS) and response associated with the error.
@@ -1544,7 +1544,7 @@ components:
       - telemetry
       properties:
         time_received:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time that this position data was received by the ESS
         telemetry:
@@ -1564,7 +1564,7 @@ components:
           default: [ ]
         operational_intent_id:
           description: ID of the operational intent associated with `positions`
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
     PlanningRecord:
       type: object
@@ -1576,7 +1576,7 @@ components:
       - ovns
       properties:
         time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time that this planning event occurred
         ovns:
@@ -1605,7 +1605,7 @@ components:
           default: [ ]
         operational_intent_id:
           description: ID of the operational intent being planned
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         problem:
           type: string
@@ -1621,11 +1621,11 @@ components:
       - notification_triggering_event
       properties:
         triggering_event_time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time of the notification triggering event
         notification_time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time at which the user was notified
         notification_details:
@@ -1659,11 +1659,11 @@ components:
       - input_triggering_event
       properties:
         triggering_event_time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time in which user input was received by the ESS
         operational_intent_id:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
           description: >-
             ID of the operational_intent ID pertaining to the user input
@@ -1698,7 +1698,7 @@ components:
         operational_intent_id:
           description: >-
             ID of operational intent to which this association pertains
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         operator_id:
           description: >-
@@ -1716,7 +1716,7 @@ components:
       properties:
         constraint_id:
           description: ID of constraint to which this association pertains
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         constraint_provider_id:
           description: >-
@@ -1741,7 +1741,7 @@ components:
       - zone_authority
       properties:
         identifier:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeZoneIdentifierType'
           description: >-
             A string of characters that uniquely identifies the UAS Zone within
@@ -1750,7 +1750,7 @@ components:
             Note - The UAS Zone is uniquely identified worldwide by the
             combination of the country and the identifier attributes
         country:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeCountryISOType'
           description: >-
             The State that has the authority to declare the zone.
@@ -1764,19 +1764,19 @@ components:
           items:
             $ref: '#/components/schemas/Authority'
         name:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             A free text name by which the zone may be known by the public or by
             the UAS community.
         type:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeZoneType'
           description: >-
             An indication whether the Zone is provided with its common
             definition or with a customised definition, for a particular user.
         restriction:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeRestrictionType'
           description: >-
             An indication if flying in the zone is conditional, forbidden or
@@ -1816,13 +1816,13 @@ components:
             A free text description of the reason that led to the establishment
             of the zone, when not covered by a pre-defined coded value.
         regulation_exemption:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeYesNoType'
           description: >-
             This is an extension point. It allows adding additional attributes
             of national interest through this element.
         u_space_class:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeUSpaceClassType'
           description: >-
             A code that identifies the category or class of the zone applying a
@@ -1833,7 +1833,7 @@ components:
             expected, one from each sub-list. This might be later replaced with
             separate attributes and separate lists of values.
         message:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             A message to be displayed to the user of the zone, typically on the
@@ -2030,22 +2030,22 @@ components:
         phone.
       properties:
         name:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: The official name of a public or private authority
         service:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The name of a specific department or service within the organisation
         contact_name:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The name or role of a specific person that needs to be contacted
             within the organisation
         site_url:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The URL of the public internet site through which the organisation
@@ -2054,7 +2054,7 @@ components:
             Note: in the data coding format, this might be further constrained
             in order to ensure a valid URL format.
         email:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The e-mail address by which the organisation may be contacted.
@@ -2062,12 +2062,12 @@ components:
             Note: in the data coding format, this might be further constrained
             in order to ensure a valid e-mail format.
         phone:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             A phone number at which the organisation may be contacted
         purpose:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeAuthorityRole'
           description: The role of the Authority in relation with the zone.
         interval_before:
@@ -2209,7 +2209,7 @@ components:
       default: false
     FlightPlan:
       description: >- 
-        Detailed flight plan that will inform the operational intent generotor, which has been built for developing operation
+        Detailed flight plan that will inform the operational intent generator, which has been built for developing operation
         intent based on detailed flight plan, flight mode, and certain level of wind information. The Flight Plan model is not
         shared in the operational intent details, but is instead available through a separate endpoint in the event that
         conflict is determined to be outside of the acceptable risk tolerance and additional information exchanges need to
@@ -2247,17 +2247,17 @@ components:
         lat_lng_point:
           description: Latitude and Longitude of the point. If this is for a named airspace structure 
             point it should be the same value as the specific airspace structure point.
-          anyOf:
+          allOf:
             - $ref: '#/components/schemas/LatLngPoint'
         altitude:
           description: Altitude of the point. If this is for a named airspace structure 
             point it should be the same value as from specific airspace structure point.
-          anyOf:
+          allOf:
             - $ref: '#/components/schemas/Altitude'  
         true_air_speed:
           description: |-
             Speed of the vehicle from current waypoint to next waypoint in the flight plan.
-          anyOf:
+          allOf:
             - $ref: '#/components/schemas/TrueAirSpeed'
         flight_mode:
           description: |-
@@ -2282,7 +2282,7 @@ components:
         controlled_time_of_arrival_tolerance:
           description: |-
             Provides controlled arrival time tolerance in minutes at the associated waypoint
-          anyOf:
+          allOf:
            - $ref: '#/components/schemas/ControlledTimeOfArrivalTolerance'
     TrajectoryPerformance:
       description: Describes any applicable trajectory performance that can be used to build trajectory uncertainty.
@@ -2295,17 +2295,17 @@ components:
         along_track_error_rms:
           description: |
             Provides root-mean-square for flight's along-track error, including the constant (zeroth order) and rate (first order)
-          anyOf:
+          allOf:
            - $ref: '#/components/schemas/TrackingErrorRMS'
         cross_track_error_rms:
           description: |
             Provides root-mean-square for flight's cross-track error, including the constant (zeroth order) and rate (first order)
-          anyOf:
+          allOf:
            - $ref: '#/components/schemas/TrackingErrorRMS'
         vertical_track_error_rms:
           description: |
             Provides root-mean-square for flight's vertical-track error, including the constant (zeroth order) and rate (first order)
-          anyOf:
+          allOf:
            - $ref: '#/components/schemas/TrackingErrorRMS'
     TrueAirSpeed:
       required:
@@ -2377,24 +2377,23 @@ components:
           exclusiveMinimum: false
           description: the rate portion of the root-mean-square error for the tracking error at a given direction
           example: 1.00
-      OperationalIntentVolume4D:
-        type: object
-        description: >-
-          Four dimensional volume used for communicating operational intent. This volume includes a containment
-          confidence level to communicate to other operators the likelihood of being inside of a designated volume
-          in order to avoid high-uncertainty vehicles having volumes larger than acceptable by the current design.
-        properties:
-          volume:
-            $ref: '#/components/schemas/Volume4D'
-          containtment_confidence_level:
-            $ref: '#/components/schemas/ContainmentConfidenceLevel'
-      ContainmentConfidenceLevel:
-        description: >-
-          A confidence value between 0.0 - 1.0 that expresses the likelihood that a vehicle will be within a volume.
-        type: number
-        format: float
-        minimum: 0.0
-        maximum: 1.0
+    OperationalIntentVolume4D:
+      type: object
+      description: >-
+        Four dimensional volume used for communicating operational intent. This volume includes a containment confidence level to communicate to other operators the likelihood of being inside of a designated volume in order to avoid high-uncertainty vehicles having volumes larger than acceptable by the current design.
+      properties:
+        volume:
+          $ref: '#/components/schemas/Volume4D'
+        containtment_confidence_level:
+          $ref: '#/components/schemas/ContainmentConfidenceLevel'
+    ContainmentConfidenceLevel:
+      description: >-
+        A confidence value between 0.0 - 1.0 that expresses the likelihood that a vehicle will be within a volume.
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 1.0
+
 paths:
   #
   # DSS endpoints for operational intents
