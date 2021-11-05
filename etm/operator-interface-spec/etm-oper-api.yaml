@@ -547,9 +547,8 @@ components:
           description: >-
             A timestamp set by the ESS any time the state of the operation is
             updated within the ESS Network.
-          type: string
-          format: date-time
-          example: "2015-08-20T14:11:56.118Z"
+          allOf:
+            - $ref: "#/components/schemas/Time"
         state:
           type: string
           description: |-
