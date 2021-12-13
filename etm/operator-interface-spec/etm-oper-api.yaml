@@ -1583,23 +1583,19 @@ components:
         - Make time_start and time_end required
         - Add 
       required:
-        - volume
+        - volume3D
         - time_start
         - time_end
       type: object
       properties:
-        volume:
+        volume3D:
           $ref: '#/components/schemas/Volume3D'
         time_start:
           $ref: '#/components/schemas/Time'
         time_end:
           $ref: '#/components/schemas/Time'
         containment_confidence:
-          description: Confidence of aircraft staying inside of 4D volume
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
+          $ref: '#/components/schemas/ContainmentConfidenceLevel'
         confidence_distribution:
           description: Containment confidence probability distribution type
           type: string
@@ -1611,8 +1607,10 @@ components:
       type: object
       description: >-
         Four dimensional volume used for communicating operational intent. This volume includes a containment confidence level to communicate to other operators the likelihood of being inside of a designated volume in order to avoid high-uncertainty vehicles having volumes larger than acceptable by the current design.
+      required:
+        - volume4D
       properties:
-        volume:
+        volume4D:
           $ref: '#/components/schemas/Volume4D'
         containtment_confidence_level:
           $ref: '#/components/schemas/ContainmentConfidenceLevel'

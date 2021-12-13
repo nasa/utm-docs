@@ -1,14 +1,13 @@
 openapi: 3.0.2
 info:
-  title: UTM API (USS->DSS and USS->USS)
+  title: ETM API (ESS->DSS and ESS->ESS)
   version: 1.0.0
   description: >-
-    Interface definitions for communication between a UAS Service Supplier (USS)
-    and a Discovery and Synchronization Service (DSS), as well as for
-    communication between two USSs.
+    Interface definitions for communication between an ETM Service Supplier (ESS)
+    and a DSS, as well as for communication between two ESSs.
 
-    DSS functionality includes identification of peer UTM USS instances
-    (managing flight operational intents and constraints). USS functionality
+    DSS functionality includes identification of peer ETM ESS instances
+    (managing flight operational intents and constraints). ESS functionality
     includes sharing details of flight operational intents and constraints.
 
     Note: Unless otherwise specified, fields specified in a message but not
@@ -18,11 +17,11 @@ info:
     the same effect.
 security:
 - Authority:
-  - utm.strategic_coordination
-  - utm.constraint_management
-  - utm.constraint_processing
-  - utm.conformance_monitoring_sa
-  - utm.availability_arbitration
+  - etm.strategic_coordination
+  - etm.constraint_management
+  - etm.constraint_processing
+  - etm.conformance_monitoring_sa
+  - etm.availability_arbitration
 tags:
 - name: Operational intent references
   description: >-
@@ -30,7 +29,7 @@ tags:
     operational intents.
 - name: Operational intent details
   description: >-
-    Endpoints exposed by USSs for interaction with details of operational
+    Endpoints exposed by ESSs for interaction with details of operational
     intents.
 - name: Constraint references
   description: >-
@@ -38,22 +37,22 @@ tags:
     constraints.
 - name: Constraint details
   description: >-
-    Endpoints exposed by USSs for interaction with details of constraints.
+    Endpoints exposed by ESSs for interaction with details of constraints.
 - name: Subscriptions
   description: >-
     Endpoints exposed by the DSS for interaction with subscription entities.
 - name: Reports
   description: Endpoints exposed by the DSS for reporting peer DSS issues.
 - name: Availability
-  description: Endpoints exposed by the DSS for declaring USS availability.
+  description: Endpoints exposed by the DSS for declaring ESS availability.
 - name: Logging
   description: >-
     Pseudo-endpoints not intended to be implemented literally, but rather to
     illustrate logging data formats
 - name: dss
   description: Endpoints exposed by the DSS server.
-- name: p2p_utm
-  description: Endpoints exposed by UTM USSs for peer-peer communication.
+- name: p2p_etm
+  description: Endpoints exposed by ETM ESSs for peer-peer communication.
 components:
   securitySchemes:
     Authority:
@@ -62,20 +61,20 @@ components:
         clientCredentials:
           tokenUrl: https://auth.example.com/oauth/token
           scopes:
-            utm.strategic_coordination: >-
+            etm.strategic_coordination: >-
               Client may perform actions encompassed by the strategic
               coordination role including strategic conflict detection.
-            utm.constraint_management: >-
+            etm.constraint_management: >-
               Client may manage (create, edit, and delete) constraints according
               to the constraint management role.
-            utm.constraint_processing: >-
+            etm.constraint_processing: >-
               Client may read constraint references from the DSS and details
-              from the partner USSs according to the constraint processing role.
-            utm.conformance_monitoring_sa: >-
+              from the partner ESSs according to the constraint processing role.
+            etm.conformance_monitoring_sa: >-
               Client may perform actions encompassed by the conformance
               monitoring for situational awareness role.
-            utm.availability_arbitration: >-
-              Client may set the availability state of USSs in the DSS.
+            etm.availability_arbitration: >-
+              Client may set the availability state of ESSs in the DSS.
       description: >-
         Authorization from, or on behalf of, an authorization authority.  This
         authority will issue access tokens that are JSON Web Tokens as defined
@@ -108,7 +107,7 @@ components:
         tokens, and absent guidance on behalf of the competent authority to the
         contrary, the JWT `aud` claim requested by the client must be included
         in each access token and must contain the fully qualified domain name of
-        the URL the access token will be used to access.  For example, if a USS
+        the URL the access token will be used to access.  For example, if an ESS
         were querying the endpoint at
         https://dss.example.com:8888/rid/v2/dss/identification_service_areas,
         the access token included in the request should specify `"aud":
@@ -131,13 +130,13 @@ components:
       description: >-
         Identifier for an Entity communicated through the DSS.  Formatted as a
         UUIDv4.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/UUIDv4Format'
       example: 2f8343be-6482-4d1b-a474-16847e01af1e
     EntityOVN:
       title: EntityOVN
       description: >-
-        A token associated with a particular UTM Entity+version created by the
+        A token associated with a particular ETM Entity+version created by the
         DSS upon creation or modification of an Entity reference and provided to
         the client creating or modifying the Entity reference.  The EntityOVN is
         stored privately by the DSS and then compared against entries in a Key
@@ -152,7 +151,7 @@ components:
       description: >-
         Identifier for a subscription communicated through the DSS.  Formatted
         as a UUIDv4.
-      anyOf:
+      allOf:
       - $ref: '#/components/schemas/UUIDv4Format'
       example: 78ea3fe8-71c2-4f5c-9b44-9c02f5563c6f
     Key:
@@ -202,7 +201,7 @@ components:
         units:
           type: string
           description: >-
-            FIXM-compatible units.  Only meters ("M") are acceptable for UTM.
+            FIXM-compatible units.  Only meters ("M") are acceptable for ETM.
           enum:
           - M
     Altitude:
@@ -227,7 +226,7 @@ components:
         reference:
           description: >-
             A code indicating the reference for a vertical distance. See AIXM
-            5.1 and FIXM 4.2.0. Currently, UTM only allows WGS84 with no
+            5.1 and FIXM 4.2.0. Currently, ETM only allows WGS84 with no
             immediate plans to allow other options. FIXM and AIXM allow for
             'SFC' which is equivalent to AGL.
           type: string
@@ -236,7 +235,7 @@ components:
         units:
           description: >-
             The reference quantities used to express the value of altitude. See
-            FIXM 4.2. Currently, UTM only allows meters with no immediate plans
+            FIXM 4.2. Currently, ETM only allows meters with no immediate plans
             to allow other options.
           type: string
           enum:
@@ -309,11 +308,11 @@ components:
       type: object
       properties:
         outline_circle:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Circle'
           description: A circular geographic shape on the surface of the earth.
         outline_polygon:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Polygon'
           description: >-
             A polygonal geographic shape on the surface of the earth.
@@ -321,13 +320,13 @@ components:
           description: >-
             Minimum bounding altitude of this volume. Must be less than
             altitude_upper, if specified.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Altitude'
         altitude_upper:
           description: >-
             Maximum bounding altitude of this volume. Must be greater than
             altitude_lower, if specified.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Altitude'
     Volume4D:
       description: Contiguous block of geographic spacetime.
@@ -339,15 +338,15 @@ components:
           $ref: '#/components/schemas/Volume3D'
         time_start:
           description: Beginning time of this volume. Must be before time_end.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         time_end:
           description: End time of this volume. Must be after time_start.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
     ErrorResponse:
       description: >-
-        Human-readable string returned when an error occurs as a result of a USS
+        Human-readable string returned when an error occurs as a result of an ESS
         - DSS transaction.
       type: object
       properties:
@@ -372,11 +371,11 @@ components:
       description: >-
         Subscriber to notify of a change in the airspace.  This is provided by
         the DSS to a client changing the airspace, and it is the responsibility
-        of that client to send a notification to the specified USS according to
+        of that client to send a notification to the specified ESS according to
         the change made to the airspace.
       required:
       - subscriptions
-      - uss_base_url
+      - ess_base_url
       type: object
       properties:
         subscriptions:
@@ -385,8 +384,8 @@ components:
           items:
             $ref: '#/components/schemas/SubscriptionState'
           minItems: 1
-        uss_base_url:
-          $ref: '#/components/schemas/SubscriptionUssBaseURL'
+        ess_base_url:
+          $ref: '#/components/schemas/SubscriptionEssBaseURL'
     Subscription:
       description: >-
         Specification of a geographic area that a client is interested in on an
@@ -395,17 +394,17 @@ components:
       - id
       - version
       - notification_index
-      - uss_base_url
+      - ess_base_url
       type: object
       properties:
         id:
           $ref: '#/components/schemas/SubscriptionID'
         version:
           description: >-
-            Version of the subscription that the DSS changes every time a USS
+            Version of the subscription that the DSS changes every time an ESS
             changes the subscription.  The DSS incrementing the
             notification_index does not constitute a change that triggers a new
-            version.  A USS must specify this version when modifying an existing
+            version. An ESS must specify this version when modifying an existing
             subscription to ensure consistency in read-modify-write operations
             and distributed systems.
           type: string
@@ -415,29 +414,29 @@ components:
           description: >-
             If set, this subscription will not receive notifications involving
             airspace changes entirely before this time.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         time_end:
           description: >-
             If set, this subscription will not receive notifications involving
             airspace changes entirely after this time.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
-        uss_base_url:
-          $ref: '#/components/schemas/SubscriptionUssBaseURL'
+        ess_base_url:
+          $ref: '#/components/schemas/SubscriptionEssBaseURL'
         notify_for_operational_intents:
           description: >-
             If true, trigger notifications when operational intents are created,
             updated, or deleted.  Otherwise, changes in operational intents
             should not trigger notifications.  The scope
-            utm.strategic_coordination is required to set this flag true.
+            etm.strategic_coordination is required to set this flag true.
           type: boolean
           default: false
         notify_for_constraints:
           description: >-
             If true, trigger notifications when constraints are created,
             updated, or deleted.  Otherwise, changes in constraints should not
-            trigger notifications.  The scope utm.constraint_processing is
+            trigger notifications.  The scope etm.constraint_processing is
             required to set this flag true.
           type: boolean
           default: false
@@ -502,7 +501,7 @@ components:
         least one form of notifications must be requested.
       required:
       - extents
-      - uss_base_url
+      - ess_base_url
       type: object
       properties:
         extents:
@@ -517,33 +516,33 @@ components:
 
             Note that some Entities triggering notifications may lie entirely
             outside the requested area.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Volume4D'
-        uss_base_url:
-          $ref: '#/components/schemas/SubscriptionUssBaseURL'
+        ess_base_url:
+          $ref: '#/components/schemas/SubscriptionEssBaseURL'
         notify_for_operational_intents:
           description: >-
             If true, trigger notifications when operational intents are created,
             updated, or deleted.  Otherwise, changes in operational intents
             should not trigger notifications.  The scope
-            utm.strategic_coordination is required to set this flag true.
+            etm.strategic_coordination is required to set this flag true.
           type: boolean
           default: false
         notify_for_constraints:
           description: >-
             If true, trigger notifications when constraints are created,
             updated, or deleted.  Otherwise, changes in constraints should not
-            trigger notifications.  The scope utm.constraint_processing is
+            trigger notifications.  The scope etm.constraint_processing is
             required to set this flag true.
           type: boolean
           default: false
-    SubscriptionUssBaseURL:
+    SubscriptionEssBaseURL:
       description: >-
-        The base URL of a USS implementation of the parts of the USS-USS API
+        The base URL of an ESS implementation of the parts of the ESS-ESS API
         necessary for receiving the notifications requested by this
         subscription.
-      anyOf:
-      - $ref: '#/components/schemas/UssBaseURL'
+      allOf:
+      - $ref: '#/components/schemas/EssBaseURL'
     PutSubscriptionResponse:
       description: Response for a request to create or update a subscription.
       required:
@@ -576,14 +575,14 @@ components:
       properties:
         subscription:
           $ref: '#/components/schemas/Subscription'
-    UssBaseURL:
+    EssBaseURL:
       description: >-
-        The base URL of a USS implementation of part or all of the USS-USS API.
-        Per the USS-USS API, the full URL of a particular resource can be
-        constructed by appending, e.g., `/uss/v1/{resource}/{id}` to this base
+        The base URL of an ESS implementation of part or all of the ESS-ESS API.
+        Per the ESS-ESS API, the full URL of a particular resource can be
+        constructed by appending, e.g., `/ess/v1/{resource}/{id}` to this base
         URL. Accordingly, this URL may not have a trailing '/' character.
       type: string
-      example: https://uss.example.com/utm
+      example: https://ess.example.com/etm
     OperationalIntentState:
       description: >-
         State of an operational intent.
@@ -604,8 +603,8 @@ components:
         situation is expected to be recoverable; see standard text for more
         details.
 
-        In this state, the `/uss/v1/operational_intents/{entityid}/telemetry`
-        USS-USS endpoint should respond, if available, to queries from USS
+        In this state, the `/ess/v1/operational_intents/{entityid}/telemetry`
+        ESS-ESS endpoint should respond, if available, to queries from ESS
         peers.  The create or update request for this operational intent may
         omit a Key in this case because the operational intent is being adjusted
         as flown and cannot necessarily deconflict.
@@ -614,8 +613,8 @@ components:
         coordinate operational intent; see standard text for more details.
 
         This state must transition to Ended.  In this state, the
-        `/uss/v1/operational_intents/{entityid}/telemetry` USS-USS endpoint
-        should respond, if available, to queries from USS peers.  The create or
+        `/ess/v1/operational_intents/{entityid}/telemetry` ESS-ESS endpoint
+        should respond, if available, to queries from ESS peers.  The create or
         update request for this operational intent may omit a Key in this case
         because the operational intent is being adjusted as flown and cannot
         necessarily deconflict.
@@ -628,18 +627,18 @@ components:
     OperationalIntentReference:
       description: >-
         The high-level information of a planned or active operational intent
-        with the URL of a USS to query for details.  Note: 'ovn' is returned
-        ONLY to the USS that created the operational intent but NEVER to other
-        USS instances.
+        with the URL of an ESS to query for details.  Note: 'ovn' is returned
+        ONLY to the ESS that created the operational intent but NEVER to other
+        ESS instances.
       required:
       - id
       - manager
-      - uss_availability
+      - ess_availability
       - version
       - state
       - time_start
       - time_end
-      - uss_base_url
+      - ess_base_url
       - subscription_id
       type: object
       properties:
@@ -647,15 +646,15 @@ components:
           $ref: '#/components/schemas/EntityID'
         manager:
           type: string
-          example: uss1
+          example: ess1
           description: >-
             Created by the DSS based on creating client's ID (via access
             token).  Used internal to the DSS for restricting mutation and
-            deletion operations to manager.  Used by USSs to reject operational
-            intent update notifications originating from a USS that does not
+            deletion operations to manager.  Used by ESSs to reject operational
+            intent update notifications originating from an ESS that does not
             manage the operational intent.
-        uss_availability:
-          $ref: '#/components/schemas/UssAvailabilityState'
+        ess_availability:
+          $ref: '#/components/schemas/EssAvailabilityState'
         version:
           type: integer
           format: int32
@@ -663,7 +662,7 @@ components:
           description: >-
             Numeric version of this operational intent which increments upon
             each change in the operational intent, regardless of whether any
-            field of the operational intent reference changes.  A USS with the
+            field of the operational intent reference changes. An ESS with the
             details of this operational intent when it was at a particular
             version does not need to retrieve the details again until the
             version changes.
@@ -672,48 +671,48 @@ components:
         ovn:
           description: >-
             Opaque version number of this operational intent.  Populated only
-            when the OperationalIntentReference is managed by the USS retrieving
+            when the OperationalIntentReference is managed by the ESS retrieving
             or providing it.  Not populated when the OperationalIntentReference
-            is not managed by the USS retrieving or providing it (instead, the
-            USS must obtain the OVN from the details retrieved from the managing
-            USS).
-          anyOf:
+            is not managed by the ESS retrieving or providing it (instead, the
+            ESS must obtain the OVN from the details retrieved from the managing
+            ESS).
+          allOf:
           - $ref: '#/components/schemas/EntityOVN'
         time_start:
           description: Beginning time of operational intent.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         time_end:
           description: End time of operational intent.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
-        uss_base_url:
-          $ref: '#/components/schemas/OperationalIntentUssBaseURL'
+        ess_base_url:
+          $ref: '#/components/schemas/OperationalIntentEssBaseURL'
         subscription_id:
           description: >-
             The ID of the subscription that is ensuring the operational intent
             manager receives relevant airspace updates.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/SubscriptionID'
-    OperationalIntentUssBaseURL:
+    OperationalIntentEssBaseURL:
       description: >-
-        The base URL of a USS implementation that implements the parts of the
-        USS-USS API necessary for providing the details of this operational
+        The base URL of an ESS implementation that implements the parts of the
+        ESS-ESS API necessary for providing the details of this operational
         intent, and telemetry during non-conformance or contingency, if
         applicable.
-      anyOf:
-      - $ref: '#/components/schemas/UssBaseURL'
+      allOf:
+      - $ref: '#/components/schemas/EssBaseURL'
     PutOperationalIntentReferenceParameters:
       description: >-
         Parameters for a request to create an OperationalIntentReference in the
         DSS. A subscription to changes overlapping this volume may be implicitly
         created, but this can be overridden by providing the (optional)
         'subscription_id' to use. Note: The implicit subscription is managed by
-        the DSS, not the USS.
+        the DSS, not the ESS.
       required:
       - extents
       - state
-      - uss_base_url
+      - ess_base_url
       type: object
       properties:
         extents:
@@ -732,27 +731,27 @@ components:
           minItems: 1
         key:
           description: >-
-            Proof that the USS creating or mutating this operational intent was
+            Proof that the ESS creating or mutating this operational intent was
             aware of the current state of the airspace, with the expectation
             that this operational intent is therefore deconflicted from all
             relevant features in the airspace.  This field is not required when
             declaring an operational intent Nonconforming or Contingent, or when
             there are no relevant Entities in the airspace, but is otherwise
-            required. OVNs for constraints are required if and only if the USS
+            required. OVNs for constraints are required if and only if the ESS
             managing this operational intent is performing the constraint
             processing role, which is indicated by whether the subscription
             associated with this operational intent triggers notifications for
             constraints.  The key does not need to contain the OVN for the
             operational intent being updated.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Key'
         state:
           $ref: '#/components/schemas/OperationalIntentState'
-        uss_base_url:
-          $ref: '#/components/schemas/OperationalIntentUssBaseURL'
+        ess_base_url:
+          $ref: '#/components/schemas/OperationalIntentEssBaseURL'
         subscription_id:
           description: >-
-            The ID of an existing subscription that the USS will use to keep the
+            The ID of an existing subscription that the ESS will use to keep the
             operator informed about updates to relevant airspace information. If
             this field is not provided when the operational intent is in the
             Activated, Nonconforming, or Contingent state, then the
@@ -761,7 +760,7 @@ components:
             subscription specified by this ID must cover at least the area over
             which this operational intent is conducted, and it must provide
             notifications for operational intents.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         new_subscription:
           description: >-
@@ -771,7 +770,7 @@ components:
             field is populated, an implicit subscription will be created and
             associated with this operational intent, and will generally be
             deleted automatically upon the deletion of this operational intent.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/ImplicitSubscriptionParameters'
     ImplicitSubscriptionParameters:
       description: >-
@@ -779,23 +778,23 @@ components:
         operational intent's notification needs.
       type: object
       required:
-      - uss_base_url
+      - ess_base_url
       properties:
-        uss_base_url:
+        ess_base_url:
           description: >-
-            The base URL of a USS implementation of the parts of the USS-USS API
+            The base URL of an ESS implementation of the parts of the ESS-ESS API
             necessary for receiving the notifications that the operational
             intent must be aware of.  This includes, at least, notifications for
             relevant changes in operational intents.
-          anyOf:
-          - $ref: '#/components/schemas/SubscriptionUssBaseURL'
+          allOf:
+          - $ref: '#/components/schemas/SubscriptionEssBaseURL'
         notify_for_constraints:
           description: >-
             True if this operational intent's subscription should trigger
             notifications when constraints change. Otherwise, changes in
             constraints should not trigger notifications.  The scope
-            utm.constraint_processing is required to set this flag true, and a
-            USS performing the constraint processing role should set this flag
+            etm.constraint_processing is required to set this flag true, and a
+            ESS performing the constraint processing role should set this flag
             true.
           type: boolean
           default: false
@@ -822,8 +821,8 @@ components:
           description: >-
             DSS subscribers that this client now has the obligation to notify of
             the operational intent changes just made.  This client must call
-            POST for each provided URL according to the USS-USS
-            `/uss/v1/operational_intents` path API.  The client's own
+            POST for each provided URL according to the ESS-ESS
+            `/ess/v1/operational_intents` path API.  The client's own
             subscriptions will also be included in this list.
           type: array
           items:
@@ -862,26 +861,26 @@ components:
       required:
       - id
       - manager
-      - uss_availability
+      - ess_availability
       - version
       - time_start
       - time_end
-      - uss_base_url
+      - ess_base_url
       type: object
       properties:
         id:
           $ref: '#/components/schemas/EntityID'
         manager:
           type: string
-          example: uss1
+          example: ess1
           description: >-
             Created by the DSS based on creating client's ID (via access
             token).  Used internal to the DSS for restricting mutation and
-            deletion operations to manager.  Used by USSs to reject constraint
-            update notifications originating from a USS that does not manage the
+            deletion operations to manager.  Used by ESSs to reject constraint
+            update notifications originating from an ESS that does not manage the
             constraint.
-        uss_availability:
-          $ref: '#/components/schemas/UssAvailabilityState'
+        ess_availability:
+          $ref: '#/components/schemas/EssAvailabilityState'
         version:
           type: integer
           format: int32
@@ -889,37 +888,37 @@ components:
           description: >-
             Numeric version of this constraint which increments upon each change
             in the constraint, regardless of whether any field of the constraint
-            reference changes.  A USS with the details of this constraint when
+            reference changes. An ESS with the details of this constraint when
             it was at a particular version does not need to retrieve the details
             again until the version changes.
         ovn:
           description: >-
             Opaque version number of this constraint.  Populated only when the
-            ConstraintReference is managed by the USS retrieving or providing
+            ConstraintReference is managed by the ESS retrieving or providing
             it.  Not populated when the ConstraintReference is not managed by
-            the USS retrieving or providing it (instead, the USS must obtain the
-            OVN from the details retrieved from the managing USS).
-          anyOf:
+            the ESS retrieving or providing it (instead, the ESS must obtain the
+            OVN from the details retrieved from the managing ESS).
+          allOf:
           - $ref: '#/components/schemas/EntityOVN'
         time_start:
           $ref: '#/components/schemas/Time'
         time_end:
           $ref: '#/components/schemas/Time'
-        uss_base_url:
-          $ref: '#/components/schemas/ConstraintUssBaseURL'
-    ConstraintUssBaseURL:
+        ess_base_url:
+          $ref: '#/components/schemas/ConstraintEssBaseURL'
+    ConstraintEssBaseURL:
       description: >-
-        The base URL of a USS implementation that implements the parts of the
-        USS-USS API necessary for providing the details of this constraint.
-      anyOf:
-      - $ref: '#/components/schemas/UssBaseURL'
+        The base URL of an ESS implementation that implements the parts of the
+        ESS-ESS API necessary for providing the details of this constraint.
+      allOf:
+      - $ref: '#/components/schemas/EssBaseURL'
     PutConstraintReferenceParameters:
       description: >-
         Parameters for a request to create/update a ConstraintReference in the
         DSS.
       required:
       - extents
-      - uss_base_url
+      - ess_base_url
       type: object
       properties:
         extents:
@@ -936,8 +935,8 @@ components:
           items:
             $ref: '#/components/schemas/Volume4D'
           minItems: 1
-        uss_base_url:
-          $ref: '#/components/schemas/ConstraintUssBaseURL'
+        ess_base_url:
+          $ref: '#/components/schemas/ConstraintEssBaseURL'
     GetConstraintReferenceResponse:
       description: >-
         Response to DSS request for the ConstraintReference with the given ID.
@@ -960,7 +959,7 @@ components:
           description: >-
             DSS subscribers that this client now has the obligation to notify of
             the constraint changes just made.  This client must call POST for
-            each provided URL according to the USS-USS `/uss/v1/constraints`
+            each provided URL according to the ESS-ESS `/ess/v1/constraints`
             path API.  The client's own subscriptions will also be included in
             this list.
           type: array
@@ -1002,9 +1001,9 @@ components:
           description: >-
             List of operational intent references for which current proof of
             knowledge was not provided.  If this field is present and contains
-            elements, the calling USS should query the details URLs for these
+            elements, the calling ESS should query the details URLs for these
             operational intents to obtain their details and correct OVNs.  The
-            OVNs can be used to update the key, at which point the USS may retry
+            OVNs can be used to update the key, at which point the ESS may retry
             this call.
           type: array
           items:
@@ -1014,27 +1013,29 @@ components:
           description: >-
             List of constraint references for which current proof of knowledge
             was not provided.  If this field is present and contains elements,
-            the calling USS should query the details URLs for these constraints
+            the calling ESS should query the details URLs for these constraints
             to obtain their details and correct OVNs.  The OVNs can be used to
-            update the key, at which point the USS may retry this call.
+            update the key, at which point the ESS may retry this call.
           type: array
           items:
             $ref: '#/components/schemas/ConstraintReference'
           default: [ ]
 
     #
-    # USS-USS schema components
+    # ESS-ESS schema components
     #
     OperationalIntentDetails:
       description: >-
-        Details of a UTM operational intent. Note that this data is not stored
+        Details of a ETM operational intent. Note that this data is not stored
         in the DSS; only with the clients.
       type: object
       properties:
         volumes:
           description: >-
-            Volumes that wholly contain the operational intent while being as
-            small as practical.
+            Volumes that wholly contain the operational intent while being within
+            an externally defined convention for maximum size. Once this size is
+            reached the confidence value for the OperationalIntentVolume4D should
+            decrease rather than the volume size increasing.
 
             Start and end times, as well as lower and upper altitudes, are
             required for each volume. The end time may not be in the past.
@@ -1045,7 +1046,7 @@ components:
             May not contain any items when the operational intent is Contingent.
           type: array
           items:
-            $ref: '#/components/schemas/Volume4D'
+            $ref: '#/components/schemas/OperationalIntentVolume4D'
           default: [ ]
         off_nominal_volumes:
           description: >-
@@ -1066,6 +1067,8 @@ components:
           default: [ ]
         priority:
           $ref: '#/components/schemas/Priority'
+        operational_profile_details:
+          $ref: '#/components/schemas/OperationalProfileDetails'
     Priority:
       description: >-
         Ordinal priority of the operational intent, as defined by the
@@ -1079,7 +1082,7 @@ components:
       type: integer
       default: 0
     OperationalIntent:
-      description: Full description of a UTM operational intent.
+      description: Full description of a ETM operational intent.
       required:
       - reference
       - details
@@ -1102,14 +1105,14 @@ components:
       properties:
         operational_intent_id:
           description: ID of operational intent that has changed.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         operational_intent:
           description: >-
             Full information about the operational intent that has changed.  If
             this field is omitted, the operational intent was deleted.  The
             `ovn` field in the nested `reference` must be populated.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/OperationalIntent'
         subscriptions:
           type: array
@@ -1129,7 +1132,7 @@ components:
           $ref: '#/components/schemas/OperationalIntent'
     ConstraintDetails:
       description: >-
-        Details of a UTM constraint. Note that this data is not stored in the
+        Details of a ETM constraint. Note that this data is not stored in the
         DSS; only with the clients.
       required:
       - volumes
@@ -1148,15 +1151,15 @@ components:
         type:
           description: Type of airspace feature this constraint represents.
           type: string
-          example: com.example.non_utm_aircraft_operations
+          example: com.example.non_etm_aircraft_operations
         geozone:
           description: >-
             If this constraint is an ED-269 compliant geo zone, the details
             about that geo zone.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/GeoZone'
     Constraint:
-      description: Full specification of a UTM constraint.
+      description: Full specification of a ETM constraint.
       required:
       - reference
       - details
@@ -1179,14 +1182,14 @@ components:
       properties:
         constraint_id:
           description: ID of constraint that has changed.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         constraint:
           description: >-
             Full information about the constraint that has changed.  If this
             field is omitted, the constraint was deleted.  The `ovn` field in
             the nested `reference` must be populated.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Constraint'
         subscriptions:
           description: Subscription(s) prompting this notification.
@@ -1216,18 +1219,18 @@ components:
           description: >-
             ID of the operational intent which the vehicle reporting telemetry
             is flying.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         telemetry:
           $ref: '#/components/schemas/VehicleTelemetry'
         next_telemetry_opportunity:
           description: >-
             The next telemetry similar to this telemetry is not expected to be
-            available until at or after this time, so the polling USS should
+            available until at or after this time, so the polling ESS should
             generally not poll the endpoint providing this response data again
             until at or after that time.  If this field is omitted, then there
             is no current expectation of new telemetry becoming available.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
     VehicleTelemetry:
       description: Vehicle position, altitude, and velocity.
@@ -1278,7 +1281,7 @@ components:
       - HA1m
     Position:
       description: >-
-        Location of the vehicle (UAS) as reported for UTM. Note: 'accuracy'
+        Location of the vehicle (UAS) as reported for ETM. Note: 'accuracy'
         values are required when extrapolated field is true.
       type: object
       properties:
@@ -1323,30 +1326,30 @@ components:
             value, or unknown.
           example: 120
           default: 0
-    UssAvailabilityStatus:
+    EssAvailabilityStatus:
       type: object
       required:
-      - uss
+      - ess
       - availability
       properties:
-        uss:
+        ess:
           type: string
           description: >-
-            Client ID (matching their `sub` in access tokens) of the USS to
+            Client ID (matching their `sub` in access tokens) of the ESS to
             which this availability applies.
         availability:
-          $ref: '#/components/schemas/UssAvailabilityState'
-    UssAvailabilityState:
+          $ref: '#/components/schemas/EssAvailabilityState'
+    EssAvailabilityState:
       type: string
       enum:
       - Unknown
       - Normal
       - Down
       description: >-
-        A USS is presumed to be in the Unknown state absent indication otherwise
-        by a USS with availability arbitration scope.  Upon determination via
-        availability arbitration, a USS is Down when it does not respond
-        appropriately, and a Down USS may not perform the following operations
+        An ESS is presumed to be in the Unknown state absent indication otherwise
+        by an ESS with availability arbitration scope.  Upon determination via
+        availability arbitration, an ESS is Down when it does not respond
+        appropriately, and a Down ESS may not perform the following operations
         in the DSS:
 
         * Create an operational intent in the Accepted or Activated states
@@ -1356,9 +1359,9 @@ components:
 
         * Delete an operational intent
 
-        A USS in the Unknown state possesses all the capabilities, within the
-        DSS, of a USS in the Normal state.
-    SetUssAvailabilityStatusParameters:
+        An ESS in the Unknown state possesses all the capabilities, within the
+        DSS, of an ESS in the Normal state.
+    SetEssAvailabilityStatusParameters:
       type: object
       required:
       - old_version
@@ -1368,11 +1371,11 @@ components:
           type: string
           default: ''
           description: >-
-            Version of USS's availability to change, for consistent
+            Version of ESS's availability to change, for consistent
             read-modify-write operations and consistent retry behavior.
         availability:
-          $ref: '#/components/schemas/UssAvailabilityState'
-    UssAvailabilityStatusResponse:
+          $ref: '#/components/schemas/EssAvailabilityState'
+    EssAvailabilityStatusResponse:
       type: object
       required:
       - status
@@ -1381,23 +1384,23 @@ components:
         version:
           type: string
           description: >-
-            Current version of USS's availability.  Used to change USS's
+            Current version of ESS's availability.  Used to change ESS's
             availability.
         status:
-          $ref: '#/components/schemas/UssAvailabilityStatus'
+          $ref: '#/components/schemas/EssAvailabilityStatus'
 
     #
     # Data structures for logging
     #
-    USSLogSet:
+    ESSLogSet:
       type: object
       description: >-
         The set of log data fulfilling this standard's Logging requirements.
       properties:
         messages:
           description: >-
-            Outgoing messages sent to other USSs and the DSS, and incoming
-            messages received from other USSs, including instances where an
+            Outgoing messages sent to other ESSs and the DSS, and incoming
+            messages received from other ESSs, including instances where an
             expected response to a request is not received.
           type: array
           items:
@@ -1421,7 +1424,7 @@ components:
           default: [ ]
         operator_associations:
           description: >-
-            For a USS that manages operational intents, associations of an
+            For an ESS that manages operational intents, associations of an
             operator with operational intents that transitioned to the Accepted
             state.
           type: array
@@ -1430,7 +1433,7 @@ components:
           default: [ ]
         planning_attempts:
           description: >-
-            For a USS that manages operational intents, instances where an
+            For an ESS that manages operational intents, instances where an
             operational intent could not be planned or replanned due to
             conflicts with other operational intents or constraints.
           type: array
@@ -1439,7 +1442,7 @@ components:
           default: [ ]
         operational_intent_positions:
           description: >-
-            For a USS performing conformance monitoring, all position data used
+            For an ESS performing conformance monitoring, all position data used
             for conformance monitoring that is ingested from the UA.
           type: array
           items:
@@ -1447,7 +1450,7 @@ components:
           default: [ ]
         constraint_provider_associations:
           description: >-
-            For a USS that performs constraint management, associations of an
+            For an ESS that performs constraint management, associations of an
             authorized constraint provider with all constraints that transition
             to the valid state.
           type: array
@@ -1481,15 +1484,15 @@ components:
         recorder_role:
           type: string
           description: >-
-            A coded value that indicates the role of the logging USS: 'Client'
-            (initiating a request to a remote USS) or 'Server' (handling a
-            request from a remote USS)
+            A coded value that indicates the role of the logging ESS: 'Client'
+            (initiating a request to a remote ESS) or 'Server' (handling a
+            request from a remote ESS)
           enum:
           - Client
           - Server
         request_time:
           description: The time at which the request was sent/received.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         request_body:
           description: Base64-encoded body content sent/received as a request.
@@ -1497,7 +1500,7 @@ components:
           default: ''
         response_time:
           description: The time at which the response was sent/received.
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
         response_body:
           type: string
@@ -1526,23 +1529,23 @@ components:
             ID assigned by the server receiving the report.  Not populated when
             submitting a report.
         exchange:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/ExchangeRecord'
           description: >-
-            The request (by this USS) and response associated with the error.
+            The request (by this ESS) and response associated with the error.
     PositionRecord:
       type: object
       description: >-
-        A record of vehicle telemetry information received by this USS
+        A record of vehicle telemetry information received by this ESS
         (typically for conformance monitoring).
       required:
       - time_received
       - telemetry
       properties:
         time_received:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
-          description: Time that this position data was received by the USS
+          description: Time that this position data was received by the ESS
         telemetry:
           $ref: '#/components/schemas/VehicleTelemetry'
     OperationalIntentPositions:
@@ -1560,7 +1563,7 @@ components:
           default: [ ]
         operational_intent_id:
           description: ID of the operational intent associated with `positions`
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
     PlanningRecord:
       type: object
@@ -1572,12 +1575,12 @@ components:
       - ovns
       properties:
         time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time that this planning event occurred
         ovns:
           description: >-
-            OVNs the planning USS was aware of when it was planning the
+            OVNs the planning ESS was aware of when it was planning the
             operational intent
           type: array
           default: [ ]
@@ -1601,7 +1604,7 @@ components:
           default: [ ]
         operational_intent_id:
           description: ID of the operational intent being planned
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         problem:
           type: string
@@ -1617,11 +1620,11 @@ components:
       - notification_triggering_event
       properties:
         triggering_event_time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time of the notification triggering event
         notification_time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
           description: Time at which the user was notified
         notification_details:
@@ -1655,11 +1658,11 @@ components:
       - input_triggering_event
       properties:
         triggering_event_time:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/Time'
-          description: Time in which user input was received by the USS
+          description: Time in which user input was received by the ESS
         operational_intent_id:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
           description: >-
             ID of the operational_intent ID pertaining to the user input
@@ -1694,7 +1697,7 @@ components:
         operational_intent_id:
           description: >-
             ID of operational intent to which this association pertains
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         operator_id:
           description: >-
@@ -1712,7 +1715,7 @@ components:
       properties:
         constraint_id:
           description: ID of constraint to which this association pertains
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/EntityID'
         constraint_provider_id:
           description: >-
@@ -1737,7 +1740,7 @@ components:
       - zone_authority
       properties:
         identifier:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeZoneIdentifierType'
           description: >-
             A string of characters that uniquely identifies the UAS Zone within
@@ -1746,7 +1749,7 @@ components:
             Note - The UAS Zone is uniquely identified worldwide by the
             combination of the country and the identifier attributes
         country:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeCountryISOType'
           description: >-
             The State that has the authority to declare the zone.
@@ -1760,19 +1763,19 @@ components:
           items:
             $ref: '#/components/schemas/Authority'
         name:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             A free text name by which the zone may be known by the public or by
             the UAS community.
         type:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeZoneType'
           description: >-
             An indication whether the Zone is provided with its common
             definition or with a customised definition, for a particular user.
         restriction:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeRestrictionType'
           description: >-
             An indication if flying in the zone is conditional, forbidden or
@@ -1812,13 +1815,13 @@ components:
             A free text description of the reason that led to the establishment
             of the zone, when not covered by a pre-defined coded value.
         regulation_exemption:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeYesNoType'
           description: >-
             This is an extension point. It allows adding additional attributes
             of national interest through this element.
         u_space_class:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeUSpaceClassType'
           description: >-
             A code that identifies the category or class of the zone applying a
@@ -1829,7 +1832,7 @@ components:
             expected, one from each sub-list. This might be later replaced with
             separate attributes and separate lists of values.
         message:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             A message to be displayed to the user of the zone, typically on the
@@ -1955,7 +1958,7 @@ components:
         • CHARTYPE: Operation type: A1 as per EASA Open Types or S1 (National
         standard Scenario 1), STS01 (EASA Specific standard scenario) or ...
 
-        • CHARTYPE: UTM operation type: Planned/Unplanned,
+        • CHARTYPE: ETM operation type: Planned/Unplanned,
 
         • CHARTYPE: passengers on board: yes /no Note that it is possible in
         each national catalog of chartype and charval items, to define complex
@@ -2026,22 +2029,22 @@ components:
         phone.
       properties:
         name:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: The official name of a public or private authority
         service:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The name of a specific department or service within the organisation
         contact_name:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The name or role of a specific person that needs to be contacted
             within the organisation
         site_url:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The URL of the public internet site through which the organisation
@@ -2050,7 +2053,7 @@ components:
             Note: in the data coding format, this might be further constrained
             in order to ensure a valid URL format.
         email:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             The e-mail address by which the organisation may be contacted.
@@ -2058,12 +2061,12 @@ components:
             Note: in the data coding format, this might be further constrained
             in order to ensure a valid e-mail format.
         phone:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/TextShortType'
           description: >-
             A phone number at which the organisation may be contacted
         purpose:
-          anyOf:
+          allOf:
           - $ref: '#/components/schemas/CodeAuthorityRole'
           description: The role of the Authority in relation with the zone.
         interval_before:
@@ -2086,6 +2089,310 @@ components:
       type: string
       maxLength: 200
       description: A free text with a maximum length of 200 characters
+    #
+    # Data structures for ETM Specific Data
+    #
+    OperationalProfileDetails:
+      description: >- 
+        Details of the operational profile. Note that this data is not stored
+        in the DSS; only with the clients. Contains information outside of the
+        operational intent pertaining to the mission profile
+      type: object
+      properties:
+        vehicle_make:
+          $ref: '#/components/schemas/VehicleMake'
+        vehicle_model:
+          $ref: '#/components/schemas/VehicleModel'
+        aircraft_registration:
+          $ref: '#/components/schemas/AircraftRegistration'
+        operator:
+          $ref: '#/components/schemas/Operator'
+        mission_type:
+          $ref: '#/components/schemas/MissionType'
+        mission_description:
+          $ref: '#/components/schemas/MissionDescription'
+        contingency_handling_description:
+          $ref: '#/components/schemas/ContingencyHandlingDescription'
+        common_operating_procedures:
+          $ref: '#/components/schemas/CommonOperatingProcedure'
+        negotiated_operators:
+          $ref: '#/components/schemas/NegotiatedOperators'
+        regular_updates:
+          $ref: '#/components/schemas/RegularUpdate'
+    VehicleMake:
+      type: string
+      description: >-
+        A string descriptor for the maker of the vehicle corresponding to a given operation.
+    VehicleModel:
+      type: string
+      description: >-
+        A string descriptor for the model of the vehicle corresponding to a given operation
+    AircraftRegistration:
+      type: string
+      pattern: "[A-Z0-9]{1,7}"
+      description: |
+        A unique, alphanumeric string that identifies a civil aircraft and consists of the Aircraft
+        Nationality or Common Mark and an additional alphanumeric string, the registration mark,
+        assigned by the state of registry or common mark registering authority. [FIXM]
+      minLength: 1
+      maxLength: 7
+      externalDocs:
+        description: See FIXM 4.2.0 for further information.
+        url: https://fixm.aero/releases/FIXM-4.2.0/doc/schema_documentation/Fixm_AircraftRegistrationType.html#LinkBC
+    Operator:
+      type: object
+      description: >-
+        The information about an operator, identifier, email, telephone number
+      properties:
+        operator_name:
+          $ref: '#/components/schemas/OperatorName'
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+          format: phone-number
+    OperatorName:
+      description: The identifier of the ETM Operator.
+      type: string
+      pattern: "[A-Z]{3}"
+      example: "AAL" 
+      externalDocs:
+        description: See FIXM 4.2.0 for further information.
+        url: https://www.fixm.aero/releases/FIXM-4.2.0/doc/schema_documentation/Fixm_AircraftOperatorType.html#Link1E3
+    MissionType:
+      type: string
+      description: >-
+        Designation of mission type, whether public or private. Default to public
+      enum:
+      - PUBLIC
+      - PRIVATE
+      default: PUBLIC
+    MissionDescription:
+      type: string
+      description: >-
+        Description of the mission, e.g. describing the mission, such as fly to the Gulf of 
+        Mexico and loiter for 6 months providing a service @spencer this should be a enum/type
+        field
+      maxLength: 1000
+    ContingencyHandlingDescription:
+      type: string
+      description: >-
+        Description of the contigency handling procedures @spencer this should be a enum/type
+        field
+      maxLength: 10000
+    CommonOperatingProcedure:
+      description: >-
+        Common operating procedure, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
+        COP1_FIRST_RESERVED - De-confliction through first-reserved-first-served principle
+        COP2_PREDEFINED_AGREEMENT - De-confliction through pre-defined agreement
+        COP3_DYNAMIC_AGREEMENT - De-confliction through dynamically generated/negotiated agreement
+      type: string
+      enum:
+      - COP1_FIRST_RESERVED
+      - COP2_PREDEFINED_AGREEMENT
+      - COP3_DYNAMIC_AGREEMENT
+      default: COP1_FIRST_RESERVED
+    NegotiatedOperators:
+      type: array
+      description: >-
+        List of other operators that the operator of this operation has agreements with for the
+        purposes of negotiation outside of the common operating procedures.
+      items:
+        $ref: '#/components/schemas/OperatorName'
+    RegularUpdate:
+      type: boolean
+      description: >-
+        True or false descriptor for whether or not there is an expectation that the operational
+        intent for this operation will be regularlary updated.
+      default: false
+    FlightPlan:
+      description: >- 
+        Detailed flight plan that will inform the operational intent generator, which has been built for developing operation
+        intent based on detailed flight plan, flight mode, and certain level of wind information. The Flight Plan model is not
+        shared in the operational intent details, but is instead available through a separate endpoint in the event that
+        conflict is determined to be outside of the acceptable risk tolerance and additional information exchanges need to
+        occur for further operator negotiation.
+      type: object
+      properties:
+        flight_plan_waypoint_array:
+          $ref: '#/components/schemas/FlightPlanWayPointArray'
+        trajectory_performance:
+          $ref: '#/components/schemas/TrajectoryPerformance'
+    FlightPlanWayPointArray:
+      type: array
+      minItems: 2
+      maxItems: 1000
+      description: |-
+        The list of flight waypoints and associated flight modes for this operation. This list must contain all significant flight waypoints. 
+      items:
+        $ref: '#/components/schemas/FlightPlanWayPoint'
+    FlightPlanWayPoint:
+      description: >-
+        A waypoint and associate mode for use within a flight plan.
+      required:
+        - lat_lng_point
+        - altitude
+        - true_air_speed
+        - flight_mode
+        - controlled_arrival_time_tolerance
+      type: object
+      properties:
+        point_designator:
+          description: The name of the designated point.
+            This is required for all named airspace structure points.
+          type: string
+          example: ee123
+        lat_lng_point:
+          description: Latitude and Longitude of the point. If this is for a named airspace structure 
+            point it should be the same value as the specific airspace structure point.
+          allOf:
+            - $ref: '#/components/schemas/LatLngPoint'
+        altitude:
+          description: Altitude of the point. If this is for a named airspace structure 
+            point it should be the same value as from specific airspace structure point.
+          allOf:
+            - $ref: '#/components/schemas/Altitude'  
+        true_air_speed:
+          description: |-
+            Speed of the vehicle from current waypoint to next waypoint in the flight plan.
+          allOf:
+            - $ref: '#/components/schemas/TrueAirSpeed'
+        flight_mode:
+          description: |-
+            Provides the flight mode between current waypoint to next waypoint
+          type: object
+          required:
+          - lateral_mode
+          - vertical_mode
+          properties:
+            lateral_mode:
+              type: string
+              enum:
+              - CONSTANT_VELOCITY
+              - CONSTANT_ACCELERATION
+              - CONSTANT_TURN
+              - STATION_KEEPING
+            vertical_mode:
+              type: string
+              enum:
+              - CONSTANT_CLIMB_DESCENT
+              - CONSTANT_ALTITUDE
+        controlled_time_of_arrival_tolerance:
+          description: |-
+            Provides controlled arrival time tolerance in minutes at the associated waypoint
+          allOf:
+           - $ref: '#/components/schemas/ControlledTimeOfArrivalTolerance'
+    TrajectoryPerformance:
+      description: Describes any applicable trajectory performance that can be used to build trajectory uncertainty.
+      type: object
+      required:
+        - along_track_error_rms
+        - cross_track_error_rms
+        - vertical_track_error_rms
+      properties:
+        along_track_error_rms:
+          description: |
+            Provides root-mean-square for flight's along-track error, including the constant (zeroth order) and rate (first order)
+          allOf:
+           - $ref: '#/components/schemas/TrackingErrorRMS'
+        cross_track_error_rms:
+          description: |
+            Provides root-mean-square for flight's cross-track error, including the constant (zeroth order) and rate (first order)
+          allOf:
+           - $ref: '#/components/schemas/TrackingErrorRMS'
+        vertical_track_error_rms:
+          description: |
+            Provides root-mean-square for flight's vertical-track error, including the constant (zeroth order) and rate (first order)
+          allOf:
+           - $ref: '#/components/schemas/TrackingErrorRMS'
+    TrueAirSpeed:
+      required:
+      - speed
+      - units_speed
+      type: object
+      properties:
+        speed:
+          format: float
+          type: number
+          multipleOf: 0.01
+          minimum: 0.0
+          exclusiveMinimum: false
+          description: Ground speed in meters/second.
+          example: 200.1
+        units_speed:
+          type: string
+          enum:
+          - Knots
+    ControlledTimeOfArrivalTolerance:
+      required:
+      - status 
+      - value
+      - units
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ACTIVATED
+          - INACTIVATED
+        value:
+          format: float
+          type: number
+          multipleOf: 0.1
+          minimum: 0.0
+          exclusiveMinimum: false
+          description: Tolerance for controlled time of arrival at a waypoint
+          example: 10.0
+        units:
+          type: string
+          enum:
+          - Minutes
+    TrackingErrorRMS:
+      required:
+      - status
+      - constant 
+      - growth_rate
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - ACTIVATED
+          - INACTIVATED
+        constant:
+          format: float
+          type: number
+          multipleOf: 0.01
+          minimum: 0.00
+          exclusiveMinimum: false
+          description: the constant portion of the root-mean-square error for the tracking error at a given direction
+          example: 1.00
+        growth_rate:
+          format: float
+          type: number
+          multipleOf: 0.01
+          minimum: 0.00
+          exclusiveMinimum: false
+          description: the rate portion of the root-mean-square error for the tracking error at a given direction
+          example: 1.00
+    OperationalIntentVolume4D:
+      type: object
+      description: >-
+        Four dimensional volume used for communicating operational intent. This volume includes a containment confidence level to communicate to other operators the likelihood of being inside of a designated volume in order to avoid high-uncertainty vehicles having volumes larger than acceptable by the current design.
+      properties:
+        volume:
+          $ref: '#/components/schemas/Volume4D'
+        containtment_confidence_level:
+          $ref: '#/components/schemas/ContainmentConfidenceLevel'
+    ContainmentConfidenceLevel:
+      description: >-
+        A confidence value between 0.0 - 1.0 that expresses the likelihood that a vehicle will be within a volume.
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 1.0
+
 paths:
   #
   # DSS endpoints for operational intents
@@ -2107,9 +2414,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       summary: >-
         Query all operational intent references in the specified
         area/volume/time from the DSS.
@@ -2180,9 +2487,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       summary: >-
         Retrieve the specified operational intent reference from the DSS.
       operationId: getOperationalIntentReference
@@ -2240,12 +2547,12 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.strategic_coordination
-        - utm.constraint_processing
+        - etm.strategic_coordination
+        - etm.constraint_processing
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       summary: Create the specified operational intent reference in the DSS.
       operationId: createOperationalIntentReference
       responses:
@@ -2343,12 +2650,12 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.strategic_coordination
-        - utm.constraint_processing
+        - etm.strategic_coordination
+        - etm.constraint_processing
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       summary: Update the specified operational intent reference in the DSS.
       operationId: updateOperationalIntentReference
       responses:
@@ -2426,9 +2733,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       summary: Remove the specified operational intent reference from the DSS.
       operationId: deleteOperationalIntentReference
       responses:
@@ -2518,9 +2825,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       summary: >-
         Query all constraint references in the specified area/volume from the
         DSS.
@@ -2590,9 +2897,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       summary: Retrieve the specified constraint reference from the DSS.
       operationId: getConstraintReference
       responses:
@@ -2649,7 +2956,7 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       summary: Create the specified constraint reference in the DSS.
       operationId: createConstraintReference
       responses:
@@ -2738,7 +3045,7 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       summary: Update the specified constraint reference in the DSS.
       operationId: updateConstraintReference
       responses:
@@ -2805,7 +3112,7 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       summary: Delete the specified constraint reference from the DSS.
       operationId: deleteConstraintReference
       responses:
@@ -2883,9 +3190,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       description: >-
         Query subscriptions intersecting an area of interest.  Subscription
         notifications are only triggered by (and contain full information of)
@@ -2898,7 +3205,7 @@ paths:
         from this parameter.
 
         Only subscriptions belonging to the caller are returned.  This endpoint
-        would be used if a USS lost track of subscriptions they had created
+        would be used if an ESS lost track of subscriptions they had created
         and/or wanted to resolve an error indicating that they had too many
         existing subscriptions in an area.
       summary: >-
@@ -2961,9 +3268,9 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       summary: Retrieve the specified subscription from the DSS.
       operationId: getSubscription
       description: Retrieve a specific subscription.
@@ -3012,9 +3319,9 @@ paths:
     put:
       security:
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       summary: Create the specified subscription in the DSS.
       operationId: createSubscription
       description: >-
@@ -3106,9 +3413,9 @@ paths:
     put:
       security:
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       summary: Update the specified subscription in the DSS.
       operationId: updateSubscription
       description: >-
@@ -3121,7 +3428,7 @@ paths:
         information.
 
         The standard requires each operational intent to have a subscription
-        that cover the 4D volume of the operational intent.  If a USS attempts
+        that cover the 4D volume of the operational intent.  If an ESS attempts
         to update a subscription upon which an operational intent depends, and
         this update would cause the operational intent to lose subscription
         coverage, the update will be rejected by the DSS as a bad request.
@@ -3197,14 +3504,14 @@ paths:
       - dss
       security:
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       summary: Remove the specified subscription from the DSS.
       operationId: deleteSubscription
       description: >-
         The standard requires each operational intent to have a subscription
-        that cover the 4D volume of the operational intent.  If a USS attempts
+        that cover the 4D volume of the operational intent.  If an ESS attempts
         to delete a subscription upon which an operational intent depends, the
         deletion will be rejected by the DSS as a bad request.
       responses:
@@ -3271,15 +3578,15 @@ paths:
     post:
       security:
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       - Authority:
-        - utm.availability_arbitration
+        - etm.availability_arbitration
       summary: Report information about communication issues to a DSS.
       operationId: makeDssReport
       description: >-
@@ -3334,14 +3641,14 @@ paths:
             The client issued too many requests in a short period of time.
 
   #
-  # DSS endpoints for USS availability
+  # DSS endpoints for ESS availability
   #
-  /dss/v1/uss_availability/{uss_id}:
-    summary: Availability status of a USS
+  /dss/v1/ess_availability/{ess_id}:
+    summary: Availability status of an ESS
     parameters:
-    - name: uss_id
+    - name: ess_id
       description: >-
-        Client ID (matching their `sub` in access tokens) of the USS to which
+        Client ID (matching their `sub` in access tokens) of the ESS to which
         this availability applies.
       schema:
         type: string
@@ -3350,15 +3657,15 @@ paths:
     put:
       security:
       - Authority:
-        - utm.availability_arbitration
-      summary: Set availability status of a USS.
-      operationId: setUssAvailability
-      description: Set availability status of a USS.
+        - etm.availability_arbitration
+      summary: Set availability status of an ESS.
+      operationId: setEssAvailability
+      description: Set availability status of an ESS.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SetUssAvailabilityStatusParameters'
+              $ref: '#/components/schemas/SetEssAvailabilityStatusParameters'
         required: true
       tags:
       - Availability
@@ -3366,11 +3673,11 @@ paths:
       responses:
         '200':
           description: >-
-            Availability status of specified USS was successfully updated.
+            Availability status of specified ESS was successfully updated.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UssAvailabilityStatusResponse'
+                $ref: '#/components/schemas/EssAvailabilityStatusResponse'
         '400':
           content:
             application/json:
@@ -3403,25 +3710,25 @@ paths:
     get:
       security:
       - Authority:
-        - utm.availability_arbitration
+        - etm.availability_arbitration
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.conformance_monitoring_sa
-      summary: Get availability status of a USS.
-      operationId: getUssAvailability
-      description: Get availability status of a USS.
+        - etm.conformance_monitoring_sa
+      summary: Get availability status of an ESS.
+      operationId: getEssAvailability
+      description: Get availability status of an ESS.
       tags:
       - Availability
       - dss
       responses:
         '200':
           description: >-
-            Availability status of specified USS was successfully retrieved.
+            Availability status of specified ESS was successfully retrieved.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UssAvailabilityStatusResponse'
+                $ref: '#/components/schemas/EssAvailabilityStatusResponse'
         '400':
           content:
             application/json:
@@ -3453,10 +3760,10 @@ paths:
             The client issued too many requests in a short period of time.
 
   #
-  # USS endpoints for operational intents
+  # ESS endpoints for operational intents
   #
-  /uss/v1/operational_intents/{entityid}:
-    summary: Query detailed information of an operational intent from a USS.
+  /ess/v1/operational_intents/{entityid}:
+    summary: Query detailed information of an operational intent from an ESS.
     parameters:
     - name: entityid
       description: EntityID for this operational intent.
@@ -3467,16 +3774,16 @@ paths:
     get:
       tags:
       - Operational intent details
-      - p2p_utm
+      - p2p_etm
       security:
       - Authority:
-        - utm.strategic_coordination
-      summary: Retrieve the specified operational intent details from a USS.
+        - etm.strategic_coordination
+      summary: Retrieve the specified operational intent details from an ESS.
       description: >-
-        The USS hosting this endpoint returns the details (and reference) of an
-        operational intent it manages.  While the USS has a pending request to
-        change the operational intent in the DSS, the USS should report the most
-        recent version the USS knows was accepted by the DSS.  So, before a USS
+        The ESS hosting this endpoint returns the details (and reference) of an
+        operational intent it manages.  While the ESS has a pending request to
+        change the operational intent in the DSS, the ESS should report the most
+        recent version the ESS knows was accepted by the DSS.  So, before an ESS
         receives a response to create an operational intent reference in the
         DSS, it should return 404 if queried for that operational intent at this
         endpoint.
@@ -3523,7 +3830,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
           description: >-
             The client issued too many requests in a short period of time.
-  /uss/v1/operational_intents/{entityid}/telemetry:
+  /ess/v1/operational_intents/{entityid}/telemetry:
     summary: >-
       Detailed information on the position of an off-nominal operational intent.
     parameters:
@@ -3536,13 +3843,13 @@ paths:
     get:
       tags:
       - Operational intent details
-      - p2p_utm
+      - p2p_etm
       security:
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       summary: >-
         Query detailed information on the position of an off-nominal operational
-        intent from a USS.
+        intent from an ESS.
       operationId: getOperationalIntentTelemetry
       responses:
         '200':
@@ -3600,20 +3907,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
           description: >-
             The client issued too many requests in a short period of time.
-  /uss/v1/operational_intents:
+  /ess/v1/operational_intents:
     summary: >-
-      A USS's representation of detailed information about operational intents.
+      An ESS's representation of detailed information about operational intents.
     post:
       tags:
       - Operational intent details
-      - p2p_utm
+      - p2p_etm
       security:
       - Authority:
-        - utm.strategic_coordination
-      summary: Notify a peer USS of changed operational intent details.
+        - etm.strategic_coordination
+      summary: Notify a peer ESS of changed operational intent details.
       operationId: notifyOperationalIntentDetailsChanged
       description: >-
-        Notify a peer USS directly of changed operational intent details
+        Notify a peer ESS directly of changed operational intent details
         (usually as a requirement of previous interactions with the DSS).
       requestBody:
         content:
@@ -3672,10 +3979,10 @@ paths:
             The client issued too many requests in a short period of time.
 
   #
-  # USS endpoints for constraints
+  # ESS endpoints for constraints
   #
-  /uss/v1/constraints/{entityid}:
-    summary: Query detailed information of a constraint from a USS.
+  /ess/v1/constraints/{entityid}:
+    summary: Query detailed information of a constraint from an ESS.
     parameters:
     - name: entityid
       description: EntityID of the constraint.
@@ -3686,17 +3993,17 @@ paths:
     get:
       tags:
       - Constraint details
-      - p2p_utm
+      - p2p_etm
       security:
       - Authority:
-        - utm.constraint_processing
-      summary: Retrieve the specified constraint details from a USS.
+        - etm.constraint_processing
+      summary: Retrieve the specified constraint details from an ESS.
       operationId: getConstraintDetails
       description: >-
-        The USS hosting this endpoint returns the details (and reference) of a
-        constraint it manages.  While the USS has a pending request to change
-        the constraint in the DSS, the USS should report the most recent version
-        the USS knows was accepted by the DSS.  So, before a USS receives a
+        The ESS hosting this endpoint returns the details (and reference) of a
+        constraint it manages.  While the ESS has a pending request to change
+        the constraint in the DSS, the ESS should report the most recent version
+        the ESS knows was accepted by the DSS.  So, before an ESS receives a
         response to create a constraint reference in the DSS, it should return
         404 if queried for that constraint at this endpoint.
       responses:
@@ -3741,19 +4048,19 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
           description: >-
             The client issued too many requests in a short period of time.
-  /uss/v1/constraints:
-    summary: A USS's representation of detailed information about constraints.
+  /ess/v1/constraints:
+    summary: An ESS's representation of detailed information about constraints.
     post:
       tags:
       - Constraint details
-      - p2p_utm
+      - p2p_etm
       security:
       - Authority:
-        - utm.constraint_management
-      summary: Notify a peer USS of changed constraint details.
+        - etm.constraint_management
+      summary: Notify a peer ESS of changed constraint details.
       operationId: notifyConstraintDetailsChanged
       description: >-
-        Notify a peer USS directly of changed constraint details (usually as a
+        Notify a peer ESS directly of changed constraint details (usually as a
         requirement of previous interactions with the DSS).
       requestBody:
         content:
@@ -3811,31 +4118,31 @@ paths:
             The client issued too many requests in a short period of time.
 
   #
-  # USS endpoints for reports
+  # ESS endpoints for reports
   #
-  /uss/v1/reports:
-    summary: Error reports of issues communicating with a peer USS.
+  /ess/v1/reports:
+    summary: Error reports of issues communicating with a peer ESS.
     post:
       tags:
       - Reports
-      - p2p_utm
+      - p2p_etm
       security:
       - Authority:
-        - utm.strategic_coordination
+        - etm.strategic_coordination
       - Authority:
-        - utm.constraint_processing
+        - etm.constraint_processing
       - Authority:
-        - utm.constraint_management
+        - etm.constraint_management
       - Authority:
-        - utm.conformance_monitoring_sa
+        - etm.conformance_monitoring_sa
       - Authority:
-        - utm.availability_arbitration
+        - etm.availability_arbitration
       summary: >-
-        Notify USS of an error encountered that might otherwise go unnoticed.
-      operationId: makeUssReport
+        Notify ESS of an error encountered that might otherwise go unnoticed.
+      operationId: makeEssReport
       description: >-
         Endpoint to provide feedback (errors, etc.) that might otherwise go
-        unnoticed by this USS.  This endpoint is used for all feedback related
+        unnoticed by this ESS.  This endpoint is used for all feedback related
         to operational intents and constraints.
       requestBody:
         content:
@@ -3884,14 +4191,14 @@ paths:
             The client issued too many requests in a short period of time.
 
   #
-  # USS pseudo endpoint for logging
+  # ESS pseudo endpoint for logging
   #
-  /uss/v1/log_sets/{log_set_id}:
+  /ess/v1/log_sets/{log_set_id}:
     summary: General summary
     parameters:
     - name: log_set_id
       description: >-
-        USS-defined identifier for a set of log entries.  For instance, this
+        ESS-defined identifier for a set of log entries.  For instance, this
         ID may refer to all logs associated with a particular reportable
         incident, or over a time range for the purpose of metric computation.
       schema:
@@ -3902,10 +4209,10 @@ paths:
     get:
       tags:
       - Logging
-      summary: Get USS logs
+      summary: Get ESS logs
       operationId: getLogSet
       description: >-
-        A USS will not usually implement this endpoint directly, but rather will
+        An ESS will not usually implement this endpoint directly, but rather will
         be capable of exporting log data in a format equivalent to the response
         format of this pseudo-endpoint according to the requirements of the
         standard.
@@ -3915,4 +4222,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/USSLogSet'
+                $ref: '#/components/schemas/ESSLogSet'
