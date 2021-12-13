@@ -4,8 +4,7 @@ info:
   version: 1.0.0
   description: >-
     Interface definitions for communication between an ETM Service Supplier (ESS)
-    and a DSS, as well as for
-    communication between two ESSs.
+    and a DSS, as well as for communication between two ESSs.
 
     DSS functionality includes identification of peer ETM ESS instances
     (managing flight operational intents and constraints). ESS functionality
