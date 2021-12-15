@@ -1846,7 +1846,6 @@ components:
             information can be grouped in a message, separated by a “/”.
         additional_properties:
           type: object
-          default:
           description: >-
             Indicates that exemptions from the national or European regulations
             are allowed in the UAS Zone, that will be detailed via the "message"
