@@ -1839,11 +1839,11 @@ components:
             RPS for the Remote Pilot, to make him/her aware about specific
             information associated with the zone (typically when it is not only
             a restriction to fly in the zone, thus not only an alert or an
-            automatic limitation, for example : “image capture prohibited in
-            this zone”, “frequent strong winds in this zone”, “no landing or
-            take-off in this zone”). This message is also used to indicate
+            automatic limitation, for example : "image capture prohibited in
+            this zone", "frequent strong winds in this zone", "no landing or
+            take-off in this zone"). This message is also used to indicate
             exemptions from regulation in a zone (see below). Several
-            information can be grouped in a message, separated by a “/”.
+            information can be grouped in a message, separated by a "/".
         additional_properties:
           type: object
           description: >-
@@ -1899,40 +1899,40 @@ components:
         A coded expression that provides information about what is authorised /
         forbidden in a zone that has conditional access.
 
-        By difference with the “Message” field per zone, this coded expression
-        is made to be interopreted by the UAS while the “Message” is to
+        By difference with the "Message" field per zone, this coded expression
+        is made to be interopreted by the UAS while the "Message" is to
         interpreted by the remote pilot.
 
         NOTE: the maximum field length is 10 000 characters.
 
-        ---------------------- Condition definition language ---------------- •
-        A list of relevant characteristics (CHARTYPE) has first to be
+        ---------------------- Condition definition language ----------------
+        * A list of relevant characteristics (CHARTYPE) has first to be
         established per state, and their finite list of acceptable values
         (CHARVAL)
 
-        • Each chartype and charval fields are defined by a limited set of
+        * Each chartype and charval fields are defined by a limited set of
         characters
 
-        • A public document shall give the definitions of each, and provide the
+        * A public document shall give the definitions of each, and provide the
         reference to legal or technical characteristics implied
 
-        • The Geozone editor per state can use these characteristics, with the
+        * The Geozone editor per state can use these characteristics, with the
         dedicated condition language defined below, to define exact conditions
         per zone
 
-        • Each UAS Geofencing function shall be loaded with the corresponding
+        * Each UAS Geofencing function shall be loaded with the corresponding
         chararacteristic status of the UAS for the intended flight, so as to be
         able to apply the conditions , either to generate alerts or to limit the
         flight
 
-        • If the value of a given characteristic of the condition equation is
+        * If the value of a given characteristic of the condition equation is
         not defined in the UAS, the UAS Geofencing function should inform the
         pilot in Geoawareness alerting or consider that the zone is forbidden,
         by default in automatic Geofencing.
 
         A conditional expression shall be of the following type:
 
-        • The UAS is PERMITTED XOR PROHIBITED (exclusive choice) to fly in this
+        * The UAS is PERMITTED XOR PROHIBITED (exclusive choice) to fly in this
         zone at this time IF (Characteristic1) CHARTYPE1 = (Value1) CHARVAL1 AND
 
         CHARTYPE 2 = CHARVAL 2 AND ... AND End IF
@@ -1943,26 +1943,26 @@ components:
 
         End OR
 
-        • Only the fields in bold need to be edited in the character string,
-        separated by”/”. Others are implicit.
+        * Only the fields in bold need to be edited in the character string,
+        separated by"/". Others are implicit.
 
         Examples of CHARTYPE and CHARVALUE:
 
-        • CHARTYPE: operator type; Acceptable CHARVAL values:
+        * CHARTYPE: operator type; Acceptable CHARVAL values:
         Military/Police/Firefighting
 
-        • CHARTYPE: Operator ID (registration number); Acceptable CHARVAL
+        * CHARTYPE: Operator ID (registration number); Acceptable CHARVAL
         values: as per registration format
 
-        • CHARTYPE: Operation type: A1 as per EASA Open Types or S1 (National
+        * CHARTYPE: Operation type: A1 as per EASA Open Types or S1 (National
         standard Scenario 1), STS01 (EASA Specific standard scenario) or ...
 
-        • CHARTYPE: ETM operation type: Planned/Unplanned,
+        * CHARTYPE: ETM operation type: Planned/Unplanned,
 
-        • CHARTYPE: passengers on board: yes /no Note that it is possible in
+        * CHARTYPE: passengers on board: yes /no Note that it is possible in
         each national catalog of chartype and charval items, to define complex
         categories of operation/drone /equipment. Example: In nation A, we may
-        have a type “drone level” with values Low, Medium, High. Each level
+        have a type "drone level" with values Low, Medium, High. Each level
         corresponds to a defined set of required UAS performance/operation
         features/ operator qualification etc. This avoids to code a complex
         combination in the geozone database. This conditional expression can
@@ -2005,7 +2005,7 @@ components:
 
         NOTE: >-
            In the current model version, there is no specific list of values.
-        For example, the “X”, “Y”, “Z” types of zones as per SESAR JU Corus
+        For example, the "X", "Y", "Z" types of zones as per SESAR JU Corus
         project on USpace concept of operation could be used in a future
         version. Until a precise list of values is defined, this data type will
         be considered as string of characters of maximum 100 characters.
