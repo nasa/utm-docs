@@ -19,6 +19,7 @@ info:
     Note that, for now, we're going to use authorities (a.k.a., FIMS AZ scopes)
     with prefixes of utm rather than etm. This is because we'd otherwise have to change
     FIMS AZ to allow new scopes, which we'd rather not do at this time.
+    See https://atmjira.arc.nasa.gov/browse/FRED-894 for more info.
 security:
 - Authority:
   - utm.strategic_coordination
