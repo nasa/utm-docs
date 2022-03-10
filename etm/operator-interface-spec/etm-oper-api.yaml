@@ -1493,7 +1493,8 @@ components:
 
     Ellipse:
       description: |-
-        An elliptical area on the surface of the earth.
+        An elliptical area on the surface of the earth. (Experimental!
+        Will be converted to polygon internally before being sent to DSS.)
       type: object
       properties:
         center:
@@ -1503,7 +1504,9 @@ components:
         semi-minor_axis:
           $ref: '#/components/schemas/Radius'
         axis_rotation:
-          description: The counter-clockwise rotation of the semi-major axis, relative to the x-axis.
+          description: |-
+            The counter-clockwise rotation of the semi-major axis, relative to the x-axis,
+            in the range of [-pi/2, pi/2].
           allOf:
             - $ref: '#/components/schemas/Angle'
 
