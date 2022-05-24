@@ -136,7 +136,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OperatorResponseWithConflicts"
+                $ref: "#/components/schemas/OperatorResponse"
         "400":
           description: Invalid Request was received.
           content:
@@ -178,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OperatorResponseWithConflicts"
+                $ref: "#/components/schemas/OperatorResponse"
         "400":
           description: Invalid Request was received.
           content:
@@ -269,7 +269,7 @@ paths:
         - Authority:
           - operations.non-sensitive.read
       description: >-
-        Look at the passed-in volume(s), and determine if there are any Operations or Constraints that have conflicting/overlapping volumes. Return the entire Operation and Constraint info, not just the intersecting parts.
+        Look at the passed-in volume(s), and determine if there are any Operations or Constraints that have conflicting/overlapping volumes. Return the entire Operation and Constraint info via async message, not just the intersecting parts.
       responses:
         "201":
           description: >-
@@ -277,7 +277,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OperatorResponseWithConflicts"
+                $ref: "#/components/schemas/OperatorResponse"
         "400":
           description: Invalid Request was received.
           content:
@@ -555,7 +555,8 @@ components:
           description: |-
             The current state of the operation.
             0. Proposed
-              This operation is not yet ACCEPTED.  It may be awaiting information, it may be in conflict with another ACCEPTED or
+              This operation is not yet ACCEPTED.  It may be awaiting information,
+              it may be in conflict with another ACCEPTED or
               ACTIVATED operation and undergoing a deconflict process, or for
               some other reason it is not yet able to be declared ACCEPTED.
             1. Accepted
@@ -565,7 +566,8 @@ components:
               One or more aircraft associated with this Operation are, or will imminently
               be, in flight.
             3. UpdateProposed
-              This operation is being updated and is not yet complete.  Once the update is complete, the operation will return back to the previous state.
+              This operation is being updated and is not yet complete.
+              Once the update is complete, the operation will return back to the previous state.
             4. Closed
               This Operation has closed (due to either an Operator-induced change or flight
               completion).
@@ -575,6 +577,9 @@ components:
               This Operation is executing a contingency action, either because it has been
               NonConforming for a certain period of time, or because of operator initiation.
               This state must transition to Ended.
+            6. Unknown
+              This Operation is in an unknown state, either because we don't have the information,
+              or because it was converted from another state we don't support.
           enum:
             - Proposed
             - Accepted
@@ -583,6 +588,7 @@ components:
             - Closed
             - NonConforming
             - Contingent
+            - Unknown
         version:
           description: the version number of the operation
           type: integer
@@ -1098,7 +1104,7 @@ components:
           minItems: 1
           type: array
           items:
-            $ref: "#/components/schemas/OperationalIntentVolume4D"
+            $ref: "#/components/schemas/OperationalIntentVolume4DWithConflictIndicator"
         wind_source:
           $ref: '#/components/schemas/WindSource'
         comments:
@@ -1215,12 +1221,24 @@ components:
           type: array
           description: >-
             Included with messages of INFORM_OPERATION_REJECTED or INFORM_OPERATION_UPDATE_FAIL.
-            The violation type refers to the constriant type of violation, e.g. OPERATION
-            or CONSTRANIT.  The constraining_id is the UUID associated with each constraint;
+            The violation type refers to the constraint type of violation, e.g. OPERATION
+            or CONSTRAINT.  The constraining_id is the UUID associated with each constraint;
             When applicable, violating_volumes indicates the ordinals of volumes that are in
             violation. This allows for querying ETM for more information details.
           items:
             $ref: "#/components/schemas/Violation"
+        conflicting_operations:
+          description: >-
+            Included with messages of INFORM_OPERATION_ACCEPTED, INFORM_OPERATION_REJECTED, etc. List of operations that conflict with the proposed operation or provided 4-D airspace.
+          type: array
+          items:
+            $ref: '#/components/schemas/ConflictingOperation'
+        conflicting_constraints:
+          description: >-
+            Included with messages of INFORM_OPERATION_ACCEPTED, INFORM_OPERATION_REJECTED, etc. List of constraints that conflict with the proposed operation or provided 4-D airspace.
+          type: array
+          items:
+            $ref: '#/components/schemas/Constraint'
         free_text:
           type: string
           description: >-
@@ -1589,8 +1607,13 @@ components:
         - volume3D
         - time_start
         - time_end
+        - index
       type: object
       properties:
+        index:
+          description: 1-based index (or ID) number for the 4D volume, unique within a given operational intent (but not globally unique).
+          type: integer
+          format: int32
         volume3D:
           $ref: '#/components/schemas/Volume3D'
         time_start:
@@ -1618,6 +1641,21 @@ components:
         containtment_confidence_level:
           $ref: '#/components/schemas/ContainmentConfidenceLevel'
 
+    OperationalIntentVolume4DWithConflictIndicator:
+      type: object
+      description: >-
+        Four dimensional volume used for communicating operational intent. Specifically intended to be returned as part of a query or operation status info, also indicates whether the volume is in conflict (with something determined by context).
+      required:
+        - operational_intent_volume4D
+      properties:
+        operational_intent_volume4D:
+          $ref: '#/components/schemas/OperationalIntentVolume4D'
+        is_in_conflict:
+          type: boolean
+          description: >-
+            Indicates if the 4D volume is in conflict (with something specified by context).
+          default: false
+
     ContainmentConfidenceLevel:
       description: >-
         A confidence value between 0.0 - 1.0 that expresses the likelihood that a vehicle will be within a volume.
@@ -1640,33 +1678,6 @@ components:
           format: uuid
         request_id:
           type: string
-
-    OperatorResponseWithConflicts:
-      type: object
-      properties:
-        status_code:
-          description: the status code of the response
-          type: integer
-          format: int32
-        msg:
-          type: string
-        entity_id:
-          type: string
-          format: uuid
-        request_id:
-          type: string
-        conflicting_operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConflictingOperation'
-        intersecting_operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConflictingOperation'
-        conflicting_constraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/Constraint'
 
     SensitivityType:
       description: >-
