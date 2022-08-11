@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: ETM Operator API
-  version: 0.1.3
+  version: 0.1.6
   description: Endpoints for managing Operational Data with data models in reference of ASTM.
 
 security:
@@ -755,6 +755,7 @@ components:
       required:
         - lat_lng_point
         - altitude
+        - time
         - true_air_speed
         - flight_mode
         - controlled_arrival_time_tolerance
@@ -774,7 +775,11 @@ components:
           description: |-
             Altitude of the point. If this is for a named airspace structure point, it should be the same value as from specific airspace structure point.
           allOf:
-            - $ref: '#/components/schemas/Altitude'  
+            - $ref: '#/components/schemas/Altitude'
+        time:
+          description: The time at which the aircraft is expected to arrive at the waypoint.
+          allOf:
+            - $ref: "#/components/schemas/Time"
         true_air_speed:
           description: |-
             Speed of the vehicle from current waypoint to next waypoint in the flight plan.
@@ -800,6 +805,19 @@ components:
               enum:
               - CONSTANT_CLIMB_DESCENT
               - CONSTANT_ALTITUDE
+        turn_rate_dps:
+          description: |-
+            The turn rate in degrees per second. Positive = CW, negative = CCW. (Only applies when the lateral flight mode is CONSTANT_TURN. Should be 0.0 otherwise.)
+          type: number
+          format: float
+          example: 1.5
+          default: 0.0
+        duration_sec:
+          description: |-
+            The amount of time, in seconds, that the vehicle will spend at this waypoint. (Only applies when the lateral flight mode is STATION_KEEPING. Should be 0 otherwise.)
+          type: integer
+          example: 600
+          default: 0
         controlled_time_of_arrival_tolerance:
           description: |-
             Provides controlled arrival time tolerance in minutes at the associated waypoint
@@ -831,6 +849,7 @@ components:
            - $ref: '#/components/schemas/TrackingErrorRMS'
 
     TrueAirSpeed:
+      description: True air speed in meters/second or knots.
       required:
       - speed
       - units_speed
@@ -842,12 +861,12 @@ components:
           multipleOf: 0.01
           minimum: 0.0
           exclusiveMinimum: false
-          description: Ground speed in meters/second.
           example: 200.1
         units_speed:
           type: string
           enum:
-          - Knots
+          - METERS_SECOND
+          - KNOTS
 
     ControlledTimeOfArrivalTolerance:
       required:
@@ -872,7 +891,7 @@ components:
         units:
           type: string
           enum:
-          - Minutes
+          - MINUTES
 
     TrackingErrorRMS:
       required:
@@ -908,7 +927,7 @@ components:
       type: string
       enum:
         - GFS
-        - Other
+        - OTHER
 
     ConflictCheckParameters:
       required:
