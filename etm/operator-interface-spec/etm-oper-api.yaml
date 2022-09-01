@@ -607,8 +607,8 @@ components:
           $ref: "#/components/schemas/MissionDescription"
         contingency_handling_description:
           $ref: '#/components/schemas/ContingencyHandlingDescription'
-        common_operating_procedures:
-          $ref: '#/components/schemas/CommonOperatingProcedure'
+        cooperative_operating_practice:
+          $ref: '#/components/schemas/CooperativeOperatingPractice'
         negotiated_operators:
           $ref: '#/components/schemas/NegotiatedOperators'
         regular_updates:
@@ -629,8 +629,10 @@ components:
             $ref: "#/components/schemas/OperationalIntentVolume4D"
         wind_source:
           $ref: '#/components/schemas/WindSource'
-        flight_plan:
-          $ref: '#/components/schemas/FlightPlan'
+        waypoint_plan:
+          $ref: '#/components/schemas/WaypointPlan'
+        trajectory_performance:
+          $ref: '#/components/schemas/TrajectoryPerformance'
         comments:
           maxLength: 1000
           type: string
@@ -702,9 +704,9 @@ components:
       type: string
       maxLength: 10000
   
-    CommonOperatingProcedure:
+    CooperativeOperatingPractice:
       description: >-
-        Common operating procedure, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
+        CooperativeOperatingPractice, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
         COP1_FIRST_RESERVED - De-confliction through first-reserved-first-served principle
         COP2_PREDEFINED_AGREEMENT - De-confliction through pre-defined agreement
         COP3_DYNAMIC_AGREEMENT - De-confliction through dynamically generated/negotiated agreement
@@ -723,35 +725,33 @@ components:
 
     NegotiatedOperators:
       description: >-
-       List of other operators that the operator of this operation has agreements with, for the purposes of negotiation outside of the common operating procedures.
+       List of other operators that the operator of this operation has agreements with, for the purposes of negotiation outside of the cooperative operating practice.
       type: array
       maxItems: 1024
       items:
         type: string
         maxLength: 256
 
-    FlightPlan:
+    WaypointPlan:
       description: >- 
-        Detailed flight plan that will inform the operational intent generator, which has been built for developing operation intent based on detailed flight plan, flight mode, and certain level of wind information. The Flight Plan model is not shared in the operational intent details, but is instead available through a separate endpoint in the event that conflict is determined to be outside of the acceptable risk tolerance and additional information exchanges need to occur for further operator negotiation.
+        Detailed waypoint plan that enables the calculation of the probability of flight intent intersection.
       type: object
       properties:
-        flight_plan_waypoint_array:
-          $ref: '#/components/schemas/FlightPlanWayPointArray'
-        trajectory_performance:
-          $ref: '#/components/schemas/TrajectoryPerformance'
+        waypoint_array:
+          $ref: '#/components/schemas/WayPointArray'
 
-    FlightPlanWayPointArray:
+    WayPointArray:
       type: array
       minItems: 2
       maxItems: 1000
       description: |-
-        The list of flight waypoints and associated flight modes for this operation. This list must contain all significant flight waypoints. 
+        The list of flight waypoints and associated flight modes for this operation. This list must contain all significant waypoints. 
       items:
-        $ref: '#/components/schemas/FlightPlanWayPoint'
+        $ref: '#/components/schemas/WayPoint'
 
-    FlightPlanWayPoint:
+    WayPoint:
       description: >-
-        A waypoint and associate mode for use within a flight plan.
+        A waypoint and associate mode for use within a waypoint plan.
       required:
         - lat_lng_point
         - altitude
@@ -782,7 +782,7 @@ components:
             - $ref: "#/components/schemas/Time"
         true_air_speed:
           description: |-
-            Speed of the vehicle from current waypoint to next waypoint in the flight plan.
+            Speed of the vehicle from current waypoint to next waypoint in the waypoint plan.
           allOf:
             - $ref: '#/components/schemas/TrueAirSpeed'
         flight_mode:
@@ -957,7 +957,7 @@ components:
         - mission_type
         - mission_description
         - contingency_handling_description
-        - common_operating_procedures
+        - cooperative_operating_practice
         - negotiated_operators
         - volumes
       type: object
@@ -980,8 +980,8 @@ components:
           $ref: "#/components/schemas/MissionDescription"
         contingency_handling_description:
           $ref: '#/components/schemas/ContingencyHandlingDescription'
-        common_operating_procedures:
-          $ref: '#/components/schemas/CommonOperatingProcedure'
+        cooperative_operating_practice:
+          $ref: '#/components/schemas/CooperativeOperatingPractice'
         negotiated_operators:
           $ref: '#/components/schemas/NegotiatedOperators'
         regular_updates:
@@ -1002,8 +1002,10 @@ components:
             $ref: "#/components/schemas/OperationalIntentVolume4D"
         wind_source:
           $ref: '#/components/schemas/WindSource'
-        flight_plan:
-          $ref: '#/components/schemas/FlightPlan'
+        waypoint_plan:
+          $ref: '#/components/schemas/WaypointPlan'
+        trajectory_performance:
+          $ref: '#/components/schemas/TrajectoryPerformance'
         comments:
           maxLength: 1000
           type: string
@@ -1028,7 +1030,7 @@ components:
         - mission_type
         - mission_description
         - contingency_handling_description
-        - common_operating_procedures
+        - cooperative_operating_practice
         - negotiated_operators
         - volumes
       type: object
@@ -1051,8 +1053,8 @@ components:
           $ref: "#/components/schemas/MissionDescription"
         contingency_handling_description:
           $ref: '#/components/schemas/ContingencyHandlingDescription'
-        common_operating_procedures:
-          $ref: '#/components/schemas/CommonOperatingProcedure'
+        cooperative_operating_practice:
+          $ref: '#/components/schemas/CooperativeOperatingPractice'
         negotiated_operators:
           $ref: '#/components/schemas/NegotiatedOperators'
         regular_updates:
@@ -1073,8 +1075,10 @@ components:
             $ref: "#/components/schemas/OperationalIntentVolume4D"
         wind_source:
           $ref: '#/components/schemas/WindSource'
-        flight_plan:
-          $ref: '#/components/schemas/FlightPlan'
+        waypoint_plan:
+          $ref: '#/components/schemas/WaypointPlan'
+        trajectory_performance:
+          $ref: '#/components/schemas/TrajectoryPerformance'
         comments:
           maxLength: 1000
           type: string
@@ -1108,8 +1112,8 @@ components:
           $ref: "#/components/schemas/MissionDescription"
         contingency_handling_description:
           $ref: '#/components/schemas/ContingencyHandlingDescription'
-        common_operating_procedures:
-          $ref: '#/components/schemas/CommonOperatingProcedure'
+        cooperative_operating_practice:
+          $ref: '#/components/schemas/CooperativeOperatingPractice'
         volumes:
           description: >-
             Volumes that wholly contain the operational intent while being within
