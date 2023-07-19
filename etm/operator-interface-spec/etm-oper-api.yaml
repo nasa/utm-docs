@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: ETM Operator API
-  version: 0.1.6
+  version: 1.0.0
   description: Endpoints for managing Operational Data with data models in reference of ASTM.
 
 security:
@@ -20,8 +20,6 @@ tags:
     description: Add and view Operator Messages
   - name: Positions
     description: Add Operation Positions
-  - name: Constraints for elevated privileges
-    description: Add and view Constraints.  Constraints endpoints require elevated privileges
 
 paths:
   "/messages":
@@ -133,6 +131,7 @@ paths:
         "201":
           description: >-
             Acknowledge that request was received. This does not guarantee that the Operation was successfully added to the ESS network.
+            The final disposition of the request will be returned asynchronously (to the operator, or whoever else is listening) via a Message.
           content:
             application/json:
               schema:
@@ -175,6 +174,7 @@ paths:
         "200":
           description: >-
             Acknowledge that request was received. This does not guarantee that the Operation was successfully updated in the ESS network.
+            The final disposition of the request will be returned asynchronously (to the operator, or whoever else is listening) via a Message.
           content:
             application/json:
               schema:
@@ -305,166 +305,6 @@ paths:
               $ref: "#/components/schemas/ConflictCheckParameters"
         required: true
 
-  "/constraints":
-    post:
-      tags:
-        - Constraints for elevated privileges
-      summary: Submit a Constraint Request to NUP
-      description: >-
-        Submit a Constraint Request. NUP shall attempt to submit the Constraint to the ESS network.
-        If the requestBody doesn't contain an id, a random id shall be assigned to the Operation.
-        If the requestBody contains a non-existing id, then the supplied id will be
-        used for the new operation.
-      security:
-        - Authority:
-          - uvr.non-sensitive.write
-      operationId: postConstraint
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ProposeConstraintParameters"
-        description: The intended Constraint
-        required: true
-      responses:
-        "201":
-          description: >-
-            Acknowledge that Constraint Request was received. This does not guarantee that the Constraint was successfully added to the ESS network.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "400":
-          description: Invalid Constraint Request was received.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-    put:
-      tags:
-        - Constraints for elevated privileges
-      summary: Update a Constraint
-      description: >-
-        Update an existing constraint, which is specified by id in the request
-      security:
-        - Authority:
-          - uvr.non-sensitive.write
-      operationId: putConstraint
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateConstraintParameters"
-        description: The intended Constraint
-        required: true
-      responses:
-        "200":
-          description: >-
-            Acknowledge that Constraint Request was received. This does not guarantee that the Constraint was successfully updated in the ESS network.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "400":
-          description: Invalid Constraint Request was received.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "404":
-          description: The Constraint for the id is not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-
-  "/constraints/{id}":
-    get:
-      tags:
-        - Constraints for elevated privileges
-      summary: Get a Constraint by ID
-      description: Get a Constraints by ID
-      security:
-        - Authority:
-          - uvr.non-sensitive.read
-      operationId: getConstraintById
-      parameters:
-        - name: id
-          in: path
-          description: ID of the Constraints that needs to be fetched
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        "200":
-          description: The requested Constraint
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Constraint"
-        "400":
-          description: Invalid Request was received.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "404":
-          description: The Constraint for the id is not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "500":
-          description: Error related to being unable to retrieve the Constraint from the ESS network
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-    delete:
-      tags:
-        - Constraints for elevated privileges
-      summary: Delete a Constraint by ID
-      description: Delete a Constraint by ID
-      security:
-        - Authority:
-          - uvr.non-sensitive.write
-      operationId: deleteConstraintById
-      parameters:
-        - name: id
-          in: path
-          description: ID of the Constraint that needs to be deleted
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        "200":
-          description:
-            Acknowledge that a delete Constraint Request was received. This does not guarantee that the Constraint was deleted from the ESS network.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "400":
-          description: Invalid Request was received.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "404":
-          description: The Constraint for the id is not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-        "500":
-          description: Error related to being unable to retrieve the Constraint from the ESS network
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OperatorResponse"
-
   "/positions":
     post:
       tags:
@@ -517,8 +357,6 @@ components:
           scopes:
             operations.non-sensitive.read: Allow read of non-sensitive operations
             operations.non-sensitive.write: Allow write of non-sensitive operations
-            uvr.non-sensitive.read: Allow read of non-sensitive airspace constraints
-            uvr.non-sensitive.write: Allow write of non-sensitive airspace constraints
       description: |-
         Authorization from, or on behalf of, an authorization authority.  This authority shall issue access tokens that are JSON Web Tokens as defined in RFC 7519, using the `RS256` algorithm for the signature, publish to all providers the public key for verifying that signature, and implement standard OAuth server discovery mechanisms as described in RFC 8414.
 
@@ -703,7 +541,7 @@ components:
       description: Description of the contigency handling procedures.
       type: string
       maxLength: 10000
-  
+
     CooperativeOperatingPractice:
       description: >-
         CooperativeOperatingPractice, string values denote a specific type of rules by which the operation will interact with other operations by default. Does not preclude operator-operator negotiation or agreements.
@@ -745,7 +583,7 @@ components:
       minItems: 2
       maxItems: 1000
       description: |-
-        The list of flight waypoints and associated flight modes for this operation. This list must contain all significant waypoints. 
+        The list of flight waypoints and associated flight modes for this operation. This list must contain all significant waypoints.
       items:
         $ref: '#/components/schemas/WayPoint'
 
@@ -758,7 +596,7 @@ components:
         - time
         - true_air_speed
         - flight_mode
-        - controlled_arrival_time_tolerance
+        - controlled_time_of_arrival_tolerance
       type: object
       properties:
         point_designator:
@@ -768,7 +606,7 @@ components:
           example: ee123
         lat_lng_point:
           description: Latitude and Longitude of the point. If this is for a named airspace structure 
-            point it should be the same value as the specific airspace structure point.
+            point, it should be the same value as the specific airspace structure point.
           allOf:
             - $ref: '#/components/schemas/LatLngPoint'
         altitude:
@@ -870,7 +708,7 @@ components:
 
     ControlledTimeOfArrivalTolerance:
       required:
-      - status 
+      - status
       - value
       - units
       type: object
@@ -896,7 +734,7 @@ components:
     TrackingErrorRMS:
       required:
       - status
-      - constant 
+      - constant
       - growth_rate
       type: object
       properties:
@@ -929,6 +767,22 @@ components:
         - GFS
         - OTHER
 
+    ConflictProbabilityInfo:
+      required:
+        - timestamp
+        - conflictProbability
+      type: object
+      properties:
+        timestamp:
+          description: The timestamp for which the conflict probability is calculated.
+          type: integer
+          format: int64
+        conflict_probability:
+          description: The probability of there being a conflict at the specified timestamp.
+          type: number
+          format: double
+          minimum: 0.0
+          
     ConflictCheckParameters:
       required:
         - volumes
@@ -1128,6 +982,16 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/OperationalIntentVolume4DWithConflictIndicator"
+        conflict_probabilities:
+          description: >-
+            The set of probabilities of conflict between the "main" operation and this
+            potentially conflicting operation. There is one probability for each timestamp
+            of overlap between the two waypoint trajectories. Note: timestamps may increment
+            by more than one second. Note: there might end up being zero overlapping
+            timestamps in some situations, in which case this would be an empty array.
+          type: array
+          items:
+            $ref: "#/components/schemas/ConflictProbabilityInfo"          
         wind_source:
           $ref: '#/components/schemas/WindSource'
         comments:
@@ -1188,31 +1052,19 @@ components:
               This operation update request has completed successfully.
             10. INFORM_OPERATION_UPDATE_FAIL
               This operation update request has failed to complete.
-            11. INFORM_CONSTRAINT_CREATE_SUCCESS
-              This constraint create request has completed successfully.
-            12. INFORM_CONSTRAINT_CREATE_FAIL
-              This constraint create request has failed to complete.
-            13. INFORM_CONSTRAINT_UPDATE_SUCCESS
-              This constraint update request has completed successfully.
-            14. INFORM_CONSTRAINT_UPDATE_FAIL
-              This constraint update request has failed to complete.
-            15. INFORM_CONSTRAINT_DELETE_SUCCESS
-              This constraint delete request has completed successfully.
-            16. INFORM_CONSTRAINT_DELETE_FAIL
-              This constraint delete request has failed to complete.
-            17. INTENT_OPERATION_ALL_CLEAR
+            11. INTENT_OPERATION_ALL_CLEAR
               This operation was in Accepted state and wants to transition to Activated state.
-            18. INTENT_OPERATION_CONTINGENCY
+            12. INTENT_OPERATION_CONTINGENCY
               This message requests ESS to change the operation to Contingent state.
-            19. INTENT_OPERATION_CLOSE
+            13. INTENT_OPERATION_CLOSE
               The operator wants to close this operation.  This will move the operation to Closed state.
-            20. ALERT_OPERATION_NONCONFORMING
+            14. ALERT_OPERATION_NONCONFORMING
               The ESS uses this message to alert the operator that the operation position is not conformed to the planned volumes.
-            21. ALERT_OPERATION_CONFORMING
+            15. ALERT_OPERATION_CONFORMING
               The ESS uses this message to alert the operator that the operation position is back to be conformed to the planned volumes.
-            22. ALERT_OPERATION_CONTINGENT
+            16. ALERT_OPERATION_CONTINGENT
               The ESS uses this message to alert the operator that the operation position is in contingent state.
-            23. ALERT_OPERATION_REPLAN
+            17. ALERT_OPERATION_REPLAN
               The ESS requests the operator to replan the operation.  The reason could be either A) that ESS received a constraint update from another ESS or B) an update of contingent operation from another ESS that overlaps with the operation, see reason field for the discription.  The operator is required to replan the operation to avoid the conflict.
           enum:
             - INFORM_OPERATION_ACCEPTED
@@ -1225,12 +1077,6 @@ components:
             - INFORM_OPERATION_CONTINGENCY_FAIL
             - INFORM_OPERATION_UPDATE_SUCCESS
             - INFORM_OPERATION_UPDATE_FAIL
-            - INFORM_CONSTRAINT_CREATE_SUCCESS
-            - INFORM_CONSTRAINT_CREATE_FAIL
-            - INFORM_CONSTRAINT_UPDATE_SUCCESS
-            - INFORM_CONSTRAINT_UPDATE_FAIL
-            - INFORM_CONSTRAINT_DELETE_SUCCESS
-            - INFORM_CONSTRAINT_DELETE_FAIL
             - INTENT_OPERATION_ALL_CLEAR
             - INTENT_OPERATION_CONTINGENCY
             - INTENT_OPERATION_CLOSE
@@ -1305,53 +1151,6 @@ components:
           items:
             type: integer
             format: int32
-
-    ProposeConstraintParameters:
-      description: >-
-        Operator Constraint Model
-      required:
-        - volumes
-      type: object
-      properties:
-        id:
-          $ref: >-
-            https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/EntityUUID
-        volumes:
-          description: Volumes that wholly contain the Constraint while being as small as practical.
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Volume4D"
-        type:
-          $ref: >-
-            https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/ConstraintDetails/properties/type
-
-      externalDocs:
-        url: https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml
-
-    UpdateConstraintParameters:
-      description: >-
-        Operator Constraint Model
-      required:
-        - id
-        - volumes
-      type: object
-      properties:
-        id:
-          $ref: >-
-            https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/EntityUUID
-        volumes:
-          description: Volumes that wholly contain the Constraint while being as small as practical.
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Volume4D"
-        type:
-          $ref: >-
-            https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml#/components/schemas/ConstraintDetails/properties/type
-
-      externalDocs:
-        url: https://raw.githubusercontent.com/astm-utm/Protocol/implementation_2020q2/utm.yaml
 
     Constraint:
       description: >-
@@ -1625,7 +1424,7 @@ components:
 
         Modifications Include:
         - Make time_start and time_end required
-        - Add 
+        - Add
       required:
         - volume3D
         - time_start
@@ -1643,14 +1442,6 @@ components:
           $ref: '#/components/schemas/Time'
         time_end:
           $ref: '#/components/schemas/Time'
-        containment_confidence:
-          $ref: '#/components/schemas/ContainmentConfidenceLevel'
-        confidence_distribution:
-          description: Containment confidence probability distribution type
-          type: string
-          enum:
-          - Uniform
-          - Normal
 
     OperationalIntentVolume4D:
       type: object
@@ -1661,7 +1452,7 @@ components:
       properties:
         volume4D:
           $ref: '#/components/schemas/Volume4D'
-        containtment_confidence_level:
+        containment_confidence_level:
           $ref: '#/components/schemas/ContainmentConfidenceLevel'
 
     OperationalIntentVolume4DWithConflictIndicator:
